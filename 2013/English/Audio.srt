@@ -1,0 +1,2205 @@
+﻿1
+00:00:24,380 --> 00:00:26,429
+Hello everyone.
+
+2
+00:00:26,429 --> 00:00:28,539
+Thanks for coming to this talk.
+
+3
+00:00:28,539 --> 00:00:30,839
+My name is Wayne Johnson.
+
+4
+00:00:30,839 --> 00:00:38,340
+and today I want to talk
+a little bit about audio.
+
+5
+00:00:38,340 --> 00:00:41,520
+Sorry and today I want to
+talk a little bit about audio,
+
+6
+00:00:41,521 --> 00:00:44,330
+and how to build audio concepts in Unity.
+
+7
+00:00:48,400 --> 00:00:49,750
+To begin with,
+
+8
+00:00:49,750 --> 00:00:52,770
+I wanna talk a little bit about me.
+
+9
+00:00:52,770 --> 00:00:57,170
+I grew up in Australia.
+
+10
+00:00:57,170 --> 00:01:03,190
+I studied engineering and science at university.
+
+11
+00:01:03,190 --> 00:01:10,120
+And before I started at
+Unity, I worked at FMod,
+
+12
+00:01:10,120 --> 00:01:16,810
+which is an audio middleware company some of you might know.
+
+13
+00:01:16,810 --> 00:01:23,120
+And then I packed up and moved
+to Denmark and started at Unity.
+
+14
+00:01:23,120 --> 00:01:29,590
+I work in the core team and
+specifically on audio.
+
+15
+00:01:30,790 --> 00:01:37,430
+Something about me: I can eat 12
+McDonald's cheeseburgers in one go.
+
+16
+00:01:37,430 --> 00:01:43,820
+And I also enjoy diving and cave diving.
+
+17
+00:01:43,820 --> 00:01:51,479
+So today I want to talk about a couple of
+things that you can do in Unity,
+
+18
+00:01:51,479 --> 00:01:59,478
+and some audio concepts that you want to
+kind of follow to make really good audio within Unity.
+
+19
+00:01:59,626 --> 00:02:03,854
+So I want to talk about ambiances.
+
+20
+00:02:03,880 --> 00:02:09,314
+So environmental sounds and stuff like that.
+
+21
+00:02:10,329 --> 00:02:14,205
+I want to talk about interactive sounds.
+
+22
+00:02:14,231 --> 00:02:18,270
+Sounds that change with the game logic,
+
+23
+00:02:18,270 --> 00:02:20,769
+so coming from other subsystems,
+
+24
+00:02:20,769 --> 00:02:25,299
+for example Mecanim or other scripts.
+
+25
+00:02:25,299 --> 00:02:33,379
+I want to talk about interactive music--which
+is my favorite topic. I'll tell you why later.
+
+26
+00:02:33,379 --> 00:02:38,369
+Then if we have time,
+I wanna do some questions.
+
+27
+00:02:38,369 --> 00:02:40,559
+So let's talk about ambiances.
+
+28
+00:02:40,559 --> 00:02:44,439
+So ambiances are, as I said,
+
+29
+00:02:44,739 --> 00:02:51,259
+environmental sounds and sounds that
+don't take any input from sort of game logic.
+
+30
+00:02:51,259 --> 00:02:55,530
+They just sit in the world
+and do their thing.
+
+31
+00:02:55,730 --> 00:03:02,919
+And they're really powerful, because you can actually
+pretend a lot is happening within the game.
+
+32
+00:03:04,389 --> 00:03:13,159
+Without actually having any models or any other sort
+of particle effects or anything, you can just pretend,
+
+33
+00:03:13,159 --> 00:03:20,299
+for example, that the forest you're in is full of birds
+and other creatures just with ambiances.
+
+34
+00:03:21,299 --> 00:03:27,709
+Ambiances usually contain a
+number of variations or grains.
+
+35
+00:03:27,709 --> 00:03:34,650
+These sound clips, that are small and
+
+36
+00:03:34,650 --> 00:03:37,349
+are usually of the same theme, for example,
+
+37
+00:03:37,349 --> 00:03:42,299
+they're all of the same type of sound.
+
+38
+00:03:42,299 --> 00:03:46,109
+They're usually placed in the world by the designer.
+
+39
+00:03:46,109 --> 00:03:50,029
+So for example, dropping bird sounds in a forest,
+
+40
+00:03:50,129 --> 00:03:54,559
+or they can be done automatically by
+script code, which is also very powerful
+
+41
+00:03:54,559 --> 00:04:00,219
+if you have a really large level.
+
+42
+00:04:00,219 --> 00:04:06,259
+They usually have no input logic
+from the game, as I said.
+
+43
+00:04:06,259 --> 00:04:08,899
+And they're usually long playing sounds.
+
+44
+00:04:08,899 --> 00:04:14,169
+They can play, you know, during the
+whole level or maybe the whole game.
+
+45
+00:04:14,169 --> 00:04:19,819
+So they have to be something
+that the player can listen to
+
+46
+00:04:19,845 --> 00:04:25,469
+for an extended period of time
+without getting sick of it.
+
+47
+00:04:25,469 --> 00:04:28,180
+They're usually subtle sounds.
+
+48
+00:04:28,180 --> 00:04:33,669
+You know, this is so that they don't
+get too annoying for the player.
+
+49
+00:04:33,669 --> 00:04:36,979
+So some examples, just quickly.
+
+50
+00:04:36,979 --> 00:04:39,810
+Forest noises, you know, bird chirps.
+
+51
+00:04:39,810 --> 00:04:41,639
+Insects.
+
+52
+00:04:41,639 --> 00:04:44,159
+Leaves. You know, things like that.
+
+53
+00:04:44,159 --> 00:04:45,870
+Wind sounds.
+
+54
+00:04:45,870 --> 00:04:49,699
+But also things like urban things,traffic noises
+
+55
+00:04:49,699 --> 00:04:57,630
+and just crowds. That's very powerful, to just have ambient
+crowd noises if you're in some cityscape.
+
+56
+00:05:01,130 --> 00:05:06,620
+So, how do ambiances work?
+
+57
+00:05:06,620 --> 00:05:11,355
+Ambiances are usually made up
+by some sort of script code.
+
+58
+00:05:11,356 --> 00:05:17,989
+So you want to create your ambiance logic,
+which is sort of driving your ambient sound,
+
+59
+00:05:17,989 --> 00:05:24,180
+in some sort of script object.
+You know, packed into a game object.
+
+60
+00:05:24,380 --> 00:05:32,269
+You want to assign some variations or raw samples
+to that logic--which we'll get to later.
+
+61
+00:05:33,069 --> 00:05:34,759
+Those two things combined
+
+62
+00:05:34,759 --> 00:05:40,120
+make some really powerful ambient sounds and
+I'll explain how powerful they can be later.
+
+63
+00:05:44,620 --> 00:05:51,170
+So there's a couple things with ambiances.
+As I said, there's your variations and your logic,
+
+64
+00:05:51,170 --> 00:05:55,919
+which generally comes down to property randomization.
+
+65
+00:05:55,919 --> 00:06:04,210
+So for example, randomizing volume,
+pitch, spawn rate, spawn location,
+
+66
+00:06:05,360 --> 00:06:13,329
+these sort of things can keep the sounds that you're
+playing unique and fresh all the time.
+
+67
+00:06:14,229 --> 00:06:21,699
+Variations or different grains are generally
+preferred, but you know obviously they're kind of
+
+68
+00:06:21,699 --> 00:06:28,419
+limited by the memory you have. So I mean if you
+had a million variations that would be great,
+
+69
+00:06:28,419 --> 00:06:35,149
+but you know, it's completely infeasible for any game.
+
+70
+00:06:35,449 --> 00:06:43,409
+And randomization, or the logic itself to keep
+the sounds fresh, has no effect on performance.
+
+71
+00:06:45,500 --> 00:06:52,129
+There's no sort of performance hit for changing the pitch
+or volume of a sound as it's being played.
+
+72
+00:06:52,129 --> 00:07:00,760
+So this is kinda preferred for limited platforms
+like mobile, Android, iOS, stuff like that.
+
+73
+00:07:02,960 --> 00:07:07,580
+And all this comes together, and you can
+create some really powerful sounds
+
+74
+00:07:07,580 --> 00:07:13,179
+with as many as five short samples.
+Which is pretty amazing.
+
+75
+00:07:13,179 --> 00:07:18,789
+They're always continuously fresh and unique.
+
+76
+00:07:18,789 --> 00:07:25,039
+So an overview of how you would do this.
+
+77
+00:07:25,039 --> 00:07:30,209
+Generally you would select a random location
+to play the grain.
+
+78
+00:07:30,209 --> 00:07:36,039
+This is the sort of the basic logic that you would do:
+
+79
+00:07:36,039 --> 00:07:39,519
+You would select a random volume
+within some range,
+
+80
+00:07:39,519 --> 00:07:43,309
+half volume to full volume,
+
+81
+00:07:43,309 --> 00:07:49,869
+a random pitch again within a range,
+
+82
+00:07:51,369 --> 00:07:55,389
+then you would play the sound.
+
+83
+00:07:55,389 --> 00:08:00,699
+And then what you do is, you would repeat
+this process at random intervals
+
+84
+00:08:00,699 --> 00:08:07,800
+between, say, half a second and one second. Or
+if you want this soundscape to be quite full,
+
+85
+00:08:07,800 --> 00:08:14,690
+you would do it between 100 milliseconds
+and 200 milliseconds.
+
+86
+00:08:16,490 --> 00:08:22,740
+With this, you're going to have sounds, ambiances that
+you can put in the world, and they will always sound
+
+87
+00:08:22,740 --> 00:08:29,229
+fresh and unique--which is really important.
+And it's not going to consume many resources.
+
+88
+00:08:31,629 --> 00:08:36,140
+So let's have an example.
+
+89
+00:08:37,840 --> 00:08:41,460
+This is the bootcamp demo that
+some of you might know.
+
+90
+00:08:42,060 --> 00:08:50,060
+I've removed all of the sounds in the game, except
+for some footsteps and stuff like that.
+
+91
+00:08:50,060 --> 00:08:53,877
+And I've placed what I've
+created is an ambiance object.
+
+92
+00:08:53,903 --> 00:08:56,690
+So we've created an
+ambiance game object.
+
+93
+00:08:56,690 --> 00:09:03,580
+We've put some ambiance scripting
+there--this is the logic that I was talking about--
+
+94
+00:09:03,580 --> 00:09:08,920
+and we've exposed some audio clips
+that we can set. This is the variations.
+
+95
+00:09:08,920 --> 00:09:16,350
+We've also set some properties that you
+can see here as I was describing before
+
+96
+00:09:16,350 --> 00:09:19,920
+and we have an
+ambiance template.
+
+97
+00:09:19,920 --> 00:09:26,550
+This is a game object that has an audio
+source in it and it defines the template.
+
+98
+00:09:26,550 --> 00:09:30,760
+Like output I suppose,  for your ambiances
+or ambient sounds,
+
+99
+00:09:30,760 --> 00:09:38,350
+and you can see I've defined
+some 3D roll-off curve here.
+
+100
+00:09:38,350 --> 00:09:41,200
+So let's have a quick listen on how it sounds.
+
+101
+00:09:41,200 --> 00:09:49,000
+Just with five variations and these sounds
+I've just grabbed quickly off the internet.
+
+102
+00:09:50,190 --> 00:09:57,190
+So there's nothing special about them.
+
+103
+00:10:00,080 --> 00:10:04,110
+You can see that if you have
+this sort of setup
+
+104
+00:10:04,110 --> 00:10:11,110
+placed randomly around the world at
+every tree or every group of trees,
+
+105
+00:10:11,110 --> 00:10:16,710
+you can create the feeling, or the continuous feeling
+of something's going on.
+
+106
+00:10:16,770 --> 00:10:23,770
+Instead of just four or five trees, models sitting
+there in the world, and that's really powerful.
+
+107
+00:10:27,990 --> 00:10:34,990
+Alright, so I'm just going to show you quickly how that's done.
+
+108
+00:10:35,350 --> 00:10:41,800
+So you can see here that I've defined some variables,
+which I showed you before,
+
+109
+00:10:41,800 --> 00:10:44,090
+and the variances.
+
+110
+00:10:44,390 --> 00:10:52,310
+The actual code that plays this continuous,
+random sort of ambiance is really simple:
+
+111
+00:10:52,510 --> 00:10:56,500
+You basically just get the template,
+
+112
+00:10:57,560 --> 00:11:02,770
+instantiate it in a bunch of
+random locations within some area
+
+113
+00:11:05,950 --> 00:11:10,610
+around the place where you place the ambiance,
+
+114
+00:11:10,610 --> 00:11:18,610
+you set the audio clip on it, and then for the rest the game
+or for the rest of the level you just do as I described.
+
+115
+00:11:19,180 --> 00:11:25,700
+You select a random emitter, you
+set the pitch, and you play it
+
+116
+00:11:25,700 --> 00:11:31,470
+at some random volume and then you
+wait for some random amount of time.
+
+117
+00:11:31,470 --> 00:11:38,190
+It's pretty simple. I mean you
+would create more details or more
+
+118
+00:11:38,190 --> 00:11:46,190
+extensible ambiances in your game, but this is just to show
+you how simple it can be to create really nice sounds.
+
+119
+00:11:51,630 --> 00:11:56,940
+Some best practices for ambiances:
+
+120
+00:11:56,940 --> 00:12:03,230
+Don't use streaming sounds, and prefer load
+into memory or compressed in memory.
+
+121
+00:12:03,230 --> 00:12:08,410
+This is because if you use the
+same sound over and over again,
+
+122
+00:12:08,410 --> 00:12:12,560
+it creates a new stream
+within Unity for each one.
+
+123
+00:12:12,560 --> 00:12:18,410
+So in the end you're actually gonna blow more memory
+using streaming sounds than you would if you just
+
+124
+00:12:18,410 --> 00:12:21,380
+loaded the sound into memory.
+
+125
+00:12:22,980 --> 00:12:25,734
+Use multiple audio sources.
+
+126
+00:12:25,760 --> 00:12:35,080
+Because pitch changes are not applied to--sorry,
+they are applied as soon as you play a new sound.
+
+127
+00:12:35,080 --> 00:12:42,370
+So for example, if I change the pitch of an
+audio source and play a bunch of sounds one shot,
+
+128
+00:12:42,370 --> 00:12:46,420
+the pitch will apply to all of them instead
+of just the one that you play next.
+
+129
+00:12:46,420 --> 00:12:51,670
+So use multiple audio sources if you can, as I did.
+
+130
+00:12:51,670 --> 00:12:55,390
+If the randomization--sorry.
+
+131
+00:12:55,590 --> 00:13:02,400
+If you have some budget restrictions and game objects
+or you're just running out of memory in general,
+
+132
+00:13:02,400 --> 00:13:07,520
+you can use one game object with
+multiple audio sources and not have this
+
+133
+00:13:07,520 --> 00:13:11,000
+random location thing that I had going.
+
+134
+00:13:11,000 --> 00:13:15,270
+It just means that the sound will be coming
+from one location. Which is actually,
+
+135
+00:13:15,270 --> 00:13:21,200
+I mean it's not perfect but it still
+sounds really good.
+
+136
+00:13:21,200 --> 00:13:26,310
+But if you are using multiple game
+objects, you can also add audio filters.
+
+137
+00:13:26,310 --> 00:13:28,260
+So for example,
+
+138
+00:13:28,260 --> 00:13:33,340
+You can add an audio filter into this...
+
+139
+00:13:33,640 --> 00:13:37,500
+into this game object here,
+
+140
+00:13:37,500 --> 00:13:40,140
+like a low pass or something like that,
+
+141
+00:13:40,140 --> 00:13:44,140
+and then you can also randomize the
+properties within that filter.
+
+142
+00:13:44,140 --> 00:13:52,140
+Which again, increases the amount of
+variation and freshness of the sounds.
+
+143
+00:13:56,100 --> 00:14:01,570
+Use really short sounds, because that's a
+lot more preferred than long ones.
+
+144
+00:14:01,570 --> 00:14:08,250
+Because the listener will be able to hear
+repetitions really easy.
+
+145
+00:14:08,250 --> 00:14:12,420
+Keep the variations similar, don't have one
+sound that the sound stands out above all others,
+
+146
+00:14:12,420 --> 00:14:19,610
+because then the listener will be able
+to hear that really quickly.
+
+147
+00:14:19,610 --> 00:14:25,400
+Don't do large pitch variations, because if you pitch
+up or down too much a sound it
+
+148
+00:14:25,400 --> 00:14:30,190
+kind of destroys the sound altogether.
+
+149
+00:14:30,190 --> 00:14:34,420
+Sounds with background noise, for
+example, if you have a bird sound and
+
+150
+00:14:34,420 --> 00:14:39,930
+you can hear the traffic in the
+background every time you play it
+
+151
+00:14:39,930 --> 00:14:43,330
+it's going to sound horrible, so avoid that.
+
+152
+00:14:43,330 --> 00:14:48,750
+Have pure sounds when you are using ambiances.
+
+153
+00:14:48,750 --> 00:14:55,650
+And all this will reduce the ear fatigue or how annoyed the
+listener is going to get while they're playing the game.
+
+154
+00:14:55,651 --> 00:14:57,920
+Which could be for hours.
+
+155
+00:14:57,920 --> 00:15:04,920
+Well you would hope that it's for hours right?
+
+156
+00:15:05,200 --> 00:15:12,200
+Cool. So let's talk about
+interactive sounds quickly.
+
+157
+00:15:12,880 --> 00:15:18,000
+Like I said, interactive sounds are
+sounds that change and shift during playback.
+
+158
+00:15:18,000 --> 00:15:25,980
+So other subsystems, other scripts are changing
+how the sound is played or what is played
+
+159
+00:15:26,380 --> 00:15:34,370
+through this sort of sound object by interfacing it through
+parameters And you define those parameters in game logic,
+
+160
+00:15:34,370 --> 00:15:38,320
+in script code.
+
+161
+00:15:38,320 --> 00:15:46,200
+They're commonly known as events in
+other audio systems like FMod or
+
+162
+00:15:46,200 --> 00:15:51,890
+WWise and other systems like that.
+
+163
+00:15:51,890 --> 00:15:58,310
+They encapsulate sound logic and define an interface
+to the game through a set of parameters.
+
+164
+00:15:58,310 --> 00:16:05,310
+What that means is they, like I said, all the logic
+you define in one sort of script, in one game object
+
+165
+00:16:05,310 --> 00:16:07,030
+and you can place that
+
+166
+00:16:07,030 --> 00:16:15,030
+in lots of locations, in lots of vehicles
+for example, or other concepts like that.
+
+167
+00:16:15,630 --> 00:16:20,470
+And then you define these parameters,
+this interface.
+
+168
+00:16:20,470 --> 00:16:24,650
+Parameterize sound and effect properties, for example,
+
+169
+00:16:24,650 --> 00:16:32,080
+you can define an interface for
+volume, pitch, speaker spread
+
+170
+00:16:32,080 --> 00:16:36,340
+low pass effects, echo resonance,
+
+171
+00:16:36,340 --> 00:16:39,870
+anything that you can--any property
+you can change on an audio...
+
+172
+00:16:42,050 --> 00:16:47,680
+audio source you can sort of
+parameterize that property.
+
+173
+00:16:47,680 --> 00:16:54,260
+Plus, you can actually introduce new sounds, fade
+out sounds, cross fade in sounds, and stuff like that,
+
+174
+00:16:55,050 --> 00:16:57,720
+all through this interface.
+
+175
+00:16:57,720 --> 00:17:02,186
+Just define, keep all of
+this sort of logic in one place.
+
+176
+00:17:02,212 --> 00:17:08,069
+Which, this is the problem that I see with
+a lot of people writing audio in Unity.
+
+177
+00:17:08,069 --> 00:17:16,030
+Is that they're just placing all these concepts in all
+different places and trying to tie it all together.
+
+178
+00:17:16,130 --> 00:17:26,229
+And this is really not extensible. It's not
+something that you can reuse and extend well.
+
+179
+00:17:26,255 --> 00:17:31,724
+So try to keep it in to
+game concept, game objects.
+
+180
+00:17:35,740 --> 00:17:40,040
+So usually you define again,
+just game parameters,
+
+181
+00:17:40,040 --> 00:17:44,430
+this logic that I was talking
+about and again the raw sounds.
+
+182
+00:17:44,430 --> 00:17:47,490
+Same for ambiances.
+
+183
+00:17:47,490 --> 00:17:53,780
+They come together and they define your
+interactive sound.
+
+184
+00:17:53,780 --> 00:17:55,450
+Examples:
+
+185
+00:17:55,450 --> 00:17:58,130
+Car engines, of course.
+
+186
+00:17:58,130 --> 00:18:05,350
+Your parameter would be the rpm, how fast
+the car is spinning--engine is spinning.
+
+187
+00:18:07,250 --> 00:18:10,880
+Load--how much under load the car is.
+
+188
+00:18:12,580 --> 00:18:14,690
+Or a machine gun turret.
+
+189
+00:18:14,690 --> 00:18:19,460
+Is the enemy within range?
+Should I shoot?
+
+190
+00:18:19,460 --> 00:18:23,850
+Am I being blown up by the enemy?
+Should I explode?
+
+191
+00:18:23,850 --> 00:18:28,630
+Crowd chatter, crowd walla.
+
+192
+00:18:30,180 --> 00:18:38,180
+Parameter could be the panic level of the
+crowd, how excited, how fearful they are.
+
+193
+00:18:38,190 --> 00:18:40,330
+And the crowd density.
+
+194
+00:18:40,330 --> 00:18:46,750
+How many people are in the crowd?
+
+195
+00:18:46,750 --> 00:18:52,740
+As I said parameters are defined and controlled within scripts.
+
+196
+00:18:52,740 --> 00:18:59,140
+As with ambiances, you build the "Sound Object," as I said,
+
+197
+00:18:59,140 --> 00:19:02,370
+within script classes.
+
+198
+00:19:02,370 --> 00:19:07,990
+You also have to define an
+interface to apply the audio clips.
+
+199
+00:19:07,990 --> 00:19:11,250
+And you also create
+some template
+
+200
+00:19:11,250 --> 00:19:15,309
+output audio sources, like I showed you
+with the ambiances. That's usually the
+
+201
+00:19:15,309 --> 00:19:19,679
+best practice for that.
+
+202
+00:19:19,679 --> 00:19:24,220
+You also want to
+diffuse animation curves
+
+203
+00:19:24,220 --> 00:19:32,220
+within Unity to define the
+map between the game concept.
+
+204
+00:19:32,320 --> 00:19:35,750
+For example, if you have
+
+205
+00:19:37,130 --> 00:19:40,419
+a characters health between 100 and 0.
+
+206
+00:19:40,419 --> 00:19:44,220
+You want to map that to the pitch
+
+207
+00:19:44,220 --> 00:19:49,990
+of a sound within him,
+between 1 and 1.5.
+
+208
+00:19:49,990 --> 00:19:54,340
+You do that by using "AnimationCurves"
+instead of putting that in your script code.
+
+209
+00:19:54,340 --> 00:19:59,140
+Because then it's easily
+modifiable and changeable,
+
+210
+00:19:59,140 --> 00:20:05,640
+as you want to iterate your sounds
+and iterate your sound objects,
+
+211
+00:20:05,640 --> 00:20:09,990
+as you're creating your game.
+It's really powerful.
+
+212
+00:20:09,990 --> 00:20:12,100
+You can see here's an example.
+
+213
+00:20:12,100 --> 00:20:19,789
+You're mapping the low pass cut-off to
+distance from the character or something.
+
+214
+00:20:19,789 --> 00:20:25,270
+So let's have an example
+of an interactive sound.
+
+215
+00:20:25,270 --> 00:20:32,160
+Back here we have... We have our
+
+216
+00:20:32,160 --> 00:20:35,670
+our world and I've defined
+this barrel over here
+
+217
+00:20:35,670 --> 00:20:42,600
+that has an exploder script in it.
+
+218
+00:20:42,600 --> 00:20:45,620
+Basically all that does is,
+
+219
+00:20:45,620 --> 00:20:51,350
+allows the user to shoot the barrel
+and as the barrels getting shot,
+
+220
+00:20:51,350 --> 00:20:59,270
+it's going to sort of get more and more
+buzzy, and then eventually explode.
+
+221
+00:20:59,270 --> 00:21:06,100
+You can see this animation curve here
+defines the health versus the pitch,
+
+222
+00:21:06,100 --> 00:21:08,270
+as I was describing.
+
+223
+00:21:08,270 --> 00:21:13,770
+All the logic is
+encased in this one script
+
+224
+00:21:13,770 --> 00:21:20,940
+put onto a game object, and then placed within
+another game object or some other concept.
+
+225
+00:21:20,940 --> 00:21:27,210
+So that the game can then get the game object,
+get the script, set some parameters
+
+226
+00:21:27,210 --> 00:21:34,080
+and then, yea. So I'll just play it
+so you can see
+
+227
+00:21:34,080 --> 00:21:38,680
+exactly what's going on in terms of audio.
+
+228
+00:21:41,350 --> 00:21:45,820
+I placed it a bit far away. I'll just take a walk there.
+
+229
+00:21:54,700 --> 00:21:58,640
+So now if I shoot the barrel,
+
+230
+00:21:58,640 --> 00:22:05,640
+you can see it's blowing up,
+or it's a timer or something.
+
+231
+00:22:06,600 --> 00:22:12,820
+Every time I shoot it, it increases the damage
+and the pitch is applied.
+
+232
+00:22:20,020 --> 00:22:21,300
+Right.
+
+233
+00:22:21,300 --> 00:22:22,910
+So.
+
+234
+00:22:22,910 --> 00:22:27,549
+Fairly simple I suppose.
+Nothing too exciting there.
+
+235
+00:22:27,549 --> 00:22:34,340
+But if you package it up nicely and, you know,
+for example, you can put that game object
+
+236
+00:22:34,340 --> 00:22:41,860
+we just had there into a prefab, and then drag it on
+all of your barrels really quickly or something else.
+
+237
+00:22:41,860 --> 00:22:47,610
+So another concept, then change the sounds
+that you're using and then you can have
+
+238
+00:22:47,610 --> 00:22:55,350
+this explosion mechanic just happen on
+just about any type of object.
+
+239
+00:22:58,050 --> 00:23:02,059
+When we look at the script
+itself we can see it's pretty simple.
+
+240
+00:23:02,059 --> 00:23:07,930
+Again we define the interface here,
+
+241
+00:23:07,930 --> 00:23:15,810
+and the actual parameters we've
+defined just drive the playback.
+
+242
+00:23:15,810 --> 00:23:20,940
+I mean we just play the sound
+if its not been shot before,
+
+243
+00:23:21,240 --> 00:23:29,240
+we evaluate the damage, and apply to the
+pitch, and if the damage is below zero
+
+244
+00:23:29,640 --> 00:23:33,230
+then we stop the sound and play the
+explosion sound.
+
+245
+00:23:33,230 --> 00:23:37,270
+Fairly simple, but you can
+see if you package it right,
+
+246
+00:23:37,270 --> 00:23:43,299
+you can actually create some pretty
+powerful sounds.
+
+247
+00:23:45,910 --> 00:23:51,150
+Cool. So I'm going to quickly go
+through the the best practices.
+
+248
+00:23:51,150 --> 00:23:59,090
+As I said, do the sound as
+an interactive logic, like a script.
+
+249
+00:24:01,340 --> 00:24:06,250
+Allow the inspector setters for the audio assets,
+so the audio clips.
+
+250
+00:24:06,250 --> 00:24:10,820
+Like I described then, you can have the same
+logic with different audio assets
+
+251
+00:24:10,820 --> 00:24:14,735
+being applied to different audio
+concepts within the game.
+
+252
+00:24:14,761 --> 00:24:20,420
+That's really powerful, and
+it's very simple to do.
+
+253
+00:24:20,820 --> 00:24:25,210
+Package it up within a game object,
+as I showed you.
+
+254
+00:24:25,210 --> 00:24:30,500
+Create a prefab, like I said.
+
+255
+00:24:30,500 --> 00:24:35,450
+Use "Object.Instanciate" to create
+these interactive sounds on the fly.
+
+256
+00:24:35,450 --> 00:24:41,830
+So what that means is you can have these
+sort of interactive sound objects
+
+257
+00:24:41,830 --> 00:24:48,910
+as templates within the game, and then
+only instanciate new ones when you
+
+258
+00:24:48,910 --> 00:24:55,330
+want to use them. For example,
+don't have all of the barrels
+
+259
+00:24:55,330 --> 00:25:00,940
+having audio sources all at once.
+Only really create these sort of
+
+260
+00:25:02,620 --> 00:25:06,920
+audio objects when they're needed.
+On the fly using instanciate.
+
+261
+00:25:06,920 --> 00:25:14,920
+And then you can destroy them and that
+saves on resources quite a lot.
+
+262
+00:25:15,830 --> 00:25:18,200
+Cool. So let's talk quickly about interactive music.
+
+263
+00:25:18,200 --> 00:25:23,059
+And this is like I said,
+my favorite part of audio.
+
+264
+00:25:23,059 --> 00:25:27,080
+Cause interactive music is something that
+you guys can define
+
+265
+00:25:27,080 --> 00:25:32,320
+that is really going to engage and immerse
+your users in the game
+
+266
+00:25:32,320 --> 00:25:38,629
+without actually defining anything visually
+or any sort of game mechanic.
+
+267
+00:25:38,629 --> 00:25:45,100
+I mean, having interactive sounds draws the player
+into what's happening, and directs them
+
+268
+00:25:45,100 --> 00:25:50,539
+how you want them to feel in a
+particular situation.
+
+269
+00:25:50,539 --> 00:25:55,150
+So the whole idea behind
+interactive music
+
+270
+00:25:55,150 --> 00:25:59,929
+is that you want to create dynamic music
+that changes with the game state.
+
+271
+00:25:59,929 --> 00:26:03,130
+So when you walk into a cave,
+
+272
+00:26:03,130 --> 00:26:11,130
+the music changes, and you know, it becomes
+more sinister or something like that.
+
+273
+00:26:12,410 --> 00:26:18,259
+We do this by transitioning between
+musical elements or what's known as stems.
+
+274
+00:26:19,200 --> 00:26:27,179
+You know in a beat synced way, so you transition
+between one musical theme to another.
+
+275
+00:26:27,179 --> 00:26:33,290
+And you can do it on the beat or
+the bar or some sort of cross fade
+
+276
+00:26:33,290 --> 00:26:36,980
+between the two, on a beat or a bar.
+
+277
+00:26:39,280 --> 00:26:47,280
+This allows the music to transition nice and
+smoothly and seamlessly, so that the user
+
+278
+00:26:47,280 --> 00:26:54,280
+kind of doesn't even notice that it's changed, but
+they just feel that it's changed.
+
+279
+00:26:55,920 --> 00:27:03,910
+You also want to allow the game to apply
+musical additions to the playing stems.
+
+280
+00:27:03,910 --> 00:27:07,590
+So what's known as flourishes and stingers.
+
+281
+00:27:07,590 --> 00:27:09,730
+So for example:
+
+282
+00:27:09,730 --> 00:27:14,340
+Imagine a game where you are running
+around and you pick up power-ups.
+
+283
+00:27:14,340 --> 00:27:17,860
+And each time you pick up a power-up,
+
+284
+00:27:17,860 --> 00:27:23,690
+you play some nice enhancement
+or duh duh duh dah
+
+285
+00:27:23,690 --> 00:27:28,149
+on top of the already
+playing music system
+
+286
+00:27:28,149 --> 00:27:31,789
+in a beat synced way, and that
+really sort of comes together
+
+287
+00:27:31,789 --> 00:27:38,710
+to make a really good music system.
+
+288
+00:27:38,710 --> 00:27:43,570
+The music changes and transitions with the
+mood of the game, like I said.
+
+289
+00:27:43,570 --> 00:27:50,409
+Liike I said, this is really powerful for drawing
+the users in--the players in to your game.
+
+290
+00:27:50,409 --> 00:27:55,630
+Games that a lot of indie
+players sort of come to really love,
+
+291
+00:27:55,630 --> 00:28:02,550
+for example, Journey
+or Braid, games like that.
+
+292
+00:28:02,550 --> 00:28:09,390
+A lot of people don't really notice that it's because of this
+powerful music, and powerful sound design that they've kind of
+
+293
+00:28:09,390 --> 00:28:11,450
+included within the game mechanic,
+
+294
+00:28:11,450 --> 00:28:17,850
+which also enhances, you know
+enhances the games quite a lot.
+
+295
+00:28:17,850 --> 00:28:23,490
+So you want to build a
+scripting system that
+
+296
+00:28:23,490 --> 00:28:30,480
+encapsulates all of the playback
+and transitions on beats and bars.
+
+297
+00:28:30,680 --> 00:28:38,589
+So your scripts shouldn't
+actually ever play sounds,
+
+298
+00:28:40,789 --> 00:28:47,480
+you know when another sound is finished,
+or through some other mechanic.
+
+299
+00:28:47,480 --> 00:28:51,470
+You want it to transition always on beats and bars.
+
+300
+00:28:51,470 --> 00:28:56,570
+And you want to schedule that
+transition ahead of time,
+
+301
+00:28:56,570 --> 00:29:03,270
+because this allows the transition to
+happen perfectly in a sample-accurate way.
+
+302
+00:29:06,059 --> 00:29:14,059
+To do that use the "AudioSettings.dspTime" setting.
+So this is a new feature in 4.1 or 4.2.
+
+303
+00:29:16,389 --> 00:29:21,890
+It basically allows you to
+get the current DSP clock, or
+
+304
+00:29:21,890 --> 00:29:26,419
+the sound clock--the sound engine clock of the game.
+
+305
+00:29:26,419 --> 00:29:35,889
+Then you can schedule the playback of new sounds
+based on the current time of where you are,
+
+306
+00:29:35,889 --> 00:29:41,580
+and you do that using the audio source play schedule.
+
+307
+00:29:41,580 --> 00:29:46,930
+Then you can play this audio source,
+this, you know, stem or musical theme.
+
+308
+00:29:46,930 --> 00:29:52,979
+You can play it ahead of time, using the play
+schedule and you pass it a time, or you know the
+
+309
+00:29:52,979 --> 00:29:56,340
+absolute time that you want to play it at,
+
+310
+00:29:56,340 --> 00:30:01,279
+not any sort of delta or anything like that.
+
+311
+00:30:01,279 --> 00:30:07,260
+Again you want, you really want to schedule
+based on beats per minute or beats and bars,
+
+312
+00:30:07,260 --> 00:30:12,880
+because then you won't have
+any sort of musical drift or
+
+313
+00:30:12,880 --> 00:30:20,479
+the music won't scatter as
+the as the time goes on.
+
+314
+00:30:23,179 --> 00:30:29,779
+So you assign stems to themes, and define
+transition logic from one theme to another.
+
+315
+00:30:29,779 --> 00:30:37,740
+So you want to define themes and transitions, so you want
+to be able to transition from the cave to the dungeon.
+
+316
+00:30:39,149 --> 00:30:42,960
+This basically changes
+
+317
+00:30:44,659 --> 00:30:50,679
+what stems are playing, what sounds are playing
+and how they're played.
+
+318
+00:30:50,679 --> 00:30:55,150
+You trigger these theme changes
+from scripts and game input.
+
+319
+00:30:55,150 --> 00:31:01,809
+So, you know, the game, you walk from
+the forest to the cave and you trigger that off.
+
+320
+00:31:01,809 --> 00:31:03,080
+Like I said,
+
+321
+00:31:03,080 --> 00:31:08,690
+your engine, your music engine, you really want to
+define a schedule look ahead.
+
+322
+00:31:08,690 --> 00:31:13,200
+So this basically is
+a small amount of time
+
+323
+00:31:13,200 --> 00:31:21,200
+ahead of where you actually are right now.
+Where you schedule the transition from one sound to another
+
+324
+00:31:21,320 --> 00:31:23,460
+on the exact beat.
+
+325
+00:31:23,460 --> 00:31:30,440
+This allows the music system to be
+extremely accurate and extremely tight.
+
+326
+00:31:34,230 --> 00:31:37,700
+So let's have an example:
+
+327
+00:31:37,700 --> 00:31:45,580
+I have a project here which doesn't
+actually define any transition,
+
+328
+00:31:45,580 --> 00:31:50,580
+logic from the
+game, or the game state.
+
+329
+00:31:50,580 --> 00:31:56,470
+But it's just something simple to show you how...
+
+330
+00:32:01,330 --> 00:32:04,820
+So we have an audio stitching script, which
+is something simple to show you how you
+
+331
+00:32:04,820 --> 00:32:12,790
+would define this transition logic. And then you can
+build your own music system on top of this idea.
+
+332
+00:32:13,590 --> 00:32:21,039
+As you can see I've got
+the drums, a set of drums
+
+333
+00:32:21,039 --> 00:32:25,180
+a set of bases, and a set of effects.
+
+334
+00:32:25,180 --> 00:32:28,070
+And I'll just play it.
+
+335
+00:32:29,170 --> 00:32:37,170
+And you can listen. You can see actually how it's being
+transitioned, and then I'll look through the script.
+
+336
+00:32:40,704 --> 00:32:42,704
+So the transition...
+
+337
+00:32:45,230 --> 00:32:54,119
+You can see that the red line here
+defines when we actually schedule
+
+338
+00:32:54,619 --> 00:32:58,679
+the playback of these sources here,
+like one second ahead of time.
+
+339
+00:32:58,679 --> 00:33:03,650
+That's very generous, usually
+you only need to set it at,
+
+340
+00:33:03,650 --> 00:33:07,429
+a few hundred milliseconds max.
+
+341
+00:33:07,429 --> 00:33:11,549
+But it's just to to be
+able to show you that
+
+342
+00:33:11,549 --> 00:33:14,649
+the transition in time is
+actually happening here,
+
+343
+00:33:14,649 --> 00:33:17,030
+but you want to schedule it here.
+
+344
+00:33:17,030 --> 00:33:20,650
+Then when I play it, you can
+see that it transitions perfectly
+
+345
+00:33:20,650 --> 00:33:23,209
+from one to another.
+
+346
+00:33:26,735 --> 00:33:29,605
+And again.
+
+347
+00:33:34,040 --> 00:33:37,190
+So the engine driving this is really simple.
+
+348
+00:33:37,190 --> 00:33:42,889
+You can see here that,
+
+349
+00:33:42,889 --> 00:33:48,570
+like I said, you've just defined
+the "AudioSettingsDSPtime."
+
+350
+00:33:48,570 --> 00:33:56,510
+But you define the next
+event as that time plus some
+
+351
+00:33:58,750 --> 00:34:06,580
+look ahead time. And then when you are actually
+within that range, so as you saw then,
+
+352
+00:34:06,580 --> 00:34:10,669
+when you are within
+that window, you just play
+
+353
+00:34:12,309 --> 00:34:19,019
+or schedule the playback of that next source.
+And this is done here just randomly selecting
+
+354
+00:34:19,019 --> 00:34:24,779
+the next source to play and
+then you play that source
+
+355
+00:34:24,779 --> 00:34:27,559
+at the look ahead time. Very simple.
+
+356
+00:34:27,559 --> 00:34:35,479
+Very simple, and you just keep doing this over and over
+again at however many beats or bars you want.
+
+357
+00:34:35,779 --> 00:34:42,709
+And that's how you would define the
+basic logic of your music system.
+
+358
+00:34:48,009 --> 00:34:54,659
+So as I said schedule the stems based
+on beat times, not on the length of the stem.
+
+359
+00:34:54,659 --> 00:34:58,299
+This is because, for example, if you do
+the length of the stem,
+
+360
+00:34:58,299 --> 00:35:02,929
+compression artifacts like MP3,
+if any of you guys have had this problem,
+
+361
+00:35:02,929 --> 00:35:10,769
+wiill cause stutters and sort
+of breaks in your sounds.
+
+362
+00:35:11,269 --> 00:35:19,259
+Any sort of tails at the end
+of your sounds will cause the music to drift.
+
+363
+00:35:19,559 --> 00:35:24,899
+And you want to tune that look ahead,
+that sort of schedule buffer
+
+364
+00:35:25,750 --> 00:35:31,519
+to make the sound system as
+responsive as possible to game input.
+
+365
+00:35:31,519 --> 00:35:36,839
+But you also want it to be
+long enough so that
+
+366
+00:35:36,839 --> 00:35:38,879
+you never have any sort of
+
+367
+00:35:38,879 --> 00:35:42,879
+problems, in terms of stream--
+
+368
+00:35:42,879 --> 00:35:47,479
+streaming sounds not ready to play,
+they haven't buffered the sound properly
+
+369
+00:35:47,479 --> 00:35:52,949
+and then you have artifacts from that.
+
+370
+00:35:52,949 --> 00:35:55,599
+So how do you make it sizzle?
+
+371
+00:35:55,599 --> 00:36:02,129
+As I said beat match the flourishes on top,
+so picking up a power up.
+
+372
+00:36:02,129 --> 00:36:05,880
+You want to keep the stem sizes small, so that they
+can transition at any time.
+
+373
+00:36:05,880 --> 00:36:09,650
+You want the beats generally, or you want to be able to
+
+374
+00:36:09,650 --> 00:36:17,419
+transition on a beat or a bar. Beats are preferable
+so that it's super, super responsive.
+
+375
+00:36:17,419 --> 00:36:22,689
+And you want to transition on
+bars or even beats, like I just said.
+
+376
+00:36:22,689 --> 00:36:31,219
+This relies on the scheduling system to work
+with time, like I said, beats and bars.
+
+377
+00:36:32,219 --> 00:36:40,089
+Cool. So what we've done here
+is, we've kind of defined
+
+378
+00:36:40,089 --> 00:36:47,729
+three of your most used
+audio concepts in games,
+
+379
+00:36:47,729 --> 00:36:49,490
+and we've defined nice ways
+
+380
+00:36:49,490 --> 00:36:53,459
+of sort of structuring those within Unity.
+
+381
+00:36:53,459 --> 00:36:55,890
+And creating audio frameworks in script,
+
+382
+00:36:55,890 --> 00:36:59,480
+and defining these sort of sound objects
+
+383
+00:36:59,480 --> 00:37:04,319
+that you want to reuse throughout your game.
+
+384
+00:37:04,319 --> 00:37:07,519
+And I just wanted to say that you guys are here
+
+385
+00:37:07,519 --> 00:37:10,939
+probably because you have some
+interest in audio
+
+386
+00:37:11,680 --> 00:37:16,069
+and I thank you for that.
+
+387
+00:37:16,069 --> 00:37:19,889
+But remember that audio
+is half of the game.
+
+388
+00:37:19,889 --> 00:37:24,309
+So when you play a game
+you'll look at the screen
+
+389
+00:37:24,309 --> 00:37:30,859
+and you also hear, and that's exactly
+half of your senses of the game.
+
+390
+00:37:30,859 --> 00:37:34,002
+So audio is pretty
+important right?
+
+391
+00:37:34,328 --> 00:37:40,709
+You can get a lot out of just
+improving the audio within you game,
+
+392
+00:37:40,709 --> 00:37:46,689
+just a small amount. You can actually increase the
+quality of the game that you're making so much.
+
+393
+00:37:47,889 --> 00:37:53,719
+Great sounding audio should be as important as
+other parts of your game, your game mechanics,
+
+394
+00:37:53,719 --> 00:37:59,669
+the graphics, all those sort of things.
+
+395
+00:37:59,669 --> 00:38:04,139
+So with all of that you should go away from this talk
+
+396
+00:38:04,139 --> 00:38:09,099
+and, just think about what I'm saying and think
+about the concepts I've described
+
+397
+00:38:09,099 --> 00:38:13,849
+and make the sound that your game has awesome.
+
+398
+00:38:13,849 --> 00:38:17,459
+So, yeah, just want to say thanks.
+
+399
+00:38:25,049 --> 00:38:30,549
+If you guys have any questions, let's have them.
+
+400
+00:38:34,989 --> 00:38:36,890
+Yes, yes I can.
+
+401
+00:38:36,890 --> 00:38:43,075
+(Hi. I know this is not necessarily a
+Unity question, more of a sound design question.)
+
+402
+00:38:43,076 --> 00:38:49,819
+(What's the rule of thumb you follow for
+basically balancing ambient sounds and music?)
+
+403
+00:38:49,819 --> 00:38:56,379
+Yup, so this is something that
+I wanted to talk about
+
+404
+00:38:56,379 --> 00:39:03,449
+if I had time, but I didn't really have time. I wanted
+to talk about mixing and how you would do that.
+
+405
+00:39:03,449 --> 00:39:11,069
+So in Unity we're kind of moving
+forward with our audio systems, and we're kind of
+
+406
+00:39:11,069 --> 00:39:15,609
+moving towards being able to do that in
+a much more intuitive way in the future.
+
+407
+00:39:16,769 --> 00:39:21,879
+You know, defining some mixing ideas and concepts.
+
+408
+00:39:21,879 --> 00:39:27,940
+But in Unity you can still actually define
+your own mixing system using
+
+409
+00:39:27,940 --> 00:39:31,319
+things like the on-audio filter read,
+
+410
+00:39:32,669 --> 00:39:36,139
+it's in the mono behavior function.
+
+411
+00:39:36,139 --> 00:39:43,709
+That's basically a call back that allows
+you to apply your own attenuation or filters,
+
+412
+00:39:43,709 --> 00:39:53,599
+and pipe that audio to other parts or
+other audio sources and stuff like that.
+
+413
+00:39:55,839 --> 00:40:03,839
+If you wanted to create your own mixing solution you could
+do it using this one function.
+
+414
+00:40:04,979 --> 00:40:10,200
+Rather than that, you're kind of
+mixing in Unity at the moment,
+
+415
+00:40:10,200 --> 00:40:15,439
+just from the basic concepts.
+
+416
+00:40:15,439 --> 00:40:22,489
+You want to kind of play around with those
+properties while the game is running
+
+417
+00:40:22,489 --> 00:40:29,380
+and change the volumes and the levels
+
+418
+00:40:29,380 --> 00:40:36,780
+of the ambiances in real time, and then you can apply
+those changes after you've exited play mode.
+
+419
+00:40:36,780 --> 00:40:44,749
+So I would, like I've defined there,
+the volume of the--
+
+420
+00:40:44,949 --> 00:40:52,599
+Sorry, I've defined a number of variation-like
+properties, like randomization properties.
+
+421
+00:40:52,599 --> 00:40:58,390
+I would perhaps have like a volume--
+like a static volume variable
+
+422
+00:40:58,390 --> 00:41:00,600
+and that volume is multiplied
+
+423
+00:41:00,600 --> 00:41:06,869
+with everything else when you play all of your ambiances.
+And then you can change that volume in one place.
+
+424
+00:41:06,869 --> 00:41:13,389
+And that you can bring the mix up of all your ambiances
+or a subset of those ambiances
+
+425
+00:41:13,389 --> 00:41:18,059
+from one place. So that would help.
+
+426
+00:41:18,059 --> 00:41:21,049
+Cool, thank you.
+I hope that helped.
+
+427
+00:41:21,049 --> 00:41:25,249
+Any other questions?
+
+428
+00:41:28,459 --> 00:41:33,079
+(Hi. Thanks for your talk.
+With regards to dynamic music,)
+
+429
+00:41:33,079 --> 00:41:35,889
+(what's the best way to keep the beat
+synchronization going?)
+
+430
+00:41:35,889 --> 00:41:39,469
+(Is there any kind of danger of getting out of sync
+because the sample runs on in time, if you use, say,)
+
+431
+00:41:39,469 --> 00:41:41,919
+(an unusual time signature like 130 beats per minute?)
+
+432
+00:41:41,919 --> 00:41:47,349
+No. Like I said, if the sound is
+being played
+
+433
+00:41:49,479 --> 00:41:54,269
+sample accurately
+in terms of in the subsystem.
+
+434
+00:41:56,439 --> 00:42:01,910
+If you schedule the playback of your sound is based on
+
+435
+00:42:01,910 --> 00:42:06,059
+current if you get the DSPtime thing.
+
+436
+00:42:06,059 --> 00:42:12,079
+That gets the DSP time of the mixer
+with what's happening in the audio subsystem,
+
+437
+00:42:12,079 --> 00:42:16,709
+and then if you schedule, ahead of time, you're
+never going to get any drift.
+
+438
+00:42:16,709 --> 00:42:21,780
+It's going to be scheduled
+sample accurately. Bang, bang, bang.
+
+439
+00:42:21,781 --> 00:42:25,209
+So using these methods
+you're gonna have tight music.
+
+440
+00:42:25,209 --> 00:42:31,289
+(Any dangers of say in a high resource
+load environment getting out of sync or anything like that?)
+
+441
+00:42:31,289 --> 00:42:35,269
+The only problem you're going to have is if
+you're not scheduling
+
+442
+00:42:35,269 --> 00:42:38,939
+ahead of time enough, that's going to be one problem.
+
+443
+00:42:38,939 --> 00:42:46,069
+But if the audio is stuttering because the
+game is just being blown away.
+
+444
+00:42:46,069 --> 00:42:50,849
+It's going to slowdown everything,
+including the clock.
+
+445
+00:42:50,849 --> 00:42:57,159
+So you're going to--
+Everything is statically
+
+446
+00:42:57,159 --> 00:43:02,429
+synchronized, linear, so it's not going to
+drift because of stutter.
+
+447
+00:43:02,429 --> 00:43:09,109
+(Thank you very much.)
+
+448
+00:43:09,109 --> 00:43:15,609
+Anybody else?
+
+449
+00:43:17,509 --> 00:43:33,649
+
+
+450
+00:43:37,930 --> 00:43:41,479
+Currently the way
+
+451
+00:43:41,479 --> 00:43:47,279
+we'd expose file formats in Unity is a little confusing.
+
+452
+00:43:47,279 --> 00:43:55,279
+What I recommend is, you should always import
+audio assets into Unity as plain wav files.
+
+453
+00:43:57,249 --> 00:44:06,449
+Then per audio source define
+whether you want that to be compressed or not.
+
+454
+00:44:06,449 --> 00:44:14,409
+Then let Unity decide which compression
+format is best, for example on,
+
+455
+00:44:14,809 --> 00:44:19,229
+iOS and android that's going to be MP3,
+
+456
+00:44:20,589 --> 00:44:26,019
+Windows and Mac and web player and
+everything that's going to be OGG Vorbis.
+
+457
+00:44:26,019 --> 00:44:33,229
+The reason why it's going
+to be OGG Vorbis is because, OGG is better
+
+458
+00:44:33,229 --> 00:44:42,570
+the compression is better in terms of artifacts
+at the end of the sound,
+
+459
+00:44:42,570 --> 00:44:46,680
+like MP3 doesn't loop
+properly, stuff like that.
+
+460
+00:44:46,680 --> 00:44:49,489
+But on mobile devices,
+
+461
+00:44:50,539 --> 00:44:57,489
+playing an OGG file just doesn't make sense
+because it just consumes too many resources.
+
+462
+00:44:57,489 --> 00:45:05,349
+So yeah, I mean, like I said,
+generally keep it to your
+
+463
+00:45:06,349 --> 00:45:08,139
+import in wav.
+
+464
+00:45:08,139 --> 00:45:11,599
+Let Unity decide what compression format,
+
+465
+00:45:11,599 --> 00:45:18,679
+and if you really want to decide for
+Unity, like maybe you want to play
+
+466
+00:45:18,679 --> 00:45:25,119
+a particular looping sound
+on iOS and it's very small,
+
+467
+00:45:25,119 --> 00:45:28,139
+and so you say "Okay I want it to be OGG."
+
+468
+00:45:28,139 --> 00:45:31,999
+Then compress it to OGG
+and import it into Unity.
+
+469
+00:45:31,999 --> 00:45:39,989
+And then just set it to leave it as native and then it
+will actually get built and played in the game as OGG,
+
+470
+00:45:39,989 --> 00:45:44,939
+and that that decoder will decode the OGG file.
+
+471
+00:45:46,199 --> 00:45:53,489
+Don't do it for many
+files, because OGG is very expensive.
+
+472
+00:45:53,489 --> 00:45:56,959
+But yea.
+
+473
+00:45:56,959 --> 00:46:03,079
+Thank you.
+
+474
+00:46:03,079 --> 00:46:04,319
+It's time?
+
+475
+00:46:04,319 --> 00:46:08,089
+I just want to say thanks guys. Thanks for coming
+here and listening to my talk.
