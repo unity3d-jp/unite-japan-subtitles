@@ -1,0 +1,1646 @@
+﻿1
+00:03:44,379 --> 00:03:47,438
+Welcome, everyone.
+
+2
+00:03:47,439 --> 00:04:00,039
+I will be doing a presentation on a movie called "Butterfly Effect,"
+that will show off some DirectX 11 graphic features.
+
+3
+00:04:02,139 --> 00:04:03,868
+A bit about me, first.
+
+4
+00:04:03,869 --> 00:04:05,839
+My name is Erland
+
+5
+00:04:05,840 --> 00:04:10,298
+and I'm from Unity Technologies' office in Sweden.
+
+6
+00:04:10,299 --> 00:04:20,808
+What we mainly do there is demo-related
+and research-related products.
+
+7
+00:04:20,809 --> 00:04:25,939
+That means basically that we test Unity in various areas
+
+8
+00:04:25,940 --> 00:04:32,739
+and see where we can find possibilites for improvement.
+
+9
+00:04:32,740 --> 00:04:35,718
+I come from a AAA background.
+
+10
+00:04:35,719 --> 00:04:39,839
+Previously to Unity, I worked at Electronic Arts
+
+11
+00:04:39,840 --> 00:04:48,270
+specifically at DICE, where I worked on the
+Battlefield franchise and Mirror's Edge.
+
+12
+00:04:51,039 --> 00:04:54,159
+So, I will bring you through the short film.
+
+13
+00:04:54,160 --> 00:04:55,409
+We will watch that.
+
+14
+00:04:57,050 --> 00:05:02,388
+It's also available on YouTube if you want to see it again.
+
+15
+00:05:02,389 --> 00:05:10,688
+Then I will walk you through the various
+graphic features and possibilities
+
+16
+00:05:10,689 --> 00:05:17,488
+that made us able to do this through DX11,
+
+17
+00:05:17,489 --> 00:05:22,508
+and demonstrate the graphic capabilities directly in Unity.
+
+18
+00:05:22,509 --> 00:05:27,009
+So I will do more like a real-time demonstration of this
+
+19
+00:05:27,010 --> 00:05:37,098
+using the beta version of Unity that we developed
+specifically for the purpose of this movie.
+
+20
+00:05:38,599 --> 00:05:45,599
+So, let's watch the movie.
+
+21
+00:08:35,510 --> 00:08:38,659
+That's it.
+
+22
+00:08:38,660 --> 00:08:39,630
+I hope you enjoyed it.
+
+23
+00:08:41,670 --> 00:08:52,829
+So now I will bring you through the
+graphic features that were in this movie.
+
+24
+00:08:52,830 --> 00:08:55,629
+The production, a bit about that.
+
+25
+00:08:55,630 --> 00:08:58,989
+It's a real time short film, about
+two-and-a-half minutes long
+
+26
+00:08:59,389 --> 00:09:02,039
+and it's fully using Unity.
+
+27
+00:09:02,040 --> 00:09:05,510
+It was done, as I said earlier, as a research project.
+
+28
+00:09:09,980 --> 00:09:17,809
+This is a collaboration not only between
+Unity, but Passion Pictures and nVidia.
+
+29
+00:09:17,810 --> 00:09:26,279
+Passion Pictures were the CG artists that
+did almost all the art for this.
+
+30
+00:09:28,379 --> 00:09:33,749
+It was, at its peak, about
+twenty-five CG artists and roughly
+
+31
+00:09:33,750 --> 00:09:37,249
+five full-time programmers.
+
+32
+00:09:37,250 --> 00:09:43,689
+These programmers were from
+both Unity and nVidia
+
+33
+00:09:43,690 --> 00:09:49,759
+but Passion Pictures only supported with artists.
+
+34
+00:09:49,760 --> 00:09:53,569
+The total length of the production
+was about fourteen weeks.
+
+35
+00:09:53,570 --> 00:10:00,119
+We added some additional time on that be able
+to polish and basically optimize it
+
+36
+00:10:00,120 --> 00:10:07,989
+because these artists had no prior
+experience with any real time film.
+
+37
+00:10:07,990 --> 00:10:12,509
+In total, the whole project is about 40GB of data
+
+38
+00:10:12,510 --> 00:10:19,509
+and mainly the biggest chunk of that goes
+into point cache data for the animations.
+
+39
+00:10:19,510 --> 00:10:26,339
+As you could see, there were some
+elaborate cloth physics happening there.
+
+40
+00:10:26,340 --> 00:10:32,249
+It's actually pre-simulated because
+there were so many layers of clothes
+
+41
+00:10:32,250 --> 00:10:38,039
+and they were moving so rapidly
+that we didn't have any alternative.
+
+42
+00:10:38,040 --> 00:10:46,270
+It also enabled the artists to have full
+control over the pre-simulated cloth.
+
+43
+00:10:47,760 --> 00:10:51,198
+Another large part of that is the light maps.
+
+44
+00:10:51,199 --> 00:10:57,550
+Almost each scene has a separate set of light maps.
+
+45
+00:10:58,000 --> 00:11:01,849
+This was because we wanted to be able to
+
+46
+00:11:02,550 --> 00:11:12,359
+have different lighting directions and different
+setups of global illuminations per shot, basically.
+
+47
+00:11:12,360 --> 00:11:21,719
+Also, I should note that we were using the
+cache server for this project quite heavily.
+
+48
+00:11:21,720 --> 00:11:28,549
+During this project, one of our biggest
+goals was to implement DirectX 11
+
+49
+00:11:28,550 --> 00:11:39,989
+and to have a 64-bit editor of Unity to actually be
+able to handle all these large quantities of data.
+
+50
+00:11:39,990 --> 00:11:42,579
+So our goal for this project.
+
+51
+00:11:42,580 --> 00:11:49,829
+We wanted to explore and study and mimic
+the offline tools from this CG studio
+
+52
+00:11:49,830 --> 00:11:53,919
+and basically how they worked, in Unity
+
+53
+00:11:53,920 --> 00:11:57,369
+and study that.
+
+54
+00:11:57,370 --> 00:12:04,979
+This was intended to be a very high-end demo
+that stress-tested Unity to a great degree
+
+55
+00:12:04,980 --> 00:12:07,579
+both by having a very short production time
+
+56
+00:12:07,580 --> 00:12:13,290
+and having a large amount of artists
+working simultaneously on this project.
+
+57
+00:12:15,460 --> 00:12:23,849
+Also, we wanted to create a very familiar and intuitive workflow
+for these artists that reminded them very much of
+
+58
+00:12:23,850 --> 00:12:30,458
+what they're used to in their native programs
+such as 3D Studio Max, Maya, XSI,
+
+59
+00:12:30,459 --> 00:12:36,999
+or any kind of simulation program or effects program.
+
+60
+00:12:37,000 --> 00:12:47,359
+Passion Pictures had, at the time, no experience
+whatsoever doing real-time film or games.
+
+61
+00:12:47,360 --> 00:12:53,579
+So we had to quickly teach them Unity,
+which they adapted to very fast,
+
+62
+00:12:53,580 --> 00:13:02,610
+and from that also have them feedback to
+us what workflows we could improve on.
+
+63
+00:13:04,540 --> 00:13:13,019
+The main goal of the film was to
+produce a very high-quality movie
+
+64
+00:13:13,020 --> 00:13:16,869
+that would resemble what you could do in offline rendering.
+
+65
+00:13:16,870 --> 00:13:21,289
+At points, these artists could
+actually compare their results
+
+66
+00:13:21,290 --> 00:13:32,249
+in a 3D program and in Unity and they
+would get very similar outcomes.
+
+67
+00:13:32,250 --> 00:13:34,699
+So here is a visual target.
+
+68
+00:13:34,700 --> 00:13:42,229
+This was done by the art director together
+with the main director at Passion Pictures.
+
+69
+00:13:42,230 --> 00:13:47,539
+This was their final draft basically of
+how the feel of the movie should be.
+
+70
+00:13:47,540 --> 00:13:51,769
+A bit more cartoony and eccentric, rather than realistic.
+
+71
+00:13:51,770 --> 00:13:57,329
+Passion Pictures has a long experience
+doing a very niche kind of style
+
+72
+00:13:57,330 --> 00:14:01,879
+and a bit more imaginative.
+
+73
+00:14:01,880 --> 00:14:09,109
+So this this kind of landed right in their area of expertise.
+
+74
+00:14:09,110 --> 00:14:10,400
+Here's another one.
+
+75
+00:14:10,401 --> 00:14:19,049
+This shot actually never made it into the film, but
+it still is very typical for how we wanted it to look
+
+76
+00:14:19,050 --> 00:14:31,269
+with very vibrant colors and a more stylized sense.
+
+77
+00:14:31,270 --> 00:14:42,349
+So the concept itself, what Unity wanted to do with this,
+was to have a style that actually targeted our end-users.
+
+78
+00:14:42,350 --> 00:14:46,269
+We didn't aim to have any space marines
+
+79
+00:14:46,270 --> 00:14:53,289
+or stereotypical characters in this film.
+
+80
+00:14:53,290 --> 00:14:58,359
+We wanted it to be colorful
+and slightly surreal.
+
+81
+00:14:58,360 --> 00:15:07,269
+It was fun to push the limits of
+what's real or not and very extreme.
+
+82
+00:15:07,270 --> 00:15:11,489
+Also we wanted this movie to not
+just be a real-time movie but a movie
+
+83
+00:15:11,490 --> 00:15:17,910
+that actually was watchable for people who
+had no understanding of real-time film.
+
+84
+00:15:18,011 --> 00:15:31,729
+So there was not supposed to be any game resemblance,
+or any connections with games whatsoever.
+
+85
+00:15:31,730 --> 00:15:33,849
+Talking a bit about DirectX 11
+
+86
+00:15:33,850 --> 00:15:39,138
+I'm not a programmer, so I can't go into the
+specifics, but there have been talks already here
+
+87
+00:15:39,139 --> 00:15:42,219
+that have touched on DirectX 11.
+
+88
+00:15:42,220 --> 00:15:45,179
+Kuba Cupisz
+
+89
+00:15:45,180 --> 00:15:54,249
+made a talk yesterday where where he addressed
+DirectX 11 specifically from a programmer's perspective,
+
+90
+00:15:54,250 --> 00:15:58,729
+but I can brush on it a little bit.
+
+91
+00:15:58,730 --> 00:16:08,479
+For those of you who don't know, this is a collection of
+Windows multimedia APIs that are used mainly for games.
+
+92
+00:16:08,480 --> 00:16:19,859
+DirectX 11 opens a much broader visual scope
+for graphics by using the GPU more heavily and
+
+93
+00:16:19,860 --> 00:16:23,779
+providing much more fidelity to the art.
+
+94
+00:16:23,780 --> 00:16:31,078
+It also offloads efforts from the programmers,
+
+95
+00:16:31,079 --> 00:16:35,769
+they find easier solutions to do
+very complicated things,
+
+96
+00:16:35,770 --> 00:16:45,739
+and gives artists the ability to use procedural
+techniques that are really computed fast
+
+97
+00:16:45,740 --> 00:16:51,499
+and are really practical, both in
+terms of memory and rendering time.
+
+98
+00:16:51,500 --> 00:16:53,480
+So DirectX 11...
+
+99
+00:16:54,510 --> 00:17:04,079
+Our test case was done before Unity 4,
+but it was transferred into Unity 4.0.
+
+100
+00:17:04,080 --> 00:17:08,409
+Since then it's been available.
+
+101
+00:17:08,410 --> 00:17:13,639
+So, what did it exactly enable us to do?
+
+102
+00:17:13,640 --> 00:17:21,938
+We got physically-based, energy-conservative
+shaders on skin and eyes.
+
+103
+00:17:21,939 --> 00:17:25,599
+This is related to materials.
+
+104
+00:17:25,600 --> 00:17:32,959
+We have hair rendering with tesselation
+for very fine strands of hair
+
+105
+00:17:32,960 --> 00:17:35,100
+and on slippers as well.
+
+106
+00:17:35,879 --> 00:17:41,249
+We were able to do full-screen
+post-effects, massive amounts of those
+
+107
+00:17:41,250 --> 00:17:48,369
+that corresponded very well to what a CG studio
+expects to do in post-production.
+
+108
+00:17:48,370 --> 00:17:58,049
+And we were able to add some volumetric effects,
+like that explosion at the very end.
+
+109
+00:17:58,050 --> 00:18:02,259
+A bit about the physically-based shaders.
+
+110
+00:18:02,260 --> 00:18:09,119
+Fundamentally, that is a material that just follows
+the laws of physics with very predictable results.
+
+111
+00:18:09,120 --> 00:18:18,309
+What to gain from that is not only a very realistic
+material, but also but it's also a material where
+
+112
+00:18:18,310 --> 00:18:23,369
+the artist cannot really fail.
+
+113
+00:18:23,370 --> 00:18:37,209
+It requires less tweaking and less cheating
+to achieve a very realistic material.
+
+114
+00:18:37,410 --> 00:18:40,500
+Also, it's energy conserving.
+
+115
+00:18:44,789 --> 00:18:54,999
+Basically, light energy is distributed between the diffuse
+reflection and refraction so it's balanced.
+
+116
+00:18:55,000 --> 00:19:03,619
+This happens automatically and this can be
+very tricky to do this manually in a material.
+
+117
+00:19:03,620 --> 00:19:07,019
+So you save a lot of time by using this
+
+118
+00:19:07,020 --> 00:19:10,249
+and it's much more intuitive.
+
+119
+00:19:10,250 --> 00:19:13,889
+This is a material that we got inspiration from.
+
+120
+00:19:13,890 --> 00:19:16,959
+Mental Ray.
+
+121
+00:19:16,960 --> 00:19:20,979
+This is a widely used one in the movie industry.
+
+122
+00:19:20,980 --> 00:19:28,859
+We studied it quite closely and tried to adapt it
+into a real-time version that worked fine in Unity.
+
+123
+00:19:28,860 --> 00:19:33,879
+So the bottom line for this shader is: we
+use it on almost everything in this movie
+
+124
+00:19:33,880 --> 00:19:41,350
+and it can be used for almost anything. Anything
+that is a hard surface material is able to have this.
+
+125
+00:19:42,890 --> 00:19:50,700
+That puts exceptions on organic materials, of course,
+and also such things as skin and eyes.
+
+126
+00:19:53,250 --> 00:19:58,750
+So I will demonstrate this in Unity.
+
+127
+00:19:58,775 --> 00:20:00,775
+Let's see...
+
+128
+00:20:00,800 --> 00:20:04,100
+Let me open up the file...
+
+129
+00:20:10,770 --> 00:20:15,760
+As you can see, the project has a lot of files.
+
+130
+00:20:19,085 --> 00:20:21,085
+Here we are.
+
+131
+00:20:29,039 --> 00:20:33,449
+What you can see here at the
+bottom is a sequencer that we
+
+132
+00:20:33,450 --> 00:20:40,129
+constructed for Passion Pictures to
+be able to scrub through shots
+
+133
+00:20:40,130 --> 00:20:45,765
+and be able to work directly
+in Unity with that
+
+134
+00:20:45,766 --> 00:20:53,099
+as they were animating or setting
+up various camera angles and such.
+
+135
+00:20:55,040 --> 00:20:57,410
+If I show the material...
+
+136
+00:20:57,435 --> 00:20:59,435
+Let's see...
+
+137
+00:21:01,160 --> 00:21:04,660
+If I pick this one, for example...
+
+138
+00:21:06,485 --> 00:21:08,485
+Sorry about that.
+
+139
+00:21:10,610 --> 00:21:12,610
+I can pick this one.
+
+140
+00:21:13,440 --> 00:21:21,450
+Let me hide some of the more irrelevant things for this.
+
+141
+00:21:40,210 --> 00:21:47,210
+Here we go, here's a simple example.
+
+142
+00:21:47,810 --> 00:21:49,519
+As you can see,
+
+143
+00:21:49,520 --> 00:21:55,475
+for those of you that are familiar with
+material inspector, we made some changes.
+
+144
+00:21:55,476 --> 00:22:06,999
+We made a custom material inspector for this to be able to
+fit all the properties that were necessary for this material.
+
+145
+00:22:07,000 --> 00:22:11,499
+Apart from having just a simple diffuse,
+you're able to adjust roughness.
+
+146
+00:22:11,500 --> 00:22:14,109
+I don't know if it's visible, but
+
+147
+00:22:14,110 --> 00:22:23,579
+that basically determines how rough
+the surface of this material is.
+
+148
+00:22:23,580 --> 00:22:32,009
+We have reflection, so we could basically
+adjust the specularity, as everything else.
+
+149
+00:22:32,010 --> 00:22:34,439
+Nothing really new there.
+
+150
+00:22:34,440 --> 00:22:41,440
+Reflectivity amounts so we can make it very reflective.
+
+151
+00:22:46,969 --> 00:22:59,450
+The reflectivity is taken from real time
+reflection probes that are placed in the world.
+
+152
+00:23:04,260 --> 00:23:09,589
+Let's see if I can bring this back up.
+
+153
+00:23:09,590 --> 00:23:11,329
+Glossiness.
+
+154
+00:23:11,330 --> 00:23:16,939
+So this was achieved by basically
+stepping through different mipmaps
+
+155
+00:23:16,940 --> 00:23:22,788
+of the cube map reflection.
+
+156
+00:23:22,789 --> 00:23:27,980
+So you could have it very shiny, or not.
+
+157
+00:23:28,180 --> 00:23:30,180
+Fresnel
+
+158
+00:23:31,150 --> 00:23:38,240
+or BRDF (bidirectional reflectance distribution function),
+as it is referred to as here
+
+159
+00:23:39,240 --> 00:23:46,800
+and two passes of normal maps that were
+basically applied onto each other and merged.
+
+160
+00:23:50,000 --> 00:23:54,928
+Let me continue.
+
+161
+00:23:54,929 --> 00:23:56,210
+So as you can see here,
+
+162
+00:23:56,211 --> 00:23:58,808
+these are two comparisons that we did.
+
+163
+00:23:58,809 --> 00:24:06,319
+On the left side we have the original
+Maya shader, the Mental Ray shader.
+
+164
+00:24:06,320 --> 00:24:16,569
+On the right side, you can see the results
+from the Unity adaptation of that shader.
+
+165
+00:24:16,570 --> 00:24:22,798
+These are basically spheres that we rendered
+in in an array with different amounts of
+
+166
+00:24:22,799 --> 00:24:32,509
+reflectivity, specular and other properties.
+
+167
+00:24:32,510 --> 00:24:33,970
+Skin Rendering.
+
+168
+00:24:33,995 --> 00:24:35,495
+This was actually--
+
+169
+00:24:35,520 --> 00:24:37,520
+One second, sorry...
+
+170
+00:24:43,460 --> 00:24:49,219
+The skin shader was derived from
+the Mental Ray-inspired shader.
+
+171
+00:24:49,220 --> 00:24:58,309
+Since it wasn't able to do organic materials,
+we tweaked it to actually do that.
+
+172
+00:24:58,310 --> 00:25:03,285
+As well as with the Maya shader, this one
+also is very intuitive for the CG artists.
+
+173
+00:25:03,286 --> 00:25:11,579
+Basically they have all the parameters that
+are available in their 3D program.
+
+174
+00:25:11,580 --> 00:25:18,390
+That includes having three different skin layers, two
+specular layers, and backscattering on the skin.
+
+175
+00:25:19,990 --> 00:25:25,400
+In some scenes you can see the sun
+hitting the character from behind.
+
+176
+00:25:28,670 --> 00:25:36,259
+Then the ears, which are the thinnest
+pieces of skin, are glowingly red.
+
+177
+00:25:36,260 --> 00:25:43,260
+That's basically the translucency
+as the sun is penetrating the skin.
+
+178
+00:25:43,570 --> 00:25:53,019
+Instead of using the DirectX 11 tesselation, we actually
+had a Catmull-Clark subdivided solution instead.
+
+179
+00:25:54,460 --> 00:26:00,179
+The character artists are much more
+acquainted with this kind of tesselation
+
+180
+00:26:00,180 --> 00:26:07,180
+and we were able to get much more
+identical results by having that.
+
+181
+00:26:10,370 --> 00:26:17,370
+I'm going to demonstrate the skin as well.
+
+182
+00:26:23,595 --> 00:26:25,095
+Just a minute...
+
+183
+00:26:34,920 --> 00:26:36,920
+Okay, let's open up the...
+
+184
+00:26:39,045 --> 00:26:42,845
+So I can find a good spot to look at skin.
+
+185
+00:26:42,870 --> 00:26:44,870
+Here he comes flying.
+
+186
+00:26:44,895 --> 00:26:46,895
+They're about there...
+
+187
+00:26:48,320 --> 00:26:49,420
+There.
+
+188
+00:26:51,145 --> 00:26:56,645
+Let's see if we can find him now in this shot.
+
+189
+00:27:06,200 --> 00:27:15,390
+He's already been tweaked a bit, so
+he's a little bit green at the moment.
+
+190
+00:27:15,779 --> 00:27:21,839
+In that case if we adjust the
+greenness back to a yellow color.
+
+191
+00:27:21,840 --> 00:27:28,840
+And close this so we can see better.
+
+192
+00:27:29,890 --> 00:27:34,890
+Give him a bit more yellow tint.
+
+193
+00:27:34,915 --> 00:27:35,915
+Sorry.
+
+194
+00:27:40,590 --> 00:27:44,510
+I can increase or decrease the different influences
+
+195
+00:27:46,910 --> 00:27:49,669
+from the various layers of skin,
+
+196
+00:27:49,670 --> 00:27:52,659
+change their color,
+
+197
+00:27:52,660 --> 00:27:56,178
+tweak normals if that's necessary,
+
+198
+00:27:56,179 --> 00:28:00,269
+the amount of blurriness of each layer,
+
+199
+00:28:00,270 --> 00:28:03,589
+and add AO (ambient occlusion) on top of that.
+
+200
+00:28:03,990 --> 00:28:09,489
+I don't think it's very visible unless it's in closeups.
+
+201
+00:28:09,490 --> 00:28:13,269
+Adjust the amount of backscattering on the skin,
+
+202
+00:28:13,270 --> 00:28:18,298
+how much it should saturate when
+the sun is actually hitting it,
+
+203
+00:28:18,299 --> 00:28:20,390
+reflectivity amounts.
+
+204
+00:28:20,415 --> 00:28:22,915
+So, let's see if we can--
+
+205
+00:28:22,940 --> 00:28:24,940
+Sorry.
+
+206
+00:28:24,965 --> 00:28:30,765
+If we can decrease or increase that...
+
+207
+00:28:59,050 --> 00:29:06,658
+As you can see on the tip of the ear,
+it's a little bit red and orange.
+
+208
+00:29:06,659 --> 00:29:15,009
+That's the backscattering that's showing there.
+
+209
+00:29:15,010 --> 00:29:22,010
+Let's see if we can bring that up.
+
+210
+00:29:26,810 --> 00:29:33,810
+I guess it's not visible on the screen.
+
+211
+00:29:39,940 --> 00:29:46,579
+Of course this one has, just like the Mental Ray
+shader, two normal maps that are overlapping, basically.
+
+212
+00:29:46,580 --> 00:29:51,359
+One that gives the detail in the skin, the pores
+
+213
+00:29:51,360 --> 00:30:05,350
+and one that supplies the bigger details,
+such as a wrinkles and creases.
+
+214
+00:30:06,909 --> 00:30:12,639
+To continue, next is hair and tesselation.
+
+215
+00:30:12,640 --> 00:30:16,639
+We use that for three
+different characters.
+
+216
+00:30:16,665 --> 00:30:20,255
+There is this old grandma that is driving the car,
+
+217
+00:30:20,330 --> 00:30:23,599
+there is the the bus driver,
+
+218
+00:30:23,600 --> 00:30:26,969
+and also the main character.
+
+219
+00:30:26,970 --> 00:30:39,769
+Apart from that we had a different variation
+of the hair generation on slippers.
+
+220
+00:30:39,770 --> 00:30:47,168
+So, using DirectX 11 we were able to
+generate hair and render it with tesselation.
+
+221
+00:30:47,169 --> 00:30:54,099
+This basically allowed us to
+sculpt any kind of hairstyle.
+
+222
+00:30:54,100 --> 00:31:00,459
+The hair was placed in Unity by adding
+emitter meshes to the character.
+
+223
+00:31:00,460 --> 00:31:10,119
+That was a separate mesh that just determined where, on what
+location, and which faces of the character should have hair.
+
+224
+00:31:10,120 --> 00:31:17,629
+We applied it to the top of the hair
+of the main character and eyebrows.
+
+225
+00:31:17,630 --> 00:31:20,589
+The grooming of the hair, the style...
+
+226
+00:31:20,615 --> 00:31:23,649
+the hairstyle...
+
+227
+00:31:23,650 --> 00:31:26,199
+the bedhead as he wakes up.
+
+228
+00:31:26,200 --> 00:31:29,919
+His hair is pointing in various
+directions and there's another
+
+229
+00:31:29,920 --> 00:31:37,798
+set of hair when he's going at full speed when the
+hair is actually animated backwards and moving.
+
+230
+00:31:37,799 --> 00:31:44,379
+This was done in in a 3D program.
+
+231
+00:31:44,380 --> 00:31:47,118
+Specifically for this it was XSI,
+
+232
+00:31:47,119 --> 00:31:57,209
+where the character artists were able to set
+up guide hairs to sculpt the hair as they liked.
+
+233
+00:31:59,010 --> 00:32:06,010
+So I will show the hair for you.
+
+234
+00:32:09,535 --> 00:32:11,535
+Okay.
+
+235
+00:32:29,240 --> 00:32:37,198
+Bring back this, as flying through the alley.
+
+236
+00:32:37,299 --> 00:32:43,149
+Good thing the rope wrapped around his leg.
+
+237
+00:32:43,150 --> 00:32:45,129
+Stop right there.
+
+238
+00:32:45,130 --> 00:32:48,630
+Now look at him.
+
+239
+00:32:54,894 --> 00:32:56,894
+I'll close this.
+
+240
+00:33:00,220 --> 00:33:07,759
+He's a little bit shinier now since
+we just changed the material.
+
+241
+00:33:07,760 --> 00:33:09,769
+So a close-up.
+
+242
+00:33:12,090 --> 00:33:19,199
+As you can see we cheated a bit with the shadows of the
+hair by just painting it directly into the diffuse map.
+
+243
+00:33:19,200 --> 00:33:21,239
+That worked quite well.
+
+244
+00:33:21,240 --> 00:33:36,260
+We had a special solution for some close-ups where we just made
+up a variant of the skin that was missing the painted shadows.
+
+245
+00:33:37,920 --> 00:33:40,869
+So this hair was able to LOD.
+
+246
+00:33:40,870 --> 00:33:45,699
+There were levels of detail of the hair depending on
+the distance that were determined automatically.
+
+247
+00:33:45,700 --> 00:33:49,279
+So it goes from very detailed hair to
+
+248
+00:33:49,280 --> 00:33:55,399
+thicker and fewer strands of hair.
+
+249
+00:33:55,400 --> 00:33:58,330
+You can adjust the length.
+
+250
+00:34:01,080 --> 00:34:08,198
+Clumping, that's the grease in the hair that
+basically ties the strands of hair together.
+
+251
+00:34:08,199 --> 00:34:15,199
+This causes a much more natural look.
+
+252
+00:34:17,439 --> 00:34:23,118
+Various parameters such as noise,
+to create a bit of irregularity
+
+253
+00:34:23,119 --> 00:34:25,538
+and wind animation speed.
+
+254
+00:34:25,539 --> 00:34:31,878
+That's the movement that's happening
+in the hair as he's going down the hill.
+
+255
+00:34:31,879 --> 00:34:41,648
+There's no advanced simulation for that hair,
+it's basically just noise displacing the tesselation,
+
+256
+00:34:41,649 --> 00:34:46,549
+the tesselated surfaces.
+
+257
+00:34:46,849 --> 00:34:59,708
+You can play a bit with with the hair color I
+think, to get an understanding of what we have.
+
+258
+00:34:59,709 --> 00:35:02,589
+We added a fake rim to it.
+
+259
+00:35:03,589 --> 00:35:06,678
+Let's see if I can demonstrate that so you can see.
+
+260
+00:35:06,679 --> 00:35:09,198
+Along the edges, there's a bit of red.
+
+261
+00:35:09,199 --> 00:35:21,199
+This rim helped us create fake lighting for the
+hair that gave a bit more of a fuzzy look to it.
+
+262
+00:35:21,224 --> 00:35:25,224
+Here we go, now you can see how it's...
+
+263
+00:35:42,989 --> 00:35:52,408
+That's basically just scratching the surface
+of all the things we can do with the hair.
+
+264
+00:35:52,409 --> 00:35:57,159
+Now I'll show you how it worked
+with the fur version of this also.
+
+265
+00:36:26,249 --> 00:36:32,648
+This is the scene where he's going
+down the hill and flying off.
+
+266
+00:36:32,649 --> 00:36:39,198
+Let's rewind and have a look at this.
+
+267
+00:36:39,199 --> 00:36:46,199
+Look at the slippers.
+
+268
+00:36:56,524 --> 00:37:01,324
+Close this window to get a bit more space on the desktop.
+
+269
+00:37:02,699 --> 00:37:09,429
+This is how they are very close up.
+
+270
+00:37:12,959 --> 00:37:23,639
+You get somewhat similar types of shading as we
+could do with physically-based material
+
+271
+00:37:23,669 --> 00:37:28,038
+and some parameters basically just to control the hair.
+
+272
+00:37:28,139 --> 00:37:40,298
+So there's length, and that could make them very fuzzy.
+
+273
+00:37:40,299 --> 00:37:43,409
+Or...
+
+274
+00:37:45,409 --> 00:37:52,158
+Control the clumping of those as
+well, so you could get thicker hair.
+
+275
+00:37:52,159 --> 00:38:01,739
+Color, some nice pink ones.
+
+276
+00:38:03,129 --> 00:38:10,129
+And adjust the specularity,
+the shine on the hairs, basically.
+
+277
+00:38:16,779 --> 00:38:19,888
+Going back to this,
+
+278
+00:38:19,889 --> 00:38:21,878
+The post-effects.
+
+279
+00:38:21,879 --> 00:38:26,938
+As I mentioned earlier we had a lot
+of post-effects applied to this
+
+280
+00:38:26,939 --> 00:38:33,249
+I will shortly demonstrate how many there were
+and what they actuallly did to the final shot.
+
+281
+00:38:34,639 --> 00:38:40,248
+The big things that we added to
+this were depth of field and bokeh.
+
+282
+00:38:40,249 --> 00:38:44,879
+That was specificially due to the
+requirements of the CG studio.
+
+283
+00:38:44,880 --> 00:38:52,448
+This was combined with an anti-aliasing
+that was very DoF, depth of field, aware.
+
+284
+00:38:52,449 --> 00:38:56,838
+So it worked very nicely together
+with the character and the hair.
+
+285
+00:38:56,839 --> 00:39:01,469
+We were able to have depth of field
+blur behind the hair of the character
+
+286
+00:39:01,470 --> 00:39:10,078
+without any obvious interference or artifacts.
+
+287
+00:39:10,079 --> 00:39:14,999
+We had two layers of high dynamic range
+bloom placed on top of each other.
+
+288
+00:39:15,300 --> 00:39:26,538
+One worked basically like a bit of tone mapping and the
+other one gave the glows around specular highlights.
+
+289
+00:39:26,539 --> 00:39:32,459
+We had an RGB channel noise and grain,
+which is not something extraordinary
+
+290
+00:39:32,460 --> 00:39:37,478
+but it was interesting to see that
+these artists were using.
+
+291
+00:39:37,479 --> 00:39:51,968
+Instead of having a global noise they were working with
+the noise amounts differently in the various RGB channels.
+
+292
+00:39:51,969 --> 00:39:55,538
+On top of that we added color
+correction, the grading
+
+293
+00:39:55,539 --> 00:39:59,918
+which we did with 3D lookup tables.
+
+294
+00:39:59,919 --> 00:40:06,919
+So let me quickly demonstrate this.
+
+295
+00:40:29,389 --> 00:40:31,768
+So you may recognize this scene.
+
+296
+00:40:31,769 --> 00:40:36,619
+He is again flying,
+
+297
+00:40:38,149 --> 00:40:42,938
+this time through a diner.
+
+298
+00:40:42,939 --> 00:40:48,680
+So this is how it looks without the particle effects.
+
+299
+00:40:55,939 --> 00:41:00,299
+Let's play it.
+
+300
+00:41:07,409 --> 00:41:21,739
+I will do a breakdown now of the various post-effects
+and you will be able to see how it was added on this.
+
+301
+00:41:22,709 --> 00:41:33,468
+As you can see in this inspector these are all the
+different types of components that we added on top.
+
+302
+00:41:33,469 --> 00:41:38,098
+Camera jitter was something that we
+added to camera at a very late stage
+
+303
+00:41:38,099 --> 00:41:44,248
+because it gave a bit more of a documentary
+feel to it, a bit more lively camera.
+
+304
+00:41:44,249 --> 00:41:50,498
+It's basically just randomly
+offsetting the camera a little bit.
+
+305
+00:41:50,499 --> 00:41:59,768
+Hardly noticeable but still gives a
+much less artificial camera movement.
+
+306
+00:41:59,769 --> 00:42:01,368
+Noise and grain,
+
+307
+00:42:01,369 --> 00:42:09,679
+but I guess that's not very visible
+up there on this big screen.
+
+308
+00:42:13,089 --> 00:42:17,018
+There was an overlay
+
+309
+00:42:17,019 --> 00:42:23,898
+light bleeding simulated with just a plain
+texture that we put on top that was
+
+310
+00:42:23,899 --> 00:42:28,549
+supposed to look like light actually
+hit through the camera lens.
+
+311
+00:42:29,549 --> 00:42:34,038
+The grading,
+
+312
+00:42:34,039 --> 00:42:36,158
+the bloom,
+
+313
+00:42:36,159 --> 00:42:39,458
+second pass of bloom,
+
+314
+00:42:39,459 --> 00:42:45,318
+the vignette, basically the darker areas
+around the frame.
+
+315
+00:42:45,319 --> 00:42:46,978
+Anti-aliasing,
+
+316
+00:42:46,979 --> 00:42:50,738
+depth of field,
+
+317
+00:42:50,739 --> 00:42:57,108
+screen space, or in fact we used
+horizontally-based ambient occlusion,
+
+318
+00:42:57,109 --> 00:42:58,548
+and blur.
+
+319
+00:42:58,549 --> 00:43:08,669
+So this is how the shot looked completely untreated
+
+320
+00:43:11,319 --> 00:43:21,359
+and this is how it ended
+up looking in the final.
+
+321
+00:43:23,289 --> 00:43:25,508
+Going back to this,
+
+322
+00:43:25,509 --> 00:43:28,089
+we had some volumetric explosions in the end.
+
+323
+00:43:30,039 --> 00:43:36,688
+We initially thought about doing this with fluids,
+but it just proved to be slightly too expensive
+
+324
+00:43:36,689 --> 00:43:39,959
+and a bit too difficult for us to actually control.
+
+325
+00:43:40,969 --> 00:43:47,209
+Instead, we went for a distance
+field-ray marching variant.
+
+326
+00:43:47,210 --> 00:43:54,568
+This is just a volume rendering technique that is able
+to process volume data instead of surface data
+
+327
+00:43:54,569 --> 00:43:57,490
+like a ray caster does.
+
+328
+00:43:59,409 --> 00:44:06,378
+On top of this, as you can see in the
+bottom right there we had volumes.
+
+329
+00:44:06,379 --> 00:44:11,429
+These volumes were given
+its surface, this pyroclastic surface
+
+330
+00:44:11,430 --> 00:44:21,118
+by offsetting the various parts of the
+original sphere with Perlin noise.
+
+331
+00:44:21,119 --> 00:44:29,900
+The shade, or the color, the value of the
+surface was based on the displacement distance.
+
+332
+00:44:31,079 --> 00:44:40,879
+So the further the distance was from the center of the
+fireball, or the sphere, the darker and grayer it became.
+
+333
+00:44:40,880 --> 00:44:50,088
+So at the very center it's warm and orange
+and it gradually gets darker and grayer.
+
+334
+00:44:50,089 --> 00:44:52,938
+This gives a smoky effect.
+
+335
+00:44:52,939 --> 00:44:58,538
+These volumes unexpectedly worked
+very well with world geometry.
+
+336
+00:44:58,539 --> 00:45:02,808
+They fit in nicely and we were able to wrap
+them around corners of houses or buildings
+
+337
+00:45:02,809 --> 00:45:08,398
+or fit the character to blend
+very nicely with them or busses,
+
+338
+00:45:08,399 --> 00:45:12,128
+as in this shot.
+
+339
+00:45:12,129 --> 00:45:14,944
+Also the particles work very fine with that.
+
+340
+00:45:14,945 --> 00:45:19,259
+Initially we added smoke particles
+that were combined with this effect
+
+341
+00:45:19,359 --> 00:45:27,608
+but the end and we ended up not using them because
+they didn't add as much as we anticipated.
+
+342
+00:45:27,609 --> 00:45:33,838
+Also, I should note that this effect could could be lit
+
+343
+00:45:33,839 --> 00:45:38,348
+and therefore also have ambient occlusion added to it.
+
+344
+00:45:38,349 --> 00:45:41,748
+So we've got a very defined surface to this
+
+345
+00:45:41,749 --> 00:45:48,749
+I will demonstrate how they appear.
+
+346
+00:45:48,774 --> 00:45:51,774
+Right here...
+
+347
+00:45:58,599 --> 00:46:01,599
+Just a minute...
+
+348
+00:46:12,239 --> 00:46:14,031
+This is the effect.
+
+349
+00:46:14,057 --> 00:46:16,198
+Boom!
+
+350
+00:46:16,199 --> 00:46:20,048
+He flies off.
+
+351
+00:46:20,049 --> 00:46:22,978
+There's the fireball in the background.
+
+352
+00:46:22,979 --> 00:46:27,169
+So I will show how this is made.
+
+353
+00:46:27,194 --> 00:46:29,194
+So let's get rid of everything
+
+354
+00:46:29,219 --> 00:46:35,219
+and then let's pick out the effect.
+
+355
+00:46:40,744 --> 00:46:46,044
+Actually, let's bring it back, in fact.
+
+356
+00:47:02,509 --> 00:47:11,348
+The user is able to control this by
+just applying it to primitive spheres.
+
+357
+00:47:11,349 --> 00:47:14,438
+It works basically like this.
+
+358
+00:47:14,439 --> 00:47:16,978
+This was a sphere originally
+
+359
+00:47:16,979 --> 00:47:21,368
+I think if you look at it through a
+wireframe it's not even rendered
+
+360
+00:47:21,369 --> 00:47:28,329
+as it's not typical geometric data.
+
+361
+00:47:28,399 --> 00:47:31,949
+Then we could scale it, I think.
+
+362
+00:47:32,949 --> 00:47:36,449
+Or not, possibly.
+
+363
+00:47:48,519 --> 00:47:53,478
+That's basically how that worked.
+
+364
+00:47:53,479 --> 00:48:02,858
+I'm running out of time here, so I will skip
+these examples that I added towards the end.
+
+365
+00:48:02,859 --> 00:48:07,248
+But feel free to contact me and I
+will show them to you after this talk.
+
+366
+00:48:07,249 --> 00:48:13,109
+If you're interested in seeing
+them, I will be around for a while.
+
+367
+00:48:14,449 --> 00:48:19,388
+Thank you to everyone involved both
+from Passion Pictures and nVidia
+
+368
+00:48:19,389 --> 00:48:27,380
+I hope you enjoyed the talk and, as I said, feel free to get in
+touch and I will explain more about the procedure for you.
+
+369
+00:48:28,005 --> 00:48:30,005
+Thank you.

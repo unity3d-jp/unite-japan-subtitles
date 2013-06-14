@@ -1,0 +1,1743 @@
+﻿1
+00:01:48,290 --> 00:01:52,010
+Hello, it's very good to see all of you here today.
+
+2
+00:01:52,010 --> 00:01:55,880
+My name is Na'Tosha Bard.
+
+3
+00:01:55,880 --> 00:02:00,100
+I am a lead software developer at Unity.
+
+4
+00:02:00,100 --> 00:02:07,070
+Originally I'm from America, but about three years ago
+I moved to Copenhagen, Denmark to work for Unity.
+
+5
+00:02:07,070 --> 00:02:14,900
+Now as a software developer for Unity, I
+work on a lot of many different things,
+
+6
+00:02:14,900 --> 00:02:16,939
+but the reason why I'm here today
+
+7
+00:02:16,939 --> 00:02:19,839
+is because i'm one of the Linux
+platform developers.
+
+8
+00:02:19,839 --> 00:02:24,969
+And i'm going to talk to you about Linux publishing in Unity 4.
+
+9
+00:02:24,969 --> 00:02:28,430
+This presentation is going
+to be probably a bit shorter
+
+10
+00:02:28,430 --> 00:02:31,049
+then the rest that you've seen.
+
+11
+00:02:31,049 --> 00:02:35,440
+I'm gonna first cover a
+brief introduction to Linux
+
+12
+00:02:35,440 --> 00:02:41,059
+for those who may have not used it
+before and are wondering what it is.
+
+13
+00:02:41,059 --> 00:02:44,750
+Then we're going to talk a bit about about the
+state of gaming on Linux
+
+14
+00:02:44,750 --> 00:02:47,459
+in the past and today.
+
+15
+00:02:47,459 --> 00:02:57,913
+And then finally I want to talk specifically
+about the Linux export feature in Unity 4.
+
+16
+00:02:57,939 --> 00:03:02,759
+So I would actually like to get to know
+you a bit better before we begin, so I'm
+
+17
+00:03:02,759 --> 00:03:06,959
+going to ask a couple of
+questions to the audience.
+
+18
+00:03:06,959 --> 00:03:08,809
+First of all,
+
+19
+00:03:08,809 --> 00:03:11,249
+how many people in here personally
+
+20
+00:03:11,249 --> 00:03:18,249
+use or have used Linux, could
+you just raise your hand?
+
+21
+00:03:19,049 --> 00:03:25,040
+OK, that's a higher number than I
+expected. So that makes me very happy.
+
+22
+00:03:25,040 --> 00:03:30,150
+Second of all, how many of you either
+already are or are planning to
+
+23
+00:03:30,150 --> 00:03:32,759
+publish your game onto
+the Windows or Mac
+
+24
+00:03:32,759 --> 00:03:35,566
+desktop, in addition
+to any other platforms
+
+25
+00:03:35,592 --> 00:03:40,399
+that you already are publishing to
+
+26
+00:03:43,499 --> 00:03:47,209
+So let's get started.
+
+27
+00:03:47,209 --> 00:03:50,579
+Now first of all, what is Linux?
+
+28
+00:03:50,579 --> 00:03:53,349
+This may be a bit redundant for
+
+29
+00:03:53,349 --> 00:03:56,849
+those of you that have used it before
+but they are some people I could see
+
+30
+00:03:56,849 --> 00:04:02,569
+in the audience that haven't
+so I will cover this section.
+
+31
+00:04:02,569 --> 00:04:05,959
+Linux is a Unix like operating system
+
+32
+00:04:05,959 --> 00:04:12,109
+and it's the third most popular operating
+system in the world behind Mac OSX.
+
+33
+00:04:12,109 --> 00:04:17,269
+The defining characteristic of
+Linux is the Linux kernel.
+
+34
+00:04:17,269 --> 00:04:20,459
+And all of the software on
+top of the Linux kernel
+
+35
+00:04:20,459 --> 00:04:24,839
+can come from anywhere
+and be developed by anybody.
+
+36
+00:04:24,839 --> 00:04:29,869
+The main user space tools and applications
+come from what is known as the GNU project.
+
+37
+00:04:37,880 --> 00:04:40,419
+The most unique characteristic of Linux
+
+38
+00:04:40,419 --> 00:04:43,139
+is the fact that it's open source.
+
+39
+00:04:43,139 --> 00:04:49,349
+In fact it is it is one of the most prominent examples
+of free and open source software collaboration.
+
+40
+00:04:49,349 --> 00:04:56,990
+And this is one of the reasons why, I personally,
+am very, very passionate about Linux and have been
+
+41
+00:04:56,990 --> 00:05:02,830
+a Linux user for many many years. Long
+before I ever came to work for Unity.
+
+42
+00:05:02,830 --> 00:05:07,360
+The fact that it is open source means
+that the underlying source code
+
+43
+00:05:07,360 --> 00:05:14,999
+can be used, modified, or distributed
+either commercially or non-commercially
+
+44
+00:05:14,999 --> 00:05:21,810
+by anyone under an applicable license.
+
+45
+00:05:21,810 --> 00:05:24,349
+Now this open source nature of Linux
+
+46
+00:05:24,349 --> 00:05:30,099
+has led to the creation and distribution
+of a huge number of Linux distributions.
+
+47
+00:05:30,099 --> 00:05:34,810
+Some of the most popular of these distributions
+are represented here on this side
+
+48
+00:05:34,810 --> 00:05:43,690
+You can see distributions like Ubuntu,
+Debian and Fedora and several others.
+
+49
+00:05:43,690 --> 00:05:48,500
+A Linux distribution will be a packaged
+installer or a live boot disk consisting
+
+50
+00:05:48,500 --> 00:05:55,029
+of the Linux kernel and usually a set of
+libraries and utilities from the GNU  project.
+
+51
+00:05:55,029 --> 00:06:01,129
+Graphics support for desktop distributions
+is provided by the X-Window system.
+
+52
+00:06:01,129 --> 00:06:03,809
+Some distributions are commercially backed,
+
+53
+00:06:03,809 --> 00:06:06,960
+such as Ubuntu, Red Hat and openSUSE,
+
+54
+00:06:06,960 --> 00:06:11,149
+and other distributions are community driven.
+
+55
+00:06:11,149 --> 00:06:20,400
+Obviously both commercially backed and community
+driven distributions have been quite successful.
+
+56
+00:06:20,400 --> 00:06:24,530
+Linux has been ported to more platforms
+than any other operating system.
+
+57
+00:06:24,530 --> 00:06:28,090
+And distributions exist not only for the
+desktop but for servers for mobile
+
+58
+00:06:28,090 --> 00:06:31,599
+phones, for embedded systems
+and many other platforms.
+
+59
+00:06:31,599 --> 00:06:37,929
+Many of the devices of course that are around you
+everyday are actually running Linux internally,
+
+60
+00:06:37,929 --> 00:06:44,052
+but the environments that are most interesting for
+gaming are the desktop and server platforms.
+
+61
+00:06:44,078 --> 00:06:48,429
+So that's what we'll focus on for
+the rest of this talk.
+
+62
+00:06:50,729 --> 00:06:55,535
+One other bit of exciting news
+for Linux is that recently
+
+63
+00:06:55,561 --> 00:07:00,590
+China announced Ubuntu as its
+state endorsed operating system.
+
+64
+00:07:00,590 --> 00:07:04,089
+Canonical, which is Ubuntu’s
+commercial backer
+
+65
+00:07:04,089 --> 00:07:08,939
+is working alongside the Chinese ministry
+of industry and information technology
+
+66
+00:07:08,939 --> 00:07:12,289
+to bring a suitable Ubuntu version to China.
+
+67
+00:07:12,289 --> 00:07:16,819
+So that's just what I believe to be an interesting
+
+68
+00:07:16,819 --> 00:07:21,449
+thing to note about the
+state of Linux today.
+
+69
+00:07:21,449 --> 00:07:27,300
+And now I want to cover just a few technical
+facts about Linux for those who may not not know.
+
+70
+00:07:27,300 --> 00:07:30,300
+The Linux Kernel is written in
+the programming language C.
+
+71
+00:07:30,300 --> 00:07:32,490
+Probably most people have heard that
+
+72
+00:07:33,740 --> 00:07:41,129
+the kernel was originally released by a man
+named Linus Torvalds who is from Finland,
+
+73
+00:07:42,979 --> 00:07:49,900
+but due to the open source nature of Linux,
+he is only the author of about 2% of
+
+74
+00:07:49,900 --> 00:08:00,059
+the kernel code now. The other 98% has been
+written by open-source contributors around the world.
+
+75
+00:08:00,059 --> 00:08:05,220
+Linux is much more popular in
+the server space, most definitely,
+
+76
+00:08:05,220 --> 00:08:08,650
+but desktop usage is growing steadily.
+
+77
+00:08:08,650 --> 00:08:14,050
+For rendering Linux uses
+OpenGL just like Mac OSX,
+
+78
+00:08:14,050 --> 00:08:17,909
+while Windows of course uses is Direct3D.
+
+79
+00:08:17,909 --> 00:08:22,229
+One interesting characteristic of Linux is that
+
+80
+00:08:22,255 --> 00:08:27,089
+server-based installs often
+have no GUI whatsoever.
+
+81
+00:08:27,089 --> 00:08:33,170
+This is relevant for gaming because that
+means applications that were designed
+
+82
+00:08:33,170 --> 00:08:41,890
+to run specifically on a desktop are in many cases not
+going to be able to run out of the box on the server.
+
+83
+00:08:41,890 --> 00:08:48,830
+And then another interesting, what I believe to be
+an interesting fact about Linux is that it is run on 90% of the
+
+84
+00:08:48,830 --> 00:08:51,510
+world's supercomputers.
+
+85
+00:08:51,510 --> 00:08:57,900
+One of these supercomputers is owned
+by a company called Weta Digital.
+
+86
+00:08:57,900 --> 00:09:02,040
+Weta Digital used their Linux cluster which
+was running, I believe, Red Hat Linux
+
+87
+00:09:03,800 --> 00:09:06,480
+for the creation of the film Avatar.
+
+88
+00:09:06,480 --> 00:09:19,424
+So we're seeing recently how Linux is becoming more and
+more important in the area of digital content creation.
+
+89
+00:09:19,450 --> 00:09:25,050
+So now that we've had a brief overview
+and an introduction to Linux itself,
+
+90
+00:09:25,050 --> 00:09:28,770
+let's go over a very brief
+history of gaming on Linux,
+
+91
+00:09:28,770 --> 00:09:35,770
+and then we'll talk about the state of gaming on Linux
+today and how that is relevant to Unity developers.
+
+92
+00:09:35,840 --> 00:09:42,150
+Historically, Linux hasn't been seen as what we
+would think of as a serious gaming platform.
+
+93
+00:09:42,150 --> 00:09:46,230
+It shared a lot of history with
+the Unix gaming scene,
+
+94
+00:09:46,230 --> 00:09:52,220
+and commercial support for Linux started in
+the early nineties with the release of Doom.
+
+95
+00:09:52,220 --> 00:09:56,715
+Although we saw a steady
+stream of open source games
+
+96
+00:09:56,741 --> 00:10:03,790
+and a few proprietary titles released over the
+years, it's taken a long time for Linux to start
+
+97
+00:10:03,816 --> 00:10:08,670
+being seen as a platform
+worth targeting.
+
+98
+00:10:10,970 --> 00:10:16,900
+There are a couple of reasons for why
+this transition has happened so slowly.
+
+99
+00:10:16,900 --> 00:10:26,470
+In particular their are a few notable
+stumbling blocks that I will discuss briefly.
+
+100
+00:10:26,470 --> 00:10:32,800
+The first one is a historical lack
+of good graphics drivers.
+
+101
+00:10:32,800 --> 00:10:37,010
+Several years ago all graphics drivers
+for Linux had to be developed by reverse
+
+102
+00:10:37,010 --> 00:10:43,080
+engineering the proprietary drivers for Windows.
+
+103
+00:10:43,080 --> 00:10:47,910
+These drivers in many cases didn't work
+very well, particularly for gaming.
+
+104
+00:10:47,910 --> 00:10:53,160
+Not only because they would have a lot of bugs
+and a lot of instabilities, but because they
+
+105
+00:10:53,160 --> 00:10:58,259
+couldn't take full advantage of the features
+of the graphics card in the same way that
+
+106
+00:10:58,259 --> 00:11:02,630
+a proprietary driver would be able to.
+
+107
+00:11:02,630 --> 00:11:06,069
+Now luckily for us, this
+situation has changed,
+
+108
+00:11:06,069 --> 00:11:10,560
+and we now have proprietary
+drivers being supplied directly by
+
+109
+00:11:10,560 --> 00:11:20,435
+AMD, Intel and Nvidia--the predominant
+graphics card manufacturers.
+
+110
+00:11:24,420 --> 00:11:29,140
+Another common historical
+stumbling block
+
+111
+00:11:29,140 --> 00:11:32,670
+is a a concern that
+has always existed
+
+112
+00:11:32,670 --> 00:11:38,490
+about supporting a large
+number of Linux distributions.
+
+113
+00:11:38,490 --> 00:11:42,050
+They've always been concerns,
+even within Unity technologies,
+
+114
+00:11:42,050 --> 00:11:49,520
+about how it could actually be possible to
+support so many different Linux distributions.
+
+115
+00:11:49,520 --> 00:11:58,030
+You can see here a graph of the split
+of Linux distributions up through 2011.
+
+116
+00:11:58,030 --> 00:12:01,340
+So this data is about two years old,
+
+117
+00:12:01,340 --> 00:12:06,890
+but you can see a huge number of Linux
+distributions that are still active today.
+
+118
+00:12:08,050 --> 00:12:10,690
+For those who don't know, Linux distributions
+
+119
+00:12:10,690 --> 00:12:17,430
+can generally be grouped
+into three groups, and
+
+120
+00:12:17,430 --> 00:12:21,220
+the difference between
+these three groups
+
+121
+00:12:21,220 --> 00:12:26,670
+revolves around the package
+management system.
+
+122
+00:12:26,670 --> 00:12:31,450
+And when I say package management system,
+I'm speaking about the system that is
+
+123
+00:12:31,450 --> 00:12:36,633
+used for actually
+bundling and distributing
+
+124
+00:12:36,659 --> 00:12:41,110
+and installing
+applications and tools.
+
+125
+00:12:41,110 --> 00:12:45,220
+This graph shows that we have
+
+126
+00:12:45,220 --> 00:12:48,930
+three primary groups
+of Linux distributions.
+
+127
+00:12:48,930 --> 00:12:52,680
+One, which is shown on the top are Debian
+based distributions and for package management
+
+128
+00:12:52,680 --> 00:12:57,710
+they use what we call "deb packages."
+
+129
+00:12:57,710 --> 00:13:02,760
+The bottom group are what we call "Red Hat"
+or "rpm based" distributions,
+
+130
+00:13:02,760 --> 00:13:08,520
+and for package management
+they use rpm packages.
+
+131
+00:13:08,520 --> 00:13:12,800
+And then the middle group are what
+we call source based distributions,
+
+132
+00:13:12,800 --> 00:13:17,510
+and the way that these distributions
+solve the problem of package management
+
+133
+00:13:17,510 --> 00:13:21,580
+is by downloading, compiling and
+installing all applications and tools
+
+134
+00:13:21,580 --> 00:13:29,279
+directly from source. So we see
+a large number of distributions,
+
+135
+00:13:29,279 --> 00:13:32,500
+and there are some differences between them.
+
+136
+00:13:32,500 --> 00:13:38,670
+But the good thing here, is that these various
+distributions are all fundamentally the same.
+
+137
+00:13:38,670 --> 00:13:41,640
+They will run the same Linux kernel,
+
+138
+00:13:41,640 --> 00:13:45,780
+they're all going to have a C++ runtime,
+
+139
+00:13:45,780 --> 00:13:50,200
+and they will use X11 for input
+and window management.
+
+140
+00:13:50,200 --> 00:13:54,760
+So even though it looks like a very
+difficult problem to solve,
+
+141
+00:13:54,760 --> 00:14:04,500
+the problem is not actually
+as big as one would think.
+
+142
+00:14:04,500 --> 00:14:09,350
+Another likely reason that Linux hasn't
+been targeted as a serious gaming platform
+
+143
+00:14:09,350 --> 00:14:14,910
+is a concern that Linux users won't
+actually pay for commercial games.
+
+144
+00:14:14,910 --> 00:14:22,040
+This has always been a concern and
+it's also a never-ending cycle,
+
+145
+00:14:22,040 --> 00:14:27,010
+because historically very few commercial
+vendors have brought games to Linux and so
+
+146
+00:14:27,010 --> 00:14:28,749
+we've had very little data
+
+147
+00:14:28,749 --> 00:14:33,460
+to indicate whether or not there actually
+is a commercial market for Linux.
+
+148
+00:14:33,460 --> 00:14:40,100
+Because of that people have not shipped
+more games for Linux and then we
+
+149
+00:14:40,100 --> 00:14:45,680
+still can gather data and this is just
+continued over the years.
+
+150
+00:14:45,680 --> 00:14:51,230
+In the years past we have seen a few games
+that were shipped commercially for Linux
+
+151
+00:14:51,230 --> 00:14:54,260
+turn out to be very, very successful.
+
+152
+00:14:54,260 --> 00:14:57,140
+And more recently initiatives like the
+Humble Indie Bundle
+
+153
+00:14:57,140 --> 00:14:59,230
+have indicated that the demand for
+
+154
+00:14:59,230 --> 00:15:02,670
+commercial games on Linux is growing and
+it's not as insignificant as we once thought.
+
+155
+00:15:07,970 --> 00:15:15,670
+so knowing this, let's talk about the
+current state of gaming on Linux.
+
+156
+00:15:15,670 --> 00:15:21,120
+In 2012, two significant things
+happened for gaming on Linux.
+
+157
+00:15:21,120 --> 00:15:26,190
+First of all, Valve announced
+Steam support for Linux,
+
+158
+00:15:26,190 --> 00:15:31,310
+and second of all Unity announced
+Linux runtime support.
+
+159
+00:15:31,310 --> 00:15:36,670
+Steam support for Linux was
+announced in July of 2012
+
+160
+00:15:36,670 --> 00:15:40,570
+and Valve shipped a beta
+client in December of 2012.
+
+161
+00:15:40,570 --> 00:15:43,069
+Official support for Linux
+in the Steam client
+
+162
+00:15:43,069 --> 00:15:48,050
+was released in February of this year,
+so not very long ago.
+
+163
+00:15:48,050 --> 00:15:50,120
+Linux runtime support in Unity
+
+164
+00:15:50,120 --> 00:15:54,910
+launched with a game called Rochard and Humble Indie Bundle 6.
+
+165
+00:15:54,910 --> 00:15:58,160
+Since then games like Splice and Snuggle Truck,
+
+166
+00:15:58,160 --> 00:15:59,840
+which are some well known Unity games,
+
+167
+00:15:59,840 --> 00:16:03,230
+have followed in later Humble Indie Bundles.
+
+168
+00:16:03,230 --> 00:16:09,180
+And other Unity games for Linux have shown
+up on other distribution platforms as well.
+
+169
+00:16:09,180 --> 00:16:20,805
+I will go over the current set of distribution
+platforms available for Linux in a minute.
+
+170
+00:16:21,150 --> 00:16:25,890
+In 2013, Linux continues to grow.
+
+171
+00:16:25,890 --> 00:16:33,540
+This year a minimum of fifty million computers
+will ship with Ubuntu Linux pre-installed.
+
+172
+00:16:33,540 --> 00:16:38,260
+Linux market share on the desktop is
+something that is really hard to estimate.
+
+173
+00:16:38,260 --> 00:16:43,230
+it's definitely small, especially compared
+to the market share of Windows,
+
+174
+00:16:43,230 --> 00:16:45,850
+but it is growing.
+
+175
+00:16:45,850 --> 00:16:50,580
+From 2008 to 2009 alone, Linux
+market share calculated
+
+176
+00:16:50,580 --> 00:16:58,210
+via web browser analytics,
+rose from 1.3 to 2.2%,
+
+177
+00:16:58,210 --> 00:17:06,080
+but the browser-based estimation is primarily
+a North American based web measurement.
+
+178
+00:17:06,080 --> 00:17:10,761
+So it's not believed to be a good indicator
+
+179
+00:17:10,787 --> 00:17:15,230
+of what is happening in the entire world.
+
+180
+00:17:15,230 --> 00:17:19,380
+Linux has a much higher penetration
+in non-North American markets
+
+181
+00:17:19,380 --> 00:17:29,885
+and it's actually estimated to be as high as between
+eight and twelve percent in some Asian countries.
+
+182
+00:17:31,930 --> 00:17:38,440
+Next, I would like to cover a few of the
+top distribution methods for Linux
+
+183
+00:17:38,440 --> 00:17:43,130
+because after we released
+Linux runtime support
+
+184
+00:17:43,130 --> 00:17:46,480
+one of the most common
+questions we actually got was,
+
+185
+00:17:46,480 --> 00:17:52,740
+"It's fantastic that I can publish my
+game for Linux now, but I have no idea
+
+186
+00:17:52,740 --> 00:17:59,740
+how to actually ship it to
+potential customers."
+
+187
+00:18:02,730 --> 00:18:07,150
+The most successful distribution
+method for Linux is Steam.
+
+188
+00:18:07,150 --> 00:18:13,080
+Steam for Linux launched publicly in
+February of this year, as I mentioned earlier.
+
+189
+00:18:13,080 --> 00:18:18,580
+Statistics from March show that about 2%
+of all Steam users are on some variant of Linux,
+
+190
+00:18:18,580 --> 00:18:24,500
+compared to about 3%
+on some version of Mac OSX.
+
+191
+00:18:24,500 --> 00:18:29,180
+One thing to note is that many Unity
+games actually getting into Steam via
+
+192
+00:18:29,180 --> 00:18:32,440
+a program called Steam Green Light.
+
+193
+00:18:32,440 --> 00:18:35,269
+For those who don't know,
+Steam Greenlight is a system
+
+194
+00:18:35,269 --> 00:18:38,919
+where Valve uses community voting
+as a mechanism to determine what
+
+195
+00:18:38,919 --> 00:18:45,860
+additional games should
+actually go on Steam.
+
+196
+00:18:45,860 --> 00:18:50,400
+Another easy distribution method
+is the Ubuntu software center.
+
+197
+00:18:50,400 --> 00:18:53,990
+The Ubuntu Software Center is an  App store for Ubuntu.
+
+198
+00:18:53,990 --> 00:18:57,540
+The nice thing about the Ubuntu Software Center is that Canonical
+
+199
+00:18:57,540 --> 00:19:01,790
+offers a free packaging service
+that will package the raw binary
+
+200
+00:19:01,790 --> 00:19:05,610
+output from Unity into a Dev package.
+
+201
+00:19:05,610 --> 00:19:13,250
+We talked a bit earlier about how some
+distributions, like Ubuntu, are commercially backed.
+
+202
+00:19:13,250 --> 00:19:16,549
+in this case Canonical is
+Ubuntu's commercial backer
+
+203
+00:19:16,549 --> 00:19:22,049
+and provides financial support for the
+development of the operating system.
+
+204
+00:19:22,049 --> 00:19:26,010
+And then we also talked
+earlier about how
+
+205
+00:19:26,010 --> 00:19:30,090
+different Linux distributions have
+different package management systems,
+
+206
+00:19:30,090 --> 00:19:35,600
+and one of the prominent package
+management systems is a system
+
+207
+00:19:35,600 --> 00:19:37,730
+that uses what we call "dev packages,"
+
+208
+00:19:37,730 --> 00:19:41,860
+and Ubuntu is one of those systems.
+
+209
+00:19:41,860 --> 00:19:44,810
+The free packaging service from Canonical
+
+210
+00:19:44,810 --> 00:19:48,260
+and submission to the Ubuntu Software
+center can be accessed by going to
+
+211
+00:19:48,260 --> 00:19:55,260
+developer.ubuntu.com and just
+setting up a free account.
+
+212
+00:19:57,299 --> 00:20:00,620
+Desura is another digital
+distribution platform.
+
+213
+00:20:00,620 --> 00:20:05,520
+It has clients for Windows, for OSX, and for Linux.
+
+214
+00:20:05,520 --> 00:20:09,570
+It tends to cater to smaller indy
+developers, who are not large enough
+
+215
+00:20:09,570 --> 00:20:15,120
+or not yet large enough to be able
+to negotiate deals with Steam.
+
+216
+00:20:15,120 --> 00:20:19,450
+There's not really much else to say
+except that it is very straightforward.
+
+217
+00:20:19,450 --> 00:20:26,870
+And when I've spoken to some of the people
+that have founded Desura, they told me
+
+218
+00:20:26,870 --> 00:20:32,390
+about how games that have a
+Linux port sell significantly better
+
+219
+00:20:32,390 --> 00:20:39,390
+then the games that don't
+have a Linux port.
+
+220
+00:20:40,539 --> 00:20:44,179
+And then finally, The Humble
+Indie Bundle is very, very popular,
+
+221
+00:20:44,179 --> 00:20:51,529
+and many of the bundles have done
+over one million US dollars.
+
+222
+00:20:51,529 --> 00:20:59,580
+And together the 21 completed bundles
+have done over 33.2 million US dollars.
+
+223
+00:20:59,580 --> 00:21:03,640
+Often games are scouted
+for these bundles, meaning
+
+224
+00:21:03,640 --> 00:21:10,580
+that the organization that compiles
+and ships the Humble Indie Bundle
+
+225
+00:21:10,580 --> 00:21:16,059
+will approach developers asking
+if their game could be included.
+
+226
+00:21:16,059 --> 00:21:20,390
+But if you would like to submit your
+game to them for consideration,
+
+227
+00:21:20,390 --> 00:21:26,900
+all you need to do is go to their
+website and fill out the submission form.
+
+228
+00:21:26,900 --> 00:21:30,530
+The Linux developers at Unity
+
+229
+00:21:30,530 --> 00:21:33,980
+in particular are very
+happy to work with
+
+230
+00:21:33,980 --> 00:21:39,440
+any game developers that are trying
+to get their game ready specifically for
+
+231
+00:21:39,440 --> 00:21:40,980
+the Humble Indie Bundle.
+
+232
+00:21:40,980 --> 00:21:44,740
+Oftentimes when game developers
+are using this, this is the first time
+
+233
+00:21:44,740 --> 00:21:49,750
+that they've ever shipped a game for Linux
+so they have a lot of unanswered questions or
+
+234
+00:21:49,750 --> 00:21:56,130
+potentially can run in into problems.
+
+235
+00:21:56,130 --> 00:22:07,370
+Now next I want to discuss the export feature
+that it exists in Unity 4 for exporting to Linux.
+
+236
+00:22:07,370 --> 00:22:15,230
+In Unity 4 you can export your game to Linux in the
+same way that you can with Windows and Mac OSX.
+
+237
+00:22:15,230 --> 00:22:19,210
+The export feature is available in both
+Unity free and in Unity pro.
+
+238
+00:22:19,210 --> 00:22:25,120
+We don't require an extra license
+in order to use it.
+
+239
+00:22:28,120 --> 00:22:31,080
+Actually building the player is very, very simple.
+
+240
+00:22:31,080 --> 00:22:34,230
+In Unity 4 the build settings
+window now shows
+
+241
+00:22:34,230 --> 00:22:38,950
+Linux next to the Windows and
+Mac stand-alone targets.
+
+242
+00:22:38,950 --> 00:22:44,190
+If you select Linux as the target platform, you'll
+have three different options for architectures:
+
+243
+00:22:44,190 --> 00:22:51,570
+One is for X86 which will produce binaries
+suitable for 32-bit architectures,
+
+244
+00:22:51,570 --> 00:22:59,560
+One will be X86-64 which will produce
+binaries suitable for 64-bit architectures,
+
+245
+00:22:59,560 --> 00:23:06,080
+and then finally there is what
+we have called a universal target
+
+246
+00:23:06,080 --> 00:23:13,370
+which will contain the game data and the
+player binaries for both architectures.
+
+247
+00:23:13,370 --> 00:23:18,610
+The system requirements for a desktop
+Unity game on Linux are very, very simple.
+
+248
+00:23:18,610 --> 00:23:21,210
+There's three main things that the user will need.
+
+249
+00:23:21,210 --> 00:23:29,059
+One is a C++ runtime, which the user is guaranteed to
+have if they have any tools or applications installed.
+
+250
+00:23:29,059 --> 00:23:33,299
+They need to have a machine
+with 32 or 64-bit architecture.
+
+251
+00:23:33,299 --> 00:23:45,779
+So some kind of an ARM platform, for example,
+won't be able to run the Unity player.
+
+252
+00:23:45,779 --> 00:23:49,190
+And then finally they
+need a graphics card
+
+253
+00:23:49,190 --> 00:23:56,190
+and drivers that will provide
+hardware acceleration.
+
+254
+00:23:56,450 --> 00:24:04,290
+Additionally in Unity 4.2, which is currently under
+development, there is a headless mode option.
+
+255
+00:24:04,290 --> 00:24:10,350
+This option will produce 32-bit or 64-bit
+binaries designed for headless servers.
+
+256
+00:24:11,720 --> 00:24:15,320
+I spoke earlier about how Linux installations
+
+257
+00:24:15,320 --> 00:24:20,120
+are different oftentimes on the server
+that they are on the desktop
+
+258
+00:24:20,120 --> 00:24:25,880
+and on the server they don't have any kind of a UI.
+
+259
+00:24:25,880 --> 00:24:32,190
+So if for example you
+want to use the player
+
+260
+00:24:32,190 --> 00:24:36,773
+for a network server for
+a multiplayer based game
+
+261
+00:24:36,799 --> 00:24:40,990
+for example, and that
+server is running Linux
+
+262
+00:24:40,990 --> 00:24:47,130
+and it is a headless install of Linux then you'll
+want to build a player with its headless mode option.
+
+263
+00:24:47,130 --> 00:24:51,030
+That's exactly what it was intended for.
+
+264
+00:24:51,030 --> 00:24:53,929
+These players will start up
+automatically in batch mode.
+
+265
+00:24:53,929 --> 00:24:57,090
+They don't require running X11
+session they don't even require running
+
+266
+00:24:57,090 --> 00:25:03,669
+X11 install in order to work, so if you've
+installed a standard Linux server distribution,
+
+267
+00:25:03,669 --> 00:25:08,060
+then the headless player will
+just work out of the box.
+
+268
+00:25:08,060 --> 00:25:16,000
+In fact the only system requirement for the headless
+player is simply a C++ runtime.
+
+269
+00:25:16,000 --> 00:25:21,190
+So that covers of how you can
+very easily export your game.
+
+270
+00:25:21,190 --> 00:25:24,360
+In terms of distribution support at Unity, we offer
+
+271
+00:25:24,360 --> 00:25:30,390
+what we're calling official support for
+Ubuntu Linux version 10.10 or later.
+
+272
+00:25:30,390 --> 00:25:35,350
+The reason why Ubuntu was chosen is
+because it has by far the highest
+
+273
+00:25:35,350 --> 00:25:42,620
+desktop market share amongst
+Linux distributions.
+
+274
+00:25:42,620 --> 00:25:49,669
+But the player actually runs without problems
+on a very, very wide range of Linux desktops.
+
+275
+00:25:49,669 --> 00:25:54,030
+Our analytics showed right after we
+released it that people were running it on
+
+276
+00:25:54,030 --> 00:25:58,029
+everything from a Ubuntu to Linux Mint to Arch Linux,
+
+277
+00:25:59,590 --> 00:26:06,750
+a huge number of Linux distributions that I
+didn't actually even expect people to be using.
+
+278
+00:26:06,750 --> 00:26:13,429
+So users should not be afraid of filing
+bugs found on any distribution of Linux.
+
+279
+00:26:13,429 --> 00:26:18,899
+And of course we give preference
+to addressing issues on
+
+280
+00:26:18,899 --> 00:26:25,899
+Ubuntu specifically, but we're happy
+to look at any bugs that you file.
+
+281
+00:26:27,240 --> 00:26:31,930
+Next I will cover a couple of tips
+for developing Unity games for Linux
+
+282
+00:26:31,930 --> 00:26:37,760
+that I've personally
+found important.
+
+283
+00:26:37,760 --> 00:26:39,510
+On some machines
+
+284
+00:26:39,510 --> 00:26:46,669
+there is a Compiz is setting. Compiz is
+used by most compositing window managers.
+
+285
+00:26:46,669 --> 00:26:52,890
+The default desktop on Ubuntu for example,
+relies on Compiz and many others do as well.
+
+286
+00:26:52,890 --> 00:26:57,659
+And in Compiz there's a setting called
+"unredirect fullscreen windows."
+
+287
+00:26:57,659 --> 00:27:02,080
+In many cases the setting
+is not turned on.
+
+288
+00:27:02,080 --> 00:27:07,370
+The setting allows, when
+applications are in full screen,
+
+289
+00:27:07,370 --> 00:27:14,590
+for the drawing on full-screen windows to
+not be redirected to off-screen pics maps.
+
+290
+00:27:14,590 --> 00:27:21,110
+So for any 3D application the setting
+will significantly affect performance.
+
+291
+00:27:21,110 --> 00:27:26,559
+Sometimes not having it on can actually
+affect the frame rate up to fifty percent.
+
+292
+00:27:26,559 --> 00:27:29,660
+So it should always be turned on.
+
+293
+00:27:29,660 --> 00:27:35,190
+We've talked to the developers
+of Ubuntu and in their
+
+294
+00:27:35,190 --> 00:27:38,810
+12.10 release, which came out
+in Fall of this last year,
+
+295
+00:27:38,810 --> 00:27:41,179
+the setting is now on by default,
+
+296
+00:27:41,179 --> 00:27:47,910
+but in previous versions of Ubuntu it was not
+on it may not be on on other distributions.
+
+297
+00:27:47,910 --> 00:27:52,649
+So if there is any kind of a performance
+problem this is the first thing
+
+298
+00:27:52,649 --> 00:27:57,549
+that developers should look for.
+
+299
+00:27:57,549 --> 00:28:01,290
+And then next is related to
+the Build Player Pipeline.
+
+300
+00:28:01,290 --> 00:28:04,549
+Because there's no editor
+available for Linux
+
+301
+00:28:04,549 --> 00:28:08,769
+you have to edit and build your Linux
+game on Windows or Mac OSX.
+
+302
+00:28:08,769 --> 00:28:12,260
+One thing that speeds up this process
+for me is to use a post-process build step
+
+303
+00:28:12,260 --> 00:28:18,990
+that automatically copies my build player
+from OSX or Windows to my Linux machine.
+
+304
+00:28:18,990 --> 00:28:23,221
+I personally do this with
+an editor script and it's
+
+305
+00:28:23,247 --> 00:28:27,289
+a very simple very
+straightforward editor script.
+
+306
+00:28:27,289 --> 00:28:33,279
+In this example a directory on
+my Linux machine is mounted
+
+307
+00:28:33,279 --> 00:28:40,350
+as a share on my OSX
+installation, but you could
+
+308
+00:28:40,350 --> 00:28:44,621
+modify this to simply copy with
+
+309
+00:28:44,647 --> 00:28:49,580
+SFTP or SSH without much trouble.
+
+310
+00:28:49,580 --> 00:28:53,150
+You can find out more information
+about post-process built steps if
+
+311
+00:28:53,150 --> 00:29:00,610
+you don't know in our online documentation
+and I've included the link to the specific
+
+312
+00:29:00,610 --> 00:29:06,880
+page that is relevant for this example on this slide.
+
+313
+00:29:06,880 --> 00:29:14,590
+And now finally we have a few things that are either
+done but not yet released or are in development
+
+314
+00:29:14,590 --> 00:29:16,110
+that I want to share with you.
+
+315
+00:29:16,110 --> 00:29:18,669
+These things include headless mode,
+
+316
+00:29:18,669 --> 00:29:21,120
+which I previously mentioned is
+
+317
+00:29:21,120 --> 00:29:24,880
+going to be releasing in Unity 4.2,
+
+318
+00:29:24,880 --> 00:29:26,639
+and webcam support
+
+319
+00:29:26,639 --> 00:29:30,460
+which will also be released in Unity 4.2.
+
+320
+00:29:30,460 --> 00:29:33,850
+One of the things we want to work on
+
+321
+00:29:33,850 --> 00:29:37,850
+in the future, is better
+Steam integration.
+
+322
+00:29:37,850 --> 00:29:41,669
+A lot of our users have
+had a lot of trouble
+
+323
+00:29:41,669 --> 00:29:44,940
+integrating with Steam's
+APIs and libraries,
+
+324
+00:29:44,940 --> 00:29:50,570
+so we would like to make that
+process as easy as it can be.
+
+325
+00:29:50,570 --> 00:29:58,059
+And then finally we want to spend some
+time optimizing for open-source drivers.
+
+326
+00:29:58,059 --> 00:30:03,610
+I don't believe they will ever be
+able to provide, or always provide
+
+327
+00:30:03,610 --> 00:30:09,430
+the same user experience with open-source
+drivers as we can with proprietary drivers,
+
+328
+00:30:09,430 --> 00:30:16,515
+but we haven't really optimized it all and I think
+that's one area that we can improve on a lot.
+
+329
+00:30:21,900 --> 00:30:29,660
+So at this point that includes all of the
+content that that i've prepared to present.
+
+330
+00:30:29,660 --> 00:30:36,660
+Are there any questions from our audience?
+
+331
+00:30:42,530 --> 00:30:44,320
+(Thanks for your talk.)
+
+332
+00:30:44,320 --> 00:30:47,870
+(What about the editor? Is it coming to Linux?)
+
+333
+00:30:47,870 --> 00:30:52,179
+So the question is, "Is the
+editor coming to Linux?"
+
+334
+00:30:52,179 --> 00:30:56,000
+I get asked this question all the time
+and I wish I had a better answer.
+
+335
+00:30:56,000 --> 00:30:59,059
+It is being researched.
+
+336
+00:30:59,059 --> 00:31:03,180
+We haven't decided either way whether
+or not we actually will ship it.
+
+337
+00:31:05,630 --> 00:31:11,679
+A lot of it is a question for
+demand and benefit for our users
+
+338
+00:31:11,679 --> 00:31:17,100
+as compared to the development time and more
+specifically the long-term support burden.
+
+339
+00:31:17,100 --> 00:31:21,029
+There's obviously a significantly
+larger amount of tech
+
+340
+00:31:21,029 --> 00:31:24,810
+that exists in the editor than
+exists in the runtime,
+
+341
+00:31:24,810 --> 00:31:28,740
+and we also use a lot of
+third-party middleware
+
+342
+00:31:28,740 --> 00:31:34,700
+in the editor that we
+don't use in the runtime.
+
+343
+00:31:34,700 --> 00:31:39,370
+So there's a higher development cost there, and
+
+344
+00:31:39,370 --> 00:31:41,519
+we have to be sure that the benefit
+
+345
+00:31:41,519 --> 00:31:43,540
+to our users is going to be worth
+
+346
+00:31:43,540 --> 00:31:47,710
+committing ourselves to the
+long-term support burden.
+
+347
+00:31:47,710 --> 00:31:51,158
+It's being researched. We
+haven't decided either way.
+
+348
+00:31:51,184 --> 00:31:55,410
+People who wanted and have a use case for
+it, I would encourage you to make yourself
+
+349
+00:31:55,410 --> 00:32:02,070
+known the Unity community
+and to us as a company,
+
+350
+00:32:02,096 --> 00:32:08,730
+because we take user
+feedback into consideration.
+
+351
+00:32:08,730 --> 00:32:15,440
+(Can I ask one more? Do you make any guarantees about
+which version of OpenGL will be used by the runtime on Linux?)
+
+352
+00:32:23,030 --> 00:32:26,390
+We haven't published any guarantees,
+
+353
+00:32:26,390 --> 00:32:30,420
+and I can't remember off the top of my head,
+
+354
+00:32:30,420 --> 00:32:34,970
+what we're assuming in the rendering pipeline.
+
+355
+00:32:34,970 --> 00:32:37,690
+But I would be happy to look that up for you
+
+356
+00:32:37,690 --> 00:32:41,780
+and contact you with that
+information at a latter time.
+
+357
+00:32:41,780 --> 00:32:43,450
+(Thank you very much.)
+
+358
+00:32:43,450 --> 00:32:50,450
+Ok, any other questions?
+
+359
+00:32:51,760 --> 00:32:58,149
+(Does Unity plan to support Open GL 4
+in the future?)
+
+360
+00:32:58,149 --> 00:33:01,630
+Do we plan future Open GL 4 support?
+
+361
+00:33:06,010 --> 00:33:08,160
+It's not something that
+
+362
+00:33:08,160 --> 00:33:11,019
+we're specifically working on right now, but
+
+363
+00:33:11,919 --> 00:33:17,300
+I believe that we will need to
+support it because eventually
+
+364
+00:33:17,300 --> 00:33:21,640
+it will just be a requirement for
+users to be able to run our content,
+
+365
+00:33:21,640 --> 00:33:28,640
+not only only on Linux but also on OSX.
+
+366
+00:33:30,970 --> 00:33:37,970
+Any other questions?
+
+367
+00:33:38,220 --> 00:33:41,630
+Okay, if you'd like to speak with me
+privately or if you would like to
+
+368
+00:33:41,630 --> 00:33:47,350
+have on my business cards in case you have
+future questions feel free to come up here,
+
+369
+00:33:50,280 --> 00:33:57,280
+and for everyone else, arigatou gozaimasu.

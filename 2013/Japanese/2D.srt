@@ -1,0 +1,2929 @@
+1
+00:00:00,939 --> 00:00:03,919
+...And we make a lot of mobile
+games in Southeast Asia.
+
+2
+00:00:03,920 --> 00:00:06,650
+I guess you guys do
+here in Japan, as well.
+
+3
+00:00:06,650 --> 00:00:11,199
+And one of things that comes up very
+often is they want to make 2D games.
+
+4
+00:00:11,199 --> 00:00:16,289
+And doing 2D games in Unity
+isn't necessarily hard,
+
+5
+00:00:16,289 --> 00:00:20,089
+but it's not like drag-and-
+drop, out of the box.
+
+6
+00:00:20,089 --> 00:00:25,119
+So today, what I want to do is I want
+to go through a 2D content workflow.
+
+7
+00:00:25,119 --> 00:00:28,835
+What I mean by workflow is
+we want to start at one end,
+
+8
+00:00:28,836 --> 00:00:32,550
+and we want to follow our
+content through a pipeline
+
+9
+00:00:32,550 --> 00:00:36,730
+and have it ultimately arrive
+in our game at the other end.
+
+10
+00:00:36,730 --> 00:00:42,530
+So by definition, unfortunately, workflow
+also means there's a lot of parts.
+
+11
+00:00:42,530 --> 00:00:46,840
+And because there's a lot of parts,
+it can also be a bit confusing.
+
+12
+00:00:46,840 --> 00:00:53,390
+So I know it's after lunch, everybody's stomach
+is full, and the room could get a bit warm,
+
+13
+00:00:53,390 --> 00:00:56,870
+but hopefully, you'll all be able to
+stay with me and I won't lose you all.
+
+14
+00:00:56,870 --> 00:00:59,780
+Hopefully, some of you will make it to the end.
+
+15
+00:01:00,080 --> 00:01:02,430
+So you probably might wonder "is this talk for me?"
+
+16
+00:01:02,430 --> 00:01:06,040
+So you're gonna be looking at quite a
+bit of code. We're gonna be looking at art tools.
+
+17
+00:01:06,040 --> 00:01:10,260
+We're going to be looking at a lot of stuff.
+So if you're a designer, an artist, a programmer,
+
+18
+00:01:10,260 --> 00:01:14,960
+my goal today is basically
+to take you very slowly,
+
+19
+00:01:14,960 --> 00:01:17,540
+step-by-step through one pipeline.
+
+20
+00:01:17,540 --> 00:01:22,180
+Then we'll check the time. Assuming there's
+time, we'll do it again with another tool,
+
+21
+00:01:22,180 --> 00:01:25,770
+and another tool, and another
+tool, until we run out of time.
+
+22
+00:01:25,770 --> 00:01:29,950
+So my goal is that, at least at the end
+of the day, you know what's possible,
+
+23
+00:01:29,950 --> 00:01:34,210
+and maybe open up some possibilities in Unity.
+
+24
+00:01:34,210 --> 00:01:35,520
+Okay, so let's get started.
+
+25
+00:01:35,520 --> 00:01:39,550
+Basically, what we have a is
+we have all this stuff, right?
+
+26
+00:01:39,950 --> 00:01:43,210
+We all this great stuff that
+artists might produce for us.
+
+27
+00:01:43,210 --> 00:01:50,210
+And it just brings up the question of
+"how can I get this into Unity?"
+
+28
+00:01:50,909 --> 00:01:54,220
+But actually images suffer a little bit
+
+29
+00:01:54,220 --> 00:01:58,890
+from the fact that they're
+not very rich in information.
+
+30
+00:01:58,890 --> 00:02:01,080
+We have the name of the file,
+
+31
+00:02:01,080 --> 00:02:04,580
+and if it's a jpeg or some other
+type that supports metadata,
+
+32
+00:02:04,581 --> 00:02:10,239
+you might have a little bit a metadata that's
+good for wedding photographers or somebody else.
+
+33
+00:02:10,239 --> 00:02:13,059
+But for game developers,
+it's kind of a problem.
+
+34
+00:02:13,059 --> 00:02:15,289
+So really what we want to do
+
+35
+00:02:15,290 --> 00:02:19,719
+is we don't necessarily want our
+images to communicate to Unity.
+
+36
+00:02:19,719 --> 00:02:21,409
+What we really want to happen
+
+37
+00:02:21,409 --> 00:02:25,540
+is we want our applications
+to communicate to Unity.
+
+38
+00:02:25,540 --> 00:02:27,499
+So we need some way to get
+
+39
+00:02:27,499 --> 00:02:31,119
+the stuff from our app
+into Unity and back out.
+
+40
+00:02:31,119 --> 00:02:35,389
+And so to do that, what we're gonna
+do is define, basically, a workflow.
+
+41
+00:02:35,389 --> 00:02:40,150
+So we're gonna start with our
+application on the far side, our art tool,
+
+42
+00:02:40,150 --> 00:02:43,309
+and we're gonna have Unity
+as where the destination is,
+
+43
+00:02:43,309 --> 00:02:46,719
+and we're going to need
+to make a few pieces.
+
+44
+00:02:46,719 --> 00:02:49,990
+So the first thing that we're gonna
+need is, on the content tools side,
+
+45
+00:02:49,991 --> 00:02:53,260
+we're gonna need some
+way, some mechanism,
+
+46
+00:02:53,260 --> 00:02:58,499
+an order that understands the art tool
+and can communicate with the art tool
+
+47
+00:02:58,499 --> 00:03:01,349
+to get some information out that we want.
+
+48
+00:03:01,349 --> 00:03:05,109
+So in other words, we're gonna write
+some sort of exporter from our art tool.
+
+49
+00:03:05,109 --> 00:03:08,289
+Something that gives us what we want.
+And what do we want from that?
+
+50
+00:03:08,289 --> 00:03:10,779
+Well, we want the images
+that we got before,
+
+51
+00:03:10,779 --> 00:03:13,899
+but in addition to that, we're also going
+to want some more metadata.
+
+52
+00:03:13,899 --> 00:03:17,169
+We're going to want as much
+metadata as we can get.
+
+53
+00:03:17,169 --> 00:03:20,774
+So the exporter is going to then
+not only give us the images out,
+
+54
+00:03:20,775 --> 00:03:24,379
+but it's going to give us the
+metadata in the form of XML.
+
+55
+00:03:24,379 --> 00:03:29,309
+Then on the Unity side, of course
+we can bring the data in normally, right?
+
+56
+00:03:29,309 --> 00:03:35,680
+The XML file will be recognized as a text asset
+and the images will be recognized as images.
+
+57
+00:03:35,680 --> 00:03:40,909
+But that's not exactly what we want. We also are
+going to want to write something on the Unity side
+
+58
+00:03:40,909 --> 00:03:48,619
+to makes sense of all that extra information
+that we put on the art tools side.
+
+59
+00:03:48,919 --> 00:03:52,639
+So it all begins of course with a tool.
+
+60
+00:03:52,639 --> 00:03:56,829
+And the first tool I'm gonna start
+out with today is Photoshop.
+
+61
+00:03:56,829 --> 00:03:58,919
+And one of the goals of
+this talk that I have is,
+
+62
+00:03:58,920 --> 00:04:03,609
+obviously I'm trying to make it understandable,
+and I'd like to make it useful,
+
+63
+00:04:03,609 --> 00:04:05,809
+but I'd also like to make it real.
+
+64
+00:04:05,809 --> 00:04:11,389
+So before I joined Unity, I did
+work on a number of games,
+
+65
+00:04:11,389 --> 00:04:15,659
+but the last game I worked on
+before joining Unity was
+
+66
+00:04:15,659 --> 00:04:17,999
+a 2D game, so I thought I
+would just use use that.
+
+67
+00:04:17,999 --> 00:04:20,469
+And that was what's called
+a "hidden object game."
+
+68
+00:04:20,469 --> 00:04:24,419
+And the game I'll be using today
+is called "Goddess Chronicles."
+
+69
+00:04:24,419 --> 00:04:29,129
+Here's just a screen cap. This is
+from the Mac App Store, actually.
+
+70
+00:04:29,129 --> 00:04:32,435
+And basically, if you don't
+know hidden object games,
+
+71
+00:04:32,436 --> 00:04:35,740
+this would be found on like
+Big Fish Games-type portals.
+
+72
+00:04:35,740 --> 00:04:38,629
+It's this thing where you're
+kind of on an adventure,
+
+73
+00:04:38,629 --> 00:04:41,140
+looking to find certain things in the scene,
+
+74
+00:04:41,140 --> 00:04:45,460
+you collect those things together, and then you
+move on, solve puzzles and things like that.
+
+75
+00:04:45,460 --> 00:04:49,009
+So this game had puzzles,
+hidden object scenes, a story.
+
+76
+00:04:49,009 --> 00:04:54,899
+Today, I'm just going to show you the main part
+of the game which was the hidden object part,
+
+77
+00:04:54,899 --> 00:04:56,810
+and how that worked.
+
+78
+00:04:56,810 --> 00:05:00,610
+And we're gonna do that,
+as I said, in Photoshop.
+
+79
+00:05:00,610 --> 00:05:03,479
+So we're going to switch over to Photoshop.
+
+80
+00:05:03,479 --> 00:05:06,330
+And here is that scene that
+was in the screenshot.
+
+81
+00:05:06,331 --> 00:05:09,180
+So I tried to use one that was
+actually there in the App Store.
+
+82
+00:05:09,180 --> 00:05:12,690
+And you can see that it
+basically looks the same.
+
+83
+00:05:12,690 --> 00:05:16,720
+So, we want to basically author
+our games in Photoshop.
+
+84
+00:05:16,720 --> 00:05:19,620
+In this game, just so you
+understand, at the end,
+
+85
+00:05:19,620 --> 00:05:22,649
+all of the levels were
+built in Photoshop.
+
+86
+00:05:22,649 --> 00:05:26,039
+And they were just brought straight into
+Unity, no programming whatsoever.
+
+87
+00:05:26,039 --> 00:05:27,800
+Everything was done on this side.
+
+88
+00:05:27,800 --> 00:05:32,325
+There was programming done on the Unity
+side to create this sort of little engine,
+
+89
+00:05:32,326 --> 00:05:36,009
+but the code is very simple
+and I'll show you that as well.
+
+90
+00:05:36,009 --> 00:05:40,199
+So what we want is to unleash our artists
+and designers to be able to go do that.
+
+91
+00:05:40,199 --> 00:05:43,659
+So we recognize in a hidden object
+game, we need some constructs.
+
+92
+00:05:43,660 --> 00:05:47,490
+So for this particular game,
+we had two kinds of things.
+
+93
+00:05:47,491 --> 00:05:50,939
+We had items and we had scenery.
+
+94
+00:05:50,939 --> 00:05:53,810
+There really isn't that much
+distinction between the two
+
+95
+00:05:53,811 --> 00:05:58,850
+except "scenery" means it can never be
+"found." It will always be in the background.
+
+96
+00:05:58,850 --> 00:06:02,090
+Now there's another interesting thing
+that happens and that is,
+
+97
+00:06:02,090 --> 00:06:09,259
+you can imagine that say one of my
+search items was the bottle of water.
+
+98
+00:06:09,259 --> 00:06:13,830
+So, in the game I might have this bottle
+of water here and as you can see,
+
+99
+00:06:13,831 --> 00:06:17,400
+you cannot see the
+entire bottle of water.
+
+100
+00:06:17,400 --> 00:06:20,669
+But we also may be doing an image.
+It could be a photograph,
+
+101
+00:06:20,669 --> 00:06:25,349
+or our artist could have drawn,
+say, an office scene or a podium.
+
+102
+00:06:25,349 --> 00:06:30,689
+So this podium, and this everything might
+actually be drawn into the background.
+
+103
+00:06:30,689 --> 00:06:33,209
+But I want the water bottle to be found,
+
+104
+00:06:33,209 --> 00:06:38,259
+so the water bottle will actually be
+in front of the podium in Photoshop.
+
+105
+00:06:38,259 --> 00:06:43,277
+So the first thing that we need to do is we
+need to have two kinds of images for our scene.
+
+106
+00:06:43,278 --> 00:06:46,039
+One will be whole, the whole image.
+
+107
+00:06:46,039 --> 00:06:48,249
+The other will be obscured.
+
+108
+00:06:48,249 --> 00:06:52,470
+So it may be obscured, right? So in this
+case my water bottle here is obscured.
+
+109
+00:06:52,470 --> 00:06:54,300
+But when I find it, if I
+clicked on the water bottle,
+
+110
+00:06:54,301 --> 00:06:57,410
+then it may fly of the center
+of the screen and then zoom up,
+
+111
+00:06:57,410 --> 00:07:00,759
+out towards the player, or go into
+a backpack or something.
+
+112
+00:07:00,759 --> 00:07:03,289
+So I obviously want to have the full version.
+
+113
+00:07:03,289 --> 00:07:05,390
+So every item has to have a whole.
+
+114
+00:07:05,391 --> 00:07:09,160
+That's a minimum requirement, and if I
+had the water bottle just sitting out,
+
+115
+00:07:09,160 --> 00:07:12,350
+then there's no need to have
+an obscured version of it.
+
+116
+00:07:12,350 --> 00:07:16,599
+If I do want obscure it, then I want to be
+able to basically erase the pixels
+
+117
+00:07:16,599 --> 00:07:21,449
+so it gives the illusion of being
+behind even though it's in front.
+
+118
+00:07:21,449 --> 00:07:26,299
+I need two more image types. One other
+type that I'm going to need is shadow.
+
+119
+00:07:26,299 --> 00:07:29,349
+In order for the water bottle to actually
+look like it belongs, it'd be nice
+
+120
+00:07:29,349 --> 00:07:32,839
+if it casts a shadow on
+the desk that it was on.
+
+121
+00:07:32,839 --> 00:07:36,909
+But when I find the item, if it zooms
+out and then the shadow came with it,
+
+122
+00:07:36,909 --> 00:07:39,259
+that would look a bit funny, right?
+
+123
+00:07:39,259 --> 00:07:43,209
+So what we're going to do is we're actually going
+to keep the shadow separate from the image.
+
+124
+00:07:43,209 --> 00:07:46,044
+And then finally, you might
+have something in your game
+
+125
+00:07:46,045 --> 00:07:48,879
+like a golf club that you
+might be looking for.
+
+126
+00:07:48,879 --> 00:07:52,709
+And that would be really hard to click
+on or to tap on with your finger.
+
+127
+00:07:52,709 --> 00:07:55,189
+So we'll have a hot spot region, as well.
+
+128
+00:07:55,189 --> 00:07:57,719
+So we're going to have four
+different kinds of layers.
+
+129
+00:07:57,719 --> 00:07:59,899
+So I have an example here of one.
+
+130
+00:07:59,899 --> 00:08:05,909
+So in the back, I think in the upper screen.
+
+131
+00:08:05,909 --> 00:08:08,570
+Of course my battery picked it
+up. It works, but doesn't show.
+
+132
+00:08:08,570 --> 00:08:11,339
+Right up here, you'll see a shell.
+
+133
+00:08:11,339 --> 00:08:14,690
+It's kind of a small example, but
+I'm gonna show and hide the group
+
+134
+00:08:14,690 --> 00:08:17,099
+so you can see, it goes away.
+
+135
+00:08:17,099 --> 00:08:20,835
+And if we look over here in Photoshop,
+you can see it has an "obscured,"
+
+136
+00:08:20,861 --> 00:08:24,025
+it has a "shadow," it has a "hot
+spot," and it has a "whole."
+
+137
+00:08:24,500 --> 00:08:28,849
+So normally, we enable the "obscured
+in shadow" or "whole in shadow."
+
+138
+00:08:28,849 --> 00:08:30,849
+And then the rest just sits here.
+
+139
+00:08:30,849 --> 00:08:33,484
+So we go through and we create
+the whole scene like this, right?
+
+140
+00:08:33,485 --> 00:08:37,240
+So I can hide the whole background and
+you can see there's a lot of stuff
+
+141
+00:08:37,240 --> 00:08:39,940
+that's actually pre-baked
+into the background.
+
+142
+00:08:39,940 --> 00:08:41,990
+And then I have all
+the rest of the items.
+
+143
+00:08:41,990 --> 00:08:47,500
+So I try to only export the minimal things,
+because I want to perform well on mobiles as well.
+
+144
+00:08:47,500 --> 00:08:52,050
+Okay, so I've authored the scene in Photoshop,
+
+145
+00:08:52,050 --> 00:08:55,810
+and I've got some very basic coding.
+
+146
+00:08:55,810 --> 00:08:59,360
+So I make sure I just mentioned it. So like on the shell.
+
+147
+00:08:59,360 --> 00:09:04,780
+So we name the layer here "obscured."
+We name "shadow," "hot spot," and "whole."
+
+148
+00:09:04,780 --> 00:09:07,080
+Right? So it's not artist naming.
+
+149
+00:09:07,080 --> 00:09:10,670
+The artist can name anything they
+want, like here on the scenery column.
+
+150
+00:09:10,670 --> 00:09:12,830
+As you can guess artists are a creative bunch.
+
+151
+00:09:12,830 --> 00:09:15,200
+They have all kinds. This
+one's actually not named bad,
+
+152
+00:09:15,201 --> 00:09:20,250
+but a lot of times you'll have "layer 52,"
+"layer 53," "layer 54 copy," "layer 55,"
+
+153
+00:09:20,250 --> 00:09:25,570
+and so on. So scenery, we don't care so much.
+The group name is important but the layer names are not.
+
+154
+00:09:25,570 --> 00:09:29,630
+And the item names? We actually
+care about the layer names.
+
+155
+00:09:29,630 --> 00:09:32,320
+So, good! So we authored up some content,
+
+156
+00:09:32,320 --> 00:09:36,170
+and so that takes care of our tool,
+that takes care of our standard.
+
+157
+00:09:36,170 --> 00:09:40,840
+But now we're gonna need some way to
+actually get this data out of Photoshop.
+
+158
+00:09:40,840 --> 00:09:45,260
+And the way we're gonna do
+that is with Extend Script.
+
+159
+00:09:45,260 --> 00:09:52,330
+Extend Script is actually a free scripting
+environment that comes with Adobe applications.
+
+160
+00:09:52,330 --> 00:09:56,680
+If you've installed Creative Suite before,
+it was actually installed by default.
+
+161
+00:09:56,680 --> 00:10:04,920
+And you can find it, I think on the Mac, it will be in
+utilities, Adobe Utilities Extend Script.
+
+162
+00:10:04,920 --> 00:10:06,550
+And you'll find it in there.
+
+163
+00:10:06,550 --> 00:10:10,255
+And it allows you to script some of
+the more popular Adobe applications.
+
+164
+00:10:10,256 --> 00:10:11,460
+And this is fantastic.
+
+165
+00:10:11,460 --> 00:10:15,120
+It didn't used to be this way. You
+used to have to sign up with Adobe,
+
+166
+00:10:15,120 --> 00:10:18,260
+pay a lot of money, and it was a C++ SDK.
+
+167
+00:10:18,260 --> 00:10:22,080
+And even if you wanted to give them money, they
+didn't always give you permission to develop.
+
+168
+00:10:22,080 --> 00:10:25,500
+So it was very tough thing to do. But now
+we can just write scripts in Javascript,
+
+169
+00:10:25,500 --> 00:10:27,900
+and away we go.
+
+170
+00:10:27,900 --> 00:10:34,810
+So I'd like to show you the exporter
+that we used for Goddess.
+
+171
+00:10:34,810 --> 00:10:38,390
+And that would be over here.
+So here's the Extend Script toolkit.
+
+172
+00:10:38,390 --> 00:10:42,640
+And it's pretty standard
+IDE that ships with it.
+
+173
+00:10:42,640 --> 00:10:47,209
+The Javascript and the IDE, everything isn't
+very fast but it's okay, it's not runtime.
+
+174
+00:10:47,209 --> 00:10:50,310
+So we're just going to configure
+our level, we're going to export.
+
+175
+00:10:50,311 --> 00:10:53,320
+We don't really care how long it takes.
+It would be good if it was fast,
+
+176
+00:10:53,320 --> 00:10:56,750
+but it doesn't really matter. The
+important thing is that it's here.
+
+177
+00:10:56,750 --> 00:10:59,000
+And up here at the top of the menu,
+
+178
+00:10:59,000 --> 00:11:02,220
+we're actually going
+to choose Photoshop.
+
+179
+00:11:02,221 --> 00:11:05,440
+Now, I know it's interesting because
+my mouse is all the way up there,
+
+180
+00:11:05,440 --> 00:11:10,600
+but you should actually watch down here,
+in this corner. You'll see that when I click this,
+
+181
+00:11:10,600 --> 00:11:13,200
+that all of this part goes
+away and then it comes back.
+
+182
+00:11:13,201 --> 00:11:15,800
+And that's because it
+talked to Photoshop,
+
+183
+00:11:15,800 --> 00:11:18,420
+and then they're communicating live.
+
+184
+00:11:18,420 --> 00:11:23,350
+Now when you write a script it's nice because
+you can write it here, debug, write, debug.
+
+185
+00:11:23,350 --> 00:11:27,490
+When it's done, you don't have to do this.
+Your script will actually appear
+
+186
+00:11:27,490 --> 00:11:32,710
+here on the scripts menu, and I
+have it down here, export, Unity,
+
+187
+00:11:32,710 --> 00:11:36,810
+hidden object, scene--you can
+see I write lots of exporters.
+
+188
+00:11:36,810 --> 00:11:41,091
+This is actually production scripts. So
+let me just go through this real quick.
+
+189
+00:11:41,092 --> 00:11:45,340
+I'm not going to go super deep, but I just
+want you to get an idea what's in here.
+
+190
+00:11:45,340 --> 00:11:48,460
+So we just simply create a
+few variables that we need
+
+191
+00:11:48,460 --> 00:11:52,480
+for our scene, the PSD,
+and the duped one.
+
+192
+00:11:52,480 --> 00:11:55,065
+I'm going to cover some of
+these a little more in depth.
+
+193
+00:11:55,066 --> 00:11:59,450
+We just make sure that we
+have an actual valid document.
+
+194
+00:11:59,450 --> 00:12:02,650
+And this is again because your artists
+are gonna go off and go crazy,
+
+195
+00:12:02,650 --> 00:12:05,370
+and you wanna make sure that you're
+giving them lots of error messages,
+
+196
+00:12:05,370 --> 00:12:08,380
+so it just helps them to make
+sure they have a document open.
+
+197
+00:12:08,380 --> 00:12:11,010
+They select a destination folder,
+
+198
+00:12:11,010 --> 00:12:13,350
+and they cache some useful variables.
+
+199
+00:12:13,350 --> 00:12:15,900
+They make sure that it has layers.
+
+200
+00:12:15,900 --> 00:12:20,060
+And then probably the meat of
+it is just these few lines here.
+
+201
+00:12:20,060 --> 00:12:25,180
+And probably the most important
+step is this: "duplicate."
+
+202
+00:12:25,180 --> 00:12:29,020
+So we must duplicate the document,
+because in Photoshop, what you'll notice
+
+203
+00:12:29,020 --> 00:12:32,510
+is this odd behavior you can see right now
+
+204
+00:12:32,510 --> 00:12:36,340
+in the upper left there's the disclosure,
+it's showing a little dot up there.
+
+205
+00:12:36,340 --> 00:12:41,280
+So if I save this file, now it's not
+dirty anymore, right? It's normal.
+
+206
+00:12:41,280 --> 00:12:46,860
+If I just open a folder or close a
+folder, it's already dirty again.
+
+207
+00:12:46,860 --> 00:12:50,750
+So the problem is the
+act of exporting your file
+
+208
+00:12:50,750 --> 00:12:53,920
+will cause the Photoshop
+file to become dirty.
+
+209
+00:12:53,920 --> 00:12:57,180
+And what will happen is an artist,
+they're doing a lot different things.
+
+210
+00:12:57,180 --> 00:13:00,310
+They'll run the exporter,
+after they're done exporting,
+
+211
+00:13:00,310 --> 00:13:05,830
+they'll try to quit, maybe later in the day,
+5 o'clock or 8 o'clock, when they go home,
+
+212
+00:13:05,830 --> 00:13:09,500
+and it's going to be like,
+"Do you want to save?" Uh oh.
+
+213
+00:13:09,500 --> 00:13:12,650
+"Do I want to save? I don't remember.
+Oh, I guess I better save."
+
+214
+00:13:12,650 --> 00:13:18,120
+Now your version control system is going
+to say that Photoshop file has changed.
+
+215
+00:13:18,120 --> 00:13:19,665
+Now the programmer is
+gonna get all the files,
+
+216
+00:13:19,666 --> 00:13:24,210
+and they're gonna see all the exported
+images were exported at 11 in the morning,
+
+217
+00:13:24,210 --> 00:13:27,802
+but then the Photoshop file
+was updated at 8 PM at night.
+
+218
+00:13:27,803 --> 00:13:31,399
+So then the programmer is like, "Do I have to
+re-export?" And you end up in this loop
+
+219
+00:13:31,400 --> 00:13:34,760
+where the Photoshop file
+is always getting dirty.
+
+220
+00:13:34,760 --> 00:13:38,100
+The other thing is,
+I want to tell you right now,
+
+221
+00:13:38,100 --> 00:13:41,440
+if you start writing exporters
+for Adobe products,
+
+222
+00:13:41,440 --> 00:13:43,360
+you are not stupid.
+
+223
+00:13:43,360 --> 00:13:47,730
+You will think you're stupid because it
+is a very head-banging experience.
+
+224
+00:13:47,730 --> 00:13:52,230
+The manual's very nicely written,
+everything looks good,
+
+225
+00:13:52,230 --> 00:13:55,710
+but even the best programmers, it is
+very frustrating to write these things.
+
+226
+00:13:55,710 --> 00:13:57,160
+It's very trial and error,
+
+227
+00:13:57,160 --> 00:14:02,030
+and there's a lot of little caveats and not
+everything is as well documented as it should be.
+
+228
+00:14:02,030 --> 00:14:06,010
+So the other reason you want to duplicate
+is because when it dies, and it will
+
+229
+00:14:06,010 --> 00:14:07,430
+when you're writing your own,
+
+230
+00:14:07,430 --> 00:14:11,359
+then it will leave the original untouched
+because it will take down everything,
+
+231
+00:14:11,359 --> 00:14:12,949
+and then you will have to kill everything.
+
+232
+00:14:12,949 --> 00:14:17,140
+So then it allows you to just keep going.
+So anyway, we just want to duplicate
+
+233
+00:14:17,140 --> 00:14:21,130
+And then we're going to set
+the active layer to the last layer.
+
+234
+00:14:21,130 --> 00:14:24,090
+Right? And the reason why
+is because in Photoshop,
+
+235
+00:14:24,090 --> 00:14:26,900
+the last layer is the farthest back.
+
+236
+00:14:26,900 --> 00:14:32,740
+And we want to export from back to front,
+so that we know where everything goes.
+
+237
+00:14:32,740 --> 00:14:36,420
+And then we're going to remove
+all top-level art layers.
+
+238
+00:14:36,420 --> 00:14:40,910
+We do this because, well, we made
+like twenty over console titles.
+
+239
+00:14:40,910 --> 00:14:45,660
+So in the old days, this is
+because we did NTSC and PAL.
+
+240
+00:14:45,660 --> 00:14:48,190
+And we had the safe area, right?
+
+241
+00:14:48,190 --> 00:14:52,600
+And then on mobiles, we
+now use it, or used it then
+
+242
+00:14:52,600 --> 00:14:56,670
+for Android, write all different screen
+configurations, so the artist could go in,
+
+243
+00:14:56,670 --> 00:15:01,600
+and what we did is we just said, "Hey, if it's not
+in the group, then it's just a development file."
+
+244
+00:15:01,600 --> 00:15:06,070
+So they could put anywhere in the
+sorting order, but not in a folder,
+
+245
+00:15:06,070 --> 00:15:07,630
+any kind of file they want.
+
+246
+00:15:07,630 --> 00:15:10,700
+They could make masks, they
+could make reference images,
+
+247
+00:15:10,700 --> 00:15:13,720
+anything they want to do. Maybe they want
+to put in the HUD so that they can see,
+
+248
+00:15:13,720 --> 00:15:16,310
+make sure it's not being blocked by an item.
+
+249
+00:15:16,310 --> 00:15:19,150
+So we just remove all
+the top-level art layers.
+
+250
+00:15:19,150 --> 00:15:23,190
+Then we remove all the empty layer
+sets, in case there's any other ones.
+
+251
+00:15:23,190 --> 00:15:24,920
+Then we hide everything.
+
+252
+00:15:24,920 --> 00:15:28,150
+So what we should end up with is the
+duplicated Photoshop file
+
+253
+00:15:28,150 --> 00:15:31,550
+with only groups
+and everything hidden
+
+254
+00:15:31,550 --> 00:15:34,240
+with just a checkerboard,
+transparent background.
+
+255
+00:15:34,240 --> 00:15:37,130
+We set up our XML variable.
+
+256
+00:15:37,130 --> 00:15:38,760
+And then we export.
+
+257
+00:15:38,760 --> 00:15:43,840
+When we're done exporting,
+then we close off the file,
+
+258
+00:15:43,840 --> 00:15:46,040
+and write everything to disk.
+
+259
+00:15:46,040 --> 00:15:50,830
+To export the layer, it's pretty easy.
+It's a recursive function. It calls itself.
+
+260
+00:15:50,830 --> 00:15:54,760
+So it's going to drill down,
+it's going to take the last group.
+
+261
+00:15:54,760 --> 00:15:58,620
+And within that group, take the last group
+within the last group within the last group
+
+262
+00:15:58,621 --> 00:16:00,880
+until it finds no more groups.
+
+263
+00:16:00,880 --> 00:16:04,790
+Then it's going to--and that's
+backward, you see, "i--."
+
+264
+00:16:04,790 --> 00:16:09,450
+It starts at the end and goes backwards,
+and it's going to call itself.
+
+265
+00:16:09,450 --> 00:16:12,220
+So now it means it has a layer set.
+
+266
+00:16:12,220 --> 00:16:15,379
+We create a running number,
+because artists copy.
+
+267
+00:16:15,379 --> 00:16:18,240
+So you may have tree,
+tree, tree, tree, tree.
+
+268
+00:16:18,240 --> 00:16:21,665
+And then we just at a running number
+so the backs of the images we export
+
+269
+00:16:21,666 --> 00:16:23,890
+don't collide with each other.
+
+270
+00:16:23,890 --> 00:16:28,020
+Then we check that "item:."
+
+271
+00:16:28,020 --> 00:16:31,280
+So that's here, right? "item:."
+
+272
+00:16:31,280 --> 00:16:37,060
+So it tells us we have an item, and then
+we grab out the name after the colon.
+
+273
+00:16:37,060 --> 00:16:41,750
+And then we check what it is. Is a hot
+spot, obscured shadow, or whole?
+
+274
+00:16:41,750 --> 00:16:46,210
+And then we simply save out the PNG down here.
+
+275
+00:16:46,210 --> 00:16:52,930
+And to do that, what we do is we trim the
+left and top--that must be it's XY position.
+
+276
+00:16:52,930 --> 00:16:55,530
+Then we trim the right and bottom.
+
+277
+00:16:55,530 --> 00:16:58,820
+And then we get the size, and
+then we know how big it is.
+
+278
+00:16:58,820 --> 00:17:05,410
+And then we simply save out the image
+and write the XML data. And that's it.
+
+279
+00:17:05,410 --> 00:17:09,470
+There's a bit of code in here, but it's
+pretty logical, pretty easy to understand.
+
+280
+00:17:09,470 --> 00:17:12,770
+And so what I'm going to do,
+at the risk of this dying on me,
+
+281
+00:17:12,770 --> 00:17:18,130
+we will actually--actually, I'll run
+this from the debugger itself.
+
+282
+00:17:18,130 --> 00:17:24,730
+So what you'll see is, hopefully, got Photoshop
+configured. I think this should work.
+
+283
+00:17:24,730 --> 00:17:34,900
+So it's asking me where I wanna put
+this, and I need to put this in "projects,"
+
+284
+00:17:34,900 --> 00:17:40,340
+"workflows," and "hidden
+object game," "levels," "Greek hall."
+
+285
+00:17:40,340 --> 00:17:44,980
+And here it is. This is where my file
+goes, so I'm just gonna stick it in here.
+
+286
+00:17:44,980 --> 00:17:48,330
+And then what you see immediately
+is that it made a copy.
+
+287
+00:17:48,330 --> 00:17:51,750
+And Photoshop, if you have
+a really powerful machine,
+
+288
+00:17:51,750 --> 00:17:54,570
+you'll be able to see it more, but it
+only gives you snapshots.
+
+289
+00:17:54,570 --> 00:17:58,159
+So you're gonna see things
+kind of randomly looking random.
+
+290
+00:17:58,159 --> 00:17:59,249
+But it's actually going through the code.
+
+291
+00:17:59,249 --> 00:18:02,280
+And you should eventually see
+that everything gets hidden.
+
+292
+00:18:02,280 --> 00:18:04,360
+And then you'll see that
+it's just pulling items out.
+
+293
+00:18:04,360 --> 00:18:09,350
+So we have the original Photoshop file, we
+have the duplicate with everything hidden.
+
+294
+00:18:09,350 --> 00:18:13,400
+Then what we do is we duplicate
+that, show the current layer,
+
+295
+00:18:13,400 --> 00:18:17,309
+collapse the entire thing, trim, trim,
+
+296
+00:18:17,309 --> 00:18:23,590
+save out the image, save out
+the XML, and keep going.
+
+297
+00:18:23,590 --> 00:18:31,870
+And when we're done, we should hopefully have a
+whole directory full of images and some metadata.
+
+298
+00:18:39,090 --> 00:18:44,679
+And this is when the artists go to lunch.
+Okay, it all finished, it didn't crash, everything's good.
+
+299
+00:18:44,679 --> 00:18:51,280
+And if we go look at our files here,
+let's just go have a look-see at them.
+
+300
+00:18:53,280 --> 00:19:00,220
+"Assets," "hidden object game," "levels," "Greek
+hall." And you can see it created all these items,
+
+301
+00:19:00,220 --> 00:19:06,780
+as well as the metadata that we wanted.
+
+302
+00:19:06,780 --> 00:19:12,190
+So now, based on that, we
+took back that Greek Hall file,
+
+303
+00:19:12,190 --> 00:19:18,710
+and we generated all of the small image
+files, as well as the XML we needed.
+
+304
+00:19:18,710 --> 00:19:21,380
+So now we've got step two done.
+
+305
+00:19:21,380 --> 00:19:23,620
+Now, the only thing we need
+to do is get it into Unity.
+
+306
+00:19:23,621 --> 00:19:26,296
+Now by default, when we first
+bring it into Unity, of course
+
+307
+00:19:26,297 --> 00:19:30,370
+it's just going to come in as normal
+images and a normal text asset.
+
+308
+00:19:30,370 --> 00:19:35,550
+But then we're also going to need
+to write the importer part. Okay?
+
+309
+00:19:35,550 --> 00:19:37,600
+So let's bring it into Unity.
+
+310
+00:19:37,600 --> 00:19:42,010
+And we'll see that all
+the things are coming in.
+
+311
+00:19:42,010 --> 00:19:44,710
+And fair enough, if
+I go and open this,
+
+312
+00:19:44,710 --> 00:19:48,200
+then here, I see all the
+items that are in here.
+
+313
+00:19:48,200 --> 00:19:52,510
+So I see some hot spots,
+I see some statues, right?
+
+314
+00:19:52,510 --> 00:19:56,640
+And then of course, I got all the
+metadata, the XML is in here as well.
+
+315
+00:19:56,640 --> 00:19:57,930
+But we don't really want these
+
+316
+00:19:57,931 --> 00:20:02,400
+as just, you know, Unity by default
+will just make these textures, right?
+
+317
+00:20:02,400 --> 00:20:05,680
+And then we also want a game. We
+want to generate a game out of this.
+
+318
+00:20:05,680 --> 00:20:08,850
+So we need to write the
+next piece, and to do that,
+
+319
+00:20:08,850 --> 00:20:10,930
+we're gonna create two classes.
+
+320
+00:20:10,930 --> 00:20:17,020
+We're going to create a C# class that's
+going to be able to deserialize.
+
+321
+00:20:17,020 --> 00:20:21,930
+What we're going to do is take the XML and
+convert it into a usable class for us.
+
+322
+00:20:21,930 --> 00:20:25,300
+And then we're gonna have an editor
+script that can make sense of that.
+
+323
+00:20:25,300 --> 00:20:29,840
+And to do that, we're going to use
+our old standby, Mono Develop.
+
+324
+00:20:29,840 --> 00:20:33,660
+So, we go into Mono Develop.
+
+325
+00:20:33,660 --> 00:20:38,700
+And what I can see here is I've got my HOG
+scene class--my "hidden object game" class,
+
+326
+00:20:38,700 --> 00:20:43,140
+and let's go open the metadata that was generated.
+
+327
+00:20:43,140 --> 00:20:47,139
+So this was generated about all
+of our Photoshop exporter, right?
+
+328
+00:20:47,139 --> 00:20:50,120
+We wrote out for each layer
+all this information.
+
+329
+00:20:50,121 --> 00:20:54,809
+And if I scroll sideways, right,
+it's got all the positions and everything.
+
+330
+00:20:54,809 --> 00:20:59,330
+So the way deserialization works is,
+I have a HOG scene that has layers.
+
+331
+00:20:59,330 --> 00:21:04,530
+So I create a class called
+"HOGscene" that has layers.
+
+332
+00:21:04,530 --> 00:21:08,580
+And for each one of those layers,
+you can see there's a type,
+
+333
+00:21:08,580 --> 00:21:11,580
+there's a name, and there's
+a number of images.
+
+334
+00:21:11,580 --> 00:21:16,740
+So we have a type, we have a name,
+and we have a number of images.
+
+335
+00:21:16,740 --> 00:21:20,890
+Okay, so basically, we
+can take this, load it up,
+
+336
+00:21:20,890 --> 00:21:22,220
+and we're gonna get this.
+
+337
+00:21:22,220 --> 00:21:24,790
+And this will be much easier to work with.
+
+338
+00:21:24,790 --> 00:21:27,030
+For the importer itself.
+
+339
+00:21:27,030 --> 00:21:35,629
+If you just watched the talk, if you've
+seen Tim's talk on asset serialization.
+
+340
+00:21:35,629 --> 00:21:40,650
+Did it already happen? Or maybe it's later today.
+You can get a lot more information about how to do this.
+
+341
+00:21:40,650 --> 00:21:44,840
+But basically, what we're gonna do is, now
+we're just gonna create an editor script.
+
+342
+00:21:44,840 --> 00:21:46,980
+And it's gonna have a menu item.
+
+343
+00:21:46,980 --> 00:21:50,610
+So its assets create "import HOGscene."
+
+344
+00:21:50,610 --> 00:21:54,520
+And that's simply going to open a file.
+
+345
+00:21:54,520 --> 00:21:56,900
+File chooser dialog box.
+
+346
+00:21:56,900 --> 00:22:01,740
+And assuming that we actually chose a
+file, that's going to call our importer.
+
+347
+00:22:01,740 --> 00:22:05,520
+So what are importer is going to do is call "deserialize XML".
+
+348
+00:22:05,520 --> 00:22:11,090
+What it means is "take the XML and give
+me a real class that's based on that."
+
+349
+00:22:11,090 --> 00:22:15,870
+And then I'm also going to ask the user if
+they want to save the current scene.
+
+350
+00:22:15,870 --> 00:22:19,000
+So we're actually going
+to generate a full scene.
+
+351
+00:22:19,000 --> 00:22:23,320
+We're generating everything. We're gonna
+generate meshes, we're gonna generate a scene.
+
+352
+00:22:23,320 --> 00:22:25,070
+The whole game, ready to go.
+
+353
+00:22:25,070 --> 00:22:27,580
+So first thing we gotta do, is see, do you,
+
+354
+00:22:27,580 --> 00:22:30,670
+do you want to save the
+current one if it needed saving.
+
+355
+00:22:30,670 --> 00:22:35,560
+And if it's like, "Ooh, I see you're gonna
+redo my scene," yeah, we let you bailout.
+
+356
+00:22:35,560 --> 00:22:41,690
+Okay, so looks like we want to go ahead, so what we're
+gonna do as grab our base file name and base directory.
+
+357
+00:22:41,690 --> 00:22:46,950
+And what we're gonna do is find out if there
+is even a scene file that already exists.
+
+358
+00:22:46,950 --> 00:22:49,640
+If the scene file already exists, we delete it.
+
+359
+00:22:49,640 --> 00:22:53,460
+Right? This is a fully destructive
+process for generating games here.
+
+360
+00:22:53,460 --> 00:22:55,919
+And then we create a new scene.
+
+361
+00:22:55,919 --> 00:22:58,600
+Now what we're going to do is
+look through all of our textures.
+
+362
+00:22:59,610 --> 00:23:04,079
+And we need to fix the settings, so if you look
+over here at any one of these textures,
+
+363
+00:23:04,079 --> 00:23:06,470
+right, let's look at the bell.
+
+364
+00:23:06,470 --> 00:23:11,580
+So the bell is here, and you can see it's just
+texture, but that's not really what we want.
+
+365
+00:23:11,580 --> 00:23:14,640
+What we actually we need is we
+need it read-write enabled.
+
+366
+00:23:14,640 --> 00:23:16,870
+We want to disable the power of two.
+
+367
+00:23:16,870 --> 00:23:20,280
+And we don't want mipmaps,
+so we need to fix this up.
+
+368
+00:23:20,280 --> 00:23:24,940
+Okay, and the way we're gonna
+do that is come through here.
+
+369
+00:23:24,940 --> 00:23:29,620
+We're gonna get that texture importer.
+
+370
+00:23:29,620 --> 00:23:32,049
+And then we're going to disable mipmaps,
+
+371
+00:23:32,049 --> 00:23:33,420
+make it readable.
+
+372
+00:23:33,420 --> 00:23:35,845
+We don't care about power of two,
+because we're going to make an atlas.
+
+373
+00:23:35,846 --> 00:23:38,740
+We're gonna try to make
+this game very performant.
+
+374
+00:23:38,740 --> 00:23:43,490
+And we're gonna set the wrap mode, the
+filter mode, everything that we need to do.
+
+375
+00:23:43,490 --> 00:23:46,080
+And then if it's a visible image
+that's actually in the game,
+
+376
+00:23:46,080 --> 00:23:49,440
+we're going to create a separate
+array of textures to hold it.
+
+377
+00:23:49,440 --> 00:23:54,740
+This is because to generate an atlas in
+Unity, you pass in an array of textures.
+
+378
+00:23:54,740 --> 00:23:59,960
+So we add all the images that we actually
+wanna generate in the atlas to a texture list.
+
+379
+00:23:59,960 --> 00:24:04,470
+Then we're going to create a material,
+a single material, to hold our atlas.
+
+380
+00:24:04,470 --> 00:24:08,040
+And same thing, if there's already a
+material there, we're going to delete it.
+
+381
+00:24:08,040 --> 00:24:11,620
+So, normal game development, right? You do
+the first time, everything comes through.
+
+382
+00:24:11,620 --> 00:24:13,909
+But then you're gonna iterate,
+you're gonna play test,
+
+383
+00:24:13,909 --> 00:24:17,250
+make change, export again,
+play test, make change.
+
+384
+00:24:17,250 --> 00:24:19,799
+So there could be files in this directory already.
+
+385
+00:24:19,799 --> 00:24:22,760
+So we're going to clean up after
+ourselves and delete the material.
+
+386
+00:24:22,760 --> 00:24:27,180
+We're gonna make a new material,
+put the shader we want on it,
+
+387
+00:24:27,180 --> 00:24:28,870
+and then load it back.
+
+388
+00:24:28,870 --> 00:24:30,650
+Now, we're gonna make the atlas.
+
+389
+00:24:30,650 --> 00:24:36,130
+To make an atlas in Unity is really easy.
+It's one line of code. You declare the texture.
+
+390
+00:24:36,130 --> 00:24:39,929
+And then you call pack textures,
+give it the texture array.
+
+391
+00:24:39,929 --> 00:24:43,490
+And it will pass you back an array of rectangles,
+
+392
+00:24:43,490 --> 00:24:47,315
+where each rectangle at the same
+index as the texture you passed in,
+
+393
+00:24:47,316 --> 00:24:51,140
+tells it where in the atlas it is.
+
+394
+00:24:51,140 --> 00:24:53,050
+And then this one, we also need to fix up.
+
+395
+00:24:53,050 --> 00:24:55,930
+We need to fix up our texture settings
+
+396
+00:24:55,930 --> 00:24:58,820
+because I don't want to
+have to mouse click that later.
+
+397
+00:24:58,820 --> 00:25:02,790
+And we're almost done. Then, what
+we're gonna do is simply create the meshes.
+
+398
+00:25:02,790 --> 00:25:07,990
+So we're gonna create 2D polygonal meshes,
+
+399
+00:25:07,990 --> 00:25:10,210
+create a new game object,
+we're gonna set the name.
+
+400
+00:25:10,210 --> 00:25:16,100
+We're gonna set the position based on the
+XML that we output from photoshop.
+
+401
+00:25:16,100 --> 00:25:20,380
+We're going to add it as an
+item if it was an item control.
+
+402
+00:25:20,380 --> 00:25:25,789
+If it's an item, we need a attach
+the item controller, the code to it.
+
+403
+00:25:25,789 --> 00:25:27,930
+We're going to set up the hit test.
+
+404
+00:25:27,930 --> 00:25:31,730
+So we're gonna get all the
+hit test data, extract that out.
+
+405
+00:25:31,730 --> 00:25:37,220
+And then we're going to
+set up the game object.
+
+406
+00:25:37,220 --> 00:25:42,800
+So this one line here is when we actually create
+the game object. I'll look at that in a minute.
+
+407
+00:25:42,800 --> 00:25:45,590
+We set up the camera because
+this is a brand new scene.
+
+408
+00:25:45,590 --> 00:25:47,410
+We save everything and we're done.
+
+409
+00:25:47,410 --> 00:25:52,210
+So, really simple. We process
+all the textures using the XML,
+
+410
+00:25:52,210 --> 00:25:56,800
+generate a scene, generate meshes,
+put the textures on the meshes,
+
+411
+00:25:56,800 --> 00:26:00,820
+arrange them in the scene,
+save everything, and we're done.
+
+412
+00:26:00,820 --> 00:26:03,392
+And to generate a 2D
+mesh in Unity is quite easy.
+
+413
+00:26:03,980 --> 00:26:07,500
+Create a new game object,
+we just add the mesh filter,
+
+414
+00:26:07,500 --> 00:26:15,289
+we add the mesh renderer, we create the
+vertices, the UVs, vert colors, and we're done.
+
+415
+00:26:15,289 --> 00:26:16,170
+Very simple.
+
+416
+00:26:16,170 --> 00:26:19,750
+And then we have the way
+to extract the hit test data.
+
+417
+00:26:19,750 --> 00:26:22,590
+So, with luck, if I just go and run this.
+
+418
+00:26:22,590 --> 00:26:28,220
+So, I can go to go "assets," "create,"
+so we put it on the menu.
+
+419
+00:26:28,220 --> 00:26:29,309
+There it is.
+
+420
+00:26:29,309 --> 00:26:33,410
+And then it wants me to choose.
+
+421
+00:26:35,350 --> 00:26:38,760
+It wants me to choose the file to import.
+
+422
+00:26:38,760 --> 00:26:42,289
+So here's the Greek hall that
+we exported from Photoshop.
+
+423
+00:26:42,289 --> 00:26:44,120
+Today, 2:20.
+
+424
+00:26:44,120 --> 00:26:45,490
+We open that.
+
+425
+00:26:45,490 --> 00:26:49,730
+We wait a moment.
+
+426
+00:26:49,730 --> 00:26:52,200
+It's going through the importer scripts.
+
+427
+00:26:52,200 --> 00:26:55,200
+And when we're all done,
+you can see it's generated
+
+428
+00:26:55,200 --> 00:26:59,429
+a Unity scene. All my items are
+in the scene, just like they were.
+
+429
+00:26:59,429 --> 00:27:02,890
+We can see down here it's created all the meshes.
+
+430
+00:27:02,890 --> 00:27:09,440
+And if I go look at the Greek hall name,
+you can see that the atlas is here.
+
+431
+00:27:09,440 --> 00:27:11,220
+We'll just double-click on this.
+
+432
+00:27:11,220 --> 00:27:17,015
+So it created a single texture PNG with all of my
+background, all the little items scattered around.
+
+433
+00:27:18,750 --> 00:27:20,429
+And everything's there.
+
+434
+00:27:20,429 --> 00:27:23,440
+And it modified my camera.
+
+435
+00:27:23,440 --> 00:27:28,210
+And if I click on an item, like for
+example one of the items like the bell,
+
+436
+00:27:28,210 --> 00:27:30,620
+you can see it's attached the item controller.
+
+437
+00:27:30,620 --> 00:27:35,000
+It's configured all the data I need, and
+I can just run the game straight away.
+
+438
+00:27:35,000 --> 00:27:36,150
+And there you go.
+
+439
+00:27:36,150 --> 00:27:41,490
+I've got just a very simple--in my game,
+I had like, obviously, a very nice UI.
+
+440
+00:27:41,490 --> 00:27:46,230
+But then for this talk, I just stripped that
+out and used a plain, simple Unity GUI.
+
+441
+00:27:46,230 --> 00:27:50,230
+So you can see it's got all the
+items down below on the bottom.
+
+442
+00:27:50,230 --> 00:27:53,750
+And my own game there,
+I clicked on one that went away.
+
+443
+00:27:53,750 --> 00:27:58,100
+Idols, where are the idols?
+
+444
+00:27:58,100 --> 00:27:59,889
+I'm not good at my own game.
+
+445
+00:27:59,889 --> 00:28:01,620
+You run it again.
+
+446
+00:28:01,620 --> 00:28:02,720
+So, goblet.
+
+447
+00:28:02,720 --> 00:28:06,440
+Goblet is this one in the back,
+so I click on it, it goes away.
+
+448
+00:28:06,440 --> 00:28:07,919
+So, really simple.
+
+449
+00:28:07,919 --> 00:28:11,120
+Right? And then this is basically the game.
+Of course, you would add transitions,
+
+450
+00:28:11,120 --> 00:28:14,500
+or anything else that
+you wanted into that.
+
+451
+00:28:14,500 --> 00:28:19,210
+If you want to look at the game
+code itself, just for completion.
+
+452
+00:28:19,210 --> 00:28:22,760
+So we have the item controller.
+
+453
+00:28:22,760 --> 00:28:26,400
+So these are the fields that I'm serializing.
+
+454
+00:28:26,400 --> 00:28:29,280
+They're private, so I have to
+mark them as "serialize field."
+
+455
+00:28:29,280 --> 00:28:34,110
+If you went to Tim Cooper's talk on
+serialization, he goes into this more in depth.
+
+456
+00:28:34,110 --> 00:28:37,655
+So basically, it's choosing
+the search items.
+
+457
+00:28:37,656 --> 00:28:43,230
+So we shuffle the deck every time you run the game,
+it will randomly choose how many items to find.
+
+458
+00:28:43,230 --> 00:28:46,985
+Otherwise, we have XY hit
+testing for picking item.
+
+459
+00:28:46,986 --> 00:28:52,640
+We don't use physics or any
+colliders. And that's about it.
+
+460
+00:28:52,640 --> 00:28:58,220
+The rest of it is just simple adding
+myself to a list, cleaning up after myself.
+
+461
+00:28:58,220 --> 00:29:03,289
+On start, making sure my Z-sort,
+everything, is in the right place,
+
+462
+00:29:03,289 --> 00:29:10,320
+and shuffled. So very, very simple concept,
+just to build a hidden object game.
+
+463
+00:29:10,320 --> 00:29:15,690
+And we did the HOG scene and the HOG
+importer. These at the two main parts.
+
+464
+00:29:15,690 --> 00:29:20,260
+Now the other thing that I want
+to--and that came into Unity, of course.
+
+465
+00:29:20,260 --> 00:29:22,669
+So when you author games in Photoshop,
+
+466
+00:29:22,669 --> 00:29:29,910
+or any of the tools actually, basically the idea is
+simply making sure that the objects within the tool
+
+467
+00:29:29,910 --> 00:29:34,340
+are using metadata in their names. Right?
+
+468
+00:29:34,340 --> 00:29:37,315
+And by doing that, then you can
+write some sort of exporter
+
+469
+00:29:37,316 --> 00:29:40,139
+that understands the
+naming conventions,
+
+470
+00:29:40,139 --> 00:29:45,040
+extracts that data out, and generates
+everything that you need to make it work.
+
+471
+00:29:45,040 --> 00:29:48,190
+And then we simply need
+to use Unity's editor scripting
+
+472
+00:29:48,190 --> 00:29:52,820
+to make sense of all that in the end.
+
+473
+00:29:52,820 --> 00:29:58,160
+So we do still have some time.
+I'd like to cover animation.
+
+474
+00:29:58,160 --> 00:30:04,930
+At our studio, we used Anime Studio
+because it was Windows and Mac-based.
+
+475
+00:30:04,930 --> 00:30:08,030
+And it was very simple, straightforward, easy to use.
+
+476
+00:30:08,030 --> 00:30:11,770
+So I have an example that we did
+on that. This is from the same game.
+
+477
+00:30:11,770 --> 00:30:17,810
+It's a simple dream sequence scene where she has
+something, and there's some UI bits that come up.
+
+478
+00:30:17,810 --> 00:30:22,809
+But the basic thing that you like about
+animation tools is how simple they are.
+
+479
+00:30:22,809 --> 00:30:25,600
+I have here three strands of hair.
+
+480
+00:30:25,600 --> 00:30:29,110
+I have eyes open, closed, and half.
+
+481
+00:30:29,110 --> 00:30:30,810
+I have the head.
+
+482
+00:30:30,810 --> 00:30:33,130
+I have two spirals and a background.
+
+483
+00:30:33,130 --> 00:30:33,869
+And that's it.
+
+484
+00:30:33,869 --> 00:30:36,400
+So it doesn't really matter
+how long the movie is
+
+485
+00:30:36,400 --> 00:30:38,800
+I don't have to render it out
+to some giant file, right?
+
+486
+00:30:38,801 --> 00:30:41,800
+We want our games to be very
+lightweight and easy to use.
+
+487
+00:30:41,800 --> 00:30:44,039
+So is a very simple animation.
+
+488
+00:30:44,039 --> 00:30:47,640
+It just shows her blinking
+and doing some things.
+
+489
+00:30:47,640 --> 00:30:51,210
+So the artist can come in here, and do that.
+
+490
+00:30:51,210 --> 00:30:53,080
+And then it's the same idea.
+
+491
+00:30:53,080 --> 00:30:56,610
+We would use some sort of exporter.
+
+492
+00:30:56,610 --> 00:31:01,259
+In the case of Anime Studio, it happens
+to be Lua. It's a scripting language.
+
+493
+00:31:01,259 --> 00:31:08,490
+So same idea. We would write all of the
+code that we need to export all the layers,
+
+494
+00:31:08,490 --> 00:31:12,160
+and get all the metadata
+and stuff we want off that.
+
+495
+00:31:12,160 --> 00:31:20,030
+And then back on the Unity side,
+we would write the import.
+
+496
+00:31:24,660 --> 00:31:26,495
+That would be here and
+it's the same thing.
+
+497
+00:31:26,496 --> 00:31:31,130
+We create a menu,
+we call the importer.
+
+498
+00:31:31,130 --> 00:31:33,750
+It's the same,
+I mean it's copy-paste.
+
+499
+00:31:33,750 --> 00:31:37,850
+So once you've wrote your first one,
+it's very easy to write more the these.
+
+500
+00:31:37,850 --> 00:31:40,269
+I mean really, this is
+literally a copy-paste.
+
+501
+00:31:40,269 --> 00:31:42,407
+I rewrote the exporter on Saturday.
+
+502
+00:31:42,433 --> 00:31:46,980
+Last Saturday, I took like two hours,
+its like, just copy-paste everything in.
+
+503
+00:31:46,980 --> 00:31:50,070
+It's got the exact same
+mesh generation code.
+
+504
+00:31:50,070 --> 00:31:52,730
+The only difference was
+the custom code to generate
+
+505
+00:31:52,730 --> 00:31:56,240
+all of the audio and everything
+support that we have.
+
+506
+00:31:56,240 --> 00:31:59,860
+And that one as well, we
+go into Anime Studio then.
+
+507
+00:31:59,860 --> 00:32:05,660
+We can export this to Unity.
+
+508
+00:32:05,660 --> 00:32:10,519
+"Projects," "2D workflows," "assets," "animation,"
+
+509
+00:32:10,519 --> 00:32:17,519
+"cutscenes," "dream sequence."
+
+510
+00:32:18,090 --> 00:32:21,310
+Save that--now this one's very fast because
+we don't do anything with the images.
+
+511
+00:32:21,310 --> 00:32:23,300
+We just left them there.
+
+512
+00:32:23,300 --> 00:32:25,769
+So then that should come in.
+
+513
+00:32:25,769 --> 00:32:28,110
+I should see my--yup.
+
+514
+00:32:28,110 --> 00:32:33,320
+I got my XML data and
+it's exactly the same.
+
+515
+00:32:33,320 --> 00:32:36,960
+I have a cutscene with
+width, height, and layers.
+
+516
+00:32:36,960 --> 00:32:40,930
+So I created a cutscene class,
+width, height, and layers.
+
+517
+00:32:40,930 --> 00:32:44,470
+And same, with all the data that I need.
+
+518
+00:32:44,470 --> 00:32:48,470
+And then of course, this has a lot
+of key frames. It has very few images,
+
+519
+00:32:48,470 --> 00:32:54,160
+but it has a lot, a lot, a
+lot, a lot, a lot of data going out.
+
+520
+00:32:56,260 --> 00:33:01,380
+So on the Unity-side, we
+simply link and import.
+
+521
+00:33:01,380 --> 00:33:05,230
+So we can create
+importer cutscene.
+
+522
+00:33:05,230 --> 00:33:08,600
+And it's exactly the same as before.
+
+523
+00:33:08,600 --> 00:33:13,720
+We go into the dream
+sequence, click open.
+
+524
+00:33:13,720 --> 00:33:20,550
+Does all the processing, I click run
+and I get exactly the same thing out.
+
+525
+00:33:20,550 --> 00:33:24,060
+So there's no programmer
+involvement in any of this.
+
+526
+00:33:24,060 --> 00:33:30,370
+Because of Z-sorting and Z-fighting,
+it's hard to see all the elements there.
+
+527
+00:33:30,370 --> 00:33:32,760
+So everything in here is a proper Unity object.
+
+528
+00:33:32,760 --> 00:33:37,950
+You can see that the head,
+eyeswitch follows exactly
+
+529
+00:33:37,950 --> 00:33:41,540
+what was over here with the head
+and the eyeswitch as a child.
+
+530
+00:33:41,540 --> 00:33:44,498
+So it's just a really simple
+mapping from one to one.
+
+531
+00:33:44,524 --> 00:33:48,380
+And everything goes straight through.
+
+532
+00:33:48,380 --> 00:33:50,446
+And you don't really have
+to stop there as well.
+
+533
+00:33:50,472 --> 00:33:54,960
+You can go--so Anime Studio is a
+simple animation tool that's scriptable.
+
+534
+00:33:54,960 --> 00:33:56,788
+And it uses Lua, whether
+you love it or hate it.
+
+535
+00:33:56,814 --> 00:34:04,659
+It's not my favorite language in the world, but it
+is small, fast, and clean, so it does does the job.
+
+536
+00:34:04,659 --> 00:34:08,549
+And there's really no limits to this.
+Somebody's already done the hard work
+
+537
+00:34:08,549 --> 00:34:12,221
+for you on Flash. There is
+a tool called Grapefrukt.
+
+538
+00:34:12,247 --> 00:34:13,939
+I don' know if you've
+ever heard of it.
+
+539
+00:34:13,939 --> 00:34:17,069
+But it's a similar idea.
+It's a set of action scripts.
+
+540
+00:34:17,069 --> 00:34:22,039
+You open up your scene, you drag in the
+action scripts, you run, you just play your...
+
+541
+00:34:22,039 --> 00:34:25,272
+You hit play on the on the
+thing, and while playing it,
+
+542
+00:34:25,298 --> 00:34:29,549
+it exports itself and creates
+XML and image files out for you.
+
+543
+00:34:29,549 --> 00:34:33,089
+And all you'd have to
+do is write the Unity side.
+
+544
+00:34:33,089 --> 00:34:36,979
+Sometimes though, even though,
+if you're only given simple objects,
+
+545
+00:34:37,005 --> 00:34:39,972
+you can also, even without
+an exporter and metadata,
+
+546
+00:34:39,998 --> 00:34:42,079
+you can still use
+that in Unity itself.
+
+547
+00:34:42,079 --> 00:34:45,829
+So I'll just quickly talk about these two
+because I think there's a bit of time.
+
+548
+00:34:45,829 --> 00:34:50,700
+So the Grapefrukt one is on GitHub.
+You can go grab it if you want.
+
+549
+00:34:51,629 --> 00:34:57,889
+Just remember that it's
+"grapefruit" with a "k," oddly.
+
+550
+00:34:57,889 --> 00:35:02,678
+And then, like I said, the other use case
+you have is you've still just got images.
+
+551
+00:35:02,704 --> 00:35:04,260
+So I just want to show you this example too.
+
+552
+00:35:04,260 --> 00:35:08,079
+So back in Unity,
+the example is
+
+553
+00:35:08,079 --> 00:35:12,009
+a friend of mine give me
+all these images for the player
+
+554
+00:35:12,009 --> 00:35:15,559
+with all these frames, loose
+images with no metadata.
+
+555
+00:35:15,559 --> 00:35:18,049
+And then I have, like, all the tiles.
+
+556
+00:35:18,049 --> 00:35:21,859
+I got all these with
+just basic metadata.
+
+557
+00:35:21,859 --> 00:35:24,082
+So in this one, I
+did the same thing.
+
+558
+00:35:24,108 --> 00:35:26,509
+Again, if you go and look at Tim's talk,
+
+559
+00:35:26,509 --> 00:35:29,319
+I created a scriptable object asset here.
+
+560
+00:35:29,319 --> 00:35:35,649
+And for that scriptable object asset,
+let me open up the scripts itself.
+
+561
+00:35:35,649 --> 00:35:38,089
+So if I look at the static sprite.
+
+562
+00:35:38,089 --> 00:35:42,439
+So static sprite, same idea. I have
+a class that's going to hold the data.
+
+563
+00:35:42,439 --> 00:35:48,289
+The statics sprite editor is exactly same.
+It creates the menu item, creates the asset.
+
+564
+00:35:48,289 --> 00:35:51,060
+And then it basically does
+all the mesh configuration.
+
+565
+00:35:51,060 --> 00:35:54,679
+It's all the same thing, again and
+again, but just reoutputting it.
+
+566
+00:35:54,679 --> 00:36:02,209
+So this one allows me to basically
+right-click anywhere I want.
+
+567
+00:36:02,209 --> 00:36:07,789
+I'll click in "tiles," "create," and have
+created my own static sprite asset.
+
+568
+00:36:07,789 --> 00:36:13,599
+So I can add you know like,
+level 2 titles if I want.
+
+569
+00:36:13,599 --> 00:36:18,829
+And then I can configure all
+that, and so this is my class
+
+570
+00:36:18,829 --> 00:36:21,369
+with its own GUI. I can configure it.
+
+571
+00:36:21,369 --> 00:36:23,979
+I've already got one that's configured here.
+
+572
+00:36:23,979 --> 00:36:31,130
+And when I run this, then I can
+immediately generate a scene.
+
+573
+00:36:31,130 --> 00:36:36,649
+So here's an example of a scene.
+
+574
+00:36:36,649 --> 00:36:47,959
+So I can take a block, duplicate
+it, hold down control, snap, play.
+
+575
+00:36:47,959 --> 00:36:50,709
+And then still, I've just added
+a block to the back, right?
+
+576
+00:36:50,709 --> 00:36:56,399
+So to make a 2D platformer game
+is probably 20-30 minutes max.
+
+577
+00:36:56,399 --> 00:37:00,089
+And to write all the scripts, the
+editor scripts, unscriptable objects,
+
+578
+00:37:00,089 --> 00:37:04,259
+even if you haven't done it before, it probably
+won't take much more than a day to do.
+
+579
+00:37:04,259 --> 00:37:08,950
+So it's really, really easy, even if you
+don't have any metadata, anything,
+
+580
+00:37:08,950 --> 00:37:11,279
+you can at least do it on the Unity side.
+
+581
+00:37:11,279 --> 00:37:17,059
+You can allow some ability to configure
+it and make custom inspectors for that
+
+582
+00:37:17,059 --> 00:37:20,979
+on the Unity side, as well.
+
+583
+00:37:20,979 --> 00:37:24,059
+So basically, what I wanted to show you today.
+
+584
+00:37:24,059 --> 00:37:27,089
+I still don't know if we're out of time or not.
+
+585
+00:37:27,089 --> 00:37:31,399
+I wanted to show you that you can use
+your 2D art tools and leverage them.
+
+586
+00:37:31,399 --> 00:37:36,319
+I'm a big believer in keeping people in
+the tool that they're comfortable with.
+
+587
+00:37:36,319 --> 00:37:39,419
+If your artists is comfortable with
+Flash, then let them stay in Flash.
+
+588
+00:37:39,419 --> 00:37:41,049
+Don't force them out of that.
+
+589
+00:37:41,049 --> 00:37:44,860
+If they're happy to do it in 3D Studio
+Max or Maya, they can do that too.
+
+590
+00:37:44,860 --> 00:37:47,809
+You could easily write a 2D exporter
+
+591
+00:37:47,809 --> 00:37:52,609
+even out of Maya, right? You could write a
+script to render all your sprite frames out,
+
+592
+00:37:52,609 --> 00:37:57,219
+put them into an atlas, generate the
+XML and bring it straight into Unity.
+
+593
+00:37:57,219 --> 00:38:01,313
+There's no reason at all to
+not create custom workflows.
+
+594
+00:38:01,339 --> 00:38:06,029
+So let each tool and each
+person do what they're best at.
+
+595
+00:38:06,029 --> 00:38:10,659
+And the idea here is just to give meaning
+to your assets where possible using metadata.
+
+596
+00:38:10,659 --> 00:38:16,319
+And if nothing else, do take
+the leap into editor scripting.
+
+597
+00:38:16,319 --> 00:38:21,159
+It is the one reason why
+Unity is really so successful.
+
+598
+00:38:21,159 --> 00:38:24,709
+Because no matter what skill level
+you are when you look at Unity,
+
+599
+00:38:24,709 --> 00:38:28,279
+you see what you want in it.
+
+600
+00:38:28,279 --> 00:38:32,759
+And I don't know if a lot of people
+realize, but Unity is written in Unity.
+
+601
+00:38:32,759 --> 00:38:36,309
+So when you're using the Unity editors,
+sort of playing the game already.
+
+602
+00:38:36,309 --> 00:38:41,380
+And many of the windows and configurations
+in Unity are also written in editor scripts
+
+603
+00:38:41,380 --> 00:38:43,819
+by our own team, internally.
+
+604
+00:38:43,819 --> 00:38:48,729
+So we use the same stuff
+that everybody else uses.
+
+605
+00:38:48,729 --> 00:38:54,750
+So that's about what I have. I do believe we have a
+couple of minutes for one, two questions, if that's okay.
+
+606
+00:38:54,750 --> 00:38:59,269
+One, two questions, if I have time?
+
+607
+00:38:59,269 --> 00:39:05,199
+
+
+608
+00:39:10,219 --> 00:39:11,639
+No questions?
+
+609
+00:39:11,639 --> 00:39:14,559
+Okay, that's either a really
+good talk, or I lost everybody.
+
+610
+00:39:14,559 --> 00:39:16,969
+Either way, at least we
+ended up at an extreme.
+
+611
+00:39:16,969 --> 00:39:23,829
+Anyway, thank you very much for your time.
+Enjoy your afternoon and have a pleasant day.
+
+612
+00:39:27,979 --> 00:39:30,249
+One one quick thing.
+
+613
+00:39:30,249 --> 00:39:33,449
+Could you guys just put the screen back?
+
+614
+00:39:33,449 --> 00:39:36,209
+If you would like some of these
+files, you're free to email me.
+
+615
+00:39:36,209 --> 00:39:39,069
+Happy to share them with you.
+
+616
+00:39:39,069 --> 00:39:44,149
+My email address: brettb
+at Unity3D dot com.
+
+617
+00:39:44,149 --> 00:39:49,389
+Very happy share that with you.
+You can Skype me at bibbinator.
+
+618
+00:39:49,389 --> 00:39:53,059
+If you Skype me,
+just say "I saw your talk"
+
+619
+00:39:53,059 --> 00:39:58,689
+because when "EvilGenius43"
+wants to connect, I'm never sure.
+
+620
+00:39:58,689 --> 00:40:04,989
+Cool? And no Facebook please. Thank you.

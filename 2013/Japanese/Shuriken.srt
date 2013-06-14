@@ -1,0 +1,2759 @@
+﻿1
+00:00:27,880 --> 00:00:30,279
+Hello, everybody.
+
+2
+00:00:30,279 --> 00:00:31,489
+
+
+3
+00:00:31,489 --> 00:00:34,390
+I don't speak any Japanese, so...
+
+4
+00:00:34,390 --> 00:00:36,660
+My name is Carl Callawaert.
+
+5
+00:00:36,660 --> 00:00:40,490
+I work as a product--Closer? Okay.
+
+6
+00:00:40,490 --> 00:00:44,220
+I work as a product evangelist at Unity Technologies.
+
+7
+00:00:44,220 --> 00:00:50,910
+I perform workshops, training around
+the world, mainly in the Americas.
+
+8
+00:00:50,910 --> 00:00:52,820
+I'm always happy to be here,
+
+9
+00:00:52,820 --> 00:00:55,410
+but it's still snowing where I live.
+
+10
+00:00:55,410 --> 00:00:57,830
+I live in a remote place in Canada,
+
+11
+00:00:57,830 --> 00:01:01,570
+so to be away from the snow is great.
+
+12
+00:01:01,570 --> 00:01:05,940
+Today we're going to talk
+about Shruiken particles.
+
+13
+00:01:05,940 --> 00:01:10,400
+What I'm gonna' do, I'm gonna'
+show it directly in Unity.
+
+14
+00:01:10,400 --> 00:01:17,960
+So I'm going to cover how to
+create particles like fire, like this,
+
+15
+00:01:17,960 --> 00:01:22,670
+explosions,
+
+16
+00:01:22,670 --> 00:01:27,530
+and effects,
+
+17
+00:01:27,530 --> 00:01:28,960
+another kind of fire,
+
+18
+00:01:28,960 --> 00:01:33,030
+but I will break it down--why and how I use it.
+
+19
+00:01:33,630 --> 00:01:36,645
+Like explosion effects,
+
+20
+00:01:38,300 --> 00:01:42,214
+like magical effects,
+
+21
+00:01:43,400 --> 00:01:47,300
+other ones,
+
+22
+00:01:50,300 --> 00:01:52,490
+like totally different.
+
+23
+00:01:52,490 --> 00:01:55,183
+But, you will see what
+I'm talking about.
+
+24
+00:01:55,209 --> 00:01:59,890
+Like storms and we're
+going to deal with that.
+
+25
+00:01:59,890 --> 00:02:01,641
+Other effects.
+
+26
+00:02:02,667 --> 00:02:06,270
+We're going to start
+with this one.
+
+27
+00:02:06,270 --> 00:02:13,129
+So I'm going to go back to
+my Powerpoint presentation.
+
+28
+00:02:13,129 --> 00:02:18,169
+So after this presentation, you
+should be able to create complex
+
+29
+00:02:18,169 --> 00:02:22,479
+particle systems in an
+easy and fast way.
+
+30
+00:02:22,479 --> 00:02:28,620
+Also, some advice for you on how
+to use Shuriken for mobile.
+
+31
+00:02:28,620 --> 00:02:35,510
+Raise your hands. Who of you
+has already used Shuriken in Unity?
+
+32
+00:02:37,979 --> 00:02:45,069
+Raise your hands. Who has problems
+sometimes creating the effect you want?
+
+33
+00:02:49,650 --> 00:02:53,269
+So first, we're going to talk about
+how to create your effects.
+
+34
+00:02:53,269 --> 00:02:55,000
+So, for people who don't know particles,
+
+35
+00:02:55,000 --> 00:03:01,729
+it's just a collection of sprites
+and 3D objects that are emitted.
+
+36
+00:03:01,929 --> 00:03:06,859
+We can use it for
+rain, smoke and fire,
+
+37
+00:03:06,859 --> 00:03:12,489
+but also to show impact
+or magical things.
+
+38
+00:03:12,489 --> 00:03:15,540
+Later on, I'm going to talk more about that,
+
+39
+00:03:15,540 --> 00:03:18,499
+but always ask why you're going to use it.
+
+40
+00:03:18,499 --> 00:03:21,859
+Don't start to use particles if there's no why,
+
+41
+00:03:21,859 --> 00:03:27,689
+and if you can do it in another cheaper and
+faster way, its more interesting sometimes.
+
+42
+00:03:27,689 --> 00:03:30,309
+How do I learn Shuriken?
+
+43
+00:03:31,029 --> 00:03:33,859
+I used particles before, of course.
+
+44
+00:03:33,959 --> 00:03:39,279
+But there's a lot of particle effects
+on our Asset Store you can download
+
+45
+00:03:39,279 --> 00:03:43,209
+and learn from there, from the interesting ones.
+
+46
+00:03:44,189 --> 00:03:47,230
+I look at real particles
+in life and analyze them.
+
+47
+00:03:47,230 --> 00:03:53,199
+I go to YouTube for that.
+
+48
+00:03:53,199 --> 00:03:58,809
+The problem is when you look at
+Shuriken, or when you open it in Unity,
+
+49
+00:03:58,809 --> 00:04:01,979
+it's a lot of parameters, a lot of sliders.
+
+50
+00:04:01,979 --> 00:04:03,849
+It's overwhelming.
+
+51
+00:04:03,849 --> 00:04:05,889
+But if you learn a slider,
+
+52
+00:04:05,889 --> 00:04:09,659
+never ask what that slider does.
+
+53
+00:04:09,659 --> 00:04:11,589
+That is useless.
+
+54
+00:04:11,589 --> 00:04:15,099
+Think about why I will use that slider.
+
+55
+00:04:15,099 --> 00:04:19,970
+This is the first essence of creating
+particles or any software.
+
+56
+00:04:19,970 --> 00:04:24,449
+If you use buttons with
+the reason "what is it?"
+
+57
+00:04:24,449 --> 00:04:26,509
+we call that "buttonology."
+
+58
+00:04:26,509 --> 00:04:30,729
+And the knowledge of
+buttons is not useful for me.
+
+59
+00:04:30,729 --> 00:04:36,169
+So we're going to talk about
+fire and explosions, like this.
+
+60
+00:04:36,169 --> 00:04:39,530
+I work in four steps.
+
+61
+00:04:39,530 --> 00:04:44,870
+First, I define how many
+particle systems I will need.
+
+62
+00:04:44,870 --> 00:04:47,539
+Then I analyze how they move,
+
+63
+00:04:47,539 --> 00:04:50,120
+and then I do the colors and the materials.
+
+64
+00:04:50,120 --> 00:04:55,500
+And then the little effects
+to make it magical.
+
+65
+00:04:55,500 --> 00:04:56,919
+But, mainly I'm lazy.
+
+66
+00:04:56,919 --> 00:05:02,729
+I just buy the packages on
+the Asset Store and I'm done.
+
+67
+00:05:03,729 --> 00:05:08,400
+So the question is "how many
+particle systems do you use?"
+
+68
+00:05:08,400 --> 00:05:14,529
+When I look at this particle
+system, I see four.
+
+69
+00:05:14,529 --> 00:05:16,820
+But, I don't agree with that.
+
+70
+00:05:16,820 --> 00:05:18,360
+Why?
+
+71
+00:05:18,360 --> 00:05:19,979
+Because, when I close my eyes,
+
+72
+00:05:19,979 --> 00:05:23,729
+and I look really simply through my eyes,
+
+73
+00:05:23,729 --> 00:05:26,669
+I see two major things.
+
+74
+00:05:26,669 --> 00:05:31,380
+It's the glow and the
+shockwave. The light.
+
+75
+00:05:31,380 --> 00:05:34,590
+That's enough sometimes
+to create the effects
+
+76
+00:05:34,590 --> 00:05:37,169
+instead of creating all the particles.
+
+77
+00:05:37,169 --> 00:05:39,710
+Especially when you do cartoons,
+
+78
+00:05:39,710 --> 00:05:43,279
+think about just the essence,
+what you need.
+
+79
+00:05:43,279 --> 00:05:46,699
+The more particles you
+put in your scene,
+
+80
+00:05:46,699 --> 00:05:52,090
+the more it becomes difficult on
+your draw calls and your overdraw.
+
+81
+00:05:52,090 --> 00:05:57,620
+And, if you have a lot, then you
+cry and you stop your production.
+
+82
+00:06:00,120 --> 00:06:05,209
+But let's talk about how to
+create a simple fire particle.
+
+83
+00:06:08,209 --> 00:06:09,400
+See the glow?
+
+84
+00:06:09,400 --> 00:06:13,279
+And that's very important,
+just one element of glow.
+
+85
+00:06:13,279 --> 00:06:17,610
+When I open my eyes a bit
+more, I see the shockwave.
+
+86
+00:06:17,610 --> 00:06:23,459
+When I open my eyes more, I see
+actually the flames, the fire.
+
+87
+00:06:23,459 --> 00:06:26,840
+Open more, I see smoke.
+
+88
+00:06:26,840 --> 00:06:29,279
+So depending on what quality you want,
+
+89
+00:06:29,279 --> 00:06:31,560
+how many more particles you're going to add,
+
+90
+00:06:31,560 --> 00:06:38,270
+all those different layers
+become my particle system.
+
+91
+00:06:38,270 --> 00:06:42,449
+When we have this explosion here,
+
+92
+00:06:42,449 --> 00:06:44,319
+we have the glow.
+
+93
+00:06:44,319 --> 00:06:46,530
+And this is actually one particle.
+
+94
+00:06:46,530 --> 00:06:48,759
+I don't use objects for that.
+
+95
+00:06:48,759 --> 00:06:52,299
+And one simple particle.
+
+96
+00:06:52,299 --> 00:06:57,650
+And we have the shockwave.
+Again, it's one simple particle.
+
+97
+00:06:57,650 --> 00:07:03,319
+But, you're going to see my workflow. I just
+take the same particle and I duplicate it.
+
+98
+00:07:03,319 --> 00:07:07,650
+I do not create new particle systems.
+
+99
+00:07:07,650 --> 00:07:12,800
+Explosion. The fire.
+
+100
+00:07:12,800 --> 00:07:16,539
+We have also the inner fire.
+
+101
+00:07:16,539 --> 00:07:19,219
+I have the the debris.
+
+102
+00:07:19,219 --> 00:07:22,104
+And again, each particle
+was duplicated.
+
+103
+00:07:22,130 --> 00:07:27,049
+I never created a new particle
+system. It was just a few changes.
+
+104
+00:07:27,049 --> 00:07:33,809
+Because it's all connected to the same
+forces, the same energy that works in it.
+
+105
+00:07:33,809 --> 00:07:36,929
+The sparks too. The little
+sparks will come up.
+
+106
+00:07:36,929 --> 00:07:43,370
+I just changed the material
+and the force in it.
+
+107
+00:07:43,370 --> 00:07:49,729
+So let me talk about the
+movement of particles.
+
+108
+00:07:49,729 --> 00:07:53,770
+We have here smoke and the fire.
+
+109
+00:07:53,770 --> 00:08:00,500
+Both particles move along a
+path or in a certain direction.
+
+110
+00:08:03,500 --> 00:08:10,509
+If you recreate in Unity a default particle
+system, a Shuriken, you have a shape.
+
+111
+00:08:10,509 --> 00:08:15,120
+Raise your hand if
+you use that shape.
+
+112
+00:08:19,620 --> 00:08:21,860
+Almost everybody.
+
+113
+00:08:21,860 --> 00:08:24,889
+I would say "never use it."
+
+114
+00:08:24,889 --> 00:08:26,969
+The reason is here.
+
+115
+00:08:26,969 --> 00:08:32,430
+The particles are moving because of
+forces and the velocity in the particle.
+
+116
+00:08:32,430 --> 00:08:39,730
+In reality, that shape does not give
+me enough control for a movement.
+
+117
+00:08:39,730 --> 00:08:42,680
+I cannot animate a shape.
+
+118
+00:08:42,680 --> 00:08:47,560
+So we're gonna talk about the velocity
+over time and force over time.
+
+119
+00:08:47,560 --> 00:08:53,550
+So that shape? Never
+use it. Turn it off.
+
+120
+00:08:53,550 --> 00:08:57,130
+The particles still have
+speed. They're coming out.
+
+121
+00:08:57,130 --> 00:09:02,780
+Who of you uses speed?
+Raise your hands.
+
+122
+00:09:03,780 --> 00:09:05,420
+Again, don't use that.
+
+123
+00:09:05,420 --> 00:09:09,480
+Because in Unity,
+the speed is five.
+
+124
+00:09:09,480 --> 00:09:13,320
+But in reality, question
+yourself "why?"
+
+125
+00:09:13,320 --> 00:09:14,830
+"What is speed?"
+
+126
+00:09:14,830 --> 00:09:17,190
+A car drives forward.
+
+127
+00:09:17,190 --> 00:09:18,410
+That is speed.
+
+128
+00:09:18,410 --> 00:09:23,970
+But smoke? The car goes forward,
+but smoke has no speed.
+
+129
+00:09:23,970 --> 00:09:27,560
+Fire has no speed, because
+forces work on it.
+
+130
+00:09:27,560 --> 00:09:31,710
+I have never seen a particle
+with an engine in it.
+
+131
+00:09:31,710 --> 00:09:34,140
+Never seen it.
+
+132
+00:09:34,140 --> 00:09:37,920
+But, tell me if you see one.
+
+133
+00:09:37,920 --> 00:09:40,030
+When I look at the smoke here,
+
+134
+00:09:40,030 --> 00:09:46,190
+I wonder if it's speed,
+force, or velocity.
+
+135
+00:09:46,190 --> 00:09:48,370
+I could move up because of heat,
+
+136
+00:09:48,370 --> 00:09:52,130
+and heat changes over
+time. It cools down.
+
+137
+00:09:52,130 --> 00:09:55,030
+So speed does not work for me.
+
+138
+00:09:55,030 --> 00:09:59,660
+It goes to the left because
+of a force of wind.
+
+139
+00:09:59,660 --> 00:10:04,340
+So I never use speed, but
+pure force and velocity.
+
+140
+00:10:04,340 --> 00:10:09,390
+So again, this speed doesn't give me
+enough control, and it's not realistic.
+
+141
+00:10:09,390 --> 00:10:16,030
+So I turn off speed, and now I have
+one particle that stands in the middle.
+
+142
+00:10:16,030 --> 00:10:19,860
+So we're going to use
+again velocity and force.
+
+143
+00:10:19,860 --> 00:10:26,620
+But understanding force and velocity is the
+essence of creating a great particle system.
+
+144
+00:10:26,620 --> 00:10:32,170
+And sadly, our manual does not
+go in depth to explain the power.
+
+145
+00:10:32,170 --> 00:10:37,630
+So I have here a particle system,
+and I put a force on it of two.
+
+146
+00:10:37,630 --> 00:10:45,110
+My particles, over time, will go more and
+more into the X-axis because it's added to it.
+
+147
+00:10:45,110 --> 00:10:47,730
+It becomes more and more stronger.
+
+148
+00:10:47,730 --> 00:10:49,400
+It sounds great.
+
+149
+00:10:49,400 --> 00:10:52,320
+So we get that curve.
+
+150
+00:10:52,320 --> 00:10:53,830
+What is velocity?
+
+151
+00:10:53,830 --> 00:10:56,330
+If I add a velocity to it of two,
+
+152
+00:10:56,330 --> 00:10:59,830
+all my particle system turns.
+
+153
+00:10:59,830 --> 00:11:01,950
+But, it does not add.
+
+154
+00:11:01,950 --> 00:11:05,720
+It does not get
+stronger and stronger
+
+155
+00:11:05,720 --> 00:11:07,840
+There's a huge difference there.
+
+156
+00:11:07,840 --> 00:11:09,140
+The one is linear,
+
+157
+00:11:09,140 --> 00:11:14,420
+and the one is at that curve.
+
+158
+00:11:14,420 --> 00:11:17,220
+So here's the power of velocity.
+
+159
+00:11:17,220 --> 00:11:19,820
+I key frame it.
+
+160
+00:11:19,820 --> 00:11:25,490
+If I put it to four, and then to
+minus four, I go to left and right.
+
+161
+00:11:25,490 --> 00:11:28,740
+But when I put it to
+zero, I go back up.
+
+162
+00:11:28,740 --> 00:11:34,500
+So I am fully in control of
+the motion of the particle.
+
+163
+00:11:34,500 --> 00:11:38,760
+When I use force, it
+becomes difficult.
+
+164
+00:11:38,760 --> 00:11:40,130
+Look now.
+
+165
+00:11:40,130 --> 00:11:43,990
+The value is zero, but still my
+particle goes to the right.
+
+166
+00:11:43,990 --> 00:11:51,360
+Because I added--four minus four is not
+actually zero with this. It becomes two--
+
+167
+00:11:52,870 --> 00:11:54,840
+it comes to minus two.
+
+168
+00:11:54,840 --> 00:11:59,540
+So it becomes very difficult to make the
+mat to get a control system over this.
+
+169
+00:11:59,540 --> 00:12:04,560
+So I never used force for the
+direction of my particles.
+
+170
+00:12:04,560 --> 00:12:06,040
+When do I use force?
+
+171
+00:12:06,040 --> 00:12:08,790
+If I want to add
+force for gravity,
+
+172
+00:12:08,790 --> 00:12:15,520
+like for explosions, if I want
+to add it to my velocity.
+
+173
+00:12:15,520 --> 00:12:20,970
+So for the look of the particles, the easiest
+way I found, is to create materials.
+
+174
+00:12:20,970 --> 00:12:27,280
+There's a lot of different textures out there that
+I can use to create the random feelings to it.
+
+175
+00:12:29,280 --> 00:12:36,410
+I also use a lot of animated textures. I like
+to have, over time, the materials change.
+
+176
+00:12:36,410 --> 00:12:39,050
+But I use it also like for debris.
+
+177
+00:12:39,050 --> 00:12:47,400
+Instead of animating rocks that tumble, I use
+particles and an animated texture sheet.
+
+178
+00:12:50,490 --> 00:12:54,110
+Now there's a very
+complex, very intriguing
+
+179
+00:12:54,110 --> 00:12:57,970
+connection between the flow
+of the particles and the look.
+
+180
+00:12:57,970 --> 00:13:05,260
+If I look here at my fire to the left,
+and the smoke, both have the same flow.
+
+181
+00:13:05,260 --> 00:13:09,210
+So I duplicate my fire
+and I change the color.
+
+182
+00:13:09,210 --> 00:13:10,890
+So it's smoke.
+
+183
+00:13:10,890 --> 00:13:19,820
+The only thing I have to do is actually change when
+my particles become visible and how long they live.
+
+184
+00:13:19,820 --> 00:13:22,310
+That's how we make very fast particles.
+
+185
+00:13:22,310 --> 00:13:26,320
+You duplicate it, and then you
+just change the factors in it.
+
+186
+00:13:26,320 --> 00:13:37,010
+Because you are using the real physics,
+the real gravity and forces, from real life.
+
+187
+00:13:37,010 --> 00:13:44,720
+So let me talk about
+Shuriken and mobile here.
+
+188
+00:13:44,720 --> 00:13:49,910
+One of the issues is of course the
+overdraw, when you use it on particles.
+
+189
+00:13:49,910 --> 00:13:54,120
+Unity 4 has a lot of
+improvements on performance.
+
+190
+00:13:54,120 --> 00:13:59,770
+But ask yourself the first question,
+the first most important question.
+
+191
+00:13:59,770 --> 00:14:03,700
+"Do you need a particle system?"
+
+192
+00:14:03,700 --> 00:14:07,140
+A nice example is Shadowgun.
+
+193
+00:14:07,140 --> 00:14:12,350
+On the left, you see those crazy machines
+with the green things that are moving.
+
+194
+00:14:12,350 --> 00:14:17,540
+Your first reaction is, "wow,
+did they do those particles?"
+
+195
+00:14:17,540 --> 00:14:19,390
+Well, no, they didn't do particles.
+
+196
+00:14:19,390 --> 00:14:21,680
+It's animated textures.
+
+197
+00:14:21,680 --> 00:14:25,720
+It's much better on performance.
+
+198
+00:14:25,720 --> 00:14:28,870
+So it's the same with rain.
+
+199
+00:14:28,870 --> 00:14:33,900
+Why do you use rain in a game? It's because
+you want to create a dramatic feeling to it.
+
+200
+00:14:33,900 --> 00:14:40,130
+But will thousands of
+particles create that?
+
+201
+00:14:40,130 --> 00:14:43,339
+But maybe I can go another
+way to create a feeling?
+
+202
+00:14:43,339 --> 00:14:51,380
+Just by bringing down the lights, maybe
+lightning, instead of rain to get that feeling.
+
+203
+00:14:51,380 --> 00:14:58,820
+So the more particles and also the more particle
+systems you use, you're going to have more overdraw.
+
+204
+00:14:58,820 --> 00:15:04,650
+If you have a short particle system,
+where you have an instance to overdraw,
+
+205
+00:15:04,650 --> 00:15:08,830
+I highly advise that you download a
+Sprite Packer on the Asset Store.
+
+206
+00:15:08,830 --> 00:15:13,190
+It's a free package that was actually
+created by one of our employees
+
+207
+00:15:13,190 --> 00:15:19,210
+who on a regular basis comes
+to the office, sometimes not.
+
+208
+00:15:19,210 --> 00:15:23,440
+The cool thing is it converts
+it to a sequence of sprites
+
+209
+00:15:23,440 --> 00:15:28,410
+instead of having problems
+with the overdraw, then.
+
+210
+00:15:28,410 --> 00:15:32,420
+It's for free and nicely
+converts it for you.
+
+211
+00:15:32,420 --> 00:15:40,300
+The cool thing is also if you dig up your old
+particle systems with the legacy particle system,
+
+212
+00:15:40,300 --> 00:15:43,540
+it can convert automatically to a Shuriken
+
+213
+00:15:43,540 --> 00:15:51,390
+and then create a sequence of
+sprite animations out of it.
+
+214
+00:15:52,900 --> 00:16:00,520
+You also have to question yourself "should I use
+animated meshes?" versus animated mesh particles.
+
+215
+00:16:00,520 --> 00:16:04,700
+Especially when you
+create effects like this.
+
+216
+00:16:04,700 --> 00:16:10,550
+The one on the left was
+animated by using 3D meshes.
+
+217
+00:16:10,550 --> 00:16:14,770
+Trail rendering.
+
+218
+00:16:14,770 --> 00:16:23,220
+I have more draw calls, of course, on it--
+on that one--but a lot less overdraw.
+
+219
+00:16:23,220 --> 00:16:25,270
+But when I did it in particles,
+
+220
+00:16:25,270 --> 00:16:31,800
+so my particles were actually
+not moving, no speed.
+
+221
+00:16:31,800 --> 00:16:37,170
+The only thing I did is animated the
+direction and animated the material over it.
+
+222
+00:16:37,170 --> 00:16:40,750
+And, a little bit of trail render.
+
+223
+00:16:40,750 --> 00:16:43,340
+I had, of course, a lot less draw calls.
+
+224
+00:16:43,340 --> 00:16:46,750
+But my overdraw was
+high. Look at that balance.
+
+225
+00:16:46,750 --> 00:16:53,980
+What is most effective and
+most performance for mobile specific.
+
+226
+00:16:53,980 --> 00:16:58,580
+Another thing you can
+do is create a script
+
+227
+00:16:58,580 --> 00:17:05,583
+that controls the emitter rate; how many
+particles are emitted based on distance.
+
+228
+00:17:05,609 --> 00:17:10,350
+If you go further away, don't use all
+your particles. Just reduce them.
+
+229
+00:17:10,350 --> 00:17:17,470
+And also look at the transparency. Maybe I can
+swap it with a texture that's not transparent.
+
+230
+00:17:17,470 --> 00:17:24,470
+Another very interesting one is the
+parameter of Max Screen Scale.
+
+231
+00:17:25,040 --> 00:17:29,380
+This parameter helps you like when
+you're gonna walk through clouds,
+
+232
+00:17:29,380 --> 00:17:38,270
+and it can basically define how big the particles have to
+be before it gets rendered, or it can remove it, basically.
+
+233
+00:17:40,270 --> 00:17:43,084
+Since Unity 4, we have
+also World Collision.
+
+234
+00:17:43,110 --> 00:17:47,649
+So that means that all particles can
+collide with anything in the scene,
+
+235
+00:17:47,649 --> 00:17:51,340
+even animated objects.
+
+236
+00:17:51,340 --> 00:17:59,329
+Really great, but if you're going to put that
+in mobile, you might have a little problem.
+
+237
+00:17:59,429 --> 00:18:01,840
+The first thing I want to point out is that
+
+238
+00:18:01,840 --> 00:18:07,150
+in the quality settings, you
+have high, medium, and low.
+
+239
+00:18:07,150 --> 00:18:16,230
+High means that you're actually gonna cache all your
+particles for the collision, but at every frame.
+
+240
+00:18:16,330 --> 00:18:18,607
+And then you have low, medium.
+
+241
+00:18:18,633 --> 00:18:27,770
+And then medium and low means basically you're gonna
+cache a certain amount of your particles for the collision.
+
+242
+00:18:27,770 --> 00:18:36,751
+And then the cool thing is actually that you can define how
+much your Particle Raycast Budget is based on your platform.
+
+243
+00:18:36,777 --> 00:18:40,550
+And this is a screenshot
+from in the quality menu.
+
+244
+00:18:40,550 --> 00:18:50,710
+And from there, you can say for my iPhone,
+you're gonna use 64, and for my PC, 8500.
+
+245
+00:18:50,710 --> 00:18:53,676
+Because of that, you
+can have nice control.
+
+246
+00:18:53,702 --> 00:18:58,870
+But if you use like an explosion, you don't
+really need a perfect collision, always.
+
+247
+00:18:58,870 --> 00:19:06,780
+Just from major ones, yes, and that's why
+you put your raycast budget much lower.
+
+248
+00:19:06,780 --> 00:19:11,200
+Another issue that a lot of
+people have is scaling Shuriken.
+
+249
+00:19:11,200 --> 00:19:17,440
+When I select the root of
+Shuriken, I cannot scale it.
+
+250
+00:19:17,440 --> 00:19:21,440
+So that's really sad, because you can make a beautiful fire,
+
+251
+00:19:21,440 --> 00:19:27,460
+and then you create a new project, a new game,
+and you have a much bigger scale in the game.
+
+252
+00:19:27,460 --> 00:19:30,750
+It doesn't it work. You cannot scale it.
+
+253
+00:19:30,750 --> 00:19:40,429
+The cool thing is, in the asset store you
+can find Cartoon Effects Easy Editor.
+
+254
+00:19:40,429 --> 00:19:45,250
+This is a nice extension that it can add
+and you can scale your particles in that.
+
+255
+00:19:45,250 --> 00:19:52,480
+Just click any scale, even when there's different
+particle systems underneath the structure.
+
+256
+00:19:52,480 --> 00:19:56,920
+And the cool thing is I like to use
+my scaling of my particles because
+
+257
+00:19:56,920 --> 00:20:02,870
+like I'm running around with a shotgun, I have a
+little particle system, and when I see far away,
+
+258
+00:20:02,870 --> 00:20:04,529
+another particle is bigger.
+
+259
+00:20:04,529 --> 00:20:09,120
+Thanks to that, I only
+need to create one.
+
+260
+00:20:09,120 --> 00:20:16,020
+And then with pooling, you have one in the scene and
+then you move them around with different sizes.
+
+261
+00:20:16,020 --> 00:20:19,020
+Let's go a little bit hands-on here, now.
+
+262
+00:20:20,970 --> 00:20:26,140
+So I'm gonna' quickly go over those
+different particle systems, here.
+
+263
+00:20:26,140 --> 00:20:30,860
+So what we have here is the
+
+264
+00:20:30,860 --> 00:20:35,710
+in this case we have the fire.
+
+265
+00:20:40,370 --> 00:20:42,610
+We have here the...
+
+266
+00:20:42,610 --> 00:20:45,710
+first, the fire here.
+
+267
+00:20:45,710 --> 00:20:47,050
+RGB.
+
+268
+00:20:47,050 --> 00:20:50,450
+So this is my fire and
+I have my smoke here.
+
+269
+00:20:50,450 --> 00:20:55,100
+So you can see already that my
+fire and smoke are actually the same.
+
+270
+00:20:55,100 --> 00:20:59,580
+But my smoke lives longer
+and starts a bit later.
+
+271
+00:20:59,580 --> 00:21:06,770
+And then we have sparks who live longer
+and have a little bit more force to it.
+
+272
+00:21:06,770 --> 00:21:12,210
+But let's talk first about the inner
+particle, here. Let's create that also.
+
+273
+00:21:12,210 --> 00:21:22,770
+So I create here a particle system
+and I move it to the right here.
+
+274
+00:21:22,770 --> 00:21:31,620
+The particles come out. So as I said
+before, I do not like to use speed
+
+275
+00:21:31,620 --> 00:21:38,779
+because I want full control over it,
+and I do not like to use a shape.
+
+276
+00:21:38,779 --> 00:21:43,170
+So I'm going to create some
+force for it, velocity for it.
+
+277
+00:21:43,170 --> 00:21:48,270
+And here, the Y, I'm
+gonna put it to "world,"
+
+278
+00:21:48,270 --> 00:21:51,340
+and the Y, I'm going to bring it up.
+
+279
+00:21:51,340 --> 00:21:53,870
+The particles go up.
+
+280
+00:21:53,870 --> 00:21:59,309
+I'm gonna say "okay, that's
+good." Maybe one up.
+
+281
+00:22:02,800 --> 00:22:07,420
+And I can't in the X-axis, or--In
+the Z-axis, you'll see it better.
+
+282
+00:22:07,420 --> 00:22:08,990
+See, we cannot define?
+
+283
+00:22:08,990 --> 00:22:12,409
+But I want them to go left and right.
+
+284
+00:22:12,409 --> 00:22:14,789
+So that's why I'm gonna say here click
+
+285
+00:22:14,789 --> 00:22:18,680
+"random" between two curves.
+
+286
+00:22:18,680 --> 00:22:25,340
+So we have here the Z-axis,
+and I'm going to do between
+
+287
+00:22:25,340 --> 00:22:29,840
+one and minus one.
+
+288
+00:22:29,840 --> 00:22:34,830
+And I don't want them to go too much
+out so I can animate it over time.
+
+289
+00:22:34,830 --> 00:22:40,299
+And you have the life of the particle.
+
+290
+00:22:40,299 --> 00:22:43,210
+So now they go both directions, here.
+
+291
+00:22:43,210 --> 00:22:45,200
+I can do the same for my X-axis.
+
+292
+00:22:45,200 --> 00:22:49,320
+But in my Y, here.
+
+293
+00:22:49,320 --> 00:22:53,630
+So I give them a velocity of going up, here.
+
+294
+00:22:53,630 --> 00:22:58,090
+But in the beginning, I want them to go
+faster and then slow, and that's how we nicely
+
+295
+00:22:58,090 --> 00:23:02,880
+can adjust this function curve here. Maybe
+I'm gonna put it to four or five going up,
+
+296
+00:23:02,880 --> 00:23:06,690
+and then here, bringing it down.
+
+297
+00:23:06,690 --> 00:23:13,640
+So over time, what we see is the particles
+go up fast here, but they slow down.
+
+298
+00:23:13,640 --> 00:23:20,640
+Just going to do it for this one too, here.
+
+299
+00:23:20,990 --> 00:23:27,250
+And we make it a little random, here.
+
+300
+00:23:27,250 --> 00:23:30,840
+So you see now, I start to have
+nice control over the shape.
+
+301
+00:23:30,840 --> 00:23:33,750
+Especially here in the Z-axis, now.
+
+302
+00:23:33,750 --> 00:23:37,960
+I can define the Z-axis.
+
+303
+00:23:37,960 --> 00:23:44,080
+See, I can define how my
+shape will be for my particles.
+
+304
+00:23:44,080 --> 00:23:49,909
+Otherwise, if I use a regular shape, I
+have no control over exactly what I want.
+
+305
+00:23:49,909 --> 00:23:51,950
+So particles come out.
+
+306
+00:23:51,950 --> 00:23:55,570
+Now, let's make them a little bit shorter.
+
+307
+00:23:55,570 --> 00:24:03,110
+So one, and the start
+life, maybe 0.8.
+
+308
+00:24:03,110 --> 00:24:08,500
+But some particles will live a bit longer,
+so random in between two values.
+
+309
+00:24:08,500 --> 00:24:13,580
+Maybe 1.5.
+
+310
+00:24:13,580 --> 00:24:16,130
+Let's add a bit more particles to it.
+
+311
+00:24:16,130 --> 00:24:20,590
+Like 50 particles.
+
+312
+00:24:20,590 --> 00:24:24,810
+So we see nicely the effect on
+it. It goes left and right a bit.
+
+313
+00:24:25,490 --> 00:24:31,169
+Now what I want also is that the
+sizes are a little bit different.
+
+314
+00:24:31,169 --> 00:24:40,179
+So maybe like 0.6 up to
+maximum, 1.3 or something.
+
+315
+00:24:40,179 --> 00:24:42,880
+So we have different sizes in there.
+
+316
+00:24:42,880 --> 00:24:45,904
+So now I start to be happy with
+the movement of my particles.
+
+317
+00:24:45,930 --> 00:24:49,910
+I'm gonna add here now
+color to it, like smoke.
+
+318
+00:24:53,910 --> 00:24:58,290
+So we can use a texture like this.
+
+319
+00:24:58,290 --> 00:25:01,980
+I'm gonna add it to
+my particle system.
+
+320
+00:25:01,980 --> 00:25:03,179
+So we have this.
+
+321
+00:25:03,179 --> 00:25:05,330
+Okay, let's add some color to it.
+
+322
+00:25:05,330 --> 00:25:08,330
+Color over lifetime.
+
+323
+00:25:08,330 --> 00:25:14,300
+And then click here.
+
+324
+00:25:14,300 --> 00:25:18,539
+All my particles start--like fire,
+in general, starts to be yellow.
+
+325
+00:25:18,539 --> 00:25:24,840
+And also, we can put
+here some yellow color.
+
+326
+00:25:24,840 --> 00:25:29,159
+And it will become red.
+
+327
+00:25:29,159 --> 00:25:33,390
+And I have to use this one.
+
+328
+00:25:33,390 --> 00:25:37,720
+So first, I start yellow.
+
+329
+00:25:37,720 --> 00:25:41,160
+Over time, they become red.
+
+330
+00:25:41,160 --> 00:25:46,240
+And over time, they become dark.
+
+331
+00:25:46,240 --> 00:25:48,799
+
+
+332
+00:25:48,799 --> 00:25:51,240
+In the beginning,
+
+333
+00:25:51,240 --> 00:25:54,990
+they will be more transparent
+because they are starting to create,
+
+334
+00:25:54,990 --> 00:26:00,170
+and overtime, they're gonna
+fade out, my particles.
+
+335
+00:26:00,170 --> 00:26:01,680
+That's how I start to create it.
+
+336
+00:26:01,680 --> 00:26:05,029
+I want a little bit more change, like
+the flames are turning and twisting.
+
+337
+00:26:05,029 --> 00:26:12,250
+So what I can do is really, simply the starting
+of the particles have different rotations.
+
+338
+00:26:12,250 --> 00:26:15,730
+So between like zero and 360.
+
+339
+00:26:15,730 --> 00:26:21,899
+Let me show you that in the wireframe mode. So, you
+start to see that the particles have different rotations.
+
+340
+00:26:21,899 --> 00:26:25,580
+But over time, I can also moved them.
+
+341
+00:26:25,580 --> 00:26:33,250
+So, rotation over
+lifetime, random again.
+
+342
+00:26:33,250 --> 00:26:40,250
+And now we see it start to twist
+and rotate the particle itself.
+
+343
+00:26:40,470 --> 00:26:43,590
+And that's how we start
+to create our fire, initially.
+
+344
+00:26:43,590 --> 00:26:49,169
+Then the really simple thing is
+that we're gonna call this fire.
+
+345
+00:26:49,169 --> 00:26:54,240
+What I do now is that I duplicate
+it, and I have a "fire," here.
+
+346
+00:26:54,240 --> 00:26:58,150
+And I'm gonna call it "smoke."
+
+347
+00:26:58,150 --> 00:27:02,150
+I'm gonna make it a child of my inner fire.
+
+348
+00:27:06,360 --> 00:27:12,500
+Make sure I select
+the right smoke.
+
+349
+00:27:12,500 --> 00:27:16,080
+That's my smoke. Okay.
+
+350
+00:27:18,080 --> 00:27:21,750
+And fire, okay. Smoke...
+
+351
+00:27:21,750 --> 00:27:27,470
+Okay, cool. The moment you make it a child,
+they're both running in simulation, here.
+
+352
+00:27:27,470 --> 00:27:29,150
+So that's pretty cool.
+
+353
+00:27:29,150 --> 00:27:33,700
+So the only thing I have to do is that my
+smoke will live longer. It's really simple.
+
+354
+00:27:33,700 --> 00:27:36,480
+So the lifetime?
+
+355
+00:27:36,480 --> 00:27:38,450
+It's the life time, here.
+
+356
+00:27:38,450 --> 00:27:45,370
+I'm going to make it from
+0.6 to 1.9 or something.
+
+357
+00:27:45,370 --> 00:27:48,200
+So they live longer, here.
+
+358
+00:27:48,200 --> 00:27:51,590
+And then we can go
+to the colors, here.
+
+359
+00:27:51,590 --> 00:27:56,590
+So our--they will be more darker
+than here from the beginning.
+
+360
+00:27:56,590 --> 00:28:02,060
+But, you can put here also
+darker than the beginning.
+
+361
+00:28:02,560 --> 00:28:10,740
+But I don't need them really in the beginning here.
+What I do is just move the transparency to here.
+
+362
+00:28:10,740 --> 00:28:13,030
+Make it more transparent.
+
+363
+00:28:13,030 --> 00:28:16,830
+See, and nicely we don't have any beginning.
+
+364
+00:28:16,830 --> 00:28:19,299
+And then more in the end.
+
+365
+00:28:19,299 --> 00:28:23,550
+In the end, make sure they're
+fully transparent, here.
+
+366
+00:28:23,550 --> 00:28:33,419
+If you look good, sometimes you're going to see artifacts.
+Some particles don't know which one to render first.
+
+367
+00:28:33,419 --> 00:28:38,400
+And how you can fix that, my
+fire should be rendering first.
+
+368
+00:28:38,400 --> 00:28:42,639
+And we can do that in
+the Sorting Fudge.
+
+369
+00:28:42,639 --> 00:28:47,610
+So I just bring the
+Sorting Fudge up,
+
+370
+00:28:47,610 --> 00:28:53,150
+and that gives those particles a priority.
+So they're gonna render first.
+
+371
+00:28:53,150 --> 00:28:57,430
+And also I'm gonna say that they should--
+
+372
+00:28:57,430 --> 00:29:01,410
+that all those particles
+should render first.
+
+373
+00:29:01,410 --> 00:29:05,590
+And then I can add a
+bit more particles to it.
+
+374
+00:29:05,590 --> 00:29:11,010
+And then, really simple. Look, my
+smoke. Y'know, duplicate that.
+
+375
+00:29:11,010 --> 00:29:16,950
+And I'm gonna change the
+material to little dots.
+
+376
+00:29:16,950 --> 00:29:21,700
+So I have here a flash-something.
+
+377
+00:29:21,700 --> 00:29:26,599
+So we have now dots. We're just
+going to make them smaller now.
+
+378
+00:29:26,599 --> 00:29:32,200
+Okay, 0.66 or something.
+
+379
+00:29:33,500 --> 00:29:35,630
+And 0.2.
+
+380
+00:29:35,630 --> 00:29:37,500
+Okay, so we have those little dots.
+
+381
+00:29:37,500 --> 00:29:40,860
+Make it a bit more
+visible, for the fun.
+
+382
+00:29:40,860 --> 00:29:43,319
+And then the color. Just the
+color, we have to change again.
+
+383
+00:29:43,319 --> 00:29:48,080
+Click. This color.
+
+384
+00:29:48,080 --> 00:29:51,559
+We're gonna make it yellow.
+
+385
+00:29:51,559 --> 00:29:54,670
+And then we can make different colors.
+And so we have those dots.
+
+386
+00:29:54,670 --> 00:30:00,570
+And then I'm gonna just make them
+a little bit--live longer again.
+
+387
+00:30:00,570 --> 00:30:07,066
+But when you look very good at fire, those little
+dots fly more around because of the forces on it.
+
+388
+00:30:07,092 --> 00:30:10,870
+They're so light
+and there's wind.
+
+389
+00:30:10,870 --> 00:30:15,610
+So now, how are we gonna use force?
+So we're gonna add forces, here.
+
+390
+00:30:15,610 --> 00:30:24,789
+If I put X up--let's see world again--the Y here,
+up and down, I'm gonna bring it a little bit up.
+
+391
+00:30:24,789 --> 00:30:26,679
+And Z to the left.
+
+392
+00:30:26,679 --> 00:30:29,429
+But I want it also to the other
+side. That's right, actually.
+
+393
+00:30:29,429 --> 00:30:32,890
+What I'm going to do is just
+random between two values.
+
+394
+00:30:32,890 --> 00:30:37,779
+So like four and minus four.
+
+395
+00:30:37,779 --> 00:30:39,810
+So now we see them going left.
+
+396
+00:30:39,810 --> 00:30:42,240
+And minus four.
+
+397
+00:30:42,240 --> 00:30:45,890
+So you see the particles are
+going left and right now.
+
+398
+00:30:45,890 --> 00:30:52,286
+But what actually wants is that sometimes they go left
+and then they randomly exchange different values.
+
+399
+00:30:52,312 --> 00:30:54,810
+We can do that with
+randomize. See?
+
+400
+00:30:54,810 --> 00:30:58,360
+And now I have those
+particles going left and right.
+
+401
+00:30:58,360 --> 00:31:01,510
+So this is a technique
+I mainly use.
+
+402
+00:31:01,510 --> 00:31:09,360
+Just duplicate the particles and change
+what has to change from a natural flow.
+
+403
+00:31:09,360 --> 00:31:12,639
+This needs to be then to the storm here.
+
+404
+00:31:13,139 --> 00:31:17,490
+When we look at this dust
+devil here, this particle,
+
+405
+00:31:17,490 --> 00:31:22,670
+the motion is fully
+controlled by the velocity.
+
+406
+00:31:22,670 --> 00:31:25,890
+See the X goes more
+and more and more?
+
+407
+00:31:25,890 --> 00:31:28,909
+That's what we create that pattern of left and right.
+
+408
+00:31:28,909 --> 00:31:33,720
+If you want to turn a little bit afterwards,
+you can now use the force.
+
+409
+00:31:33,720 --> 00:31:39,419
+And here, like a random
+or a constant value.
+
+410
+00:31:39,419 --> 00:31:42,419
+See, now you can.
+
+411
+00:31:46,870 --> 00:31:51,610
+Make sure you have that one correct.
+Now you can move your particle system.
+
+412
+00:31:51,610 --> 00:31:57,880
+Let's look quickly
+at this one here.
+
+413
+00:31:57,880 --> 00:32:02,700
+We have here our fire one.
+
+414
+00:32:06,700 --> 00:32:11,909
+So we see those particles and we understand that now.
+But how do we control something like a glow like this?
+
+415
+00:32:11,909 --> 00:32:13,770
+It's really simple, actually.
+
+416
+00:32:13,770 --> 00:32:16,480
+You create another particle.
+It's a particle system.
+
+417
+00:32:16,480 --> 00:32:22,340
+No speed again, and no shape.
+
+418
+00:32:22,340 --> 00:32:25,570
+The emission, I don't need ten particles.
+
+419
+00:32:25,570 --> 00:32:28,460
+This is a bit complex here in Unity.
+
+420
+00:32:28,460 --> 00:32:35,750
+We have the maximum particles, the rate, so that we can
+never more than a thousand particles basically, over time.
+
+421
+00:32:35,750 --> 00:32:36,810
+And ten here.
+
+422
+00:32:36,810 --> 00:32:41,440
+So you're gonna do
+plus zero. Zero particles.
+
+423
+00:32:41,440 --> 00:32:45,920
+But at frame one, I'm gonna generate
+30 particle. I'm gonna say one.
+
+424
+00:32:45,920 --> 00:32:52,870
+So we're just gonna create one particle system,
+and I'm gonna make it a duration of one second,
+
+425
+00:32:52,870 --> 00:32:56,560
+and not loop the moment. So press play.
+
+426
+00:32:56,560 --> 00:33:02,800
+Where is my particle system, here?
+
+427
+00:33:02,800 --> 00:33:09,200
+Gonna loop it.
+
+428
+00:33:09,200 --> 00:33:12,529
+So we have that one particle here.
+
+429
+00:33:12,529 --> 00:33:15,550
+But I don't need that fireball here now.
+
+430
+00:33:15,550 --> 00:33:20,029
+So we see that one
+particle here created.
+
+431
+00:33:20,029 --> 00:33:22,159
+And we're not going to loop it.
+
+432
+00:33:22,159 --> 00:33:26,340
+So what we're gonna--not loop.
+
+433
+00:33:26,340 --> 00:33:28,740
+So we have that one particle it creates.
+
+434
+00:33:28,740 --> 00:33:31,299
+And now, you just animate the transparency
+
+435
+00:33:31,299 --> 00:33:36,289
+and the color of the lifetime.
+
+436
+00:33:36,289 --> 00:33:44,220
+I think we're gonna put
+it here to yellow.
+
+437
+00:33:44,220 --> 00:33:47,010
+So I'm gonna press play here.
+
+438
+00:33:47,010 --> 00:33:50,010
+And we can now do transparencies.
+So now you see we have a particle.
+
+439
+00:33:50,010 --> 00:33:54,200
+That's how I can do my intensity and I
+can add a bit burst and a bit rate.
+
+440
+00:33:54,200 --> 00:33:57,389
+And then I'm going to get
+that feeling of a particle.
+
+441
+00:33:57,389 --> 00:33:59,460
+We can duplicate it.
+
+442
+00:33:59,460 --> 00:34:03,840
+We can look here now at an explosion.
+
+443
+00:34:05,840 --> 00:34:11,449
+Then I go to my explosion here.
+
+444
+00:34:11,449 --> 00:34:18,229
+So, we saw the...
+
+445
+00:34:20,629 --> 00:34:24,629
+Okay, wait a second here.
+
+446
+00:34:33,989 --> 00:34:37,849
+Okay, my explosion we're
+gonna remove this. Sorry.
+
+447
+00:34:37,949 --> 00:34:41,279
+So we have a glow
+here that we saw
+
+448
+00:34:41,279 --> 00:34:43,429
+and that's that one particle.
+
+449
+00:34:43,429 --> 00:34:46,000
+Then we create and then
+we animate the transparency.
+
+450
+00:34:46,000 --> 00:34:51,959
+The shockwave is exactly
+the same structure.
+
+451
+00:34:51,959 --> 00:34:57,129
+So, stop this.
+
+452
+00:34:57,129 --> 00:35:04,129
+Remove the sparks for the moment.
+
+453
+00:35:04,279 --> 00:35:06,200
+So I duplicate the one particle
+
+454
+00:35:06,200 --> 00:35:08,239
+and the only thing I have to do
+
+455
+00:35:08,239 --> 00:35:10,479
+I put another material on it.
+
+456
+00:35:10,479 --> 00:35:15,420
+You animate the scale a little bit over time.
+That's how we get the shock wave now.
+
+457
+00:35:15,420 --> 00:35:19,959
+And then the sparks.
+
+458
+00:35:19,959 --> 00:35:21,669
+This again.
+
+459
+00:35:21,669 --> 00:35:25,109
+A burst of 15 particles,
+I'm going to create.
+
+460
+00:35:25,109 --> 00:35:32,109
+Like in-game object, gonna
+create a particle system.
+
+461
+00:35:32,389 --> 00:35:39,329
+And I'm going to put the--let's
+see... To one, here.
+
+462
+00:35:39,329 --> 00:35:46,879
+We're gonna put the speed
+again to zero, and no shape.
+
+463
+00:35:46,879 --> 00:35:49,429
+And I want to create the sparkles flying out.
+
+464
+00:35:49,429 --> 00:35:55,999
+So the best way to do that is to actually
+create a velocity over lifetime again.
+
+465
+00:35:55,999 --> 00:36:01,049
+And we can do again random curves.
+
+466
+00:36:01,049 --> 00:36:06,089
+So I want to do it in X and Z, both.
+
+467
+00:36:09,589 --> 00:36:11,829
+See, we bring them out.
+
+468
+00:36:11,829 --> 00:36:19,689
+Then, in Z, we're going to do exactly the
+same so that they go in all the directions.
+
+469
+00:36:19,889 --> 00:36:22,099
+And that's an explosion.
+It goes in every direction.
+
+470
+00:36:22,099 --> 00:36:27,740
+And there, we use the velocity because
+the energy comes out and it slows down.
+
+471
+00:36:27,740 --> 00:36:31,909
+Again with the Z,
+with the Y too.
+
+472
+00:36:33,909 --> 00:36:36,399
+So you know my particles
+go in every direction.
+
+473
+00:36:36,399 --> 00:36:42,789
+Most people would use an emitter sphere, but the
+problem is that you don't have control over a sphere.
+
+474
+00:36:42,789 --> 00:36:48,699
+So particles come out, you can
+add a bit of gravity to it.
+
+475
+00:36:48,699 --> 00:36:53,969
+No, do a little bit, so the
+particles come out.
+
+476
+00:36:53,969 --> 00:36:57,269
+The size, I'm going to
+make a little bit smaller.
+
+477
+00:36:57,269 --> 00:37:00,429
+And now we can use our
+force on the particles.
+
+478
+00:37:00,429 --> 00:37:06,479
+And again, random between
+two curves in our values.
+
+479
+00:37:06,479 --> 00:37:10,579
+Again, make four and minus four.
+
+480
+00:37:10,879 --> 00:37:13,699
+Four and minus four.
+
+481
+00:37:14,999 --> 00:37:18,109
+And four and minus four.
+
+482
+00:37:18,109 --> 00:37:21,379
+And that's what we start to
+get that particles going out.
+
+483
+00:37:21,379 --> 00:37:29,079
+I could have done a bit more gravity to it,
+but the cool thing is in the render here.
+
+484
+00:37:29,079 --> 00:37:31,719
+Click here, we're gonna stretch the billboards
+
+485
+00:37:31,719 --> 00:37:36,119
+and scaling
+
+486
+00:37:36,119 --> 00:37:38,969
+and based on that now,
+
+487
+00:37:38,969 --> 00:37:42,949
+you can create the
+feeling that they fly out.
+
+488
+00:37:42,949 --> 00:37:46,209
+And that's how we start with that.
+
+489
+00:37:46,209 --> 00:37:52,359
+Then you can duplicate that and
+things and materials in that case.
+
+490
+00:37:53,609 --> 00:38:01,189
+Using those bursts, that's how
+I created that heart, here.
+
+491
+00:38:02,809 --> 00:38:09,309
+It's really simple. You have
+one particle system.
+
+492
+00:38:09,829 --> 00:38:16,419
+That is one particle and it goes
+up. You give it a bit of force up.
+
+493
+00:38:16,419 --> 00:38:21,919
+And then you create the
+slice particle here.
+
+494
+00:38:21,919 --> 00:38:27,589
+And then the only thing we
+have to do is to start a delay.
+
+495
+00:38:27,589 --> 00:38:33,969
+And then we have a left particle system,
+like for the left heart, with one object,
+
+496
+00:38:33,969 --> 00:38:37,959
+and also start a delay and put
+the gravity to--put forces on it.
+
+497
+00:38:37,959 --> 00:38:42,319
+And then the right side is a duplicate
+of the left side, and you flip it.
+
+498
+00:38:42,319 --> 00:38:50,269
+And now that's how you get your particle system by
+just duplicating one single instance of particles.
+
+499
+00:38:52,969 --> 00:38:59,969
+It is the same for the ground impact, here.
+
+500
+00:39:04,029 --> 00:39:06,129
+Press play.
+
+501
+00:39:06,129 --> 00:39:07,369
+Okay, I'm gonna show it to you.
+
+502
+00:39:07,369 --> 00:39:11,461
+So the floor is one
+particle system.
+
+503
+00:39:14,287 --> 00:39:16,964
+And then the rest makes
+sense now for you guys.
+
+504
+00:39:17,139 --> 00:39:25,529
+So the ground impact here, we use a horizontal
+billboard so that it's flat on the ground
+
+505
+00:39:25,529 --> 00:39:27,640
+instead of straight facing the camera.
+
+506
+00:39:27,640 --> 00:39:30,679
+And that's the only thing you have to do.
+
+507
+00:39:30,679 --> 00:39:36,805
+And when we look at the force
+field here, this is a 3D object.
+
+508
+00:39:38,031 --> 00:39:41,389
+You're actually using one
+particle for the fading,
+
+509
+00:39:41,389 --> 00:39:47,859
+and the other particles are just objects
+you move around with a trail renderer.
+
+510
+00:39:51,039 --> 00:39:55,449
+And then this one, I did
+is actually the same.
+
+511
+00:39:55,449 --> 00:40:00,119
+I took objects, put a trail renderer
+on it, and move them around.
+
+512
+00:40:00,119 --> 00:40:03,639
+But the last thing I
+wanna bring up here,
+
+513
+00:40:03,639 --> 00:40:05,889
+I'm gonna go to this one.
+
+514
+00:40:05,889 --> 00:40:11,739
+Let's talk about World Collision.
+
+515
+00:40:11,739 --> 00:40:16,207
+And I should have
+here somewhere rain.
+
+516
+00:40:16,533 --> 00:40:17,774
+No?
+
+517
+00:40:18,749 --> 00:40:24,309
+Then I should go to scenes here,
+
+518
+00:40:24,309 --> 00:40:26,849
+and test.
+
+519
+00:40:30,849 --> 00:40:34,919
+I saved it just before I can hit World Collision.
+
+520
+00:40:34,919 --> 00:40:42,659
+So what we have here is
+we have our rain here.
+
+521
+00:40:43,559 --> 00:40:46,009
+So our particles of our rain come out here
+
+522
+00:40:46,009 --> 00:40:47,369
+and when they hit the floor,
+
+523
+00:40:47,369 --> 00:40:51,109
+another particle is created by collision.
+
+524
+00:40:51,109 --> 00:40:54,249
+Something we had before.
+
+525
+00:40:54,249 --> 00:41:01,419
+But what the new thing is that when you do your
+collision to world, it collides with all the objects.
+
+526
+00:41:01,419 --> 00:41:07,219
+You can define by layers how
+many objects will collide.
+
+527
+00:41:07,219 --> 00:41:15,199
+But the most important thing
+is that here, in the collision,
+
+528
+00:41:15,199 --> 00:41:20,149
+here, it's changed from
+a simple plane to a world.
+
+529
+00:41:20,149 --> 00:41:21,600
+And here is the quality.
+
+530
+00:41:21,600 --> 00:41:24,519
+Medium, high, low.
+
+531
+00:41:24,519 --> 00:41:31,999
+But the most important thing is, for mobile,
+is that you go to your quality settings.
+
+532
+00:41:32,699 --> 00:41:39,499
+And in the quality settings, you can, per
+platform, define your Particle Raycast Budget.
+
+533
+00:41:39,499 --> 00:41:41,929
+And then the cool thing is that
+you get cool effects like this.
+
+534
+00:41:41,929 --> 00:41:47,479
+This you can download from our blog.
+
+535
+00:41:47,479 --> 00:41:53,290
+So this was a a quick overview on how you
+structure you particles, and you duplicate them.
+
+536
+00:41:53,290 --> 00:41:56,699
+Don't use speed,
+don't use shape.
+
+537
+00:41:56,699 --> 00:41:59,600
+You control it, so you can
+create what you want.
+
+538
+00:41:59,600 --> 00:42:05,089
+And the less parameters you need to use--
+if you mix it with speed, it becomes complex.
+
+539
+00:42:05,089 --> 00:42:12,749
+And check out the Asset Store, so you can
+convert your particles to a sequence of sprites.
+
+540
+00:42:12,749 --> 00:42:16,939
+For mobile, it helps a lot, and
+use your quality settings.
+
+541
+00:42:16,939 --> 00:42:19,599
+And use some of the techniques.
+
+542
+00:42:19,599 --> 00:42:22,019
+So thank you for paying attention.
+
+543
+00:42:22,019 --> 00:42:28,649
+I have 3 minutes left on the stage before they
+put in a box and ship me back to the snow.
+
+544
+00:42:28,649 --> 00:42:32,649
+So, what are your questions?
+
+545
+00:42:45,130 --> 00:42:47,429
+
+
+546
+00:42:47,429 --> 00:42:52,909
+
+
+547
+00:42:52,909 --> 00:42:53,960
+Wait a second.
+
+548
+00:42:53,960 --> 00:42:57,189
+
+
+549
+00:42:57,189 --> 00:42:59,049
+
+
+550
+00:42:59,049 --> 00:43:02,070
+
+
+551
+00:43:02,070 --> 00:43:07,800
+
+
+552
+00:43:07,800 --> 00:43:14,800
+
+
+553
+00:43:23,409 --> 00:43:27,039
+What he can do is basically here.
+
+554
+00:43:27,039 --> 00:43:30,459
+You've seen...
+
+555
+00:43:30,459 --> 00:43:31,579
+You can...
+
+556
+00:43:31,579 --> 00:43:34,209
+A particle system.
+
+557
+00:43:34,209 --> 00:43:37,699
+So this particle here,
+
+558
+00:43:37,699 --> 00:43:41,989
+they die here, and you want from
+there to create a new particle.
+
+559
+00:43:41,989 --> 00:43:44,669
+So, what I would do is
+
+560
+00:43:44,669 --> 00:43:46,279
+I will go to
+
+561
+00:43:47,699 --> 00:43:50,179
+subemitters.
+
+562
+00:43:50,179 --> 00:43:52,969
+And when my particle is dead,
+
+563
+00:43:52,969 --> 00:43:57,470
+I'm gonna create a
+new particle system.
+
+564
+00:43:57,470 --> 00:44:01,509
+But this particle system,
+that's a mirror.
+
+565
+00:44:02,509 --> 00:44:05,549
+Remove. Go to the emission.
+
+566
+00:44:05,549 --> 00:44:08,429
+And the burst to one.
+
+567
+00:44:08,429 --> 00:44:11,259
+So when that particle is dead,
+
+568
+00:44:11,259 --> 00:44:12,869
+you create a new particle.
+
+569
+00:44:12,869 --> 00:44:16,229
+Now if you want to continue that,
+
+570
+00:44:16,229 --> 00:44:19,119
+so you say "look," you're
+gonna change the color here.
+
+571
+00:44:19,119 --> 00:44:22,979
+What I would do is inherit the velocity,
+
+572
+00:44:22,979 --> 00:44:27,479
+bring this up,
+
+573
+00:44:27,479 --> 00:44:29,299
+I'm gonna put it to one,
+
+574
+00:44:29,299 --> 00:44:36,299
+I'm gonna make the size of bit bigger.
+
+575
+00:44:36,390 --> 00:44:38,240
+Start the size here--okay, here.
+
+576
+00:44:38,340 --> 00:44:41,399
+No, it's a bit too big.
+
+577
+00:44:45,099 --> 00:44:49,359
+So now, when that particle dies,
+a new particle system comes up.
+
+578
+00:44:49,359 --> 00:44:52,239
+So it's really around, instead of
+activating and deactivating.
+
+579
+00:44:52,239 --> 00:44:56,059
+Another way you could do it
+is animate the transparency.
+
+580
+00:44:56,059 --> 00:45:01,259
+Lifts, certain time, becomes
+transparent and comes back.
+
+581
+00:45:01,259 --> 00:45:08,259
+(Yeah, thank you very much.)
+Thank you.
+
+582
+00:45:08,769 --> 00:45:15,769
+One more question?
+
+583
+00:45:18,669 --> 00:45:20,549
+
+
+584
+00:45:20,549 --> 00:45:25,639
+
+
+585
+00:45:25,639 --> 00:45:32,639
+
+
+586
+00:45:33,649 --> 00:45:35,730
+You can definitely do
+it from a surface,
+
+587
+00:45:35,756 --> 00:45:40,979
+so if you go in the emission
+here--no, shape.
+
+588
+00:45:40,979 --> 00:45:42,989
+Emit from...
+
+589
+00:45:42,989 --> 00:45:44,499
+Okay, you have here...
+
+590
+00:45:44,499 --> 00:45:51,689
+Here you can say it emits from a sphere.
+Gimme a sphere, a box, or a mesh you define.
+
+591
+00:45:51,689 --> 00:45:52,739
+Okay?
+
+592
+00:45:52,739 --> 00:45:56,319
+And it will pick it from the vertexes.
+
+593
+00:45:56,319 --> 00:46:04,789
+Now I'm not 100 percent sure, but if your mesh is
+animated, then it will still come out the vertex.
+
+594
+00:46:04,789 --> 00:46:10,179
+But I've never tested bringing
+it out from an animated mesh.
+
+595
+00:46:13,549 --> 00:46:15,459
+Open project...
+
+596
+00:46:18,969 --> 00:46:24,989
+so it should be and should be and uh...
+
+597
+00:46:24,989 --> 00:46:28,229
+So it should be in...
+
+598
+00:46:33,629 --> 00:46:38,389
+It should be a mesh that is actually
+animated like with an enveloping,
+
+599
+00:46:38,389 --> 00:46:43,599
+or "skinning" they call it, but I don't have an
+example here ready to just test it out.
+
+600
+00:46:45,809 --> 00:46:49,309
+I definitely got to test that out.
+
+601
+00:46:49,309 --> 00:46:55,729
+So, okay, I will be in touch. I'm gonna test
+it here right away after the presentation.
+
+602
+00:46:55,729 --> 00:47:00,499
+Thank everybody to take your valuable
+time over and come to listen to me.
+
+603
+00:47:00,499 --> 00:47:04,381
+Feel free to contact me with
+any questions you have.
+
+604
+00:47:04,407 --> 00:47:09,269
+I'm gonna give you my
+contact information here.
+
+605
+00:47:09,269 --> 00:47:11,489
+You can follow me on Twitter,
+
+606
+00:47:11,489 --> 00:47:18,489
+and connect on Facebook,
+Linkedin, Payal... No.
+
+607
+00:47:18,579 --> 00:47:25,579
+Thank you so much. Enjoy your
+evening, and I'll see you tomorrow.
+
+608
+00:47:30,529 --> 00:47:32,319
+Time for sake.
