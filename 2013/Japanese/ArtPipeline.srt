@@ -1,0 +1,2172 @@
+﻿1
+00:00:00,099 --> 00:00:04,530
+
+
+2
+00:00:04,530 --> 00:00:08,099
+
+
+3
+00:00:08,099 --> 00:00:10,349
+
+
+4
+00:00:10,349 --> 00:00:11,419
+
+
+5
+00:00:11,419 --> 00:00:14,219
+
+
+6
+00:00:14,219 --> 00:00:17,130
+
+
+7
+00:00:17,130 --> 00:00:19,710
+
+
+8
+00:00:19,710 --> 00:00:22,769
+
+
+9
+00:00:22,769 --> 00:00:25,380
+
+
+10
+00:00:25,380 --> 00:00:29,039
+
+
+11
+00:00:29,039 --> 00:00:36,039
+
+
+12
+00:04:39,439 --> 00:04:42,409
+Hello everyone.
+Welcome.
+
+13
+00:04:42,409 --> 00:04:45,919
+This is the Art Pipeline
+Tips and Tricks session.
+
+14
+00:04:45,919 --> 00:04:47,250
+My name is David
+
+15
+00:04:47,250 --> 00:04:50,469
+and I'm a technical artist
+at Unity Technologies.
+
+16
+00:04:50,469 --> 00:04:54,639
+The session today is gonna be a
+little bit about how you can
+
+17
+00:04:54,639 --> 00:04:58,240
+trim valuable seconds off of the
+various stages of the art pipeline,
+
+18
+00:04:58,240 --> 00:05:04,389
+and how cumulatively over the course of a project,
+that's actually going to add up to big savings for you.
+
+19
+00:05:04,389 --> 00:05:07,449
+Before we start, just a
+little bit about myself.
+
+20
+00:05:07,449 --> 00:05:14,680
+So I've accumulated 8 years now in game
+development and architectural visualization
+
+21
+00:05:14,680 --> 00:05:19,270
+and in that time, I've worked on large-scale
+architectural projects like this
+
+22
+00:05:19,270 --> 00:05:22,490
+for high-profile architectural clients.
+
+23
+00:05:22,490 --> 00:05:28,110
+I've worked in collaborative team
+environments with 30-40 artists
+
+24
+00:05:28,110 --> 00:05:31,590
+and in total now, I've been
+producing CGI for 15 years
+
+25
+00:05:31,590 --> 00:05:34,389
+since I was very, very young.
+
+26
+00:05:34,389 --> 00:05:39,830
+This is an example of the games
+work I've done previously.
+
+27
+00:05:39,830 --> 00:05:47,240
+You might recognize these from Lego
+Star Wars and Lego Indiana Jones.
+
+28
+00:05:47,240 --> 00:05:51,249
+But more importantly than
+that, I was born in Wales.
+
+29
+00:05:51,249 --> 00:05:56,139
+And there's the Welsh flag.
+
+30
+00:05:56,139 --> 00:05:59,629
+Okay, an overview of how the
+session is going to work today.
+
+31
+00:05:59,629 --> 00:06:02,550
+Firstly, I'm going to talk
+about prototyping in Unity
+
+32
+00:06:02,550 --> 00:06:07,559
+and some techniques that you can employ
+to hopefully speed up that process
+
+33
+00:06:07,559 --> 00:06:08,309
+
+
+34
+00:06:08,309 --> 00:06:14,210
+Of course we're looking at the relative benefits
+that this can offer you further down the pipeline
+
+35
+00:06:14,210 --> 00:06:15,319
+
+
+36
+00:06:15,319 --> 00:06:20,119
+We'll talk about preparing your 3D
+assets for taking into the Unity engine.
+
+37
+00:06:20,119 --> 00:06:22,729
+We'll talk about texture creation,
+
+38
+00:06:22,729 --> 00:06:25,270
+the actual process of importing into Unity
+
+39
+00:06:25,270 --> 00:06:32,270
+and also briefly, talk about
+optimizing your scenes.
+
+40
+00:06:35,180 --> 00:06:39,350
+So I've just come off the
+back of the Learn project.
+
+41
+00:06:39,350 --> 00:06:43,909
+If any of you have been to
+the Unity website recently
+
+42
+00:06:43,909 --> 00:06:47,299
+then there's the new Learn section
+
+43
+00:06:47,299 --> 00:06:56,459
+and this is a collection of downloadable content
+that people can take, installs itself into Unity
+
+44
+00:06:56,459 --> 00:06:58,912
+and then they can play with
+assets that we've created.
+
+45
+00:06:58,938 --> 00:07:00,739
+We've also tutorialized this
+
+46
+00:07:00,739 --> 00:07:05,819
+and there's a range of video content
+available that teach people how to
+
+47
+00:07:05,819 --> 00:07:09,779
+take these assets and takes
+them through the process of
+
+48
+00:07:09,779 --> 00:07:12,219
+moving from a beginner to hopefully
+
+49
+00:07:12,219 --> 00:07:17,219
+somebody of an advanced level in Unity.
+
+50
+00:07:19,330 --> 00:07:26,310
+In approaching this, we've had to create a large number
+of really quite high quality assets for distribution.
+
+51
+00:07:26,310 --> 00:07:31,309
+Much more so than if you're
+actually producing assets for
+
+52
+00:07:31,309 --> 00:07:34,479
+a typical game environment, because
+we're actually giving assets to people
+
+53
+00:07:34,479 --> 00:07:37,610
+that can take these assets, and they
+can investigate them, play with them
+
+54
+00:07:37,610 --> 00:07:42,840
+so everything has to be of the highest quality.
+
+55
+00:07:42,840 --> 00:07:44,810
+Producing this stuff has also been
+
+56
+00:07:44,810 --> 00:07:46,830
+
+
+57
+00:07:46,830 --> 00:07:49,680
+fitting around other work
+commitments at the organization.
+
+58
+00:07:49,680 --> 00:07:56,680
+So in order to do this, workflow
+optimizations have been required.
+
+59
+00:07:57,719 --> 00:08:05,659
+And these are just examples of the artwork
+that we have created during the Learn process.
+
+60
+00:08:10,159 --> 00:08:13,520
+So, prototyping in Unity,
+
+61
+00:08:13,520 --> 00:08:17,710
+I propose that you should prototype thoroughly
+
+62
+00:08:17,710 --> 00:08:23,720
+when you're starting your projects. This is
+going to help you to prevent abortive work.
+
+63
+00:08:23,720 --> 00:08:29,759
+If you're throwing away work, if you're producing
+content is not included in your final product
+
+64
+00:08:29,759 --> 00:08:31,889
+then that's a 100-percent waste of time.
+
+65
+00:08:31,889 --> 00:08:38,830
+That work was discarded and
+you've lost time unnecessarily
+
+66
+00:08:38,830 --> 00:08:39,970
+
+
+67
+00:08:39,970 --> 00:08:46,120
+You need to identify areas of your process that can
+be automated, and implement this automation early.
+
+68
+00:08:46,120 --> 00:08:53,500
+So if you can see repetitive tasks or areas
+of your process that can be scripted
+
+69
+00:08:53,500 --> 00:08:57,760
+then I suggest that you should get that
+scripting done early in the project
+
+70
+00:08:57,760 --> 00:09:02,790
+and reap the benefits later on.
+
+71
+00:09:02,790 --> 00:09:06,230
+Also worth bearing in mind is that small
+savings throughout the art pipeline
+
+72
+00:09:06,230 --> 00:09:09,880
+add up to large overall gains by the
+time you reach the end of the project.
+
+73
+00:09:09,880 --> 00:09:12,380
+It might be a few seconds
+here, a few seconds there,
+
+74
+00:09:12,380 --> 00:09:20,350
+but after six months working on a project,
+that's gonna add up to potentially weeks of time.
+
+75
+00:09:21,750 --> 00:09:28,340
+Okay, so the process that I'm proposing
+for prototyping inside of Unity
+
+76
+00:09:28,340 --> 00:09:31,760
+is to first make use of Unity primitives
+
+77
+00:09:31,760 --> 00:09:32,870
+
+
+78
+00:09:32,870 --> 00:09:38,400
+You've got various geometric
+primitives that you can use to
+
+79
+00:09:38,400 --> 00:09:41,270
+lay out your levels and test
+your mechanics early.
+
+80
+00:09:41,270 --> 00:09:49,840
+Also, I suggest maybe considering creating
+your own custom shapes to test your gameplay.
+
+81
+00:09:50,040 --> 00:09:55,290
+Also, consider using the Asset Store.
+
+82
+00:09:55,290 --> 00:09:58,260
+And This is a great resource.
+
+83
+00:09:58,260 --> 00:10:04,120
+If you go to the Asset Store, it's available through
+the web site, it's available through the editor
+
+84
+00:10:04,120 --> 00:10:09,270
+there are various tools out there that you
+can use to actually help template and
+
+85
+00:10:09,270 --> 00:10:14,710
+create a rough rough prototype of your level
+before you start going into full production
+
+86
+00:10:14,710 --> 00:10:18,320
+I'm not going to endorse a particular
+product, but as an example
+
+87
+00:10:18,320 --> 00:10:19,430
+
+
+88
+00:10:19,430 --> 00:10:27,780
+38 dollars can be very well spent on
+a pack of premade template assets
+
+89
+00:10:27,780 --> 00:10:34,780
+I think you have to question the economy of
+actually building the stuff yourself, sometimes.
+
+90
+00:10:39,100 --> 00:10:42,840
+Creating quality artwork is
+a time-consuming process
+
+91
+00:10:42,840 --> 00:10:45,900
+if you go through this step of
+prototyping your work thoroughly
+
+92
+00:10:45,900 --> 00:10:49,750
+then you're going to identify an
+asset list that's 100-percent required.
+
+93
+00:10:49,750 --> 00:10:53,690
+Again, this boils down to the fact that
+you don't want to be throwing away work.
+
+94
+00:10:53,690 --> 00:11:02,180
+Producing artwork for, particularly, next gen
+applications is actually incredibly time-consuming.
+
+95
+00:11:02,180 --> 00:11:05,970
+So if you can ensure that what
+you produce is actually required
+
+96
+00:11:05,970 --> 00:11:09,200
+then you can ensure that
+not only is time better spent,
+
+97
+00:11:09,200 --> 00:11:14,500
+but by not throwing away
+work, you're actually preserving
+
+98
+00:11:14,500 --> 00:11:21,500
+creative interest in the project, as well.
+
+99
+00:11:22,530 --> 00:11:25,400
+So we'll talk a bit about the "OBJ Exporter" now.
+
+100
+00:11:25,400 --> 00:11:29,760
+So if you go to wiki.unity3d.com,
+
+101
+00:11:29,760 --> 00:11:32,750
+search for "OBJ Exporter,"
+
+102
+00:11:32,750 --> 00:11:35,960
+then this is the script you find.
+
+103
+00:11:35,960 --> 00:11:43,640
+This is an editor script that allows you to
+export .obj files from directly inside of Unity.
+
+104
+00:11:43,640 --> 00:11:47,950
+The exported OBJ that you get
+is a good base to model over.
+
+105
+00:11:47,950 --> 00:11:51,930
+You can see for example here
+that it's badly triangulated.
+
+106
+00:11:51,930 --> 00:11:54,340
+You know, that's not workable in-game asset.
+
+107
+00:11:54,340 --> 00:11:58,880
+But, what you have is a
+good, vertex precise
+
+108
+00:11:58,880 --> 00:12:04,790
+base that you can snap to, when you're
+actually going into your modeling phase.
+
+109
+00:12:04,790 --> 00:12:09,080
+This also helps you to identify
+repeatable, modular pieces,
+
+110
+00:12:09,080 --> 00:12:11,350
+which you can distribute
+amongst the team members.
+
+111
+00:12:11,350 --> 00:12:13,820
+So this is maximizing your
+product bandwidth.
+
+112
+00:12:13,820 --> 00:12:15,910
+
+
+113
+00:12:15,910 --> 00:12:20,540
+If you can take your work
+early on, you can see exactly
+
+114
+00:12:20,540 --> 00:12:24,070
+what needs to be crated, because
+you have the prototype layout.
+
+115
+00:12:24,070 --> 00:12:29,050
+You can then distribute this to team members.
+You don't have to, sort of, guess who can do what.
+
+116
+00:12:29,050 --> 00:12:31,470
+You know you can just literally tick off the list
+
+117
+00:12:31,470 --> 00:12:34,020
+"this individual does this,
+this individual does this."
+
+118
+00:12:34,020 --> 00:12:41,020
+And that's maximizing your production bandwidth.
+
+119
+00:12:42,480 --> 00:12:49,670
+So, this is a prototype level that we created
+inside of Unity for the stealth minigame.
+
+120
+00:12:49,670 --> 00:12:56,730
+If you go to--again, if you go to the
+Learn site, you can download this.
+
+121
+00:12:56,730 --> 00:13:02,180
+And this was created initially from a number
+of wall panels that we modeled in Maya.
+
+122
+00:13:02,180 --> 00:13:05,440
+2 meters by 2 meters.
+
+123
+00:13:05,440 --> 00:13:06,430
+
+
+124
+00:13:06,430 --> 00:13:10,870
+Using the standard asset controllers and
+cameras, we're able to test the level design.
+
+125
+00:13:11,570 --> 00:13:17,420
+Both design, art, and the code apartments
+could collaborate and agree on the design
+
+126
+00:13:17,420 --> 00:13:19,730
+in the same room, at the same time.
+
+127
+00:13:19,730 --> 00:13:25,990
+And this eliminates the problem you sometimes find
+in larger collaborative environments where, perhaps,
+
+128
+00:13:25,990 --> 00:13:26,779
+
+
+129
+00:13:26,779 --> 00:13:31,510
+somebody's made a decision at the design stage,
+it's gone through code, code has approved it,
+
+130
+00:13:31,510 --> 00:13:39,480
+then it gets to art, and then you find that something
+isn't feasible or, it could have been done better.
+
+131
+00:13:40,780 --> 00:13:42,910
+Okay, so with this specific example,
+
+132
+00:13:42,910 --> 00:13:48,420
+what we did was we took the prototype
+that was created inside of Unity,
+
+133
+00:13:48,420 --> 00:13:55,120
+brought it into Maya using the OBJ
+exporter, and we then rendered this out.
+
+134
+00:13:55,120 --> 00:13:56,060
+
+
+135
+00:13:56,060 --> 00:13:58,450
+Rendered it out onto a light background.
+
+136
+00:13:58,450 --> 00:14:01,180
+And this is a good base to start sketching.
+
+137
+00:14:01,180 --> 00:14:02,790
+
+
+138
+00:14:02,790 --> 00:14:05,970
+You know, taking things back
+to traditional methodologies
+
+139
+00:14:05,970 --> 00:14:07,900
+is often the fastest way to iterate.
+
+140
+00:14:07,900 --> 00:14:10,340
+And this was actually produced on the train
+
+141
+00:14:10,340 --> 00:14:14,060
+on the way home from work one day,
+by our content manager, Will Goldstone,
+
+142
+00:14:14,060 --> 00:14:17,980
+who sketched this.
+
+143
+00:14:17,980 --> 00:14:19,089
+
+
+144
+00:14:19,089 --> 00:14:24,120
+It's very, very close to what
+we actually ended up with.
+
+145
+00:14:24,120 --> 00:14:28,630
+Okay, so the next step was to
+sort of refine it a little bit,
+
+146
+00:14:28,630 --> 00:14:35,960
+color code it, use the color coding
+to help identify a flow to the level,
+
+147
+00:14:35,960 --> 00:14:41,370
+and then finally take this
+to the concept stage.
+
+148
+00:14:41,370 --> 00:14:47,990
+Okay, so using this approach, we've manage to create a
+very approved prototype very early on in the process.
+
+149
+00:14:47,990 --> 00:14:51,350
+And, we can assure that the art fits
+a feasible layout from the outset
+
+150
+00:14:51,350 --> 00:14:54,580
+rather than having to refactor work.
+
+151
+00:14:54,580 --> 00:14:58,260
+This in turn reduces the need to refit
+precise artwork at the modeling stage,
+
+152
+00:14:58,260 --> 00:15:04,510
+which is time consuming, again, in sort
+of AAA or next gen production environments.
+
+153
+00:15:04,510 --> 00:15:07,490
+That artwork takes a very,
+very long time to produce
+
+154
+00:15:07,490 --> 00:15:12,030
+and you can waste a lot of time.
+
+155
+00:15:12,030 --> 00:15:15,840
+So in summary, the benefits of
+this simple prototyping approach
+
+156
+00:15:15,840 --> 00:15:21,050
+is that you get early agreement between
+design, code and art departments.
+
+157
+00:15:21,050 --> 00:15:26,340
+There's less chance of time wasting by having
+to reposition or restitch your models.
+
+158
+00:15:26,340 --> 00:15:33,840
+And then, you get earlier distribution of workload
+amongst the artists, which means fewer dependencies.
+
+159
+00:15:34,440 --> 00:15:41,190
+So, preparing your 3D assets
+now for bringing into Unity.
+
+160
+00:15:41,190 --> 00:15:45,850
+I propose that you should group
+your objects by commonality.
+
+161
+00:15:45,850 --> 00:15:52,340
+So if you have a scene and it's composed
+of objects that all pertain to the floor
+
+162
+00:15:52,340 --> 00:15:58,270
+or objects that all pertain to the walls, then
+group those together into suitably named groups.
+
+163
+00:15:58,270 --> 00:16:02,240
+If you do this, when you bring
+your scenes into Unity,
+
+164
+00:16:02,240 --> 00:16:05,010
+you're going to end up with
+much neater hierarchies,
+
+165
+00:16:05,010 --> 00:16:10,860
+rather than recursive,
+deep folder structures.
+
+166
+00:16:10,860 --> 00:16:15,860
+And this keeps your hierarchies
+as flat as possible.
+
+167
+00:16:17,930 --> 00:16:24,910
+So if you find a suitable
+taxonomy early in your project,
+
+168
+00:16:24,910 --> 00:16:31,080
+you can make use of the inherent organization
+that you get from alphabetizing your work.
+
+169
+00:16:31,080 --> 00:16:38,920
+So for instance, if you go "kingdom,"
+"species," "variant," in your object list,
+
+170
+00:16:38,920 --> 00:16:44,590
+Then you can create lists that are
+very neatly grouped together.
+
+171
+00:16:44,590 --> 00:16:47,860
+And, I'd definitely suggest using
+a renaming script to do this.
+
+172
+00:16:47,860 --> 00:16:50,250
+
+
+173
+00:16:50,250 --> 00:16:51,509
+There are various, out there.
+
+174
+00:16:51,509 --> 00:16:55,460
+The renaming tools inside of Maya
+and 3D Studio, as an example,
+
+175
+00:16:55,460 --> 00:17:03,240
+are pretty poor. So, make use of some
+free alternatives that are available.
+
+176
+00:17:05,990 --> 00:17:13,390
+So, if you have scene that's composed of many
+small objects, then this is inefficient.
+
+177
+00:17:13,390 --> 00:17:18,199
+Every object represents a draw
+call, unless it's batched.
+
+178
+00:17:18,199 --> 00:17:19,490
+
+
+179
+00:17:19,490 --> 00:17:27,469
+You can reduce the number of draw calls by combining
+the smaller objects into sensible medium-sized chunks.
+
+180
+00:17:27,669 --> 00:17:30,919
+Massive objects, on the other
+hand, represent a fill cost.
+
+181
+00:17:30,919 --> 00:17:36,530
+If you've got, say, a massive polygon
+that's representing your floor,
+
+182
+00:17:36,530 --> 00:17:41,179
+and most of that isn't
+seen by the camera,
+
+183
+00:17:41,179 --> 00:17:45,760
+then that actually represents a fill
+cost still, because you have to
+
+184
+00:17:45,760 --> 00:17:48,900
+you have to have it redraw that, even
+though it's not visible by the camera.
+
+185
+00:17:48,900 --> 00:17:53,500
+So we suggest splitting the
+object into medium-size pieces.
+
+186
+00:17:53,500 --> 00:17:58,330
+This means that the inherent first-in
+culling that you get from the camera
+
+187
+00:17:58,330 --> 00:18:07,460
+will actually not draw all of those polys where they're
+not necessary, required, or are those texels.
+
+188
+00:18:10,360 --> 00:18:16,740
+When it actually comes to modeling your objects,
+we also suggest equalizing your triangles
+
+189
+00:18:16,740 --> 00:18:19,450
+for better normal distribution.
+
+190
+00:18:19,450 --> 00:18:24,940
+So rather than having an object it's made of
+polygons that are all bunched into the corners,
+
+191
+00:18:25,940 --> 00:18:29,620
+even though sometimes it might
+be increasing your poly count,
+
+192
+00:18:29,620 --> 00:18:36,670
+you might get better results by adding some loops
+to, as I say, equalize the triangle distribution.
+
+193
+00:18:36,670 --> 00:18:41,100
+If you imagine you have a
+particularly massive polygon,
+
+194
+00:18:42,590 --> 00:18:44,480
+and you have one face, normal,
+
+195
+00:18:44,480 --> 00:18:48,020
+then if you're using
+normal mapping techniques,
+
+196
+00:18:48,020 --> 00:18:51,360
+then the normals are
+implicit across that surface.
+
+197
+00:18:51,360 --> 00:18:56,090
+So on a particularly large object, that means
+you're going to start to lose smoothing precision
+
+198
+00:18:56,090 --> 00:19:02,830
+unless you subdivide.
+
+199
+00:19:05,669 --> 00:19:10,220
+So if you go to CreativeCrash.com,
+there are plenty of alternatives out there.
+
+200
+00:19:10,220 --> 00:19:14,730
+Then you can find a range of
+auto-exporter scripts.
+
+201
+00:19:14,730 --> 00:19:21,820
+And what these are, they're tools that will allow
+you to export from inside of your 3D package
+
+202
+00:19:23,860 --> 00:19:26,789
+based on object
+names, for instance.
+
+203
+00:19:28,260 --> 00:19:33,270
+And this saves a lot of manual naming and
+manual tidying, which again, adds up to
+
+204
+00:19:33,270 --> 00:19:37,610
+quite a cumulative loss over
+the course of a project.
+
+205
+00:19:37,610 --> 00:19:41,730
+Also, if you preserve the naming
+conventions I suggested earlier,
+
+206
+00:19:41,730 --> 00:19:49,680
+then you're going to get always project folders
+that are faster to navigate and just a bit neater.
+
+207
+00:19:55,700 --> 00:20:01,620
+So, in summary, when you're building your
+3D assets, you want to avoid time wasting
+
+208
+00:20:01,620 --> 00:20:04,510
+by drilling through recursive hierarchies,
+
+209
+00:20:04,510 --> 00:20:08,190
+even to minimize the amount of
+repetitive exporting and naming
+
+210
+00:20:08,190 --> 00:20:11,790
+when you go out saving files
+to your operating system.
+
+211
+00:20:11,790 --> 00:20:18,790
+You also want to improve visual
+quality with good modeling practice.
+
+212
+00:20:18,950 --> 00:20:23,260
+Okay, so texture creation.
+
+213
+00:20:23,260 --> 00:20:27,970
+So, texturing is a process
+that is full of repetitive tasks.
+
+214
+00:20:27,970 --> 00:20:35,880
+Whether that's setting up a your Photoshop
+documents, or applying filters, or sharpening,
+
+215
+00:20:36,080 --> 00:20:41,919
+sizing images for distribution, you know,
+these are all obvious cases for automation.
+
+216
+00:20:41,919 --> 00:20:45,340
+I propose standardizing
+your Photoshop documents
+
+217
+00:20:45,340 --> 00:20:48,650
+for easier collaboration
+in larger team environments.
+
+218
+00:20:48,650 --> 00:20:53,460
+If you go team of 30 artists
+and we're all producing work,
+
+219
+00:20:55,070 --> 00:20:58,520
+and distributing work amongst themselves,
+every time you pick up a file,
+
+220
+00:20:58,520 --> 00:21:04,590
+you potentially have to spend 5 minutes trying
+to figure it out and how it's constructed.
+
+221
+00:21:04,590 --> 00:21:07,539
+If you standardize your
+Photoshop documents,
+
+222
+00:21:07,539 --> 00:21:12,549
+then you can eliminate this
+this process of acquisition.
+
+223
+00:21:12,549 --> 00:21:17,700
+And this is only going to get worse as you move
+into the next gen. That's even more assets,
+
+224
+00:21:17,700 --> 00:21:22,700
+and the problem becomes compounded.
+
+225
+00:21:25,669 --> 00:21:29,920
+So, the Master Builder is
+a tool that I've created.
+
+226
+00:21:29,920 --> 00:21:32,409
+If you go to this web address,
+
+227
+00:21:32,409 --> 00:21:35,370
+I pretty much did a QR code,
+
+228
+00:21:35,370 --> 00:21:41,130
+I should get back to that.
+
+229
+00:21:41,130 --> 00:21:42,750
+And this takes you to my website.
+
+230
+00:21:42,750 --> 00:21:48,150
+I'll be giving that after the end, as well,
+so if you didn't get it, then don't worry.
+
+231
+00:21:48,150 --> 00:21:54,600
+If you go to my website, you get
+installation instructions for the tool.
+
+232
+00:21:54,600 --> 00:21:58,860
+And what the Master Builder is is it's
+part of a suite of Photoshop actions
+
+233
+00:21:58,860 --> 00:22:01,730
+that help automate repetitive tasks.
+
+234
+00:22:01,730 --> 00:22:06,570
+It takes a range of source maps from
+commonly used tools such as xNormal,
+
+235
+00:22:06,570 --> 00:22:12,170
+or the Algorithmic Substance Designer,
+and it helps you to produce a standardized,
+
+236
+00:22:12,170 --> 00:22:16,010
+flexible Photoshop
+document template.
+
+237
+00:22:16,010 --> 00:22:22,750
+Let me do a quick demonstration,
+show you how it works.
+
+238
+00:22:22,750 --> 00:22:28,100
+Okay, so inside of Photoshop,
+once you've installed the tool
+
+239
+00:22:28,100 --> 00:22:34,390
+it should appear here,
+in the actions palette.
+
+240
+00:22:34,390 --> 00:22:40,380
+What you then need to
+do is load up your maps.
+
+241
+00:22:52,140 --> 00:22:59,410
+So these are a range of typical maps you might
+produce if you're working on a next gen asset.
+
+242
+00:22:59,410 --> 00:23:02,049
+Or current gen, these days.
+
+243
+00:23:02,049 --> 00:23:04,790
+So we have a cavity map,
+
+244
+00:23:04,790 --> 00:23:07,720
+we have a grayscale curvature map,
+
+245
+00:23:07,720 --> 00:23:10,360
+we have a tangent space normal map,
+
+246
+00:23:10,360 --> 00:23:12,480
+ambient occlusion,
+
+247
+00:23:12,480 --> 00:23:14,240
+UV layout,
+
+248
+00:23:14,240 --> 00:23:16,110
+vertex colors,
+
+249
+00:23:16,110 --> 00:23:20,210
+and also worldspace normals.
+
+250
+00:23:20,210 --> 00:23:26,380
+So when you're inside the tool, the first
+need to do is to initialize the document.
+
+251
+00:23:26,380 --> 00:23:31,789
+And we do this because the maps
+might come in a range of orders.
+
+252
+00:23:31,789 --> 00:23:36,750
+They've also potentially come from a range of sources,
+so we don't know what they're going to be called.
+
+253
+00:23:36,750 --> 00:23:41,380
+And then by dragging these
+into corresponding folders
+
+254
+00:23:41,380 --> 00:23:46,570
+we have a specific name that
+we can work with later on.
+
+255
+00:23:55,750 --> 00:24:00,110
+So I'm just dragging this into the
+
+256
+00:24:00,110 --> 00:24:04,350
+named groups.
+
+257
+00:24:04,350 --> 00:24:08,659
+In which it goes in there,
+
+258
+00:24:08,659 --> 00:24:10,890
+and finally, cavity.
+
+259
+00:24:10,890 --> 00:24:11,919
+So this is all loaded up
+
+260
+00:24:11,919 --> 00:24:15,740
+and it's a lot quicker if you're
+not using a track pad, obviously.
+
+261
+00:24:15,740 --> 00:24:18,430
+The second thing we need to do is to build the document.
+
+262
+00:24:18,430 --> 00:24:25,630
+I've actually got these on shortkeys, but for the
+purpose of demonstration, I'm just going to hit play.
+
+263
+00:24:25,630 --> 00:24:30,880
+And what it is now doing is taking in the
+information we've put inside of Photoshop
+
+264
+00:24:30,880 --> 00:24:37,250
+and it's splitting it open, and it's setting up this
+this template document that I referred to earlier.
+
+265
+00:24:37,250 --> 00:24:41,360
+It doesn't look like much at
+the moment. It's quite ugly.
+
+266
+00:24:41,360 --> 00:24:43,880
+But, with a little bit tweaking,
+
+267
+00:24:43,880 --> 00:24:48,950
+we can produce something that's half
+decent as a base to start texturing.
+
+268
+00:24:48,950 --> 00:24:55,030
+So for instance, I can see here that the cavity map
+isn't working too well. We're getting some jaggies,
+
+269
+00:24:55,030 --> 00:25:00,590
+so I'm just going to knock that back a little bit.
+Similarly, the ambient occlusion is very, very faint.
+
+270
+00:25:00,590 --> 00:25:05,430
+So I'm just going to pump that up.
+
+271
+00:25:05,430 --> 00:25:11,240
+Also, what this produces is a range of
+highlights using various techniques.
+
+272
+00:25:11,240 --> 00:25:13,510
+No one technique works every time,
+
+273
+00:25:13,510 --> 00:25:19,240
+so it's up to the artist to check them
+out, and to blend accordingly.
+
+274
+00:25:19,240 --> 00:25:24,070
+So in this case, I'd say that this
+highlight isn't working very well.
+
+275
+00:25:24,070 --> 00:25:29,760
+I can see from this that the curvature
+highlights are barely working at all,
+
+276
+00:25:29,760 --> 00:25:33,730
+so we'll quickly adjust those.
+
+277
+00:25:36,730 --> 00:25:43,620
+And one of the advantages to this approach is,
+again, related to the idea of standardization.
+
+278
+00:25:43,620 --> 00:25:45,480
+If you've got a larger team,
+
+279
+00:25:45,480 --> 00:25:49,010
+not necessarily everybody on the
+team is at the same ability level.
+
+280
+00:25:49,010 --> 00:25:51,529
+So, some people want to know
+about certain techniques.
+
+281
+00:25:51,529 --> 00:25:55,970
+Whereas, if you present a document to people
+that has all these techniques already laid out,
+
+282
+00:25:57,269 --> 00:26:01,510
+it's up to the user then. They can play
+with it, they can see what is achievable,
+
+283
+00:26:01,510 --> 00:26:05,080
+and blends to get the desired result.
+
+284
+00:26:06,980 --> 00:26:14,900
+Additional tool lists, you also get
+your selections from your vertex colors,
+
+285
+00:26:15,500 --> 00:26:19,280
+and you also get the
+worldspace normals.
+
+286
+00:26:19,280 --> 00:26:22,230
+So for instance, if you're going
+to put dust on top of a surface,
+
+287
+00:26:22,230 --> 00:26:25,539
+then you could stick it
+inside of this folder here,
+
+288
+00:26:25,539 --> 00:26:31,180
+and then you'd be blending dust just onto
+the surfaces that face up in the world.
+
+289
+00:26:37,090 --> 00:26:44,570
+So as an example, this is one of
+the finished documents we created,
+
+290
+00:26:44,570 --> 00:26:49,940
+and this probably represents
+maybe 1:20's work.
+
+291
+00:26:49,940 --> 00:26:52,810
+So quite a short time.
+
+292
+00:26:52,810 --> 00:26:56,810
+If it has involved experimentation
+from the from the outset,
+
+293
+00:26:58,130 --> 00:27:04,549
+if it had been passed to a more junior member of the team
+who didn't necessarily understand some of the techniques
+
+294
+00:27:04,549 --> 00:27:07,080
+then it could have taken a lot longer.
+But, because we have this
+
+295
+00:27:07,080 --> 00:27:15,020
+standardized document, you can produce a reasonable
+next gen texture in a very, very short space of time.
+
+296
+00:27:26,350 --> 00:27:33,140
+As an example, the robot lab and the
+stealth projects from the Learn website
+
+297
+00:27:33,140 --> 00:27:37,890
+involved the creation
+of 433 unique textures.
+
+298
+00:27:37,890 --> 00:27:42,520
+I've worked out that on average, setting
+up a photoshop document by hand
+
+299
+00:27:42,520 --> 00:27:47,420
+takes about five minutes longer than it
+would do if you automate the process.
+
+300
+00:27:47,420 --> 00:27:54,860
+So, 433 x 5 gives you 2,165, which works
+out to be four and a half working days.
+
+301
+00:27:54,860 --> 00:28:02,360
+So over the course of project, just by automating
+the process of getting these textures set up,
+
+302
+00:28:02,360 --> 00:28:06,300
+that's almost a working week saved.
+
+303
+00:28:08,500 --> 00:28:12,230
+I also want to talk a little bit about image preprocessing.
+
+304
+00:28:13,440 --> 00:28:17,900
+So obviously, you can work inside of
+Photoshop documents inside of Unity,
+
+305
+00:28:17,900 --> 00:28:22,429
+but there are certain advantages to working outside of Unity.
+
+306
+00:28:22,429 --> 00:28:28,240
+I propose that you should work in the
+project folder set up by your 3D package
+
+307
+00:28:28,240 --> 00:28:32,179
+and use the image processor in Photoshop
+to automatically apply actions to your images
+
+308
+00:28:32,179 --> 00:28:35,610
+before bringing them
+into your Unity project.
+
+309
+00:28:35,610 --> 00:28:40,470
+And this offers some distinct advantages.
+
+310
+00:28:40,470 --> 00:28:46,179
+It allows you to flatten your Photoshop
+documents to reduce your project size.
+
+311
+00:28:46,179 --> 00:28:53,650
+If you're using version control, and you're purchasing
+a lot of assets, particularly hi-res assets,
+
+312
+00:28:53,650 --> 00:28:57,850
+in some cases up to a
+gigabyte, 2 gigabytes,
+
+313
+00:28:57,850 --> 00:28:59,180
+
+
+314
+00:28:59,180 --> 00:29:03,350
+then you can see how quickly you're
+gonna flood your version control.
+
+315
+00:29:03,350 --> 00:29:08,929
+So I propose that you can flatten your Photoshop
+documents prior to bringing them into Unity
+
+316
+00:29:08,929 --> 00:29:13,770
+in order to help
+reduce this effect.
+
+317
+00:29:13,770 --> 00:29:19,770
+You can also normalize your histogram
+levels. So with a specific example of
+
+318
+00:29:19,770 --> 00:29:27,030
+say, a specular mask, and you've got 8-bit precision,
+that's 256 colors that are available to you.
+
+319
+00:29:27,030 --> 00:29:32,247
+If you're only using a few of those colors,
+then you know, it's wasted precision,
+
+320
+00:29:32,273 --> 00:29:38,310
+it's wasted storage. So you're going to need
+to think about normalizing your documents.
+
+321
+00:29:38,310 --> 00:29:42,490
+You can also apply artistic affects,
+or sharpening to your images,
+
+322
+00:29:42,490 --> 00:29:46,320
+and you can reduce compression
+artifacts with filter combinations.
+
+323
+00:29:46,320 --> 00:29:51,190
+And this is something I want
+to talk a little bit about now.
+
+324
+00:29:51,190 --> 00:29:58,050
+So if you're working for mobile,
+chances are you'll be using PVRTC,
+
+325
+00:29:58,050 --> 00:30:00,260
+and it's really good for crunching stuff.
+
+326
+00:30:01,550 --> 00:30:04,090
+But, it has some problems.
+
+327
+00:30:04,090 --> 00:30:09,960
+Using PVRTC, you can notice that banding
+becomes visible in smooth gradients.
+
+328
+00:30:09,960 --> 00:30:17,840
+This is because colors within a certain range are
+being grouped together to minimize the palette.
+
+329
+00:30:18,140 --> 00:30:22,050
+So the example here, you can see
+that should be a smooth gradient,
+
+330
+00:30:22,050 --> 00:30:29,990
+but it splits into colors that
+have been grouped by approximation.
+
+331
+00:30:29,990 --> 00:30:33,320
+So I propose that you can
+use a high-frequency noise
+
+332
+00:30:33,320 --> 00:30:36,390
+on your textures to help
+simulate the effect of dithering.
+
+333
+00:30:36,390 --> 00:30:44,370
+And this effectively tricks the PVRTC
+compressor into preserving those colors.
+
+334
+00:30:46,679 --> 00:30:48,870
+So, I'll bring that back up.
+
+335
+00:30:48,870 --> 00:30:52,159
+So you can see here
+
+336
+00:30:52,159 --> 00:30:55,370
+on closer inspection, obviously,
+there is this dithering pattern,
+
+337
+00:30:55,370 --> 00:31:00,660
+but from a distance, and certainly, in-game, it looks
+a lot more acceptable than the image on the left.
+
+338
+00:31:00,660 --> 00:31:04,450
+And this is effectively through just
+applying a high-frequency noise.
+
+339
+00:31:04,450 --> 00:31:07,960
+
+
+340
+00:31:07,960 --> 00:31:09,990
+In summary,
+
+341
+00:31:09,990 --> 00:31:16,190
+preprocessing your images before importing is going to
+allow you to reduce your version control sync times.
+
+342
+00:31:16,190 --> 00:31:19,310
+It's going to allow you to allow you
+to apply stylized filter treatments.
+
+343
+00:31:19,310 --> 00:31:26,310
+It's also going to allow you to improve
+compression results on mobile textures.
+
+344
+00:31:27,480 --> 00:31:34,020
+So I also want to talk about
+importing assets into Unity.
+
+345
+00:31:34,020 --> 00:31:39,350
+So Unity was designed to work similarly to
+Autodesk Maya in terms of its interface.
+
+346
+00:31:39,350 --> 00:31:44,840
+However, there are some
+differences when it comes to 3D.
+
+347
+00:31:44,840 --> 00:31:51,349
+Scale is very important for bringing
+in light-mapped objects and physics.
+
+348
+00:31:51,349 --> 00:31:54,380
+If you have a scene that is
+particularly large, for instance,
+
+349
+00:31:54,380 --> 00:31:58,300
+then global illumination is
+going to start to break down.
+
+350
+00:31:58,300 --> 00:32:04,310
+When it comes to lighting, Unity
+expects a one meter unit.
+
+351
+00:32:04,310 --> 00:32:09,190
+So that's a hundred centimeters, whereas
+Maya's default unit is one centimeter.
+
+352
+00:32:09,190 --> 00:32:12,450
+So therefore, we need
+to scale the world.
+
+353
+00:32:12,450 --> 00:32:13,270
+
+
+354
+00:32:13,270 --> 00:32:18,780
+A default scale factor of 0.01 is
+applied because we assume that
+
+355
+00:32:19,730 --> 00:32:22,830
+there's a compatibility, also
+there's a relationship between.
+
+356
+00:32:22,830 --> 00:32:26,580
+Unity and Maya, so therefore we
+we have to default to something.
+
+357
+00:32:26,580 --> 00:32:30,760
+So, we default to 0.01.
+
+358
+00:32:30,760 --> 00:32:36,370
+Under the hand of 3D Studio Max, it
+uses a default unit of one meter.
+
+359
+00:32:36,370 --> 00:32:42,789
+Again, Unity's default unit is a meter so therefore
+we need to manually adjust the scale factor to 1.
+
+360
+00:32:42,789 --> 00:32:44,070
+
+
+361
+00:32:44,070 --> 00:32:46,490
+In any case, you should
+be doing a cube test.
+
+362
+00:32:46,490 --> 00:32:50,970
+And this is just literally
+creating a Unity cube,
+
+363
+00:32:50,970 --> 00:32:53,320
+and then creating a one meter
+cube inside of your package,
+
+364
+00:32:53,320 --> 00:32:55,130
+bring it in, then compare the two,
+
+365
+00:32:55,130 --> 00:33:01,280
+and it should be fairly obvious if you
+need to adjust the scale factor.
+
+366
+00:33:01,280 --> 00:33:07,740
+Also important to consider is that Unity uses the
+"left hand rule" for its cartesian coordinate system,
+
+367
+00:33:07,740 --> 00:33:11,080
+and this is the same as Direct X.
+
+368
+00:33:11,080 --> 00:33:14,030
+So, in the "left hand rule,"
+
+369
+00:33:15,310 --> 00:33:19,310
+positive X faces in the opposite
+direction to right handed packages.
+
+370
+00:33:19,310 --> 00:33:22,970
+Maya, for example, is a
+right handed package.
+
+371
+00:33:22,970 --> 00:33:28,500
+What's important to bear in mind is
+that the world-space rotation around Z
+
+372
+00:33:28,500 --> 00:33:32,500
+is therefore going to be in the opposite
+direction if you're eyeballing values.
+
+373
+00:33:32,500 --> 00:33:38,583
+So, if you're manually
+copying values from Maya,
+
+374
+00:33:38,609 --> 00:33:41,945
+you're taking those into Unity.
+Then you're going to start to experience
+
+375
+00:33:42,020 --> 00:33:45,900
+inverse rotations and other complications.
+
+376
+00:33:51,140 --> 00:33:56,030
+Also important to remember is that 3D
+Studio Max uses swivel coordinates.
+
+377
+00:33:56,030 --> 00:34:01,519
+So, in Max, Z is
+up, rather than Y.
+
+378
+00:34:01,519 --> 00:34:08,089
+Which, I know, is obvious, but it's just
+something that needs to be highlighted.
+
+379
+00:34:08,089 --> 00:34:10,579
+
+
+380
+00:34:10,579 --> 00:34:19,839
+Unity accepts .FBX, it accepts Collada, 3D
+Studio, Maya binary, .DXF, and .OBJ files,
+
+381
+00:34:20,139 --> 00:34:25,319
+but it also supports the
+embedded FBX standard.
+
+382
+00:34:25,319 --> 00:34:28,799
+And this means 3D texture assets can
+be included with your 3D model file,
+
+383
+00:34:28,799 --> 00:34:33,699
+which is great in rapid prototyping situations
+where, for instance, you might want to
+
+384
+00:34:33,699 --> 00:34:39,879
+minimize the time spent actually moving
+documents around, bringing them into Unity,
+
+385
+00:34:39,879 --> 00:34:44,939
+but it can cause problems with cluttering your
+projects. A lot of metadata comes with that.
+
+386
+00:34:44,939 --> 00:34:52,859
+For instance, as an example, if you're using version
+control, this metadata is going to start to get quite ugly
+
+387
+00:34:52,859 --> 00:34:55,859
+and you're going to waste a
+lot time filtering this stuff out.
+
+388
+00:34:55,859 --> 00:34:59,049
+So I'd say that in live production environments,
+
+389
+00:34:59,049 --> 00:35:06,639
+once you're past the prototyping stage, I'd definitely
+consider using the standard FBX, rather than embedded.
+
+390
+00:35:07,639 --> 00:35:12,042
+So again, in summary, when you're bringing
+stuff into Unity, you need to be aware
+
+391
+00:35:12,068 --> 00:35:16,299
+that Unity uses the "left hand
+rule" for cartesian coordinates.
+
+392
+00:35:17,299 --> 00:35:22,079
+Always check your scale to avoid
+problems with physics and light baking,
+
+393
+00:35:22,079 --> 00:35:29,079
+and use the embedded FBX
+format for rapid prototypes.
+
+394
+00:35:29,639 --> 00:35:32,069
+And finally, I was going to talk
+a little bit about optimization.
+
+395
+00:35:32,069 --> 00:35:40,019
+And this is a huge topic, so really I'm just going to
+glaze over a few obvious techniques that you can use.
+
+396
+00:35:41,619 --> 00:35:43,839
+Now, I'm proposing that you
+can use the Unity view modes
+
+397
+00:35:43,839 --> 00:35:48,359
+to troubleshoot and optimize
+your poor draw performance.
+
+398
+00:35:48,359 --> 00:35:55,359
+And these are available from the
+top left hand side of the scene view.
+
+399
+00:35:55,539 --> 00:35:59,489
+With the standard shaders
+in Unity, we actually encode
+
+400
+00:35:59,489 --> 00:36:04,819
+the specular mask into the alpha
+channel of the diffused texture.
+
+401
+00:36:04,819 --> 00:36:09,619
+And you can use this alpha view to check
+your specular maps are displaying correctly.
+
+402
+00:36:09,619 --> 00:36:16,079
+Some cases, if you're using a Photoshop document, then
+transparency on your base layer of your Photoshop document
+
+403
+00:36:16,079 --> 00:36:19,379
+can actually cause specular
+to not come through at all,
+
+404
+00:36:19,379 --> 00:36:23,279
+and this is difficult to spot in RGB mode.
+
+405
+00:36:23,279 --> 00:36:29,499
+So moving it into specular mode is a very
+useful way to troubleshoot this problem.
+
+406
+00:36:29,499 --> 00:36:32,699
+So if you look at the scene here,
+
+407
+00:36:32,699 --> 00:36:35,519
+if you had a specular mask
+that wasn't coming through,
+
+408
+00:36:35,519 --> 00:36:38,489
+you'd expect the object to
+be black or fully white.
+
+409
+00:36:38,489 --> 00:36:40,409
+And in the case here, we have fully white,
+
+410
+00:36:40,409 --> 00:36:47,759
+but that's for the windows, which have
+full reflectivity anyway, so it's expected.
+
+411
+00:36:51,859 --> 00:36:58,159
+Overdraw represents a draw cost
+without a visible on-screen result
+
+412
+00:36:58,159 --> 00:37:00,419
+except with the cases where
+you're looking through an alpha.
+
+413
+00:37:00,419 --> 00:37:04,079
+For instance, you know, glass.
+
+414
+00:37:04,079 --> 00:37:08,179
+And this means that you are having to draw polygons
+that aren't necessarily visible to the camera,
+
+415
+00:37:08,179 --> 00:37:10,949
+so you're wasting GPU performance.
+
+416
+00:37:10,949 --> 00:37:19,539
+So, if you move into overdraw mode, then
+you get this additive color reproduction,
+
+417
+00:37:19,539 --> 00:37:22,999
+so that the lighter areas are representing
+higher levels of overdraw.
+
+418
+00:37:22,999 --> 00:37:24,769
+And these are areas that
+you need to address,
+
+419
+00:37:24,795 --> 00:37:27,829
+so you don't remove the polygons
+from your model if possible,
+
+420
+00:37:27,829 --> 00:37:37,709
+or consider investigating techniques like
+portaling, in order to reduce the draw distance.
+
+421
+00:37:37,709 --> 00:37:40,799
+And finally, I'm going to talk
+a little bit about MipMaps.
+
+422
+00:37:41,730 --> 00:37:47,009
+So, mipmaps are obviously textures that
+are storing a pre-computed subsampling,
+
+423
+00:37:47,009 --> 00:37:49,579
+which is effectively a smaller
+version of the texture.
+
+424
+00:37:49,579 --> 00:37:54,710
+This is swapped at runtime to
+ensure that the texture density
+
+425
+00:37:54,710 --> 00:37:57,759
+is appropriate to the
+final on-screen resolution.
+
+426
+00:37:57,759 --> 00:38:03,829
+The mipmap view shows which
+mipmap is currently being used,
+
+427
+00:38:03,829 --> 00:38:07,879
+and represents this
+with a color scheme.
+
+428
+00:38:07,879 --> 00:38:10,379
+You get highest
+in the foreground.
+
+429
+00:38:10,379 --> 00:38:12,919
+Ideally, you're looking for
+highest in the foreground,
+
+430
+00:38:12,919 --> 00:38:15,459
+yellow in the middle, and
+red in the distance.
+
+431
+00:38:15,459 --> 00:38:19,139
+If you're getting red in the foreground, this
+means that your text resolution is too high,
+
+432
+00:38:19,139 --> 00:38:21,989
+and the low mipmap level is being used.
+
+433
+00:38:21,989 --> 00:38:27,489
+And this is a waste of memory because
+you don't need that resolution.
+
+434
+00:38:27,489 --> 00:38:29,529
+If you're getting blue in the background,
+
+435
+00:38:29,529 --> 00:38:32,199
+this means that your textures
+are likely to be low in resolution,
+
+436
+00:38:32,199 --> 00:38:39,199
+and they're going to be blurry when
+you get in close to the camera.
+
+437
+00:38:39,379 --> 00:38:42,409
+So, using the inspector,
+
+438
+00:38:42,409 --> 00:38:45,729
+you can set an appropriate
+maximum size for your textures.
+
+439
+00:38:45,729 --> 00:38:50,299
+With the example here,
+it's been set to 1024,
+
+440
+00:38:50,299 --> 00:38:53,989
+but it's just indicating that that's the
+value that you want to change.
+
+441
+00:38:53,989 --> 00:38:57,749
+You're ideally looking to
+balance the scene view
+
+442
+00:38:57,749 --> 00:39:01,749
+to get a correct distribution
+of blue to yellow to red.
+
+443
+00:39:01,749 --> 00:39:08,359
+In order to ensure that memory is not being
+wasted, you're preserving visual quality.
+
+444
+00:39:12,499 --> 00:39:14,829
+So, in summary,
+
+445
+00:39:14,829 --> 00:39:20,529
+use the Alpha view to identify shaders not
+correctly displaying their specular component.
+
+446
+00:39:20,529 --> 00:39:24,729
+Identify wasted GPU time with
+the Overdraw view mode.
+
+447
+00:39:24,729 --> 00:39:32,269
+And, ensure optimal texel density throughout
+your scene using the Mipmap view mode.
+
+448
+00:39:32,269 --> 00:39:33,689
+And that's it.
+
+449
+00:39:33,689 --> 00:39:37,689
+Any questions?
+
+450
+00:39:56,470 --> 00:39:59,070
+It's question time?
+
+451
+00:40:03,739 --> 00:40:07,309
+Could we get a microphone to this guy?
+
+452
+00:40:07,309 --> 00:40:14,309
+Just yell.
+
+453
+00:40:18,619 --> 00:40:20,980
+(Hi.)
+Hiya.
+
+454
+00:40:20,980 --> 00:40:28,059
+(Just for clarification, you said the gradient, like from,
+was it red to yellow to blue, or blue-yellow-red?)
+
+455
+00:40:28,059 --> 00:40:29,898
+(Is that from foreground
+to background, in order?)
+
+456
+00:40:30,024 --> 00:40:33,839
+So you want to see progression
+from blue to yellow to red, ideally.
+
+457
+00:40:33,839 --> 00:40:35,239
+(So blue would be
+in the foreground?)
+
+458
+00:40:35,317 --> 00:40:38,164
+Blue is the foreground, yellow in
+midground, and then red in distance.
+
+459
+00:40:38,212 --> 00:40:39,589
+(Okay, thank you.)
+
+460
+00:40:44,701 --> 00:40:47,701
+Anyone else?
+
+461
+00:40:52,100 --> 00:40:55,150
+Okay, thank you.

@@ -1,0 +1,1783 @@
+﻿1
+00:00:27,369 --> 00:00:28,799
+Hello and welcome.
+
+2
+00:00:32,949 --> 00:00:34,249
+Hello and welcome.
+
+3
+00:00:34,250 --> 00:00:38,529
+I'm going to talk a little bit about
+how to protect your Android content.
+
+4
+00:00:38,530 --> 00:00:44,859
+I'm Erik Hemming from Unity Technologies.
+
+5
+00:00:44,860 --> 00:00:47,169
+Just a little quick background about myself:
+
+6
+00:00:47,170 --> 00:00:53,569
+I'm a developer set with Unity
+Technologies based in Stockholm, Sweden.
+
+7
+00:00:53,570 --> 00:00:58,699
+I've been working with Unity for Android
+for the last three years,
+
+8
+00:00:58,700 --> 00:01:06,700
+and I have a background as a game developer
+making the Battlefield franchise games.
+
+9
+00:01:07,550 --> 00:01:18,750
+My main focus is on mobiles and game consoles. So, that is
+Android, PlayStation mobile, PlayStation Vita and PlayStation 4.
+
+10
+00:01:22,500 --> 00:01:26,309
+So, this is a little bit about what we're
+going to talk about today:
+
+11
+00:01:26,310 --> 00:01:36,400
+First, I'm going to do a little bit of an overview
+of what is special with Unity on Android.
+
+12
+00:01:37,229 --> 00:01:43,809
+Moving on to Google Play
+Licensing authentication.
+
+13
+00:01:44,710 --> 00:01:48,649
+Continue with application tampering detection.
+
+14
+00:01:48,650 --> 00:01:59,489
+A little bit about code obfuscation, and end with
+encryption of "PlayerPrefs", scripts, assets,
+
+15
+00:01:59,490 --> 00:02:05,029
+and then hopefully a little bit of Q&A.
+
+16
+00:02:05,030 --> 00:02:07,480
+So, Unity on Android.
+
+17
+00:02:08,779 --> 00:02:15,658
+Unity on Android is essentially the big block
+of the Unity run time.
+
+18
+00:02:15,659 --> 00:02:24,099
+We have the Mono VM, the virtual machine, which is
+sort of the driving component for your script,
+
+19
+00:02:24,299 --> 00:02:27,878
+the content that you write, the game itself.
+
+20
+00:02:27,879 --> 00:02:35,819
+This all together is the application
+that you sell on the Google Play store or similar stores.
+
+21
+00:02:36,319 --> 00:02:43,248
+From the OS level we have what is essentially
+the Android, the Java, Dalvik virtual machine
+
+22
+00:02:43,249 --> 00:02:47,568
+and then the Linux Kernel.
+
+23
+00:02:47,569 --> 00:02:55,549
+So, if we look a little bit in detail we have
+essentially the Unity runtime sitting in between
+
+24
+00:02:55,550 --> 00:02:59,738
+your scripts being run in
+the Mono virtual machine, and
+
+25
+00:02:59,739 --> 00:03:06,678
+on the other side of Unity
+we have the Dalvik Java VM.
+
+26
+00:03:06,679 --> 00:03:13,158
+So, you have essentially two different
+virtual machines running separately.
+
+27
+00:03:13,159 --> 00:03:21,839
+To help with communicating between the
+"C#.lang" and the "java.lang" we've created
+
+28
+00:03:22,849 --> 00:03:26,598
+"AndroidJavaObject" and a few other
+classes
+
+29
+00:03:27,410 --> 00:03:37,079
+that then map to the Java counterpart, which
+is like, in this case, a "java.lang.Object."
+
+30
+00:03:37,809 --> 00:03:42,142
+So, we have a few different objects
+or few different types of classes.
+
+31
+00:03:42,168 --> 00:03:46,319
+We have the "AndroidJavaObject"
+which maps to "java.lang.Object",
+
+32
+00:03:46,620 --> 00:03:50,098
+"AndroidJavaClass" which maps to "java.lang.Class",
+
+33
+00:03:50,099 --> 00:03:54,798
+"AndroidJavaRunnable" mapping to "java.lang.Runnable",
+
+34
+00:03:54,799 --> 00:04:02,698
+and in Unity 4.2 we added an "AndroidJavaProxy"
+that maps to "java.lang.reflect.Proxy."
+
+35
+00:04:02,699 --> 00:04:09,258
+So, it's very helpful for implementing
+Java interfaces on the C# side.
+
+36
+00:04:09,259 --> 00:04:21,279
+Essentially what all these structures are is basically a
+way to map C# objects to "JavaObjects", classes or runnables.
+
+37
+00:04:22,219 --> 00:04:26,879
+We do that by name, we look up
+the classes by name and instantiate them and
+
+38
+00:04:26,880 --> 00:04:35,939
+methods of and fields are handled through
+reflection, which is essentially by name.
+
+39
+00:04:35,940 --> 00:04:42,769
+This is a small example of what the Java
+code would look like and the equivalent in C#,
+
+40
+00:04:42,770 --> 00:04:45,680
+just to get an understanding of what
+we're talking about here.
+
+41
+00:04:46,800 --> 00:04:51,168
+As you can see they're different,  but essentially
+
+42
+00:04:51,169 --> 00:05:04,028
+very similar in the key components of
+the scripts, the code snippets here.
+
+43
+00:05:04,029 --> 00:05:08,990
+Starting off with authentication
+with Google Play Licensing.
+
+44
+00:05:09,919 --> 00:05:13,068
+This is a system provided by Google,
+
+45
+00:05:13,069 --> 00:05:18,579
+and that means it's only available
+for applications published on the Play Store.
+
+46
+00:05:18,580 --> 00:05:27,489
+It's essentially a verification of the purchase record
+of an application, that is an online verification.
+
+47
+00:05:27,490 --> 00:05:36,038
+So, if the device is offline the verification will
+essentially fail or you will not get any information from it.
+
+48
+00:05:36,039 --> 00:05:42,868
+There's example code provided by
+Google, the License Verification Library or LVL.
+
+49
+00:05:45,949 --> 00:05:51,329
+It runs through the different aspects of how
+the Google Play Licensing mechanism works,
+
+50
+00:05:51,330 --> 00:06:01,009
+but it's not a good solution for Unity apps on
+Android because it's written completely in Java.
+
+51
+00:06:02,710 --> 00:06:09,498
+As such it could be a very
+large part of your Java code
+
+52
+00:06:09,499 --> 00:06:14,959
+and that would essentially make it very
+easy to find and then hack.
+
+53
+00:06:18,710 --> 00:06:24,038
+Just quickly running through the verification
+flow with with Google Play Licensing.
+
+54
+00:06:24,039 --> 00:06:29,679
+The application sends a random number
+to the Google servers,
+
+55
+00:06:29,680 --> 00:06:37,109
+and the Google server replies with a message and a
+signature of that message back to the application.
+
+56
+00:06:37,110 --> 00:06:43,099
+So, the message itself is this purchase
+record, a purchase status of the app,
+
+57
+00:06:43,100 --> 00:06:50,459
+this random number that we sent to the server
+and a few other bits and pieces, like timestamps.
+
+58
+00:06:50,460 --> 00:06:56,719
+The signature is a RSA crypto signature
+of the message
+
+59
+00:06:56,720 --> 00:07:02,019
+and the private key, which is
+essentially only known to the Google server.
+
+60
+00:07:02,020 --> 00:07:08,728
+So, what the application then does is checks
+the RSA crypto signature against a public key
+
+61
+00:07:08,729 --> 00:07:11,629
+and see that it matches the message itself,
+
+62
+00:07:11,630 --> 00:07:17,818
+and if it does then you can trust the
+message to be valid.
+
+63
+00:07:17,819 --> 00:07:23,428
+So, as I said, this is an online check,
+you can't do it when the device isn't
+
+64
+00:07:23,429 --> 00:07:30,209
+online, like having
+an internet connection.
+
+65
+00:07:30,210 --> 00:07:33,116
+So there are a few ways that
+you could deal with that.
+
+66
+00:07:33,142 --> 00:07:36,149
+You could require a constant
+internet connection,
+
+67
+00:07:36,150 --> 00:07:42,158
+which is probably not a good idea,
+unless it's a very online game,
+
+68
+00:07:42,159 --> 00:07:46,468
+because the game experience
+will basically be
+
+69
+00:07:46,469 --> 00:07:56,528
+ruined if the user is flying, roaming
+or otherwise without internet access.
+
+70
+00:07:56,529 --> 00:08:01,579
+So another way to deal with that is to do
+checks only when you have a network connection
+
+71
+00:08:01,580 --> 00:08:07,258
+and in between trust the
+application to be valid or
+
+72
+00:08:07,259 --> 00:08:12,799
+trust the user that he actually
+bought the application.
+
+73
+00:08:14,759 --> 00:08:19,578
+Then essentially demand an online check every
+
+74
+00:08:19,579 --> 00:08:24,218
+week or every month
+depending on your choice.
+
+75
+00:08:24,219 --> 00:08:28,718
+Obviously if the application
+itself already has a few components
+
+76
+00:08:28,719 --> 00:08:30,888
+which require internet connection
+
+77
+00:08:30,889 --> 00:08:35,669
+it's a good idea to do this licensing
+check at those points.
+
+78
+00:08:35,670 --> 00:08:39,799
+It could be like if you have
+leaderboard stats, some kind of, you
+
+79
+00:08:39,800 --> 00:08:45,079
+know, synchronization with your own
+servers.
+
+80
+00:08:45,080 --> 00:08:51,369
+So, one way to improve the
+security of this verification
+
+81
+00:08:51,370 --> 00:08:57,739
+scheme is to use your own trusted
+server to do the actual verification.
+
+82
+00:08:59,189 --> 00:09:08,308
+Again we start off doing the same scheme, the flow,
+that we did with the client side verification.
+
+83
+00:09:08,333 --> 00:09:14,459
+We send some number, could
+be a data request identifier, to the Google server.
+
+84
+00:09:14,460 --> 00:09:19,279
+The Google server replies with a message
+and a signature back to the application,
+
+85
+00:09:19,280 --> 00:09:25,850
+but the application then takes the message and
+signature and sends it to its own server.
+
+86
+00:09:26,570 --> 00:09:32,279
+The server then does the
+verification and only if the
+
+87
+00:09:32,280 --> 00:09:37,068
+message and signature is
+valid the server will then
+
+88
+00:09:37,069 --> 00:09:43,029
+reply with application data or the
+application mechanism that was requested.
+
+89
+00:09:46,660 --> 00:09:52,430
+So, to ease a little bit of this
+we've created a Unity plugin.
+
+90
+00:09:53,470 --> 00:09:56,938
+And it's written completely in C# or
+almost completely in C#, there's
+
+91
+00:09:56,939 --> 00:10:03,789
+a small snippet in Java which is
+embedded into the plugin itself and
+
+92
+00:10:03,790 --> 00:10:07,249
+the Java code is loaded dynamically.
+
+93
+00:10:07,250 --> 00:10:10,978
+So, it's very easy to
+embed into an existing application
+
+94
+00:10:10,979 --> 00:10:16,749
+and it's also very easy to hide in
+your C# or JavaScript code base
+
+95
+00:10:16,750 --> 00:10:19,399
+that you have in your game.
+
+96
+00:10:19,400 --> 00:10:23,059
+This is currently available on the Unity Asset Store,
+
+97
+00:10:23,060 --> 00:10:28,500
+and basically just click
+download and its integrated.
+
+98
+00:10:31,220 --> 00:10:36,349
+The original project is hosted
+on GitHub, so feel free to
+
+99
+00:10:36,350 --> 00:10:41,449
+fork the project there and
+improve and submit any patches,
+
+100
+00:10:41,450 --> 00:10:43,710
+bug fixes or whatever back to us.
+
+101
+00:10:48,560 --> 00:10:53,809
+So, application tampering detection
+then, because you want to see
+
+102
+00:10:53,810 --> 00:10:57,820
+if a hacker has done anything
+to your application.
+
+103
+00:10:58,839 --> 00:11:02,619
+A hacker could... I mean the
+
+104
+00:11:02,620 --> 00:11:06,929
+simplest case would be removing the
+licensing checks we already talked about,
+
+105
+00:11:06,930 --> 00:11:11,289
+a hacker would then have to change your code
+in some way.
+
+106
+00:11:11,290 --> 00:11:17,018
+It could also be that the hacker wants
+to change the code in the game to
+
+107
+00:11:17,019 --> 00:11:21,620
+gain some advantages, like making a
+car drive faster.
+
+108
+00:11:23,390 --> 00:11:27,389
+In general it's an easy
+way to determine if the application
+
+109
+00:11:27,390 --> 00:11:32,469
+has been hacked or changed or altered in some way.
+
+110
+00:11:32,470 --> 00:11:39,178
+So how you do this is, there are some different
+aspects or different parts of the application
+
+111
+00:11:39,179 --> 00:11:43,049
+binary that you want to check.
+
+112
+00:11:43,050 --> 00:11:47,569
+First make sure that the application
+is signed with your key,
+
+113
+00:11:47,570 --> 00:11:53,308
+since your key is your own private
+key and a hacker could not possibly
+
+114
+00:11:53,309 --> 00:11:57,530
+sign the application with your key
+if you keep it private.
+
+115
+00:11:58,620 --> 00:12:02,390
+Then make sure that the Java code is
+intact.
+
+116
+00:12:03,430 --> 00:12:09,300
+Also make sure that the Mono class library,
+which is sort of the Mono framework
+
+117
+00:12:10,200 --> 00:12:16,509
+that sits in the "mscorlib.dll", make sure
+that that one isn't changed in in some way.
+
+118
+00:12:16,510 --> 00:12:20,589
+As if we do the licensing checks
+that we talked about before,
+
+119
+00:12:21,580 --> 00:12:25,139
+those checks would rely on C#, the RSA encrypter
+
+120
+00:12:25,140 --> 00:12:31,230
+implementation in C#, and a
+hacker could change that.
+
+121
+00:12:32,049 --> 00:12:37,789
+Make sure your own scripts are obviously
+in a sort of good state.
+
+122
+00:12:38,640 --> 00:12:45,989
+That can be a little bit tricky, since you're
+sort of checking what your actually writing.
+
+123
+00:12:46,014 --> 00:12:56,269
+So, a way to do that is to do the check in
+Unity script for the C# part or vice versa.
+
+124
+00:12:56,270 --> 00:13:00,079
+If you have some native code or if
+you want to make sure that the
+
+125
+00:13:00,080 --> 00:13:07,080
+Unity or the Mono code is intact
+you could have some checks for that.
+
+126
+00:13:08,230 --> 00:13:13,449
+So, I'm gonna run through how you
+could implement some of these checks.
+
+127
+00:13:13,450 --> 00:13:18,069
+This is what the APK signature check
+would look like in Java,
+
+128
+00:13:18,070 --> 00:13:20,610
+it's probably familiar to at least some of you.
+
+129
+00:13:22,930 --> 00:13:27,699
+If we look at the the same code in Unity script,
+using the
+
+130
+00:13:27,700 --> 00:13:32,779
+"AndroidJavaClass", "AndroidJavaObject" that
+I talked about earlier, it would look like this.
+
+131
+00:13:32,780 --> 00:13:36,789
+As you can see if we move back
+and forth between them
+
+132
+00:13:36,790 --> 00:13:40,029
+they are very similar, they are different
+obviously, but they do
+
+133
+00:13:40,030 --> 00:13:45,340
+do exactly the same thing
+but from Unity scripts.
+
+134
+00:13:51,460 --> 00:13:58,209
+Moving on to detecting changes in the Java code
+or the Dalvik code which sits in the "classes.dex."
+
+135
+00:13:58,210 --> 00:14:01,459
+Here we do a little special trick.
+
+136
+00:14:01,484 --> 00:14:09,629
+We rely on the www class which is a standard
+class in the Unity script API, the www class.
+
+137
+00:14:09,630 --> 00:14:14,560
+As on Android it has
+the mechanism of reading
+
+138
+00:14:16,530 --> 00:14:22,689
+compressed files or compressed entries
+inside the distribution archive.
+
+139
+00:14:22,690 --> 00:14:30,389
+So, we've essentially created a url
+to the Apk entry classed as ."dex"
+
+140
+00:14:30,390 --> 00:14:37,149
+and then we read it with the www class,
+create a crypto hash of that content
+
+141
+00:14:37,150 --> 00:14:43,449
+and check it, or in this case just
+print it to the "log.cat."
+
+142
+00:14:43,450 --> 00:14:52,119
+A native library check, in Unity script
+this time, would look essentially like this.
+
+143
+00:14:52,120 --> 00:14:56,379
+Get the native library directory
+for the application
+
+144
+00:14:56,380 --> 00:15:03,838
+and read out the native library and do a
+crypto check, crypto sum
+
+145
+00:15:03,839 --> 00:15:08,040
+of the file contents and
+again print it to "log.cat."
+
+146
+00:15:14,570 --> 00:15:18,100
+Going to touch a little bit on code obfuscation.
+
+147
+00:15:19,800 --> 00:15:23,159
+Obviously we talk about code
+obfuscation in two different spaces here.
+
+148
+00:15:23,160 --> 00:15:30,659
+We have the Java code in the Dalvik
+VM which you can obfuscate with Proguard,
+
+149
+00:15:30,660 --> 00:15:37,079
+and you have the C# code or Unity script
+code which lives in the Mono virtual machine,
+
+150
+00:15:37,080 --> 00:15:43,509
+and for that for obfuscation you can use
+Obfuscar which is an open source project
+
+151
+00:15:43,510 --> 00:15:47,399
+available on Google code.
+
+152
+00:15:47,400 --> 00:15:51,639
+The code obfuscation is essentially a mechanism to hide
+
+153
+00:15:51,640 --> 00:15:57,619
+method and variable names, it does a little bit of
+other things but that's essentially what it does.
+
+154
+00:15:57,620 --> 00:16:03,959
+The problem is that obfuscated
+code is very much readable I'd say.
+
+155
+00:16:03,960 --> 00:16:07,749
+For semi-experienced hackers it's very readable
+
+156
+00:16:07,750 --> 00:16:15,979
+and in some sense this is a false
+sense of security, I would say.
+
+157
+00:16:15,980 --> 00:16:22,459
+We're going to look a little bit at
+the Java code here before obfuscation.
+
+158
+00:16:22,460 --> 00:16:27,569
+This is a small snippet of the
+actual code in Unity that does
+
+159
+00:16:27,570 --> 00:16:30,789
+the playback of the fullscreen video.
+
+160
+00:16:30,790 --> 00:16:34,939
+If we take this code and obfuscate
+it, this is what it would look like.
+
+161
+00:16:34,940 --> 00:16:41,089
+The method names, the
+variables, the local variables, those
+
+162
+00:16:41,090 --> 00:16:49,379
+names have been changed, but all the
+access points to the advert framework
+
+163
+00:16:49,380 --> 00:16:52,299
+are still there and they're still
+very much readable.
+
+164
+00:16:52,300 --> 00:16:59,129
+So, it's still quite easy to
+grasp what the code does.
+
+165
+00:16:59,130 --> 00:17:02,789
+If we then move on to encryption, if you want to
+
+166
+00:17:02,790 --> 00:17:07,259
+hide or otherwise make it tricky for a hacker.
+
+167
+00:17:07,260 --> 00:17:10,879
+So, if we start off with encryption of
+the "PlayerPrefs".
+
+168
+00:17:10,980 --> 00:17:19,959
+The "PlayerPrefs", as you probably know, are a way to
+store game specific information or game progression.
+
+169
+00:17:21,760 --> 00:17:28,229
+Obviously we want to protect the application
+from simple cheating mechanisms,
+
+170
+00:17:28,230 --> 00:17:37,590
+like just changing how many gold
+coins the player has received so far.
+
+171
+00:17:38,970 --> 00:17:45,510
+If the application caches some
+mechanism of in app billing purchases
+
+172
+00:17:46,480 --> 00:17:49,569
+then we obviously want to protect that
+as well.
+
+173
+00:17:49,570 --> 00:18:04,869
+In general it's good practice to hide, or otherwise
+make it hard to find, this in someway sensitive data.
+
+174
+00:18:06,070 --> 00:18:12,119
+We do this by encrypting the key value
+pair that you send into "PlayerPrefs".
+
+175
+00:18:12,120 --> 00:18:19,659
+So, we rely on the "PlayerPrefs", but we
+only store encrypted data into it.
+
+176
+00:18:19,660 --> 00:18:28,908
+With this encryption it's good practice to use a user
+specific encryption, not a device specific encryption key,
+
+177
+00:18:28,909 --> 00:18:36,759
+because the storage media for the
+"PlayerPrefs" might be a cloud service.
+
+178
+00:18:40,169 --> 00:18:46,210
+So, the player might be playing the same game
+on multiple devices.
+
+179
+00:18:47,870 --> 00:18:51,459
+Very quick, small examples here of how you could
+
+180
+00:18:51,460 --> 00:18:58,069
+do the sort of "SetString" part
+of the "PlayerPrefs" encryption.
+
+181
+00:18:58,070 --> 00:19:05,319
+We start off with a key value in some
+kind of secret code encryption key.
+
+182
+00:19:05,320 --> 00:19:11,499
+In this case we use a triple descriptor,
+which is provided by the C# framework.
+
+183
+00:19:11,500 --> 00:19:16,649
+So, we transform the value into an
+encrypted form
+
+184
+00:19:16,650 --> 00:19:23,449
+and we use a MD5 hash sum of the key and
+then we store that in to the "PlayerPrefs".
+
+185
+00:19:23,450 --> 00:19:30,459
+This will make it not readable and you
+definitely cannot change it either,
+
+186
+00:19:30,460 --> 00:19:34,919
+unless you change the secret,
+if you know there is a secret code which would
+
+187
+00:19:34,920 --> 00:19:44,440
+require the hacker to decompile your whole
+app, doable but still very much harder.
+
+188
+00:19:46,370 --> 00:19:49,319
+This is the equivalent of getting
+the string back out.
+
+189
+00:19:49,320 --> 00:20:06,619
+So, we again in this case use a triple descriptor
+that you decrypt, then return the decrypted value.
+
+190
+00:20:06,620 --> 00:20:15,590
+This is how we would interface with this encrypted
+version of the ""SetString"()" / "GetString()" API.
+
+191
+00:20:17,230 --> 00:20:26,699
+We essentially just pass it the secret values, an
+additional primer as a ""SetString"()" and "GetString()."
+
+192
+00:20:26,700 --> 00:20:30,419
+So moving onto encryption of scripts.
+
+193
+00:20:31,410 --> 00:20:35,029
+Why do we want to do that?
+
+194
+00:20:35,030 --> 00:20:40,799
+Well scripts in Unity, C# scripts and Unity
+scripts, they are generally insecure,
+
+195
+00:20:40,800 --> 00:20:45,619
+they are not obfusticated, they are not
+encrypted, we don't do anything to those
+
+196
+00:20:45,620 --> 00:20:49,260
+as part of the automatic building
+process.
+
+197
+00:20:49,285 --> 00:20:51,285
+So, the hacker could read those.
+
+198
+00:20:55,669 --> 00:21:00,298
+It could be, as I said, gameplay could be altered
+
+199
+00:21:00,299 --> 00:21:03,999
+or the security checks that we have in
+place, licensing check mechanism or
+
+200
+00:21:04,000 --> 00:21:08,530
+the tempering detection
+code could be disabled.
+
+201
+00:21:09,429 --> 00:21:12,699
+There could also be code you want to
+hide for some reason,
+
+202
+00:21:12,700 --> 00:21:21,649
+could be the in app building purchase
+logic, could be something else.
+
+203
+00:21:21,650 --> 00:21:23,539
+So, how do we do this?
+
+204
+00:21:23,540 --> 00:21:27,939
+We start off taking the
+scripts you want to hide
+
+205
+00:21:27,940 --> 00:21:32,109
+and we move them outside of Unity,
+we're not compiling the scripts
+
+206
+00:21:32,110 --> 00:21:36,469
+through the automatic
+compilation mechanism inside Unity.
+
+207
+00:21:36,470 --> 00:21:40,819
+We take them outside and compile
+them outside manually.
+
+208
+00:21:40,820 --> 00:21:47,058
+We then run some kind of encryption on
+them, could be symmetric or asymmetric,
+
+209
+00:21:47,059 --> 00:21:53,869
+on this "Script.dll", which is sort of the
+managed dll which includes
+
+210
+00:21:53,870 --> 00:21:57,450
+the scripts you moved outside of Unity.
+
+211
+00:21:58,429 --> 00:22:06,489
+Move on to choosing a delivery mechanism, it
+could be that you just want to embed the
+
+212
+00:22:06,490 --> 00:22:13,289
+scripts into your existing applications so
+they are bundled with the original application.
+
+213
+00:22:13,290 --> 00:22:16,798
+Or it could be that you want to download
+them on the fly from a server, so you could
+
+214
+00:22:16,799 --> 00:22:22,439
+change them after the
+game has been released.
+
+215
+00:22:22,440 --> 00:22:30,940
+Or depending on the device or any other
+type of mechanism you want to have.
+
+216
+00:22:31,779 --> 00:22:40,189
+Then at run time we decrypt the "Script.dll" in
+memory, we don't store it to the device memory.
+
+217
+00:22:40,190 --> 00:22:49,729
+Then we load it through "Assembly.Load",
+which is a C# framework API call.
+
+218
+00:22:49,730 --> 00:22:52,939
+So if we look at the different steps individually.
+
+219
+00:22:52,940 --> 00:23:00,159
+We start off with compiling the scripts outside
+Unity and for that we need the Mono compiler.
+
+220
+00:23:00,160 --> 00:23:01,689
+So, we download Mono.
+
+221
+00:23:02,000 --> 00:23:09,799
+We compile the script, in this case "Plugin.cs",
+with the GMCS compiler.
+
+222
+00:23:10,690 --> 00:23:15,979
+If you want to reference anything before
+they use anything from the Unity script API,
+
+223
+00:23:15,980 --> 00:23:24,229
+you need to reference the "UnityEngine.dll" assembly
+on the command line when compiling this "Plugin.cs."
+
+224
+00:23:24,230 --> 00:23:30,709
+This is just an example of what the
+command line could look like.
+
+225
+00:23:30,710 --> 00:23:33,100
+Then we move on to encrypting the assembly.
+
+226
+00:23:33,125 --> 00:23:39,425
+One way to do that is to use OpenSSL.
+
+227
+00:23:41,470 --> 00:23:52,709
+The example here uses an RC2 crypto, encrypting
+the "Script.dll" into encrypted ".bin" binary file.
+
+228
+00:23:52,710 --> 00:24:00,959
+While doing so it will output the key and the
+IV necessary to decrypt the encrypted binary.
+
+229
+00:24:00,960 --> 00:24:08,119
+We then convert it to
+a Base64 format,
+
+230
+00:24:08,120 --> 00:24:14,190
+raw text instead of binary, so we
+can embed it in Unity as a "TextAsset."
+
+231
+00:24:20,520 --> 00:24:23,108
+If we look at this "Plugin.cs" or a part of it.
+
+232
+00:24:23,133 --> 00:24:25,133
+So, in this case I've added the
+signature check again
+
+233
+00:24:29,309 --> 00:24:33,510
+as part of some important game class.
+
+234
+00:24:34,549 --> 00:24:41,719
+It's a good idea to not only have your
+check in this "Plugin.cs", but also add some
+
+235
+00:24:41,720 --> 00:24:45,590
+parts which are
+actually necessary to run the game.
+
+236
+00:24:46,590 --> 00:24:51,860
+If this sum important game class was responsible
+for, for example, handling the physics
+
+237
+00:24:53,750 --> 00:25:00,538
+the code could then alter the physics simulation,
+changing the parameters to the physics engine.
+
+238
+00:25:00,539 --> 00:25:08,409
+Making, maybe, the car slower if the
+application is hacked or something like that.
+
+239
+00:25:13,490 --> 00:25:17,559
+Then we move onto decrypt
+and run the assembly.
+
+240
+00:25:17,560 --> 00:25:23,199
+So, we have the text assets at the
+top there, that's the assembly.
+
+241
+00:25:23,200 --> 00:25:31,240
+Which is a basics deforeign
+coded encrypted assembly.
+
+242
+00:25:32,640 --> 00:25:37,529
+We then start off by converting it back
+to a raw binary form.
+
+243
+00:25:37,530 --> 00:25:44,479
+We have the key and the IV from
+the encryption step and then we again use the
+
+244
+00:25:44,480 --> 00:25:51,678
+crypto services available
+in Mono to decrypt it.
+
+245
+00:25:51,679 --> 00:25:57,019
+Finally we load the
+assembly up and
+
+246
+00:25:57,020 --> 00:26:05,020
+instantiate this important game class
+to run the code we saw before.
+
+247
+00:26:07,750 --> 00:26:13,179
+Encryption of assets.
+
+248
+00:26:14,480 --> 00:26:17,259
+It might be necessary to encrypt assets
+
+249
+00:26:18,710 --> 00:26:23,489
+to protect them from tampering or maybe
+you want to hide them in some way.
+
+250
+00:26:23,490 --> 00:26:29,528
+Assets in Unity is quite a loose term, it
+could actually be a lot of different things,
+
+251
+00:26:29,529 --> 00:26:33,609
+not necessarily textures, meshes
+or something like that.
+
+252
+00:26:33,610 --> 00:26:40,119
+It could be game logic controlled
+from a ".txt" file for example
+
+253
+00:26:40,120 --> 00:26:44,518
+or Dalvik bytecode which is embedded as an asset.
+
+254
+00:26:44,519 --> 00:26:52,189
+It could be script code encrypted
+or non-encrypted assembly.
+
+255
+00:26:52,190 --> 00:26:58,898
+It could actually be native code that you embed
+inside your unit assets.
+
+256
+00:26:58,899 --> 00:27:02,158
+It could be essentially anything,
+
+257
+00:27:02,159 --> 00:27:10,379
+it's up to you what you want to put there,
+but you might want to encrypt the assets.
+
+258
+00:27:10,380 --> 00:27:12,048
+How do we do this?
+
+259
+00:27:12,049 --> 00:27:14,990
+Create an "AssetBundle" of those secret assets.
+
+260
+00:27:15,669 --> 00:27:20,249
+Then we essentially use the same
+mechanism as we did
+
+261
+00:27:20,250 --> 00:27:27,589
+with the encryption of scripts, but we
+instead use an "AssetBundle.Unity3d" file.
+
+262
+00:27:27,590 --> 00:27:36,039
+So, we choose a delivery mechanism and then
+we decrypt the "AssetBundle" in memory
+
+263
+00:27:36,040 --> 00:27:47,950
+and load it through the Unity script api function
+called "AssetBundle.CreateFromMemory."
+
+264
+00:27:52,560 --> 00:27:56,768
+Some kind of conclusion here.
+
+265
+00:27:56,769 --> 00:27:58,569
+Be imaginative.
+
+266
+00:27:59,794 --> 00:28:06,800
+What I showed here is just to get you started,
+there are many different ways of doing this.
+
+267
+00:28:07,880 --> 00:28:15,959
+However I want to point out that the APK integrity
+checks that I showed before, they're very simple.
+
+268
+00:28:15,960 --> 00:28:23,209
+All the code snippets here
+are not a lot of code, it fits into a slide
+
+269
+00:28:23,210 --> 00:28:27,279
+in a PowerPoint presentation, so
+it's definitely not a lot of code.
+
+270
+00:28:28,490 --> 00:28:36,609
+It's so simple that essentially everyone should
+have something like this in the replication.
+
+271
+00:28:36,610 --> 00:28:41,469
+As I said sensitive code must be protected.
+
+272
+00:28:41,470 --> 00:28:45,179
+There's no built-in protection in
+Unity so you need to deal with that.
+
+273
+00:28:45,180 --> 00:28:54,779
+If you need to protect your sensitive
+code you need to handle that case.
+
+274
+00:28:56,290 --> 00:29:00,489
+You can combine the different approaches
+shown here or add new ones
+
+275
+00:29:00,490 --> 00:29:07,490
+or essentially pre-mute the way
+you attack this problem.
+
+276
+00:29:07,990 --> 00:29:13,319
+Also a word of caution, don't spend
+too much time on this.
+
+277
+00:29:13,320 --> 00:29:18,009
+The Android eco-system is, sort of,
+built in a way that you will
+
+278
+00:29:18,010 --> 00:29:23,129
+most probably update your application
+more than once.
+
+279
+00:29:23,130 --> 00:29:27,249
+So, you could then update how you deal with this
+
+280
+00:29:27,250 --> 00:29:31,699
+encryption or how you deal with
+with the different mechanisms
+
+281
+00:29:31,700 --> 00:29:35,579
+of protection of your Android content for
+each new release.
+
+282
+00:29:35,580 --> 00:29:44,898
+Which will then set back the hacker to square one,
+where he will have to start from the beginning.
+
+283
+00:29:47,399 --> 00:29:50,079
+That was actually all.
+
+284
+00:29:50,080 --> 00:29:52,918
+A little bit quick
+today, sorry about that.
+
+285
+00:29:52,919 --> 00:30:00,919
+So do we have any questions?
+
+286
+00:30:08,230 --> 00:30:13,269
+(Do you have any solution for
+tech or teching devices?)
+
+287
+00:30:13,270 --> 00:30:19,718
+(For instance, Android rooting
+application or in iOS that the device has been)
+
+288
+00:30:19,919 --> 00:30:22,539
+(jailbroken or something like that.)
+
+289
+00:30:23,630 --> 00:30:29,199
+There are ways to detect that, but I would actually
+not recommend detecting that because I don't see
+
+290
+00:30:29,200 --> 00:30:33,040
+it as a problem in itself.
+
+291
+00:30:33,809 --> 00:30:40,629
+A rooted device still needs to, if you have for
+example a Google Play Licensing verification check,
+
+292
+00:30:40,630 --> 00:30:44,169
+it will still need to talk to the Google
+Play Licensing server.
+
+293
+00:30:44,170 --> 00:30:48,939
+So it doesn't really matter if it's
+rooted or not, it still needs to do that
+
+294
+00:30:48,940 --> 00:30:56,419
+check and it will still fail if the
+application was not purchased by that user.
+
+295
+00:30:56,420 --> 00:31:03,239
+So, I wouldn't care so much about that,
+I don't think it's a big problem.
+
+296
+00:31:03,240 --> 00:31:07,319
+(So just encrypt the script like that?)
+
+297
+00:31:07,320 --> 00:31:08,789
+Yes, exactly.
+
+298
+00:31:12,100 --> 00:31:15,189
+There are many different reasons why
+people want to root devices.
+
+299
+00:31:15,190 --> 00:31:19,699
+It's not always because they
+want to to run cracked games
+
+300
+00:31:19,700 --> 00:31:23,329
+and most often it's not because they want run
+cracked games, it's
+
+301
+00:31:23,330 --> 00:31:26,030
+because they want to get access to other
+parts.
+
+302
+00:31:27,074 --> 00:31:29,074
+(Thank you.)
+
+303
+00:31:32,200 --> 00:31:39,200
+Anything else?
+
+304
+00:31:46,300 --> 00:31:49,109
+(Do you have any plan in
+Unity to support)
+
+305
+00:31:49,110 --> 00:31:52,569
+(some of the techniques
+described here?)
+
+306
+00:31:52,570 --> 00:31:57,548
+(Like script tampering
+check in the Unity platform.)
+
+307
+00:31:57,549 --> 00:32:02,158
+You mean if we have anything like a
+Unity plugin for this?
+
+308
+00:32:02,159 --> 00:32:07,729
+(Yea or future plans
+for improvement?)
+
+309
+00:32:07,730 --> 00:32:13,179
+We will definitely make the slides here available,
+so you can look at that.
+
+310
+00:32:13,180 --> 00:32:24,600
+Possibly create a small plugin of examples,
+how to do the checks, that would make sense.
+
+311
+00:32:25,610 --> 00:32:28,390
+You mean if we are going to implement it natively?
+
+312
+00:32:30,010 --> 00:32:34,519
+No, I generally don't think that's a good idea.
+
+313
+00:32:34,520 --> 00:32:39,288
+As if we add the
+encryption check
+
+314
+00:32:39,289 --> 00:32:46,199
+or application signature check into Unity, it
+would be very easy for a hacker to hack all
+
+315
+00:32:46,200 --> 00:32:50,048
+Unity based applications
+on Android.
+
+316
+00:32:50,049 --> 00:32:55,028
+Yea we could add it, but it would take five minutes
+to create a crack that would crack all your games.
+
+317
+00:32:55,429 --> 00:32:57,698
+So, I don't think that's a good idea.
+
+318
+00:32:58,399 --> 00:33:05,399
+It would be a false sense of security
+again.
+
+319
+00:33:09,830 --> 00:33:16,830
+Any other questions or general Android questions?
+
+320
+00:33:19,750 --> 00:33:26,750
+Oh we have some hands.
+
+321
+00:33:31,380 --> 00:33:32,060
+
+
+322
+00:33:36,890 --> 00:33:37,618
+
+
+323
+00:33:37,619 --> 00:33:38,299
+
+
+324
+00:33:43,340 --> 00:33:46,808
+
+
+325
+00:33:46,809 --> 00:33:47,489
+
+
+326
+00:33:57,799 --> 00:34:05,499
+The Unity engine itself has a very small part
+written in Java and that part is obfuscated.
+
+327
+00:34:05,500 --> 00:34:11,839
+So, any type of plugins that you add
+to Unity in the Unity Plugins folder
+
+328
+00:34:12,680 --> 00:34:18,238
+would have to be obfuscated by you, because
+we don't compile the Java code for you.
+
+329
+00:34:18,239 --> 00:34:21,098
+So, we don't obfuscate it either.
+
+330
+00:34:21,099 --> 00:34:24,798
+It's up to you if you want to obfuscate it.
+
+331
+00:34:24,799 --> 00:34:33,733
+When you provide it as a precompiled ".jar" you can also
+provide it as a precompiled and pre-obfuscated ".jar" file.
+
+332
+00:34:39,959 --> 00:34:41,858
+
+
+333
+00:34:41,859 --> 00:34:45,668
+
+
+334
+00:34:45,669 --> 00:34:46,349
+
+
+335
+00:34:56,969 --> 00:35:09,630
+Yes, we plan to make them available to the
+public after our Unite Asia tour has ended.
+
+336
+00:35:10,239 --> 00:35:10,851
+Thank you.
+
+337
+00:35:36,749 --> 00:35:40,028
+
+
+338
+00:35:40,029 --> 00:35:42,868
+
+
+339
+00:35:42,869 --> 00:35:46,728
+
+
+340
+00:35:46,729 --> 00:35:51,959
+
+
+341
+00:35:51,960 --> 00:35:56,448
+
+
+342
+00:35:56,449 --> 00:35:57,129
+
+
+343
+00:36:04,899 --> 00:36:11,438
+You cannot load non-encrypted assemblies.
+
+344
+00:36:11,463 --> 00:36:15,363
+You cannot load assemblies on iOS, because on iOS
+
+345
+00:36:15,439 --> 00:36:20,838
+the assemblies are actually compiled
+ahead of time into native code.
+
+346
+00:36:20,839 --> 00:36:24,148
+So, on iOS
+everything is native.
+
+347
+00:36:24,149 --> 00:36:29,908
+Which means that if you want to load dynamic
+code you need to load dynamic natively.
+
+348
+00:36:29,909 --> 00:36:33,918
+I'm not sure iOS supports that,
+I'm not 100% sure.
+
+349
+00:36:33,919 --> 00:36:35,748
+It's not supported.
+
+350
+00:36:35,749 --> 00:36:46,779
+So that is a problem on iOS, that you
+cannot load code dynamically in that way.
+
+351
+00:36:48,629 --> 00:36:55,629
+And the other questions?
+
+352
+00:37:03,299 --> 00:37:08,308
+
+
+353
+00:37:08,309 --> 00:37:09,928
+
+
+354
+00:37:09,929 --> 00:37:13,098
+
+
+355
+00:37:13,099 --> 00:37:15,879
+
+
+356
+00:37:15,880 --> 00:37:19,108
+
+
+357
+00:37:19,109 --> 00:37:20,698
+
+
+358
+00:37:20,699 --> 00:37:23,418
+
+
+359
+00:37:23,419 --> 00:37:27,428
+
+
+360
+00:37:27,429 --> 00:37:31,288
+
+
+361
+00:37:31,289 --> 00:37:31,969
+
+
+362
+00:37:38,999 --> 00:37:45,598
+So the place in the player settings that
+you are talking about, inside the editor.
+
+363
+00:37:45,599 --> 00:37:54,748
+That was actually removed when we transitioned
+from the 3. series to the 4. series.
+
+364
+00:37:54,749 --> 00:37:56,558
+So, it's actually removed.
+
+365
+00:37:56,559 --> 00:38:02,228
+So, to counter the removal
+we added the plugin,
+
+366
+00:38:02,229 --> 00:38:09,918
+because we thought it made more sense to
+provide a plugin that was written in C#.
+
+367
+00:38:09,919 --> 00:38:13,768
+So, that you could embed it anywhere in
+your application and hide it wherever
+
+368
+00:38:13,769 --> 00:38:19,858
+you want instead of us doing
+the LVL check for you.
+
+369
+00:38:20,159 --> 00:38:25,608
+As it made less sense to do that.
+
+370
+00:38:27,309 --> 00:38:33,509
+We think it's more secure if you can hide the
+implementation somewhere in your application,
+
+371
+00:38:33,510 --> 00:38:42,068
+rather than us providing it sort of out
+of the box, because it's easier to hack.
+
+372
+00:38:42,069 --> 00:38:46,008
+Does that make sense?
+
+373
+00:38:46,009 --> 00:38:46,689
+
+
+374
+00:38:53,539 --> 00:39:00,428
+Anything else?
+
+375
+00:39:00,429 --> 00:39:05,358
+Well if you have any questions you
+can just e-mail me on this address
+
+376
+00:39:05,359 --> 00:39:11,318
+or tweet something to me.
+I'm happy to answer any questions you have.
+
+377
+00:39:11,319 --> 00:39:15,839
+I will also be around here a little bit after
+the presentation if you want to ask something.
+
+378
+00:39:15,864 --> 00:39:17,864
+Thank you.

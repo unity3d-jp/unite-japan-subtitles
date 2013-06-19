@@ -1,0 +1,2483 @@
+﻿1
+00:00:25,250 --> 00:00:26,339
+Welcome.
+
+2
+00:00:26,339 --> 00:00:29,630
+Welcome to the Unity rendering pipeline talk.
+
+3
+00:00:29,630 --> 00:00:31,470
+I'm Kuba Cupisz,
+
+4
+00:00:31,470 --> 00:00:35,790
+and this talk has been prepared by myself and Tim Cooper,
+
+5
+00:00:35,790 --> 00:00:40,550
+who's doing another talk tonight.
+
+6
+00:00:40,550 --> 00:00:42,220
+So, who am I?
+
+7
+00:00:42,220 --> 00:00:44,090
+I'm a graphics programmer,
+
+8
+00:00:44,090 --> 00:00:50,770
+and I've worked at Unity technologies for quite
+some time already, for almost four years.
+
+9
+00:00:50,770 --> 00:00:54,140
+And before joining Unity I
+worked on some small games,
+
+10
+00:00:54,140 --> 00:00:58,980
+like probably most of you do now.
+
+11
+00:00:58,980 --> 00:01:02,800
+So what we will cover today
+are quite a few topics.
+
+12
+00:01:02,800 --> 00:01:06,830
+And most of them are related
+to the new 4.x features.
+
+13
+00:01:06,830 --> 00:01:12,700
+And some of them are
+just nice tips.
+
+14
+00:01:12,700 --> 00:01:20,690
+So, we'll start by talking a bit generally about
+what Unity is good at, and what it is bad at.
+
+15
+00:01:20,890 --> 00:01:25,910
+So, the rendering pipeline is very
+flexible, it has three rendering pipelines
+
+16
+00:01:25,910 --> 00:01:30,450
+that allow you to make it fit
+for different kinds of games.
+
+17
+00:01:30,550 --> 00:01:34,119
+It has a vertexed path, the
+forward, and the deferred path.
+
+18
+00:01:34,119 --> 00:01:36,460
+It allows you to write custom shaders,
+
+19
+00:01:36,460 --> 00:01:39,130
+and do custom lighting
+models for those shaders.
+
+20
+00:01:39,130 --> 00:01:42,980
+And it's basically
+completely customizable.
+
+21
+00:01:42,980 --> 00:01:48,930
+Because of the flexibility, it's also difficult to
+configure because there are just so many options.
+
+22
+00:01:48,930 --> 00:01:54,160
+Also, since there are so many
+parts to the rendering pipeline,
+
+23
+00:01:54,160 --> 00:01:58,850
+some parts are more well
+maintained than the others.
+
+24
+00:01:58,850 --> 00:02:03,510
+Also, the default settings, they suit quite a
+few projects, but of course not all of them.
+
+25
+00:02:03,510 --> 00:02:08,789
+So, you need to take care to actually make sure
+that your rendering settings are fitting your game.
+
+26
+00:02:08,789 --> 00:02:15,469
+And, well, there are a lot of settings so
+it takes time to go through all of them.
+
+27
+00:02:15,469 --> 00:02:23,040
+Unity ships with built-in shaders, and those of course work
+with all the rendering configurations that Unity allows for.
+
+28
+00:02:23,040 --> 00:02:25,299
+So, it works with all
+the rendering paths.
+
+29
+00:02:25,299 --> 00:02:28,079
+It works with realtime
+lighting and lightmaps,
+
+30
+00:02:28,079 --> 00:02:31,189
+with shadows of course,
+and all those things.
+
+31
+00:02:31,189 --> 00:02:35,369
+They support the standard lighting
+models like lambert and blinn-phong.
+
+32
+00:02:35,369 --> 00:02:40,609
+And, of course, they work on all
+the platforms that Unity supports.
+
+33
+00:02:40,609 --> 00:02:44,139
+What they're not good for, though,
+is, for example, stylized games.
+
+34
+00:02:44,339 --> 00:02:50,874
+Since they only provide the standard lighting models, you
+might want a game where the lighting behaves differently.
+
+35
+00:02:50,900 --> 00:02:53,169
+You might have a game where
+you don't do lighting at all.
+
+36
+00:02:53,169 --> 00:02:57,409
+And, of course, in those cases it might make
+sense to actually write your own shaders.
+
+37
+00:02:57,409 --> 00:03:01,119
+Also, even though those
+shaders perform really well,
+
+38
+00:03:01,119 --> 00:03:05,120
+if you can make some assumptions
+about your game, about your content,
+
+39
+00:03:05,120 --> 00:03:10,919
+often times you can optimize
+your shaders to run even faster.
+
+40
+00:03:10,919 --> 00:03:16,349
+Also, the size of the binary
+that we compile the shader to
+
+41
+00:03:16,349 --> 00:03:20,139
+is quite big, because they
+support a lot of variants.
+
+42
+00:03:20,139 --> 00:03:28,109
+Those variants can be lightmaps, realtime
+lighting, shadows, or no shadows and et cetera.
+
+43
+00:03:28,109 --> 00:03:30,119
+So, when would you
+write your own?
+
+44
+00:03:30,119 --> 00:03:34,774
+Well, when the built-in shaders are not custom
+enough, or when they're not fast enough.
+
+45
+00:03:34,800 --> 00:03:38,449
+But in this case, of course,
+profile -- never assume things.
+
+46
+00:03:39,749 --> 00:03:47,729
+In cases when you know exactly how your game should
+be rendered, well, feel free to write your own shaders.
+
+47
+00:03:49,329 --> 00:03:55,029
+So I will give you some background now to
+introduce a new 4.x feature.
+
+48
+00:03:55,340 --> 00:04:07,659
+But basically, when you're writing shaders by default,
+the built-in shaders they have many variants.
+
+49
+00:04:07,659 --> 00:04:11,449
+So, in the case of the built-in
+shaders, as I mentioned before,
+
+50
+00:04:11,449 --> 00:04:16,549
+that allows you to do shadows, or no
+shadows, lightmaps, or realtime lighting.
+
+51
+00:04:16,669 --> 00:04:22,650
+But you can use exactly the same system to
+make different variants of your own shaders.
+
+52
+00:04:22,650 --> 00:04:27,330
+And that allows you to reuse big parts
+of the code, and just switch different
+
+53
+00:04:27,330 --> 00:04:31,919
+small subsets of the
+shader to something else.
+
+54
+00:04:31,919 --> 00:04:34,420
+And you do that based
+on shader keywords.
+
+55
+00:04:34,420 --> 00:04:42,420
+Normally, you set them globally, but
+since 4.x, you can do that per material.
+
+56
+00:04:42,520 --> 00:04:45,020
+How do you define them?
+
+57
+00:04:45,020 --> 00:04:49,870
+Well, you write a line that
+declares a set of defines.
+
+58
+00:04:49,870 --> 00:04:56,669
+And it looks, for example, like this: #pragma multi_compile.
+So that will compile the shader into different versions.
+
+59
+00:04:56,669 --> 00:05:03,129
+Then you specify the set of keywords. So in this
+case, it's a keyword AAA, and a keyword BBB.
+
+60
+00:05:03,129 --> 00:05:09,349
+So, that gives us two variants. One where the first
+keyword is defined, and the second one is not.
+
+61
+00:05:09,349 --> 00:05:14,070
+And another variant, where the second
+keyword is defined, and the first is not.
+
+62
+00:05:14,070 --> 00:05:16,299
+We'll see in a second
+how that is useful.
+
+63
+00:05:17,699 --> 00:05:23,741
+Well, we can also add a second line, where we
+define a set of keywords with only one keyword.
+
+64
+00:05:23,767 --> 00:05:25,889
+But that still gives
+us only two variants.
+
+65
+00:05:25,889 --> 00:05:30,430
+One where the keyword AAA
+and the CCC are enabled,
+
+66
+00:05:30,430 --> 00:05:35,419
+and the other, where BBB
+and CCC are enabled.
+
+67
+00:05:35,419 --> 00:05:40,030
+If we extend the second line, and
+add actually another keyword there,
+
+68
+00:05:40,030 --> 00:05:46,809
+we end up with four variants
+as you might have expected.
+
+69
+00:05:46,809 --> 00:05:52,110
+So, in 4.x, we actually are allowed
+to set those keywords per material.
+
+70
+00:05:52,110 --> 00:05:59,860
+And that's very easy to do -- it's just an
+array of strings that you set via property.
+
+71
+00:05:59,860 --> 00:06:03,460
+You can also write a custom
+inspector for the material.
+
+72
+00:06:03,460 --> 00:06:11,339
+And that allows the user to actually
+select the keywords that will be set.
+
+73
+00:06:11,939 --> 00:06:16,779
+How do you do that? Well, you
+extend the material editor class.
+
+74
+00:06:16,779 --> 00:06:20,119
+And that allows you to
+make a material inspector.
+
+75
+00:06:20,119 --> 00:06:27,330
+In that, you override the "OnInspectorGUI", which
+allows you to extend the GUI for the inspector.
+
+76
+00:06:27,330 --> 00:06:35,330
+And in cases where you call base."OnInspectorGUI",
+that gives you the default GUI for the shader.
+
+77
+00:06:35,539 --> 00:06:41,830
+Now we will look at an example
+of how we can use that.
+
+78
+00:06:41,830 --> 00:06:46,039
+We have a simple example
+where we have two spheres.
+
+79
+00:06:46,039 --> 00:06:53,809
+They're both using the same shader as a custom darkened
+or difference shader. It's the same here and here.
+
+80
+00:06:53,809 --> 00:07:01,589
+The difference between those is the mode. One has the
+mode set to darken, and the other one to difference.
+
+81
+00:07:01,589 --> 00:07:04,389
+Those modes are just the
+way we blend textures,
+
+82
+00:07:04,389 --> 00:07:08,990
+and they are the same as the darken
+and difference modes in Photoshop.
+
+83
+00:07:08,990 --> 00:07:12,849
+So, if we look at the shader,
+
+84
+00:07:12,849 --> 00:07:16,389
+what you will notice first
+is that we have the
+
+85
+00:07:16,389 --> 00:07:21,440
+"#pragma multi_compile" line that we talked about
+before with the darken and difference keywords.
+
+86
+00:07:21,540 --> 00:07:26,910
+So, as you remember, only one keyword will be
+enabled at a time when compiling this shader.
+
+87
+00:07:27,710 --> 00:07:35,710
+So, if we say, if the darken shader keyword
+is enabled, then we can run one path.
+
+88
+00:07:35,849 --> 00:07:40,069
+Otherwise, we will
+run the other path.
+
+89
+00:07:40,069 --> 00:07:47,569
+So, that's basically it. It allows you to
+run different code based on the keyword.
+
+90
+00:07:47,569 --> 00:07:55,569
+But the rest of the shader is exactly the same, so you
+don't need to duplicate code between different shaders.
+
+91
+00:07:56,789 --> 00:07:59,020
+Now how do we define the editor?
+
+92
+00:07:59,020 --> 00:08:05,009
+We just write "CustomEditor", and then we provide
+the name of the class that defines the inspector.
+
+93
+00:08:05,009 --> 00:08:07,860
+In our case, it's
+"CustomMatInspector."
+
+94
+00:08:07,860 --> 00:08:10,370
+So, if we look at this class,
+
+95
+00:08:10,370 --> 00:08:16,330
+it's inferenced from "MaterialEdtior", and
+it overrides the ""OnInspectorGUI"" method.
+
+96
+00:08:16,330 --> 00:08:21,379
+Since it calls the base
+""OnInspectorGUI"", that gives us
+
+97
+00:08:21,379 --> 00:08:27,389
+the default parts for the
+inspector that take textures.
+
+98
+00:08:27,389 --> 00:08:35,389
+Because in our shader, what we have are just
+two properties. Both of them are textures.
+
+99
+00:08:35,530 --> 00:08:39,020
+But now we want to allow the user
+to actually select the keyword.
+
+100
+00:08:39,020 --> 00:08:41,769
+And to do that,
+it's quite simple.
+
+101
+00:08:41,895 --> 00:08:47,590
+You just need to do a pop-up, and you
+provide two options for the user.
+
+102
+00:08:48,090 --> 00:08:50,340
+Once the user has selected,
+
+103
+00:08:50,340 --> 00:08:58,340
+you set the shader keywords on the
+target material to a list of strings.
+
+104
+00:08:58,610 --> 00:09:05,620
+In this case, it will be only one string, because
+it will be either darken, or difference.
+
+105
+00:09:05,620 --> 00:09:07,470
+And that actually
+concludes the example.
+
+106
+00:09:07,470 --> 00:09:15,470
+So, if we just look at one of the spheres,
+we can switch from one mode to the other.
+
+107
+00:09:18,060 --> 00:09:19,640
+How can we use that?
+
+108
+00:09:19,640 --> 00:09:25,310
+Well, you can use it to, for example, switch
+the lighting or the looks of your game
+
+109
+00:09:25,310 --> 00:09:30,390
+globally with one
+shader keyword change.
+
+110
+00:09:30,390 --> 00:09:35,390
+Of course, you can do it also per
+material, and that becomes very useful.
+
+111
+00:09:35,390 --> 00:09:40,529
+How we plan to use it, is, for example, to
+instead of providing many many shaders,
+
+112
+00:09:40,529 --> 00:09:45,029
+like, if you look how many built-in shaders
+we have now, it's actually quite a lot.
+
+113
+00:09:45,029 --> 00:09:49,210
+We have bumped diffuse, bumped specular,
+diffuse, diffuse detailed, et cetera.
+
+114
+00:09:49,210 --> 00:09:56,650
+And of course, the same shaders that do self-illumation,
+transparent shaders, exactly the same set.
+
+115
+00:09:56,950 --> 00:10:00,646
+So, instead of adding complexity
+here, we could just provide an
+
+116
+00:10:00,672 --> 00:10:04,400
+inspector that allows you to
+decide those things by checkboxes.
+
+117
+00:10:04,400 --> 00:10:07,993
+Or in case we have a
+slot with a normal map,
+
+118
+00:10:08,019 --> 00:10:11,681
+if you drag the normal map there,
+then we use a bump map shader.
+
+119
+00:10:11,707 --> 00:10:15,170
+If you don't provide a
+normal map, we won't do it.
+
+120
+00:10:15,170 --> 00:10:19,170
+So, it will allow us to
+simplify the interface for you.
+
+121
+00:10:23,330 --> 00:10:26,930
+We will switch to another example now.
+
+122
+00:10:26,930 --> 00:10:29,430
+In Unity, you can do
+shader replacement.
+
+123
+00:10:29,430 --> 00:10:37,400
+That basically allows you to render objects with another
+shader than they typically would be rendered with.
+
+124
+00:10:37,500 --> 00:10:42,250
+So, all the objects will
+still use the same material.
+
+125
+00:10:42,250 --> 00:10:47,850
+Whatever properties were set on this material,
+whether those were textures or flows or whatever,
+
+126
+00:10:47,850 --> 00:10:50,970
+all those properties will still be
+passed to the new shader that
+
+127
+00:10:50,970 --> 00:10:53,390
+you want to render your objects with.
+
+128
+00:10:53,390 --> 00:11:00,440
+The sub-shader, since you're providing only one
+shader for the entire shader replacement rendering,
+
+129
+00:11:00,440 --> 00:11:05,280
+then you might want different objects to be
+rendered with different sub-shaders.
+
+130
+00:11:05,280 --> 00:11:12,940
+You can do that by sub-shader tag matching.
+And I'll explain how that works in a second.
+
+131
+00:11:12,940 --> 00:11:18,560
+So to use replacement shader, either on the
+camera you can set the placement shader,
+
+132
+00:11:18,560 --> 00:11:23,429
+or you can invoke on the camera,
+
+133
+00:11:23,755 --> 00:11:27,380
+render with shader which
+will render the scene once.
+
+134
+00:11:27,380 --> 00:11:31,549
+The first setting is sort of persistent
+until you change that of course.
+
+135
+00:11:31,549 --> 00:11:35,950
+And the second one is
+only one off call.
+
+136
+00:11:35,950 --> 00:11:40,322
+So, in case you want to specify
+the tags, then all the objects
+
+137
+00:11:40,348 --> 00:11:43,965
+will be rendered with a replacement
+shader that you have provided.
+
+138
+00:11:44,040 --> 00:11:49,060
+It will use the first sub-shader from the replacement shader.
+But this is not that interesting.
+
+139
+00:11:49,860 --> 00:11:56,800
+Instead of looking at the slide, let's just look the
+example because it's much easier to understand.
+
+140
+00:12:07,450 --> 00:12:11,450
+By default, Unity
+provides a few tag types.
+
+141
+00:12:11,450 --> 00:12:18,710
+So, it has the "RenderType" tag, which defines the
+type of the renderer that we're looking at.
+
+142
+00:12:18,710 --> 00:12:25,580
+And the ones that we define in Unity are,
+for example, Opaque for opaque objects,
+
+143
+00:12:25,580 --> 00:12:33,420
+Transparent for transparent objects, and
+"TransparentCutOut" for cut out objects.
+
+144
+00:12:33,420 --> 00:12:37,150
+This is the replacement shader that
+we will be using for this example.
+
+145
+00:12:37,150 --> 00:12:44,079
+So, what is happening when we are setting this
+shader, is that all the objects that by default
+
+146
+00:12:44,079 --> 00:12:47,430
+were rendered with an opaque
+shader, now will be using
+
+147
+00:12:47,430 --> 00:12:51,710
+the sub-shader that
+has the same tag,
+
+148
+00:12:51,710 --> 00:12:54,940
+the same value of the "RenderType" tag.
+
+149
+00:12:54,940 --> 00:13:00,550
+So, all the opaque objects will now
+be rendered with this sub-shader,
+
+150
+00:13:00,550 --> 00:13:08,230
+transparent with this one, and
+transparent and cut out with that one.
+
+151
+00:13:08,230 --> 00:13:15,480
+The example is actually kind of handy, and you
+might want to use it in your own productions.
+
+152
+00:13:15,480 --> 00:13:22,870
+What it does is, it adds the lighting-only view, that
+allows you to skip rendering the albedo textures,
+
+153
+00:13:22,870 --> 00:13:24,930
+and view only the lighting.
+
+154
+00:13:24,930 --> 00:13:31,950
+So, this is a very useful to, for example, debug light
+maps or figure out how are things actually lit,
+
+155
+00:13:31,950 --> 00:13:35,739
+and see that, well, this object is dark
+because it has a really dark albedo texture,
+
+156
+00:13:35,765 --> 00:13:37,850
+but the lighting on it
+is actually quite bright.
+
+157
+00:13:39,750 --> 00:13:41,560
+How does it work?
+
+158
+00:13:41,560 --> 00:13:49,240
+Well, apart from the shader that we had there, we
+also need to have a script that will set it up.
+
+159
+00:13:49,240 --> 00:13:56,720
+The script is very simple. It just plugs into
+the menu, and it finds our shader by name.
+
+160
+00:13:56,720 --> 00:14:03,150
+And then, it uses a handy function that allows
+you to set a replacement shader for the scene view.
+
+161
+00:14:03,150 --> 00:14:07,670
+So, it says the shader, the
+lighting only shader, and it says
+
+162
+00:14:07,670 --> 00:14:14,910
+match the sub-shaders by the tag called "RenderType"
+-- so, the tag we have already seen before.
+
+163
+00:14:19,310 --> 00:14:22,150
+That concludes that example.
+
+164
+00:14:24,550 --> 00:14:30,310
+We already talked about that, but of course instead of using
+the built-in tags, you can use your custom tags.
+
+165
+00:14:30,336 --> 00:14:35,459
+I mean this is just a string, so you can define
+whatever you want, and match based on that.
+
+166
+00:14:39,900 --> 00:14:44,119
+The lit-shader replace is actually
+available only since Unity 4.1.
+
+167
+00:14:44,119 --> 00:14:49,569
+Before, when the replacement shader loop was run,
+it didn't provide any information about lighting.
+
+168
+00:14:49,569 --> 00:14:53,420
+So, you didn't know that the directional light
+is there, that there are some point lights here,
+
+169
+00:14:53,520 --> 00:14:58,390
+or that you have spherical harmonics
+sent into the shader either.
+
+170
+00:14:58,390 --> 00:15:02,670
+This is very useful for scene view
+enhancements or special effects.
+
+171
+00:15:02,670 --> 00:15:07,060
+So, it works exactly as normal shader
+replace, as you might know from before,
+
+172
+00:15:07,060 --> 00:15:13,570
+but it provides just more information for you, so you
+can use surface shaders that do lighting in there.
+
+173
+00:15:14,970 --> 00:15:17,190
+We'll switch to
+another example now.
+
+174
+00:15:17,190 --> 00:15:20,170
+I know that endless runners
+are quite popular now.
+
+175
+00:15:20,170 --> 00:15:25,230
+And for those games on mobile, it still
+makes a lot of sense to bake lighting.
+
+176
+00:15:25,230 --> 00:15:27,870
+But the problem with an
+endless runner is that
+
+177
+00:15:27,870 --> 00:15:34,260
+it's the type of game where the track is
+assembled at runtime from different blocks.
+
+178
+00:15:34,260 --> 00:15:38,640
+It's not really feasible to bake
+lighting for all those possible
+
+179
+00:15:38,640 --> 00:15:43,360
+combinations of blocks, because you might
+want to first have one block then the other.
+
+180
+00:15:43,360 --> 00:15:46,840
+And in another set it might be the
+third block or the fourth block.
+
+181
+00:15:46,840 --> 00:15:49,350
+There are many combinations.
+
+182
+00:15:49,350 --> 00:15:53,320
+So, you don't want to be baking lighting
+for all those possible combinations.
+
+183
+00:15:53,320 --> 00:15:56,170
+Instead, you would bake lighting
+for each block separately.
+
+184
+00:15:56,870 --> 00:16:02,560
+But then when the player goes from one
+block to the other, the lighting will pop.
+
+185
+00:16:02,560 --> 00:16:08,550
+So, I'll show you how to use light probes to light
+dynamic objects in a scene with baked lighting,
+
+186
+00:16:08,550 --> 00:16:11,600
+and to still have
+smooth lighting.
+
+187
+00:16:13,500 --> 00:16:19,700
+So what we'll do, is we'll bake light
+probes for each block separately.
+
+188
+00:16:19,700 --> 00:16:25,290
+Then, when the player will move from one block to the
+other, we want to switch to light probes for the new block.
+
+189
+00:16:25,290 --> 00:16:29,229
+And we do that by setting the
+"Lightmapping.lightProbes" property
+
+190
+00:16:29,229 --> 00:16:35,940
+to the assets that hold the
+tetrahydralized light probes.
+
+191
+00:16:35,940 --> 00:16:38,890
+But the problem with that approach
+is that when you're just switching
+
+192
+00:16:38,890 --> 00:16:42,420
+from one light probe set to
+another, that will give us a pop.
+
+193
+00:16:42,420 --> 00:16:44,220
+Let me show you that.
+
+194
+00:16:48,720 --> 00:16:55,720
+I'll just open a new project
+for that, just a second.
+
+195
+00:16:57,810 --> 00:17:02,800
+So, this is our example project, and you can
+see that we have those different blocks.
+
+196
+00:17:02,800 --> 00:17:07,330
+This is a really simple example
+that you will have access to.
+
+197
+00:17:07,330 --> 00:17:13,560
+So, it just has two blocks. But of course, we can add
+twenty more, and it will still work the same way.
+
+198
+00:17:13,560 --> 00:17:17,370
+So, we have a red block,
+and a green block.
+
+199
+00:17:17,370 --> 00:17:24,029
+The difference between those two is the red
+block has some more light probes here,
+
+200
+00:17:24,029 --> 00:17:28,760
+where the bumped lighting is
+actually supposed to be yellow.
+
+201
+00:17:28,760 --> 00:17:33,360
+So, it actually needs to capture that
+data, hence we place the probes there.
+
+202
+00:17:34,160 --> 00:17:36,970
+If we just...
+
+203
+00:17:39,770 --> 00:17:45,210
+When switching from one
+block to the other.
+
+204
+00:17:45,210 --> 00:17:50,450
+Let me just turn off the lighting here.
+Can you see that?
+
+205
+00:17:50,450 --> 00:17:56,370
+When we're switching from one block to the other,
+now we're just setting light probes to the new set.
+
+206
+00:17:56,370 --> 00:17:57,610
+So, that gives us a pop.
+
+207
+00:17:57,610 --> 00:18:02,340
+It pops from red lighting to green
+lighting, and that's not very pleasant.
+
+208
+00:18:04,240 --> 00:18:12,240
+We can fix that quite easily, let me just show you how
+it looks first, and then I'll tell you how it works.
+
+209
+00:18:18,940 --> 00:18:25,200
+Now the transition is smooth,
+and it's smooth again.
+
+210
+00:18:25,200 --> 00:18:31,390
+So, what we do, when
+we look at one block,
+
+211
+00:18:31,390 --> 00:18:37,100
+we can see that we have something that we
+could call, like, a start set of probes.
+
+212
+00:18:37,100 --> 00:18:41,270
+These are the probes that the player is
+going through when he enters the block.
+
+213
+00:18:41,270 --> 00:18:43,390
+And, we have the
+end set of probes.
+
+214
+00:18:43,390 --> 00:18:47,050
+So, these are the probes that the player
+goes through when he leaves the block.
+
+215
+00:18:47,050 --> 00:18:50,260
+So, if we attach one
+block to the other,
+
+216
+00:18:50,260 --> 00:18:53,980
+then what we need to do is to make
+sure that the layout of those probes
+
+217
+00:18:53,980 --> 00:18:56,460
+is the same between the start
+probes and the end probes.
+
+218
+00:18:56,460 --> 00:19:00,530
+That will basically make sure that
+once we load one block after another,
+
+219
+00:19:01,530 --> 00:19:06,870
+the end probes of one block will match
+with the start probes of the next block.
+
+220
+00:19:06,870 --> 00:19:10,570
+That alone, of course, doesn't
+solve the problem yet, because
+
+221
+00:19:10,570 --> 00:19:17,059
+the probes baked for one block
+had red lighting, and the one
+
+222
+00:19:17,059 --> 00:19:19,360
+baked for the other one
+had the green lighting.
+
+223
+00:19:19,360 --> 00:19:25,080
+So, what we can do, is when the player
+actually moves from one block to the other.
+
+224
+00:19:25,080 --> 00:19:33,080
+Let me actually show
+this, in this area.
+
+225
+00:19:46,549 --> 00:19:49,430
+Here we can see the
+baked probes.
+
+226
+00:19:49,430 --> 00:19:53,800
+And now, since we're in the red block,
+we have the red bounce lighting.
+
+227
+00:19:54,200 --> 00:19:59,420
+Now, when we go to the second block,
+what we want to do is set the
+
+228
+00:19:59,420 --> 00:20:04,710
+start probes of the new block to the
+end probes of the previous block.
+
+229
+00:20:04,710 --> 00:20:08,650
+So, even though we are now in the green
+block, we have set the start probes
+
+230
+00:20:08,650 --> 00:20:11,000
+to the last probes of the previous block.
+
+231
+00:20:11,000 --> 00:20:17,640
+And that makes sure that when the player switches
+on the border from one block to the other,
+
+232
+00:20:17,640 --> 00:20:20,770
+the lighting still continues.
+
+233
+00:20:20,770 --> 00:20:25,100
+How do we control the transition
+to the proper set of probes?
+
+234
+00:20:25,100 --> 00:20:26,300
+In this case, the green set.
+
+235
+00:20:26,600 --> 00:20:32,510
+We can add another set of probes
+here, just after the start probes.
+
+236
+00:20:32,510 --> 00:20:36,390
+And depending on how close or far away
+from the start probes you put them,
+
+237
+00:20:36,390 --> 00:20:39,940
+that will control the
+transition distance.
+
+238
+00:20:39,940 --> 00:20:46,750
+So, if we look at another transition...
+still nice and smooth.
+
+239
+00:20:51,450 --> 00:20:56,230
+But this is not the only problem. The second
+problem is that baked data is not movable.
+
+240
+00:20:56,230 --> 00:21:03,060
+So, since we have been baking the data where
+the blocks were positioned at (0,0,0)
+
+241
+00:21:03,060 --> 00:21:05,000
+because that was just
+the easiest to set up.
+
+242
+00:21:05,000 --> 00:21:09,750
+And of course, at run time the blocks can
+be positioned anywhere in the level.
+
+243
+00:21:10,950 --> 00:21:17,280
+Since the baked data is not movable, normally the
+player will sample outside of the volume of the probes.
+
+244
+00:21:17,280 --> 00:21:24,010
+Let me show you how that works.
+
+245
+00:21:24,010 --> 00:21:30,179
+So, if we select the player,
+and we play the game.
+
+246
+00:21:30,179 --> 00:21:36,060
+We can see that now the player
+still gets the yellow lighting.
+
+247
+00:21:36,060 --> 00:21:38,790
+And now, it still gets
+the green lightning.
+
+248
+00:21:38,790 --> 00:21:43,620
+But actually, the position that we used
+to sample this volume defined by probes
+
+249
+00:21:43,620 --> 00:21:46,830
+is the position outside
+of this volume.
+
+250
+00:21:46,930 --> 00:21:51,030
+We extrapolate that information, so you
+still get proper green lighting here.
+
+251
+00:21:51,030 --> 00:21:58,130
+But once we reach some actual meaningful lighting, like
+we go back to red, and now we're over the yellow part.
+
+252
+00:21:58,130 --> 00:22:04,859
+We don't get any yellow part because we're not
+sampling lighting here -- we're sampling it here.
+
+253
+00:22:05,659 --> 00:22:09,950
+So, what we can do is actually...
+the fix is quite simple
+
+254
+00:22:09,950 --> 00:22:16,200
+because in the renderer component, we
+can set a light probe anchor override.
+
+255
+00:22:16,200 --> 00:22:21,747
+So, this is a transform that will be used to
+actually sample the volume of light probes.
+
+256
+00:22:22,173 --> 00:22:28,032
+And to make it work,
+What we do is...
+
+257
+00:22:30,558 --> 00:22:33,650
+When a player moves from
+one block to the other,
+
+258
+00:22:34,150 --> 00:22:36,714
+we just offset the
+light probe anchor.
+
+259
+00:22:36,740 --> 00:22:39,620
+I have that anchor selected now, so
+you can see where it is in the world.
+
+260
+00:22:40,120 --> 00:22:46,280
+We offset the light probe anchor by the current
+offset of the block we have just entered.
+
+261
+00:22:46,280 --> 00:22:50,310
+So, if we go to the next block,
+
+262
+00:22:50,310 --> 00:22:52,990
+it jumps back again to proper position.
+
+263
+00:22:52,990 --> 00:22:58,830
+And what is cool about just parenting it under
+the player, is that we just need to offset it
+
+264
+00:22:58,830 --> 00:23:00,754
+when we're switching from
+one block to the other.
+
+265
+00:23:00,780 --> 00:23:03,340
+But otherwise, it just follows
+the player naturally.
+
+266
+00:23:03,640 --> 00:23:06,630
+So, it's actually a
+very easy setup.
+
+267
+00:23:06,630 --> 00:23:11,289
+So, those two things basically allow you
+to use light probes for an endless runner.
+
+268
+00:23:11,289 --> 00:23:19,110
+Of course, this example is sort of 2.5D, but you can easily
+use that for a 3D endless runner in exactly the same way.
+
+269
+00:23:24,110 --> 00:23:26,990
+The next topic that we
+will cover is Direct X 11.
+
+270
+00:23:26,990 --> 00:23:30,520
+That's new with Unity 4.0.
+
+271
+00:23:30,520 --> 00:23:35,549
+What is interesting about that, is that
+it basically gives you more flexibility.
+
+272
+00:23:35,549 --> 00:23:39,559
+It allows you to use techniques
+that were previously either
+
+273
+00:23:39,559 --> 00:23:44,830
+not possible, or just not
+feasible to do on the CPU.
+
+274
+00:23:44,830 --> 00:23:49,170
+The first topic that we'll
+cover is tessellation.
+
+275
+00:23:49,170 --> 00:23:53,620
+So, what tessellation is, is basically
+a subdivision of geometry.
+
+276
+00:23:53,620 --> 00:23:56,140
+It adds more triangles.
+
+277
+00:23:57,140 --> 00:24:01,320
+But, by default those triangles are
+added in the same plane as the original
+
+278
+00:24:01,320 --> 00:24:04,510
+triangles for which of those
+small triangles that are added.
+
+279
+00:24:04,510 --> 00:24:06,440
+So, if you had a
+big triangle here,
+
+280
+00:24:06,440 --> 00:24:11,070
+and you added more, they would still not
+increase the amount of detail that you get.
+
+281
+00:24:11,070 --> 00:24:16,070
+Nor would they make the
+edges more smooth.
+
+282
+00:24:16,070 --> 00:24:19,899
+You would still have
+those sharp edges.
+
+283
+00:24:19,899 --> 00:24:22,400
+But to get more detail,
+you have two options.
+
+284
+00:24:22,400 --> 00:24:29,180
+The first one is to displace those new vertices
+by using displacement texture, for example.
+
+285
+00:24:29,180 --> 00:24:35,510
+The second one is to use phong tessellation,
+which basically uses the interpolated normal
+
+286
+00:24:35,510 --> 00:24:42,380
+to figure out how to inflate the geometry, and
+basically give the object a more smooth appearance.
+
+287
+00:24:42,380 --> 00:24:51,189
+And that just inflates the geometry, so it works best
+for organic objects like rocks, trees, and such.
+
+288
+00:24:53,789 --> 00:24:59,170
+How would you use that with surface shaders?
+Well, hopefully it's very easy to use.
+
+289
+00:24:59,170 --> 00:25:04,409
+In the line where you define the
+surface shader, you just specify
+
+290
+00:25:04,409 --> 00:25:07,430
+the tessellate keyword, and
+then the "FunctionName."
+
+291
+00:25:07,430 --> 00:25:12,720
+And the "FunctionName", in its simplest form,
+just returns the tessellation amount.
+
+292
+00:25:14,120 --> 00:25:19,019
+Now, how to calculate the tessellation amount?
+Well, we provide two helper functions for that.
+
+293
+00:25:19,019 --> 00:25:22,160
+The first one is the
+"UnityDistanceBasedTess."
+
+294
+00:25:22,160 --> 00:25:27,980
+And that tessellates more the objects
+that are closer to the camera.
+
+295
+00:25:28,780 --> 00:25:31,524
+The second one is
+"UnityEdgeLengthBasedTess."
+
+296
+00:25:31,550 --> 00:25:36,130
+So, that tessellates more the
+objects that have bigger triangles.
+
+297
+00:25:36,130 --> 00:25:41,959
+And that basically allows you to make
+sure that the resulting geometry
+
+298
+00:25:42,059 --> 00:25:46,770
+has the same amount of detail, no matter
+how big the original triangles were.
+
+299
+00:25:46,770 --> 00:25:48,799
+So, if you have a cube
+with huge triangles,
+
+300
+00:25:48,799 --> 00:25:55,120
+and then put a player with small triangles after
+tessellation, both of those objects would have
+
+301
+00:25:55,120 --> 00:25:59,520
+more or less the same size
+of the Nth triangles.
+
+302
+00:26:00,920 --> 00:26:05,430
+And let's look at an example.
+
+303
+00:26:05,430 --> 00:26:10,320
+Switching back to the
+Vertex 11 project.
+
+304
+00:26:23,200 --> 00:26:28,270
+Here, we can just see the
+built-in Unity plane.
+
+305
+00:26:28,270 --> 00:26:32,730
+But what's interesting about it is that
+it's using the tessellation shader.
+
+306
+00:26:32,730 --> 00:26:36,420
+And once we come closer,
+you can see that
+
+307
+00:26:36,420 --> 00:26:42,139
+quite a few triangles are added, and
+those allow us to displace that plane
+
+308
+00:26:42,139 --> 00:26:48,060
+to actually gain proper detail,
+and look like cobblestone.
+
+309
+00:26:48,060 --> 00:26:52,430
+Of course, adding those
+triangles is not for free,
+
+310
+00:26:52,430 --> 00:26:57,910
+so at some point you might
+want to fade this out.
+
+311
+00:26:57,910 --> 00:27:04,110
+So, here we didn't tweak it to perfection,
+so you can see that at some point
+
+312
+00:27:04,110 --> 00:27:06,490
+the cobblestones fade out.
+
+313
+00:27:06,490 --> 00:27:10,900
+But you can tweak it so that
+it looks much nicer than that.
+
+314
+00:27:10,900 --> 00:27:17,460
+But once we go far away, we don't
+tessellate anymore, because it's simply
+
+315
+00:27:17,460 --> 00:27:24,060
+not needed, and the difference
+will not be visible.
+
+316
+00:27:24,060 --> 00:27:27,210
+If we look at another example...
+
+317
+00:27:27,210 --> 00:27:30,900
+Here, we just have
+three objects.
+
+318
+00:27:30,900 --> 00:27:35,360
+Actually, those two objects, they
+originally are from the same mesh.
+
+319
+00:27:35,360 --> 00:27:38,340
+The mesh looks like this
+-- it's an icosphere.
+
+320
+00:27:38,340 --> 00:27:44,449
+But the difference between them is that
+this icosphere was imported with...
+
+321
+00:27:44,475 --> 00:27:50,420
+Actually, let me just show
+you those import settings.
+
+322
+00:27:50,420 --> 00:27:57,210
+It was imported with normals set to calculate,
+and the smoothing angle was set to 60.
+
+323
+00:27:57,210 --> 00:28:00,280
+So, that basically makes
+sure that each face
+
+324
+00:28:00,280 --> 00:28:04,490
+has a different normal, and those
+normals are not smoothed out.
+
+325
+00:28:04,490 --> 00:28:14,940
+The second sphere was imported with the
+smoothing angle set to 180 degrees.
+
+326
+00:28:14,940 --> 00:28:19,460
+Which basically means that all the normals were
+smoothed out, and there are no hard edges.
+
+327
+00:28:19,460 --> 00:28:24,990
+Both of those spheres are using the phong
+tessellation mode that we mentioned before,
+
+328
+00:28:24,990 --> 00:28:27,160
+which basically
+inflates the geometry.
+
+329
+00:28:27,160 --> 00:28:35,110
+So in a case where the normals are smooth, that gives
+you a nice organic shape which is, well, very round.
+
+330
+00:28:35,210 --> 00:28:41,460
+Whereas in the first case,
+that gives us a shape
+
+331
+00:28:41,460 --> 00:28:48,690
+that has splits in it, because in those
+cases, we had hard edges in the geometry.
+
+332
+00:28:48,690 --> 00:28:56,340
+So, it won't work nicely for the case where you have
+hard edges, but it will work nicely for organic stuff.
+
+333
+00:28:56,340 --> 00:29:01,360
+The third example is just a really
+simple example for displacement.
+
+334
+00:29:03,060 --> 00:29:09,020
+And that's it for the
+tessellation example.
+
+335
+00:29:09,020 --> 00:29:14,877
+Another feature of Direct X 11, that
+I think is much more interesting,
+
+336
+00:29:14,903 --> 00:29:20,010
+and actually handier than tessellation,
+is unordered access view.
+
+337
+00:29:20,010 --> 00:29:27,010
+That basically allows you to write to a
+"RenderTexture" or a "ComputeBuffer" at any position.
+
+338
+00:29:27,010 --> 00:29:30,422
+Normally, when, for example, you're
+in an image effect and you're
+
+339
+00:29:30,448 --> 00:29:34,805
+processing your image, and writing
+to another render texture.
+
+340
+00:29:35,080 --> 00:29:39,460
+Then, the position on which you're writing
+to the destination render texture
+
+341
+00:29:39,460 --> 00:29:42,100
+is very well defined and
+you cannot modify it.
+
+342
+00:29:42,100 --> 00:29:47,490
+So, even though you can sample from different
+source pixels, you are always writing
+
+343
+00:29:47,490 --> 00:29:50,281
+to a well defined pixel of
+the destination texture.
+
+344
+00:29:50,307 --> 00:29:51,755
+And this is quite limiting.
+
+345
+00:29:51,830 --> 00:29:56,830
+Unordered access view allows you to write
+at any position within the destination buffer.
+
+346
+00:29:56,830 --> 00:30:03,870
+So, you can sample here from any pixels you want, but
+you can also write to any pixel you want in the destination.
+
+347
+00:30:05,470 --> 00:30:08,330
+So, you can write both to
+"RenderTextures" and "ComputeBuffers."
+
+348
+00:30:08,330 --> 00:30:11,920
+And the render textures, well, most of
+you are probably familiar with those...
+
+349
+00:30:11,920 --> 00:30:16,740
+Those generally store colors, and they
+come in a bajillion different formats.
+
+350
+00:30:16,740 --> 00:30:21,000
+So, it can be ARGB32,
+ARGBHalf, ARGBFloat,
+
+351
+00:30:21,000 --> 00:30:26,070
+one component, 8bit,
+16 or 32, et cetera.
+
+352
+00:30:26,070 --> 00:30:29,343
+"ComputeBuffers" are actually
+more flexible than that.
+
+353
+00:30:29,369 --> 00:30:37,050
+They are called "StructureBuffers" in Direct X 11 speak,
+and they store structures or structures of simple types.
+
+354
+00:30:37,050 --> 00:30:43,700
+So, they can store whatever you want. Of course it can be
+color, but it can be anything -- counters, you name it.
+
+355
+00:30:43,700 --> 00:30:49,660
+And simple types -- those can be integers,
+floats, unsigned integers, et cetera.
+
+356
+00:30:51,360 --> 00:30:56,740
+So, how do we use that? The example will
+actually show you how to use compute buffers.
+
+357
+00:30:56,740 --> 00:31:02,990
+But it's as simple, if not simpler,
+to use just render textures.
+
+358
+00:31:03,690 --> 00:31:07,020
+So, you need to create a
+"ComputeBuffer" script,
+
+359
+00:31:07,120 --> 00:31:12,090
+and the constructor basically
+takes the count and the stride.
+
+360
+00:31:12,090 --> 00:31:16,130
+And the stride is just the
+size of one element in bytes.
+
+361
+00:31:16,130 --> 00:31:19,380
+Then, you initialize the
+contents of that with "SetData."
+
+362
+00:31:19,380 --> 00:31:24,100
+So, in most cases, you want to initialize
+it to zeroes, or black, or whatever.
+
+363
+00:31:24,700 --> 00:31:29,619
+Then, you need to set the buffer on
+a material to be able to use it.
+
+364
+00:31:29,619 --> 00:31:33,579
+And normally, when you set
+textures you call "SetTexture."
+
+365
+00:31:33,679 --> 00:31:38,530
+But for a buffer, you just call "SetBuffer."
+So, the naming is quite sensible.
+
+366
+00:31:39,830 --> 00:31:46,830
+Let's just jump to the example now, because
+that will be easier to understand.
+
+367
+00:31:49,480 --> 00:31:52,850
+The example shows
+you a histogram.
+
+368
+00:31:52,850 --> 00:31:56,350
+So, what it does, you can see
+that in the lower left corner,
+
+369
+00:31:56,350 --> 00:32:03,920
+it basically looks at how many pixels of a certain
+color you have, and it does that per channel.
+
+370
+00:32:03,920 --> 00:32:09,330
+So, in this case, we can see that we have quite a few
+dark pixels because they're on the left hand side.
+
+371
+00:32:09,330 --> 00:32:17,240
+But once we go through some more green areas or
+red areas, the appropriate channels jump up.
+
+372
+00:32:17,740 --> 00:32:21,130
+So, actually let's
+look at it again.
+
+373
+00:32:24,830 --> 00:32:30,710
+So, the width of this
+histogram is actually 256.
+
+374
+00:32:30,710 --> 00:32:37,280
+So, for each value from zero
+to one for an 8-bit color,
+
+375
+00:32:37,280 --> 00:32:45,110
+we just count the amount of pixels in the screen
+that have this value, and we do that per channel.
+
+376
+00:32:45,110 --> 00:32:49,840
+And if we have a look
+at the shader...
+
+377
+00:32:53,340 --> 00:32:56,009
+The shader's actually
+very simple.
+
+378
+00:32:56,009 --> 00:32:58,352
+It reads from the main texture.
+
+379
+00:32:58,378 --> 00:33:03,760
+In this case, it's a simple image effect,
+so the main texture is your source texture.
+
+380
+00:33:03,960 --> 00:33:10,240
+Whereas the destination texture normally was a render
+texture, and in this case is also a render texture,
+
+381
+00:33:10,240 --> 00:33:12,900
+but there we actually write...
+
+382
+00:33:12,926 --> 00:33:15,559
+We just return what
+we have sampled.
+
+383
+00:33:15,559 --> 00:33:17,960
+We're not modifying that at all.
+
+384
+00:33:17,960 --> 00:33:23,029
+Our actual output is in those
+three structured buffers.
+
+385
+00:33:23,029 --> 00:33:29,540
+So, compute buffers on the Unity scripting side.
+
+386
+00:33:29,540 --> 00:33:35,900
+So, what we do is we look at the color, we
+saturate it so that it's within zero to one range,
+
+387
+00:33:35,900 --> 00:33:37,941
+and then we multiply it by 255.
+
+388
+00:33:37,967 --> 00:33:41,450
+And that basically gives us
+the index into the array.
+
+389
+00:33:41,450 --> 00:33:45,210
+Because, remember that those compute
+buffers, they just behave as arrays.
+
+390
+00:33:45,210 --> 00:33:47,820
+So, you index them
+exactly as arrays.
+
+391
+00:33:47,820 --> 00:33:53,320
+So, per component, we just increment
+the value at this location.
+
+392
+00:33:53,320 --> 00:33:58,610
+The trick here is that incrementing a value
+is more tricky than just setting a value.
+
+393
+00:33:58,610 --> 00:34:03,030
+Because the GPU is running
+many threads at the same time,
+
+394
+00:34:03,030 --> 00:34:10,969
+for many codes of this method,
+
+395
+00:34:11,069 --> 00:34:16,439
+we could be writing at the same
+time to the output buffers.
+
+396
+00:34:16,439 --> 00:34:21,539
+So, what we need to do is make sure that the
+operation that increments the value is automatic.
+
+397
+00:34:21,539 --> 00:34:26,699
+So, it first needs to read the value that
+incremented by one, and then write them back.
+
+398
+00:34:27,740 --> 00:34:32,059
+And making that operation automatic
+is as simple as calling "InterlockedAdd",
+
+399
+00:34:32,059 --> 00:34:35,259
+which will make sure that the synchronization
+happens between all the tracks.
+
+400
+00:34:39,299 --> 00:34:42,919
+If we look at the script,
+it's also fairly simple.
+
+401
+00:34:42,919 --> 00:34:49,681
+What we do is, we create the "ComputeBuffer"
+with 256 elements per buffer,
+
+402
+00:34:49,707 --> 00:34:55,859
+and with the strides set to four because
+we are storing unsigned integers there.
+
+403
+00:34:56,459 --> 00:35:00,534
+One thing to note is that we
+need to actually store...
+
+404
+00:35:00,560 --> 00:35:02,708
+Well, we're storing integers,
+not unsigned integers.
+
+405
+00:35:02,919 --> 00:35:07,419
+One thing to note, is that to be
+able to use "InterlockedAdd"...
+
+406
+00:35:07,419 --> 00:35:15,559
+So, to synchronize between the threads, you need
+to use an integer or unsigned integer buffer.
+
+407
+00:35:17,119 --> 00:35:23,850
+Otherwise, those operations are not available --
+you cannot use them on a buffer full of floats.
+
+408
+00:35:23,950 --> 00:35:29,639
+If we jump back to the script, there are
+a few more things that are interesting.
+
+409
+00:35:32,539 --> 00:35:36,047
+Setting the buffer, as we said
+before, is just "SetBuffer."
+
+410
+00:35:36,073 --> 00:35:42,359
+Then, we specify the name in the
+shader, and set the buffer.
+
+411
+00:35:45,459 --> 00:35:50,559
+So, once we have all this information, how do
+we actually show it as the graph on the screen?
+
+412
+00:35:50,559 --> 00:35:52,599
+In this case, it's
+actually very simple.
+
+413
+00:35:52,599 --> 00:36:00,549
+We just have three lines that, by default,
+run from this side of the screen to here.
+
+414
+00:36:01,849 --> 00:36:08,019
+And, in the vertex shader, we sample the buffers
+to decide how should we offset vertices.
+
+415
+00:36:08,219 --> 00:36:11,196
+And those lines have
+256 vertices each.
+
+416
+00:36:11,222 --> 00:36:15,954
+So, each vertex maps to one
+position in the buffer.
+
+417
+00:36:16,629 --> 00:36:24,389
+If we look at the shader for the line,
+we can see that in the vertex shader,
+
+418
+00:36:24,389 --> 00:36:27,211
+we sampled a histogram
+"ComputeBuffer."
+
+419
+00:36:27,237 --> 00:36:33,769
+So, in this case, those will be the red buffer,
+the blue, and the green buffers appropriately.
+
+420
+00:36:33,769 --> 00:36:39,220
+Then, we use the color channel
+from the mesh to figure out
+
+421
+00:36:39,220 --> 00:36:42,519
+what is the index of the current
+vertex we're looking at.
+
+422
+00:36:42,519 --> 00:36:46,199
+And we multiply that by 255 because
+this is in the zero-one range.
+
+423
+00:36:46,199 --> 00:36:51,439
+So, we want to be able to index it
+with the proper index from 0 to 255.
+
+424
+00:36:51,439 --> 00:36:55,610
+And once that's done, we're just scaling
+it so that it actually fits on screen,
+
+425
+00:36:55,610 --> 00:37:02,169
+because you can have many many pixels with one specific
+color, and then it will just blow out of the screen.
+
+426
+00:37:02,869 --> 00:37:05,732
+Like here, we're not
+using a second pass.
+
+427
+00:37:05,758 --> 00:37:13,240
+We could do a second pass where we're counting the maximum
+amount of pixels, and then scale everything like that,
+
+428
+00:37:13,240 --> 00:37:17,279
+but I'll just leave that to you
+as an exercise after the talk.
+
+429
+00:37:23,819 --> 00:37:29,359
+There's one more interesting thing
+that you can do with Direct X 11.
+
+430
+00:37:29,359 --> 00:37:33,089
+And that is to use
+compute shaders.
+
+431
+00:37:34,579 --> 00:37:41,460
+But I'm not sure it makes sense to go over that now,
+because the example is a bit more tricky to explain.
+
+432
+00:37:41,460 --> 00:37:44,580
+The whole talk is available
+online with all the examples.
+
+433
+00:37:44,580 --> 00:37:50,609
+So, I think it will be easiest if you
+download that, and check the examples out.
+
+434
+00:37:50,709 --> 00:37:56,529
+The example basically uses
+Direct X 11 to fill a 3D texture
+
+435
+00:37:56,529 --> 00:38:03,139
+based on some simple calculations that use
+the IDs of the threads that are running.
+
+436
+00:38:05,739 --> 00:38:12,929
+Yeah, and I think that will conclude the talk, so that
+we still have a few minutes to go over questions.
+
+437
+00:38:16,329 --> 00:38:19,899
+It would be good for you to
+actually download the examples.
+
+438
+00:38:19,899 --> 00:38:25,529
+So, just note that link that's
+in the bottom left corner.
+
+439
+00:38:26,429 --> 00:38:28,371
+Fetch the project, and
+play around with it.
+
+440
+00:38:28,797 --> 00:38:32,989
+And if you have any
+questions, please ask now.
+
+441
+00:38:33,189 --> 00:38:39,199
+I will also stay around, and you can ask me after the talk
+if you have a question that is specific to your project.
+
+442
+00:38:39,199 --> 00:38:43,739
+But general questions,
+please shoot them now.
+
+443
+00:38:58,739 --> 00:39:01,580
+Yeah, and don't be shy.
+
+444
+00:39:05,380 --> 00:39:06,579
+Yes please.
+
+445
+00:39:06,579 --> 00:39:10,159
+We should have someone with
+the microphone coming.
+
+446
+00:39:15,769 --> 00:39:19,249
+You can ask the question in Japanese
+or English -- whatever works.
+
+447
+00:39:19,249 --> 00:39:26,999
+
+
+448
+00:39:38,949 --> 00:39:43,539
+Are you talking about
+the shader keywords?
+
+449
+00:39:43,539 --> 00:39:48,729
+So, setting those shader keywords
+globally was available for a long time.
+
+450
+00:39:48,729 --> 00:39:50,522
+Then, setting it per material...
+
+451
+00:39:50,548 --> 00:39:56,620
+So, for some specific objects that are using
+a specific material -- that's only since 4.1.
+
+452
+00:40:10,749 --> 00:40:12,749
+Any more questions?
+
+453
+00:40:18,879 --> 00:40:27,960
+
+
+454
+00:40:33,329 --> 00:40:35,403
+I'm not sure what the
+question is, but...
+
+455
+00:40:35,429 --> 00:40:40,969
+So, as we said, when you are defining a set
+of keywords with pragma multi compile line,
+
+456
+00:40:41,169 --> 00:40:46,839
+then only one of those keywords will be enabled
+at a time when the shader is being compiled.
+
+457
+00:40:46,839 --> 00:40:52,459
+So, what you will end up with is two different
+versions of the shader in the final binary.
+
+458
+00:40:52,459 --> 00:40:57,829
+And either one will be invoked at run
+time, or the other one will be invoked.
+
+459
+00:40:57,829 --> 00:41:03,039
+So, if you have "if" defined
+darken keyword, "else" something,
+
+460
+00:41:03,039 --> 00:41:07,459
+then only one path will
+be invoked at run time.
+
+461
+00:41:07,459 --> 00:41:13,679
+So, it's not like runtime if it's
+a totally compiled time choice.
+
+462
+00:41:13,679 --> 00:41:21,239
+And then at run time, you just choose which shader
+will be used by setting the currently enabled keyword.
+
+463
+00:41:21,939 --> 00:41:25,419
+Hope that explains it,
+or answers the question.
+
+464
+00:41:29,619 --> 00:41:31,619
+
+
+465
+00:41:41,479 --> 00:41:45,279
+One more question, please.
+
+466
+00:41:52,949 --> 00:41:58,099
+
+
+467
+00:41:58,189 --> 00:42:05,189
+
+
+468
+00:42:11,959 --> 00:42:12,961
+Yes.
+
+469
+00:42:14,687 --> 00:42:17,750
+Like half a year ago,
+that number was 32.
+
+470
+00:42:18,650 --> 00:42:24,209
+But now, we moved it
+to 64 some months ago.
+
+471
+00:42:25,109 --> 00:42:29,550
+But that's still... Still, some
+of them, we use internally.
+
+472
+00:42:29,550 --> 00:42:33,339
+Like the ones for light maps
+being disabled or enabled,
+
+473
+00:42:33,339 --> 00:42:38,849
+shadows, native shadows, or non-native
+shadows, or shadows off et cetera.
+
+474
+00:42:38,849 --> 00:42:44,409
+So, we use about fifteen or
+twenty of them internally.
+
+475
+00:42:44,409 --> 00:42:52,119
+And also, typically, when you're enabling or disabling
+features, you want to have an on and an off keyword.
+
+476
+00:42:52,119 --> 00:42:58,839
+So, that basically makes the amount that is
+actually available to you around twenty.
+
+477
+00:42:59,139 --> 00:43:03,569
+Like, it's forty divided by two, because
+you need an on and off keyword typically.
+
+478
+00:43:05,010 --> 00:43:09,720
+But, if you're hitting the
+limit, then that's not nice.
+
+479
+00:43:09,720 --> 00:43:15,730
+But, at the same time, I'm pretty sure that the compilation
+time for your shaders already take a long, long time.
+
+480
+00:43:15,830 --> 00:43:23,239
+So, at this point, it's probably better to just use
+separate shaders, at least for some of the things.
+
+481
+00:43:29,229 --> 00:43:33,329
+
+
+482
+00:43:33,329 --> 00:43:34,829
+Any other questions?
+
+483
+00:43:42,489 --> 00:43:45,429
+Okay, if not, I think
+we'll end it here.
+
+484
+00:43:45,555 --> 00:43:50,019
+But, I'll stick around, so you
+can approach me after the talk.
+
+485
+00:43:50,119 --> 00:43:54,699
+Do you have a general question? Do you
+want to ask it now? Or a specific one?
+
+486
+00:43:54,699 --> 00:43:56,699
+Let's take one more.
+
+487
+00:44:06,639 --> 00:44:12,889
+
+
+488
+00:44:12,889 --> 00:44:15,729
+Yes, on the platforms that support it.
+
+489
+00:44:15,729 --> 00:44:21,439
+And those are most... Actually,
+all of the current PC platforms...
+
+490
+00:44:23,990 --> 00:44:25,849
+PlayStation, I guess...
+
+491
+00:44:26,970 --> 00:44:29,189
+iOS, unfortunately,
+doesn't support it.
+
+492
+00:44:29,189 --> 00:44:33,110
+It was enabled for one release of
+iOS, but then it was disabled again.
+
+493
+00:44:33,310 --> 00:44:35,229
+So you cannot use it on iOS.
+
+494
+00:44:35,229 --> 00:44:39,059
+And, you can use it on
+some Tegra devices.
+
+495
+00:44:39,059 --> 00:44:44,099
+But it's not fully supported, so make sure
+you have a fall back solution for that.
+
+496
+00:44:48,799 --> 00:44:52,379
+
+
+497
+00:44:52,379 --> 00:44:56,209
+A sample for a fall back,
+or a vertex texture fetch?
+
+498
+00:44:56,209 --> 00:45:00,299
+
+
+499
+00:45:00,299 --> 00:45:02,800
+Yeah, we had that, actually,
+in the histogram.
+
+500
+00:45:02,800 --> 00:45:08,039
+If you look at this shader --
+the histogram line shader.
+
+501
+00:45:08,039 --> 00:45:12,489
+In the vertex... Well, actually,
+it samples a "ComputeBuffer".
+
+502
+00:45:12,489 --> 00:45:18,409
+But you might as well sample a texture
+here, and it would just be a normal...
+
+503
+00:45:18,409 --> 00:45:21,049
+I can send you an example by e-mail.
+I guess that might be easier.
+
+504
+00:45:21,049 --> 00:45:27,899
+But, it's basically
+thanks to the LOD call.
+
+505
+00:45:30,299 --> 00:45:36,699
+Because, the thing is that you need to know
+which MIP level of the texture to sample.
+
+506
+00:45:36,699 --> 00:45:42,939
+And the texture to the LOD allows you to specify
+the MIP level that you will be sampling.
+
+507
+00:45:46,539 --> 00:45:50,439
+If you just Google that method,
+everything will become clear, I think.
+
+508
+00:46:02,529 --> 00:46:03,619
+Okay, I think that's it.
+
+509
+00:46:03,619 --> 00:46:07,229
+So, if you have specific questions,
+you can just talk to me afterward.
+
+510
+00:46:07,529 --> 00:46:09,729
+Thanks.
