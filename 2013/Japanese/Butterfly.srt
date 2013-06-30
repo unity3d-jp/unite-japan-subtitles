@@ -1,452 +1,339 @@
 1
 00:03:44,379 --> 00:03:47,438
 皆様、ようこそこんにちは。
-Welcome, everyone.
 
 2
 00:03:47,439 --> 00:04:00,039
 本日は「バタフライエフェクト」というムービーについてのプレゼンを通じて DirectX 11 グラフィックス機能を紹介します。
-I will be doing a presentation on a movie called "Butterfly Effect,"
-that will show off some DirectX 11 graphic features.
 
 3
 00:04:02,139 --> 00:04:03,868
 それでは自己紹介から。
-A bit about me, first.
 
 4
 00:04:03,869 --> 00:04:05,839
 私の名前はアーランドで、
-My name is Erland
 
 5
 00:04:05,840 --> 00:04:10,298
 ユニティ テクノロジーズのスウェーデン オフィス所属です。
-and I'm from Unity Technologies' office in Sweden.
 
 6
 00:04:10,299 --> 00:04:20,808
 主にそこでデモに関連した研究関連の商品を扱ってます。
-What we mainly do there is demo-related
-and research-related products.
 
 7
 00:04:20,809 --> 00:04:25,939
 言い換えると Unity を様々なエリアでテストを行なって
-That means basically that we test Unity in various areas
 
 8
 00:04:25,940 --> 00:04:32,739
 改善できるところを探してます。
-and see where we can find possibilites for improvement.
 
 9
 00:04:32,740 --> 00:04:35,718
 私はAAA出身です。
-I come from a AAA background.
 
 10
 00:04:35,719 --> 00:04:39,839
 Unityに入る前はEAで働いていて
-Previously to Unity, I worked at Electronic Arts
 
 11
 00:04:39,840 --> 00:04:48,270
 DICEを仕事場にして、バトルフィールドおよびミラーズ エッジのフランチャイズに関わってました。
-specifically at DICE, where I worked on the
-Battlefield franchise and Mirror's Edge.
 
 12
 00:04:51,039 --> 00:04:54,159
 それでは、短い映像を紹介します。
-So, I will bring you through the short film.
 
 13
 00:04:54,160 --> 00:04:55,409
 早速見てみましょうか。
-We will watch that.
 
 14
 00:04:57,050 --> 00:05:02,388
 後で見たい方にはYoutube動画も利用できます。
-It's also available on YouTube if you want to see it again.
 
 15
 00:05:02,389 --> 00:05:10,688
 次に様々なグラフィックス機能およびその未来の可能性について
-Then I will walk you through the various
-graphic features and possibilities
 
 16
 00:05:10,689 --> 00:05:17,488
 DX11 を通して実現できたことを紹介して、
-that made us able to do this through DX11,
 
 17
 00:05:17,489 --> 00:05:22,508
 さらにUnityの中でのグラフィックス実現についてデモをします。
-and demonstrate the graphic capabilities directly in Unity.
 
 18
 00:05:22,509 --> 00:05:27,009
 では出来るだけリアルタイム デモをして
-So I will do more like a real-time demonstration of this
 
 19
 00:05:27,010 --> 00:05:37,098
 この動画作成に特化して開発されたUnity ベータ版を使用します。
-using the beta version of Unity that we developed
-specifically for the purpose of this movie.
 
 20
 00:05:38,599 --> 00:05:45,599
 ではムービーを再生しましょうか。
-So, let's watch the movie.
 
 21
 00:08:35,510 --> 00:08:38,659
 これで終わりですね。
-That's it.
 
 22
 00:08:38,660 --> 00:08:39,630
 どうですか、楽しんでもらえましたか？
-I hope you enjoyed it.
 
 23
 00:08:41,670 --> 00:08:52,829
 ムービーで使われたグラフィックス機能をご紹介していきましょう。
-So now I will bring you through the
-graphic features that were in this movie.
 
 24
 00:08:52,830 --> 00:08:55,629
 まずは制作過程について。
-The production, a bit about that.
 
 25
 00:08:55,630 --> 00:08:58,989
 リアルタイム再生のショートフィルムで2分半の映像は
-It's a real time short film, about
-two-and-a-half minutes long
 
 26
 00:08:59,389 --> 00:09:02,039
 全て Unity を使用して作成してます。
-and it's fully using Unity.
 
 27
 00:09:02,040 --> 00:09:05,510
 先に申し上げたとおり研究プロジェクトから生まれました。
-It was done, as I said earlier, as a research project.
 
 28
 00:09:09,980 --> 00:09:17,809
-これは Unity, Passion Pictures, NVIDIA の共同製作です。
-This is a collaboration not only between
-Unity, but Passion Pictures and nVidia.
+これは Unity 社, Passion Pictures社, NVIDIA 社の共同製作です。
 
 29
 00:09:17,810 --> 00:09:26,279
-Passion Pictures の CG アーティストはアートのほぼ全てを扱いました。
-Passion Pictures were the CG artists that
-did almost all the art for this.
+Passion Pictures 社の CG アーティストはアートのほぼ全てを扱いました。
 
 30
 00:09:28,379 --> 00:09:33,749
 ピーク時において、25 名 の CG アーティストと
-It was, at its peak, about
-twenty-five CG artists and roughly
 
 31
 00:09:33,750 --> 00:09:37,249
 およそ 5 名のフルタイムプログラマが協力しました。
-five full-time programmers.
 
 32
 00:09:37,250 --> 00:09:43,689
-Unity, NVIDIA のプログラマです。
-These programmers were from
-both Unity and nVidia
+Unity 社, NVIDIA 社のプログラマです。
 
 33
 00:09:43,690 --> 00:09:49,759
-Passion Pictures は純粋にアーティストのみでした。
-but Passion Pictures only supported with artists.
+Passion Pictures 社は純粋にアーティストのみでした。
 
 34
 00:09:49,760 --> 00:09:53,569
 製作期間は全体で 14 週間。
-The total length of the production
-was about fourteen weeks.
 
 35
 00:09:53,570 --> 00:10:00,119
 最適化および調整にさらに時間をかけたのは
-We added some additional time on that be able
-to polish and basically optimize it
 
 36
 00:10:00,120 --> 00:10:07,989
 アーティストがリアルタイム映像が未経験のためです。
-because these artists had no prior
-experience with any real time film.
 
 37
 00:10:07,990 --> 00:10:12,509
 プロジェクト全体で 40 GB のデータがあり
-In total, the whole project is about 40GB of data
 
 38
 00:10:12,510 --> 00:10:19,509
 容量の大部分はアニメーションのポイント キャッシュ データです。
-and mainly the biggest chunk of that goes
-into point cache data for the animations.
 
 39
 00:10:19,510 --> 00:10:26,339
 見て分かるとおり精巧な クロス (Cloth) 物理挙動が含まれてます。
-As you could see, there were some
-elaborate cloth physics happening there.
 
 40
 00:10:26,340 --> 00:10:32,249
 ここはあまりにクロス (Cloth) のレイヤーが多いため、事前シミュレーションが必要で
-It's actually pre-simulated because
-there were so many layers of clothes
 
 41
 00:10:32,250 --> 00:10:38,039
 さらに高速な動きがあったため選択肢はない状況でした。
-and they were moving so rapidly
-that we didn't have any alternative.
 
 42
 00:10:38,040 --> 00:10:46,270
 このときアーティストは事前シミュレーションしたクロスを完全に制御できました。
-It also enabled the artists to have full
-control over the pre-simulated cloth.
 
 43
 00:10:47,760 --> 00:10:51,198
 容量のもうひとつの大きな部分はライトマップです。
-Another large part of that is the light maps.
 
 44
 00:10:51,199 --> 00:10:57,550
 ほぼ全てのシーン毎に別のライトマップが使われてます。
-Almost each scene has a separate set of light maps.
 
 45
 00:10:58,000 --> 00:11:01,849
 その理由は、基本的に
-This was because we wanted to be able to
 
 46
 00:11:02,550 --> 00:11:12,359
 ショット毎に別のライティングの向きや別の大域照明が必要だったことです。
-have different lighting directions and different
-setups of global illuminations per shot, basically.
 
 47
 00:11:12,360 --> 00:11:21,719
 プロジェクトではキャッシュサーバを最大限に活用したことも付け加えます。
-Also, I should note that we were using the
-cache server for this project quite heavily.
 
 48
 00:11:21,720 --> 00:11:28,549
 このプロジェクトの最大のゴールは DirectX 11 を実装して
-During this project, one of our biggest
-goals was to implement DirectX 11
 
 49
 00:11:28,550 --> 00:11:39,989
 Unity の 64 ビット エディタが大量のデータを実際にハンドリングすることでした。
-and to have a 64-bit editor of Unity to actually be
-able to handle all these large quantities of data.
 
 50
 00:11:39,990 --> 00:11:42,579
 それではこのプロジェクトのゴールについてもう少し。
-So our goal for this project.
 
 51
 00:11:42,580 --> 00:11:49,829
 この CG スタジオのオフライン ツールを追求して学習し、再現したうえで
-We wanted to explore and study and mimic
-the offline tools from this CG studio
 
 52
 00:11:49,830 --> 00:11:53,919
 Unity 上でどのように動作するかみて、
-and basically how they worked, in Unity
 
 53
 00:11:53,920 --> 00:11:57,369
 そこから学ぶことが目的でした。
-and study that.
 
 54
 00:11:57,370 --> 00:12:04,979
 ハイエンドのデモとして Unity を最大限にストレステストして、
-This was intended to be a very high-end demo
-that stress-tested Unity to a great degree
 
 55
 00:12:04,980 --> 00:12:07,579
 ひとつは製作期間できるかぎり短くすること、
-both by having a very short production time
 
 56
 00:12:07,580 --> 00:12:13,290
 もうひとつは大人数のアーティストが同時にプロジェクトで作業をすること、を意図してます。
-and having a large amount of artists
-working simultaneously on this project.
 
 57
 00:12:15,460 --> 00:12:23,849
 さらにアーティストにとって、馴染み深く直感的なワークフローにして
-Also, we wanted to create a very familiar and intuitive workflow
-for these artists that reminded them very much of
 
 58
 00:12:23,850 --> 00:12:30,458
 普段使い慣れている 3D Studio Max, Maya, XSI のネイティブ プログラム、
-what they're used to in their native programs
-such as 3D Studio Max, Maya, XSI,
 
 59
 00:12:30,459 --> 00:12:36,999
 あるいは何らか別のシミュレーションやエフェクトのプログラムに近い操作感を再現する期待もありました。
-or any kind of simulation program or effects program.
 
 60
 00:12:37,000 --> 00:12:47,359
-当時、Passion Pictures はリアルタイム映像やゲームはまったくの未経験でした。
-Passion Pictures had, at the time, no experience
-whatsoever doing real-time film or games.
+当時、Passion Pictures 社はリアルタイム映像やゲームはまったくの未経験でした。
 
 61
 00:12:47,360 --> 00:12:53,579
 Unity を短期間で学んだのですが、学習速度は早いものでした。
-So we had to quickly teach them Unity,
 which they adapted to very fast,
 
 62
 00:12:53,580 --> 00:13:02,610
-また、そこから改善できるワークフローのフィードバックも得られました。
 and from that also have them feedback to
-us what workflows we could improve on.
 
 63
 00:13:04,540 --> 00:13:13,019
-映像の主な目的は高品質なムービーを作成して
 The main goal of the film was to
-produce a very high-quality movie
 
 64
 00:13:13,020 --> 00:13:16,869
-オフライン レンダリングを再現することでした。
 that would resemble what you could do in offline rendering.
 
 65
 00:13:16,870 --> 00:13:21,289
-ところどころでアーティストは比較を行なって、
 At points, these artists could
-actually compare their results
 
 66
 00:13:21,290 --> 00:13:32,249
-3D プログラムと Unity とで見比べて同じ結果が得られるか確認できました。
 in a 3D program and in Unity and they
-would get very similar outcomes.
 
 67
 00:13:32,250 --> 00:13:34,699
-これが映像ターゲットの例です。
 So here is a visual target.
 
 68
 00:13:34,700 --> 00:13:42,229
-これはアート ディレクターおよび Passion Pictures のメイン ディレクターの共同により作成されてます。
 This was done by the art director together
-with the main director at Passion Pictures.
 
 69
 00:13:42,230 --> 00:13:47,539
-これは映像の最終的なあるべき姿としての最終ドラフトでした。
 This was their final draft basically of
-how the feel of the movie should be.
 
 70
 00:13:47,540 --> 00:13:51,769
-現実的な描写というより漫画チックで、エキセントリックです。
 A bit more cartoony and eccentric, rather than realistic.
 
 71
 00:13:51,770 --> 00:13:57,329
-Passion Pictures has a long experience
-doing a very niche kind of style
 
 72
 00:13:57,330 --> 00:14:01,879
-and a bit more imaginative.
+さらに創造的な強みがあります。
 
 73
 00:14:01,880 --> 00:14:09,109
-So this this kind of landed right in their area of expertise.
+ちょうど彼らの強みが活かせるちょうど良い領域でした。
 
 74
 00:14:09,110 --> 00:14:10,400
-Here's another one.
+もうひとつの例をみてみましょう。
 
 75
 00:14:10,401 --> 00:14:19,049
-This shot actually never made it into the film, but
-it still is very typical for how we wanted it to look
+このショットは最終映像には含まれませんでしたが、私たちが目指していた典型的なものであり、
 
 76
 00:14:19,050 --> 00:14:31,269
-with very vibrant colors and a more stylized sense.
+活き活きした色使いと芸術的な様式が取り入れられてます。
 
 77
 00:14:31,270 --> 00:14:42,349
-So the concept itself, what Unity wanted to do with this,
-was to have a style that actually targeted our end-users.
+Unity で目指したことはエンドユーザをターゲットとしたスタイルの確立、がまさにコンセプトでした。
 
 78
 00:14:42,350 --> 00:14:46,269
-We didn't aim to have any space marines
+ここでは宇宙兵やら
 
 79
 00:14:46,270 --> 00:14:53,289
-or stereotypical characters in this film.
+ステレオタイプなキャラクターはこの映像には含めない方針でした。
 
 80
 00:14:53,290 --> 00:14:58,359
-We wanted it to be colorful
-and slightly surreal.
+カラフルかつ超現実的なものを望んでいました。
 
 81
 00:14:58,360 --> 00:15:07,269
-It was fun to push the limits of
-what's real or not and very extreme.
+現実的なものと、そうでないものを限界まで挑戦することは面白い試みでした。
 
 82
 00:15:07,270 --> 00:15:11,489
-Also we wanted this movie to not
+さらにこの映像は単にリアルタイムというだけでなくて、
 just be a real-time movie but a movie
 
 83
 00:15:11,490 --> 00:15:17,910
 that actually was watchable for people who
-had no understanding of real-time film.
 
 84
 00:15:18,011 --> 00:15:31,729
 So there was not supposed to be any game resemblance,
-or any connections with games whatsoever.
 
 85
 00:15:31,730 --> 00:15:33,849
@@ -458,1259 +345,1135 @@ I'm not a programmer, so I can't go into the
 specifics, but there have been talks already here
 
 87
-00:15:39,139 --> 00:15:42,219
+DirectX11 に関するものは行なわれてますね。
 that have touched on DirectX 11.
 
 88
-00:15:42,220 --> 00:15:45,179
+Kuba Cupisz さんにより
 Kuba Cupisz
 
 89
-00:15:45,180 --> 00:15:54,249
+昨日、DirectX 11 に関してプログラマ視点によるトークがありました。
 made a talk yesterday where where he addressed
-DirectX 11 specifically from a programmer's perspective,
 
 90
-00:15:54,250 --> 00:15:58,729
+それに私から少しだけ話題を付けくわえましょう。
 but I can brush on it a little bit.
 
 91
-00:15:58,730 --> 00:16:08,479
+知らない人のためにお話すると、Windows マルチメディア API の中にゲームが主目的のコレクションがあります。
 For those of you who don't know, this is a collection of
-Windows multimedia APIs that are used mainly for games.
 
 92
-00:16:08,480 --> 00:16:19,859
+DirectX 11 によって、よりグラフィックスのためのより広範囲のビジュアルをスコープとして、GPUの本来の力を存分に引き出して
 DirectX 11 opens a much broader visual scope
-for graphics by using the GPU more heavily and
 
 93
-00:16:19,860 --> 00:16:23,779
+アートとして真に迫るものとします。
 providing much more fidelity to the art.
 
 94
-00:16:23,780 --> 00:16:31,078
+さらにプログラマの負担を減らして
 It also offloads efforts from the programmers,
 
 95
-00:16:31,079 --> 00:16:35,769
+複雑なことをするときに、よりシンプルな解決策を提供して
 they find easier solutions to do
 very complicated things,
 
-96
 00:16:35,770 --> 00:16:45,739
+アーティストがプロシージャルなテクニックによって、真に高速で
 and gives artists the ability to use procedural
 techniques that are really computed fast
-
 97
 00:16:45,740 --> 00:16:51,499
+真に実用的な機能を、メモリおよびレンダリング時間の両方の観点で解決してきます。
 and are really practical, both in
-terms of memory and rendering time.
 
 98
 00:16:51,500 --> 00:16:53,480
-So DirectX 11...
+では DirectX 11 について。
 
 99
 00:16:54,510 --> 00:17:04,079
-Our test case was done before Unity 4,
-but it was transferred into Unity 4.0.
+テストケースは Unity 4 登場前に行なわれてましたが、Unity 4 に移行されました。
 
 100
 00:17:04,080 --> 00:17:08,409
-Since then it's been available.
+それ以降は利用可能なものとしました。
 
 101
 00:17:08,410 --> 00:17:13,639
-So, what did it exactly enable us to do?
+それでは私たちにとってもたらされたのは何でしょう？
 
 102
 00:17:13,640 --> 00:17:21,938
-We got physically-based, energy-conservative
-shaders on skin and eyes.
+物理挙動ベースの、労力を抑えるシェーダをスキンおよび目につけました。
 
 103
 00:17:21,939 --> 00:17:25,599
-This is related to materials.
+これはマテリアルに関連しています。
 
 104
 00:17:25,600 --> 00:17:32,959
-We have hair rendering with tesselation
-for very fine strands of hair
+髪のレンダリングは、テッセレーションを用いて、髪の束を高品質に再現して
 
 105
 00:17:32,960 --> 00:17:35,100
-and on slippers as well.
+スリッパの毛も同様です。
 
 106
 00:17:35,879 --> 00:17:41,249
-We were able to do full-screen
-post-effects, massive amounts of those
+全画面のポストエフェクトにより、それの多くは
 
 107
 00:17:41,250 --> 00:17:48,369
-that corresponded very well to what a CG studio
-expects to do in post-production.
+CG スタジオがポスト プロダクションで行なうことに相当します。
 
 108
 00:17:48,370 --> 00:17:58,049
-And we were able to add some volumetric effects,
-like that explosion at the very end.
+Volumetric （容積測定的）なエフェクトも使用し、もっとも最後の爆発でもまさに活用しています。
 
 109
 00:17:58,050 --> 00:18:02,259
-A bit about the physically-based shaders.
+物理挙動ベースのシェーダについて少し触れます。
 
 110
 00:18:02,260 --> 00:18:09,119
-Fundamentally, that is a material that just follows
-the laws of physics with very predictable results.
+基本的に、これは直感に近い物理法則にしたがった動きを再現するマテリアルです。
 
 111
 00:18:09,120 --> 00:18:18,309
-What to gain from that is not only a very realistic
-material, but also but it's also a material where
+得られるものは、リアリティのあるマテリアルというだけでなく、
 
 112
 00:18:18,310 --> 00:18:23,369
-the artist cannot really fail.
+アーティストが失敗することのないマテリアルです。
 
 113
 00:18:23,370 --> 00:18:37,209
-It requires less tweaking and less cheating
-to achieve a very realistic material.
+リアリティのあるマテリアルを再現するのに調整やチートの必要性が減ります。
 
 114
 00:18:37,410 --> 00:18:40,500
-Also, it's energy conserving.
+労力も大幅に削減されます。
 
 115
 00:18:44,789 --> 00:18:54,999
-Basically, light energy is distributed between the diffuse
-reflection and refraction so it's balanced.
+基本的に、ライトのエネルギーは拡散の反射と屈折に分散されるためバランスがとれます。
 
 116
 00:18:55,000 --> 00:19:03,619
-This happens automatically and this can be
-very tricky to do this manually in a material.
+自動的に処理は行なわれて、マテリアルで手動で行なうのは困難を伴います。
 
 117
 00:19:03,620 --> 00:19:07,019
-So you save a lot of time by using this
+結局、これを使用することで多くの時間が節約できて
 
 118
-00:19:07,020 --> 00:19:10,249
-and it's much more intuitive.
+00:19:07,020 --> 00:19:10,24
+より直感的です。9
 
 119
 00:19:10,250 --> 00:19:13,889
-This is a material that we got inspiration from.
+このマテリアルは
 
 120
 00:19:13,890 --> 00:19:16,959
-Mental Ray.
+Mental Ray から多くのインスピレーションをもらいました。
 
 121
 00:19:16,960 --> 00:19:20,979
-This is a widely used one in the movie industry.
+これは映画業界の中で広く使用されているものです。
 
 122
 00:19:20,980 --> 00:19:28,859
-We studied it quite closely and tried to adapt it
-into a real-time version that worked fine in Unity.
+かなり詳細なスタディを行なったうえで Unity 上で十分に動作するリアルタイム バージョンとして適用しました。
 
 123
 00:19:28,860 --> 00:19:33,879
-So the bottom line for this shader is: we
-use it on almost everything in this movie
+つまるところシェーダに関して重要なことは：今回の映像のあらゆるところで使用していて
 
 124
 00:19:33,880 --> 00:19:41,350
-and it can be used for almost anything. Anything
-that is a hard surface material is able to have this.
+ほとんど何にでも応用できることです。固い表面をもったマテリアル全てでこれは使用できます。
 
 125
 00:19:42,890 --> 00:19:50,700
-That puts exceptions on organic materials, of course,
-and also such things as skin and eyes.
+例外は有機的なマテリアルであって、スキンや目などは別です。
 
 126
 00:19:53,250 --> 00:19:58,750
-So I will demonstrate this in Unity.
+早速 Unity でデモをしてみましょう。
 
 127
 00:19:58,775 --> 00:20:00,775
-Let's see...
+では、
 
 128
 00:20:00,800 --> 00:20:04,100
-Let me open up the file...
+ファイルを開きます。
 
 129
 00:20:10,770 --> 00:20:15,760
-As you can see, the project has a lot of files.
+見ての通り、プロジェクトには沢山のファイルがあります。
 
 130
 00:20:19,085 --> 00:20:21,085
-Here we are.
+準備ができました。
 
 131
 00:20:29,039 --> 00:20:33,449
-What you can see here at the
-bottom is a sequencer that we
+ここで見てとれるのは、
 
 132
 00:20:33,450 --> 00:20:40,129
-constructed for Passion Pictures to
-be able to scrub through shots
+Passion Pictures 社のために構築したシーケンサであり、ショットの間の移動するにはスクラブをすれば良く、
 
 133
 00:20:40,130 --> 00:20:45,765
-and be able to work directly
-in Unity with that
+そして、それにより Unity 上で直接作業することが出来ます。
 
 134
 00:20:45,766 --> 00:20:53,099
-as they were animating or setting
-up various camera angles and such.
+アニメまたは様々なカメラアングルをセットアップしています。
 
 135
 00:20:55,040 --> 00:20:57,410
-If I show the material...
+それではマテリアルを表示してみます。
 
 136
 00:20:57,435 --> 00:20:59,435
-Let's see...
+それでは
 
 137
 00:21:01,160 --> 00:21:04,660
-If I pick this one, for example...
+例えば、これを拾うと
 
 138
 00:21:06,485 --> 00:21:08,485
-Sorry about that.
+あ、失礼しました。
 
 139
 00:21:10,610 --> 00:21:12,610
-I can pick this one.
+これを拾うことが出来ます。
 
 140
 00:21:13,440 --> 00:21:21,450
-Let me hide some of the more irrelevant things for this.
+それでは無関係のものは隠してみましょう。
 
 141
 00:21:40,210 --> 00:21:47,210
-Here we go, here's a simple example.
+それではシンプルな例をみてみます。
 
 142
 00:21:47,810 --> 00:21:49,519
-As you can see,
+みてのとおり、
 
 143
 00:21:49,520 --> 00:21:55,475
-for those of you that are familiar with
-material inspector, we made some changes.
+マテリアル インスペクタに慣れた人なら見れば分かるとおり、いくつかの変更を加えてます。
 
 144
 00:21:55,476 --> 00:22:06,999
-We made a custom material inspector for this to be able to
-fit all the properties that were necessary for this material.
+マテリアルインスペクタを作成して、このマテリアルに必要なプロパティを用意しました。
 
 145
 00:22:07,000 --> 00:22:11,499
-Apart from having just a simple diffuse,
-you're able to adjust roughness.
+シンプルな拡散とする以外に、粗さも調整できます。
 
 146
 00:22:11,500 --> 00:22:14,109
-I don't know if it's visible, but
+見えるかどうか分かりませんが、
 
 147
 00:22:14,110 --> 00:22:23,579
-that basically determines how rough
-the surface of this material is.
+マテリアルの表面の粗さを決定します。
 
 148
 00:22:23,580 --> 00:22:32,009
-We have reflection, so we could basically
-adjust the specularity, as everything else.
+反射があるので、鏡面の強度を調整します。
 
 149
 00:22:32,010 --> 00:22:34,439
-Nothing really new there.
+特段、新しいことはありません。
 
 150
 00:22:34,440 --> 00:22:41,440
-Reflectivity amounts so we can make it very reflective.
+反射の値を変化させて、強く反射させることが出来ます。
 
 151
 00:22:46,969 --> 00:22:59,450
-The reflectivity is taken from real time
-reflection probes that are placed in the world.
+反射はリアルタイムで、配置してある反射プローブから値が取得されます。
 
 152
 00:23:04,260 --> 00:23:09,589
-Let's see if I can bring this back up.
+ではあげることが出来るか試してみます。
 
 153
 00:23:09,590 --> 00:23:11,329
-Glossiness.
+次に光沢（Glossiness）です。
 
 154
 00:23:11,330 --> 00:23:16,939
-So this was achieved by basically
-stepping through different mipmaps
+基本的にこれは異なるミップマップにより
 
 155
 00:23:16,940 --> 00:23:22,788
-of the cube map reflection.
+キューブマップ反射にて実現しました。
 
 156
 00:23:22,789 --> 00:23:27,980
-So you could have it very shiny, or not.
+強く光らせるか、そうしないか決めることが出来ます。
 
 157
 00:23:28,180 --> 00:23:30,180
-Fresnel
+次にフレネル（Fresnel）、
 
 158
 00:23:31,150 --> 00:23:38,240
-or BRDF (bidirectional reflectance distribution function),
-as it is referred to as here
+またはここで言及するように BRDF（双方向反射率分布関数）について、
 
 159
 00:23:39,240 --> 00:23:46,800
-and two passes of normal maps that were
-basically applied onto each other and merged.
+さらに、互いに適用されて統合していたノーマルマップの二つのパス、についてです。
 
 160
 00:23:50,000 --> 00:23:54,928
-Let me continue.
+続けていきます。
 
 161
 00:23:54,929 --> 00:23:56,210
-So as you can see here,
+それでは見てのとおり、
 
 162
 00:23:56,211 --> 00:23:58,808
-these are two comparisons that we did.
+実際に行なった二つの比較は次のとおりです。
 
 163
 00:23:58,809 --> 00:24:06,319
-On the left side we have the original
-Maya shader, the Mental Ray shader.
+左側にはオリジナルの Maya シェーダである Mental Ray があります。
 
 164
 00:24:06,320 --> 00:24:16,569
-On the right side, you can see the results
-from the Unity adaptation of that shader.
+右側には、同じシェーダの Unity 適用版の結果を見ることが出来ます。
 
 165
 00:24:16,570 --> 00:24:22,798
-These are basically spheres that we rendered
-in in an array with different amounts of
+これらは基本的に配列としてレンダリングした球（Sphere）であり、
 
 166
 00:24:22,799 --> 00:24:32,509
-reflectivity, specular and other properties.
+各々の反射、鏡面、その他のプロパティの値を変化させたものです。
 
 167
 00:24:32,510 --> 00:24:33,970
-Skin Rendering.
+次に Skin Rendering についてです。
 
 168
 00:24:33,995 --> 00:24:35,495
-This was actually--
+これは実際には・・・
 
 169
 00:24:35,520 --> 00:24:37,520
-One second, sorry...
+あ、少し待って下さいね。すみません・・・
 
 170
 00:24:43,460 --> 00:24:49,219
-The skin shader was derived from
-the Mental Ray-inspired shader.
+スキン シェーダは Mental Ray からインスピレーションを受けたシェーダを元にしています。
 
 171
 00:24:49,220 --> 00:24:58,309
-Since it wasn't able to do organic materials,
-we tweaked it to actually do that.
+有機的なマテリアルは取り扱えないので、調整を行なってそれも出来るようにしました。
 
 172
 00:24:58,310 --> 00:25:03,285
-As well as with the Maya shader, this one
-also is very intuitive for the CG artists.
+Maya シェーダと同様に、これは CG アーティストが直感的に操作しやすいものでした。
 
 173
 00:25:03,286 --> 00:25:11,579
-Basically they have all the parameters that
-are available in their 3D program.
+基本的に 3D プログラムで利用できるパラメータを全てあります。
 
 174
 00:25:11,580 --> 00:25:18,390
-That includes having three different skin layers, two
-specular layers, and backscattering on the skin.
+それは 3種類の異なるスキン レイヤー、二つの鏡面反射レイヤー、スキンの Backscatter も含みます。
 
 175
 00:25:19,990 --> 00:25:25,400
-In some scenes you can see the sun
-hitting the character from behind.
+いくつかのシーンではキャラクターの背後から日が当たるシーンがあります。
 
 176
 00:25:28,670 --> 00:25:36,259
-Then the ears, which are the thinnest
-pieces of skin, are glowingly red.
+その場合はスキンのうち最も薄いパーツである耳が赤く光っています。
 
 177
 00:25:36,260 --> 00:25:43,260
-That's basically the translucency
-as the sun is penetrating the skin.
+それは半透明（Translucency）によるもので、スキンが日光に透過されています。
 
 178
 00:25:43,570 --> 00:25:53,019
-Instead of using the DirectX 11 tesselation, we actually
-had a Catmull-Clark subdivided solution instead.
+DirectX 11 テッセレーションを使用する代わりに、Catmull-Clark 分割を使用しています。
 
 179
 00:25:54,460 --> 00:26:00,179
-The character artists are much more
-acquainted with this kind of tesselation
+キャラクターのアーティストは、この種のテッセレーションのほうが慣れてました。
 
 180
 00:26:00,180 --> 00:26:07,180
-and we were able to get much more
-identical results by having that.
+そして、そのほうが求めるものに近い結果が得られました。
 
 181
 00:26:10,370 --> 00:26:17,370
-I'm going to demonstrate the skin as well.
+スキンについてもデモをやってみましょう。
 
 182
 00:26:23,595 --> 00:26:25,095
-Just a minute...
+少々お待ち下さいませ・・・
 
 183
 00:26:34,920 --> 00:26:36,920
-Okay, let's open up the...
+じゃあ、ちょっと開いてみて・・・
 
 184
 00:26:39,045 --> 00:26:42,845
-So I can find a good spot to look at skin.
+スキンを見ると良い箇所を私が見つけてみますね。
 
 185
 00:26:42,870 --> 00:26:44,870
-Here he comes flying.
+キャラが飛んで来ました。
 
 186
 00:26:44,895 --> 00:26:46,895
-They're about there...
+この辺りのどこかですが・・・
 
 187
 00:26:48,320 --> 00:26:49,420
-There.
+ここですね。
 
 188
 00:26:51,145 --> 00:26:56,645
-Let's see if we can find him now in this shot.
+このショットの中で見つけられるか見てましょうか。
 
 189
 00:27:06,200 --> 00:27:15,390
-He's already been tweaked a bit, so
-he's a little bit green at the moment.
+いくら調整済なので、現時点では少し緑色です。
 
 190
 00:27:15,779 --> 00:27:21,839
-In that case if we adjust the
-greenness back to a yellow color.
+こういう場合は緑色を黄色に調整し直してみて、
 
 191
 00:27:21,840 --> 00:27:28,840
-And close this so we can see better.
+さらにこれを閉じるとより良くみれるようになります。
 
 192
 00:27:29,890 --> 00:27:34,890
-Give him a bit more yellow tint.
+黄色いカラーを加えてみましょうか。
 
 193
 00:27:34,915 --> 00:27:35,915
-Sorry.
+あ、失礼しました。
 
 194
 00:27:40,590 --> 00:27:44,510
-I can increase or decrease the different influences
+私のほうでパラメータを調整して
 
 195
 00:27:46,910 --> 00:27:49,669
-from the various layers of skin,
+スキンの様々なレイヤーの影響を増減させたり、
 
 196
 00:27:49,670 --> 00:27:52,659
-change their color,
+それらの色を変化させたり、
 
 197
 00:27:52,660 --> 00:27:56,178
-tweak normals if that's necessary,
+必要なら法線も変更したり、
 
 198
 00:27:56,179 --> 00:28:00,269
-the amount of blurriness of each layer,
+各レイヤーのブラーの強度をかえたり、
 
 199
 00:28:00,270 --> 00:28:03,589
-and add AO (ambient occlusion) on top of that.
+さらにアンビエント オクルージョンを加えたりできます。
 
 200
 00:28:03,990 --> 00:28:09,489
-I don't think it's very visible unless it's in closeups.
+クローズアップしないかぎりあまり分からないかもしれませんね。
 
 201
 00:28:09,490 --> 00:28:13,269
-Adjust the amount of backscattering on the skin,
+スキンの Backscatter の強さも調整して、
 
 202
 00:28:13,270 --> 00:28:18,298
-how much it should saturate when
-the sun is actually hitting it,
+日光が当たるときの飽和度を変えたり、
 
 203
 00:28:18,299 --> 00:28:20,390
-reflectivity amounts.
+反射の度合いも変更します。
 
 204
 00:28:20,415 --> 00:28:22,915
-So, let's see if we can--
+じゃあ、これで見られるかどうか・・・
 
 205
 00:28:22,940 --> 00:28:24,940
-Sorry.
+あ、失礼しました。
 
 206
 00:28:24,965 --> 00:28:30,765
-If we can decrease or increase that...
+これを増減させたりして・・・
 
 207
 00:28:59,050 --> 00:29:06,658
-As you can see on the tip of the ear,
-it's a little bit red and orange.
+耳の端を眺めると分かるとおり、少し赤みやオレンジ色がかかってます。
 
 208
 00:29:06,659 --> 00:29:15,009
-That's the backscattering that's showing there.
+そこで見られるのが Backscatter が影響してます。
 
 209
 00:29:15,010 --> 00:29:22,010
-Let's see if we can bring that up.
+もう少し強くしてみましょうか。
 
 210
 00:29:26,810 --> 00:29:33,810
-I guess it's not visible on the screen.
+うーん、画面上では判別しづらいようですね。
 
 211
 00:29:39,940 --> 00:29:46,579
-Of course this one has, just like the Mental Ray
-shader, two normal maps that are overlapping, basically.
+当然ですが、 Mental Ray シェーダと同様に、基本的に二つの法線マップが重なってます。
 
 212
 00:29:46,580 --> 00:29:51,359
-One that gives the detail in the skin, the pores
+ひとつがスキンの毛穴までのディテールを形成して、
 
 213
 00:29:51,360 --> 00:30:05,350
-and one that supplies the bigger details,
-such as a wrinkles and creases.
+もうひとつがより大きなディテール、つまりは皺や折り目などを形成します。
 
 214
 00:30:06,909 --> 00:30:12,639
-To continue, next is hair and tesselation.
+続けていくと、次は髪の毛やテッセレーションです。
 
 215
 00:30:12,640 --> 00:30:16,639
-We use that for three
-different characters.
+これは 3 つの異なるキャラクターで使用されます。
 
 216
 00:30:16,665 --> 00:30:20,255
-There is this old grandma that is driving the car,
+車を運転する年配のおばあさん、
 
 217
 00:30:20,330 --> 00:30:23,599
-there is the the bus driver,
+バス運転手、
 
 218
 00:30:23,600 --> 00:30:26,969
-and also the main character.
+それから主人公です。
 
 219
 00:30:26,970 --> 00:30:39,769
-Apart from that we had a different variation
-of the hair generation on slippers.
+これとは別にスリッパの毛皮の生成にもバリエーションがありました。
 
 220
 00:30:39,770 --> 00:30:47,168
-So, using DirectX 11 we were able to
-generate hair and render it with tesselation.
+DirectX 11 を使用することで毛の生成およびテッセレーションを使用したレンダリングが出来ました。
 
 221
 00:30:47,169 --> 00:30:54,099
-This basically allowed us to
-sculpt any kind of hairstyle.
+これによりあらゆるヘアースタイルの作成ができました。
 
 222
 00:30:54,100 --> 00:31:00,459
-The hair was placed in Unity by adding
-emitter meshes to the character.
+髪は Unity 上に配置するため、キャラクターに発光メッシュが追加されました。
 
 223
 00:31:00,460 --> 00:31:10,119
-That was a separate mesh that just determined where, on what
-location, and which faces of the character should have hair.
+これは別のメッシュとして、どこに、どの場所に対して、そしてキャラクターのどの面が髪を保有すべきか決定づけました。
 
 224
 00:31:10,120 --> 00:31:17,629
-We applied it to the top of the hair
-of the main character and eyebrows.
+これを主人公の髪の毛先および眉毛に適用しました。
 
 225
 00:31:17,630 --> 00:31:20,589
-The grooming of the hair, the style...
+髪のグルーミング、スタイル・・・
 
 226
 00:31:20,615 --> 00:31:23,649
-the hairstyle...
+ヘアースタイル・・・
 
 227
 00:31:23,650 --> 00:31:26,199
-the bedhead as he wakes up.
+寝起きの主人公の髪型。
 
 228
 00:31:26,200 --> 00:31:29,919
-His hair is pointing in various
-directions and there's another
+髪の毛はあらゆる方向を向いていて、
 
 229
 00:31:29,920 --> 00:31:37,798
-set of hair when he's going at full speed when the
-hair is actually animated backwards and moving.
+もうひとつは全速力で移動しているときに髪が実際に前後に移動してアニメーションされてます。
 
 230
 00:31:37,799 --> 00:31:44,379
-This was done in in a 3D program.
+これは 3D プログラムで作成しました。
 
 231
 00:31:44,380 --> 00:31:47,118
-Specifically for this it was XSI,
+具体的には XSI です。
 
 232
 00:31:47,119 --> 00:31:57,209
-where the character artists were able to set
-up guide hairs to sculpt the hair as they liked.
+キャラクター アーティストは髪の毛を思い通りに作成するためにガイドとなる毛をセットできました。
 
 233
 00:31:59,010 --> 00:32:06,010
-So I will show the hair for you.
+その髪の毛をお見せしましょう。
 
 234
 00:32:09,535 --> 00:32:11,535
-Okay.
+良いですかね。
 
 235
 00:32:29,240 --> 00:32:37,198
-Bring back this, as flying through the alley.
+通りを疾風するときのように、後ろ向きになびかせたり、
 
 236
 00:32:37,299 --> 00:32:43,149
-Good thing the rope wrapped around his leg.
+脚の周りにロープが巻きついたのは幸いでしたね。
 
 237
 00:32:43,150 --> 00:32:45,129
-Stop right there.
+はい、ここで停止します。
 
 238
 00:32:45,130 --> 00:32:48,630
-Now look at him.
+主人公を見て下さい。
 
 239
 00:32:54,894 --> 00:32:56,894
-I'll close this.
+これは閉じましょう。
 
 240
 00:33:00,220 --> 00:33:07,759
-He's a little bit shinier now since
-we just changed the material.
+マテリアルを変更した今、彼はもう少し輝いてますね。
 
 241
 00:33:07,760 --> 00:33:09,769
-So a close-up.
+それではズームです。
 
 242
 00:33:12,090 --> 00:33:19,199
-As you can see we cheated a bit with the shadows of the
-hair by just painting it directly into the diffuse map.
+みてのとおり、少し髪の毛のシャドウはチートして、拡散マップに直接ペイントしてます。
 
 243
 00:33:19,200 --> 00:33:21,239
-That worked quite well.
+これはうまく行ったところです。
 
 244
 00:33:21,240 --> 00:33:36,260
-We had a special solution for some close-ups where we just made
-up a variant of the skin that was missing the painted shadows.
+いくつかのズームでは特別なソリューションを用いて、そのときはペイントされたシャドウだけ除いたスキンなどバリエーションを用意しました。
 
 245
 00:33:37,920 --> 00:33:40,869
-So this hair was able to LOD.
+この髪の毛では LOD を活用できました。
 
 246
 00:33:40,870 --> 00:33:45,699
-There were levels of detail of the hair depending on
-the distance that were determined automatically.
+Level Of Detail により、距離にもとづいて自動的に髪のディテールのレベルを分けました。
 
 247
 00:33:45,700 --> 00:33:49,279
-So it goes from very detailed hair to
+これにより、非常にディテールのある髪から
 
 248
 00:33:49,280 --> 00:33:55,399
-thicker and fewer strands of hair.
+もっと太くて数の少ない髪の束まで幅がありました。
 
 249
 00:33:55,400 --> 00:33:58,330
-You can adjust the length.
+長さは調整できます。
 
 250
 00:34:01,080 --> 00:34:08,198
-Clumping, that's the grease in the hair that
-basically ties the strands of hair together.
+凝集（Clumping）してるのは髪の毛の束を油でまとめあげたようなものです。
 
 251
 00:34:08,199 --> 00:34:15,199
-This causes a much more natural look.
+これにより、より自然な外見が出来ます。
 
 252
 00:34:17,439 --> 00:34:23,118
-Various parameters such as noise,
-to create a bit of irregularity
+様々なパラメータ、例えばノイズによりいくつかの規則的でない感じを出したり、
 
 253
 00:34:23,119 --> 00:34:25,538
-and wind animation speed.
+風のアニメーション速度なども用いました。
 
 254
 00:34:25,539 --> 00:34:31,878
-That's the movement that's happening
-in the hair as he's going down the hill.
+これは丘を下ってくときの髪の毛の動きを制御してました。
 
 255
 00:34:31,879 --> 00:34:41,648
-There's no advanced simulation for that hair,
-it's basically just noise displacing the tesselation,
+髪の毛には高度なシミュレーションはなく、基本的にはテッセレーションや
 
 256
 00:34:41,649 --> 00:34:46,549
-the tesselated surfaces.
+テッセレーションされた表面ををずらすノイズだけです。
 
 257
 00:34:46,849 --> 00:34:59,708
-You can play a bit with with the hair color I
-think, to get an understanding of what we have.
+髪の毛のカラーは調整できて、ここで機能を試すために色々とイメージを変えることもできました。
 
 258
 00:34:59,709 --> 00:35:02,589
-We added a fake rim to it.
+偽せた枠線を主人公に加えています。
 
 259
 00:35:03,589 --> 00:35:06,678
-Let's see if I can demonstrate that so you can see.
+みなさんに分かるようにデモをしてみましょうか。
 
 260
 00:35:06,679 --> 00:35:09,198
-Along the edges, there's a bit of red.
+エッジに沿って、かなりの赤みがあります。
 
 261
 00:35:09,199 --> 00:35:21,199
-This rim helped us create fake lighting for the
-hair that gave a bit more of a fuzzy look to it.
+この枠線により髪の毛に対してフェイクのライティングを作成できて、外見をふわふわした感じが加わりました。
 
 262
 00:35:21,224 --> 00:35:25,224
-Here we go, now you can see how it's...
+はい、これでどのような感じか掴めるでしょう・・・
 
 263
 00:35:42,989 --> 00:35:52,408
-That's basically just scratching the surface
-of all the things we can do with the hair.
+これで髪の毛で調整できる要素はひととおりカバーしてみました。
 
 264
 00:35:52,409 --> 00:35:57,159
-Now I'll show you how it worked
-with the fur version of this also.
+次は毛皮でどのように機能したかを見ていきます。
 
 265
 00:36:26,249 --> 00:36:32,648
-This is the scene where he's going
-down the hill and flying off.
+これは丘をおりていき、飛び立つシーンです。
 
 266
 00:36:32,649 --> 00:36:39,198
-Let's rewind and have a look at this.
+巻き戻してこれを見てみましょう。
 
 267
 00:36:39,199 --> 00:36:46,199
-Look at the slippers.
+スリッパをみて下さい。
 
 268
 00:36:56,524 --> 00:37:01,324
-Close this window to get a bit more space on the desktop.
+このウィンドウを閉じてデスクトップのスペースをより広く使用しましょうか。
 
 269
 00:37:02,699 --> 00:37:09,429
-This is how they are very close up.
+ズームしたときは、このような感じです。
 
 270
 00:37:12,959 --> 00:37:23,639
-You get somewhat similar types of shading as we
-could do with physically-based material
+物理挙動のマテリアルと同様のタイプのシェーダを得ることが出来ます。
 
 271
 00:37:23,669 --> 00:37:28,038
-and some parameters basically just to control the hair.
+いくつかのマテリアルが髪の毛を制御します。
 
 272
 00:37:28,139 --> 00:37:40,298
-So there's length, and that could make them very fuzzy.
+長さがあって、これによりふわふわした感じが出ます。
 
 273
 00:37:40,299 --> 00:37:43,409
-Or...
+あるいは・・・
 
 274
 00:37:45,409 --> 00:37:52,158
-Control the clumping of those as
-well, so you could get thicker hair.
+これらの束を制御して、より濃い髪の毛が出来ます。
 
 275
 00:37:52,159 --> 00:38:01,739
-Color, some nice pink ones.
+カラーについて、良いピンクのものを使いました。
 
 276
 00:38:03,129 --> 00:38:10,129
-And adjust the specularity,
-the shine on the hairs, basically.
+あと鏡面反射を調整しました、これは基本的に髪の毛の輝きですね。
 
 277
 00:38:16,779 --> 00:38:19,888
-Going back to this,
+では戻って、
 
 278
 00:38:19,889 --> 00:38:21,878
-The post-effects.
+ポストエフェクトについて説明します。
 
 279
 00:38:21,879 --> 00:38:26,938
-As I mentioned earlier we had a lot
-of post-effects applied to this
+先に述べたように沢山のポストエフェクトを活用しました。
 
 280
 00:38:26,939 --> 00:38:33,249
-I will shortly demonstrate how many there were
-and what they actuallly did to the final shot.
+手短にいくつかあるものをデモしたうえで、最終ショットでどうしたのかも説明します。
 
 281
 00:38:34,639 --> 00:38:40,248
-The big things that we added to
-this were depth of field and bokeh.
+大きな要素として追加したエフェクトは Depth of Field および Bokeh です。
 
 282
 00:38:40,249 --> 00:38:44,879
-That was specificially due to the
-requirements of the CG studio.
+これは CG スタジオ側の具体的な要件に対応するものでした。
 
 283
 00:38:44,880 --> 00:38:52,448
-This was combined with an anti-aliasing
-that was very DoF, depth of field, aware.
+これは アンチエイリアス と Depth of Field を混合したものです。
 
 284
 00:38:52,449 --> 00:38:56,838
-So it worked very nicely together
-with the character and the hair.
+キャラクターおよび髪の毛で見事に組み合わさりました。
 
 285
 00:38:56,839 --> 00:39:01,469
-We were able to have depth of field
-blur behind the hair of the character
+キャクラターの髪の毛の裏で Depth of Field のブラーがかかり、
 
 286
 00:39:01,470 --> 00:39:10,078
-without any obvious interference or artifacts.
+明らかに分かるような干渉や画像の乱れは回避できました。
 
 287
 00:39:10,079 --> 00:39:14,999
-We had two layers of high dynamic range
-bloom placed on top of each other.
+二つのレイヤーの HDR ブルームを互いに重ねました。
 
 288
 00:39:15,300 --> 00:39:26,538
-One worked basically like a bit of tone mapping and the
-other one gave the glows around specular highlights.
+ひとつはトーンマッピングのような働きをして、もうひとつは鏡面反射のハイライトの周りの発光としての働きをしました。
 
 289
 00:39:26,539 --> 00:39:32,459
-We had an RGB channel noise and grain,
-which is not something extraordinary
+RBG チャネル Noise and Grain を使用し、特別なものではありませんが、
 
 290
 00:39:32,460 --> 00:39:37,478
-but it was interesting to see that
-these artists were using.
+これらのアーティストが使用してくれるのを見るのは興味深いものでした。
 
 291
 00:39:37,479 --> 00:39:51,968
-Instead of having a global noise they were working with
-the noise amounts differently in the various RGB channels.
+アーティストはグローバル ノイズを用いる代わりに様々な RGB チャネルでのノイズ強度を調整していました。
 
 292
 00:39:51,969 --> 00:39:55,538
-On top of that we added color
-correction, the grading
+それに加えて色補正を加えて、
 
 293
 00:39:55,539 --> 00:39:59,918
-which we did with 3D lookup tables.
+3D ルックアップ テーブルで使用したグレーディングを使用しました。
 
 294
 00:39:59,919 --> 00:40:06,919
-So let me quickly demonstrate this.
+簡単にここでデモ再現してみましょう。
 
 295
 00:40:29,389 --> 00:40:31,768
-So you may recognize this scene.
+このシーンで識別できるかもしれません。
 
 296
 00:40:31,769 --> 00:40:36,619
-He is again flying,
+主人公が空を飛ぶ場面が再び出てますが、
 
 297
 00:40:38,149 --> 00:40:42,938
-this time through a diner.
+今回はディナーの最中の場面です。
 
 298
 00:40:42,939 --> 00:40:48,680
-So this is how it looks without the particle effects.
+パーティクル エフェクトがないと見映えは次の通りです。
 
 299
 00:40:55,939 --> 00:41:00,299
-Let's play it.
+再生してみましょう。
 
 300
 00:41:07,409 --> 00:41:21,739
-I will do a breakdown now of the various post-effects
-and you will be able to see how it was added on this.
+それではざまざまなポストエフェクトの内訳を説明しますので、その中でどのように追加されたか確認できます。
 
 301
 00:41:22,709 --> 00:41:33,468
-As you can see in this inspector these are all the
-different types of components that we added on top.
+見て分かるとおり、インスペクタの中で全ての異なるコンポーネントは上に追加されてます。
 
 302
 00:41:33,469 --> 00:41:38,098
-Camera jitter was something that we
-added to camera at a very late stage
+カメラの Zitter は最終段階でカメラに追加したものです。
 
 303
 00:41:38,099 --> 00:41:44,248
-because it gave a bit more of a documentary
-feel to it, a bit more lively camera.
+ドキュメンタリー風になり、よりライブ カメラの感じが出ています。
 
 304
 00:41:44,249 --> 00:41:50,498
-It's basically just randomly
-offsetting the camera a little bit.
+基本的にはカメラをランダムにわずかオフセットしているものです。
 
 305
 00:41:50,499 --> 00:41:59,768
-Hardly noticeable but still gives a
-much less artificial camera movement.
+あまり気付かないところですが、カメラ動作の人工的な部分を減らします。
 
 306
 00:41:59,769 --> 00:42:01,368
-Noise and grain,
+Noise and grain、
 
 307
 00:42:01,369 --> 00:42:09,679
-but I guess that's not very visible
-up there on this big screen.
+この大きなスクリーンではちょっと分かりづらいかもしれませんね。
 
 308
 00:42:13,089 --> 00:42:17,018
-There was an overlay
+オーバレイがあり、
 
 309
 00:42:17,019 --> 00:42:23,898
-light bleeding simulated with just a plain
-texture that we put on top that was
+ライトの漏れは、単なる上に重ねたテクスチャによりシミュレーションされていて、
 
 310
 00:42:23,899 --> 00:42:28,549
-supposed to look like light actually
-hit through the camera lens.
+これはカメラのレンズを通してライトが通過するようにみせかけてます。
 
 311
 00:42:29,549 --> 00:42:34,038
-The grading,
+グレーディング、
 
 312
 00:42:34,039 --> 00:42:36,158
-the bloom,
+ブルーム、
 
 313
 00:42:36,159 --> 00:42:39,458
-second pass of bloom,
+二つめのパスのブルーム、
 
 314
 00:42:39,459 --> 00:42:45,318
-the vignette, basically the darker areas
-around the frame.
+ビネット、この場合はフレームの中の暗い部分、
 
 315
 00:42:45,319 --> 00:42:46,978
-Anti-aliasing,
+アンチエイリアス、
 
 316
 00:42:46,979 --> 00:42:50,738
-depth of field,
+Depth of Field、
 
 317
 00:42:50,739 --> 00:42:57,108
-screen space, or in fact we used
-horizontally-based ambient occlusion,
+スクリーンスペース、ここでは水平ベースのアンビエント オクルージョンを使用し、
 
 318
 00:42:57,109 --> 00:42:58,548
-and blur.
+そしてブラーです。
 
 319
 00:42:58,549 --> 00:43:08,669
-So this is how the shot looked completely untreated
+これが完全に何も変更してない場合のショットで、
 
 320
 00:43:11,319 --> 00:43:21,359
-and this is how it ended
-up looking in the final.
+これが最終ショットで得られた結果です。
 
 321
 00:43:23,289 --> 00:43:25,508
-Going back to this,
+最後にこれに戻ると
 
 322
 00:43:25,509 --> 00:43:28,089
-we had some volumetric explosions in the end.
+Volumetric（容積測定的）な爆発が最後に使用されてます。
 
 323
 00:43:30,039 --> 00:43:36,688
-We initially thought about doing this with fluids,
-but it just proved to be slightly too expensive
+最初に、流体でこれを行なうことを考えていましたが、少し高価すぎました。
 
 324
 00:43:36,689 --> 00:43:39,959
-and a bit too difficult for us to actually control.
+さらに実際に制御するには少し困難がありました。
 
 325
 00:43:40,969 --> 00:43:47,209
-Instead, we went for a distance
-field-ray marching variant.
+その代わり、距離による Field Ray Marching のバリエーションを用いました。
 
 326
 00:43:47,210 --> 00:43:54,568
-This is just a volume rendering technique that is able
-to process volume data instead of surface data
+これはボリューム レンダリングのテクニックであり、表面データでなくボリュームデータを処理できます。
 
 327
 00:43:54,569 --> 00:43:57,490
-like a ray caster does.
+これは Raycast と似通ってます。
 
 328
 00:43:59,409 --> 00:44:06,378
-On top of this, as you can see in the
-bottom right there we had volumes.
+これに加えて、右下にボリュームがあることが確認できます。
 
 329
 00:44:06,379 --> 00:44:11,429
-These volumes were given
-its surface, this pyroclastic surface
+これらのボリュームは表面が与えられ、火砕性の表面とするために
 
 330
 00:44:11,430 --> 00:44:21,118
-by offsetting the various parts of the
-original sphere with Perlin noise.
+元の球体（Sphere）を パーリンノイズによりオフセットしています。
 
 331
 00:44:21,119 --> 00:44:29,900
-The shade, or the color, the value of the
-surface was based on the displacement distance.
+シェード、またはカラー、表面の値は Displacement 距離にもとづいています。
 
 332
 00:44:31,079 --> 00:44:40,879
-So the further the distance was from the center of the
-fireball, or the sphere, the darker and grayer it became.
+距離が炎の中心から離れるほど黒く灰色に変化していきます。
 
 333
 00:44:40,880 --> 00:44:50,088
-So at the very center it's warm and orange
-and it gradually gets darker and grayer.
+中心においては、熱くオレンジ色なのが徐々に暗く灰色になってきます。
 
 334
 00:44:50,089 --> 00:44:52,938
-This gives a smoky effect.
+煙のエフェクトが結果的に得られてます。
 
 335
 00:44:52,939 --> 00:44:58,538
-These volumes unexpectedly worked
-very well with world geometry.
+これらボリュームは予想に反してワールドの物体と適切に相互作用してます。
 
 336
 00:44:58,539 --> 00:45:02,808
-They fit in nicely and we were able to wrap
-them around corners of houses or buildings
+うまく整合をして、家またはビルの隅を包み込んで
 
 337
 00:45:02,809 --> 00:45:08,398
-or fit the character to blend
-very nicely with them or busses,
+キャラクターにも当てはまり、またはバスにうまくブレンドをして
 
 338
 00:45:08,399 --> 00:45:12,128
-as in this shot.
+次のショットなどが良い例となってます。
 
 339
 00:45:12,129 --> 00:45:14,944
-Also the particles work very fine with that.
+パーティクルもまたうまく機能します。
 
 340
 00:45:14,945 --> 00:45:19,259
-Initially we added smoke particles
-that were combined with this effect
+最初に煙のパーティクルを追加して、このエフェクトと組み合わせようとしました。
 
 341
 00:45:19,359 --> 00:45:27,608
-but the end and we ended up not using them because
-they didn't add as much as we anticipated.
+しかし最終版ではそれは採用しなかったのは、予想したほどの効果が得られなかったためです。
 
 342
 00:45:27,609 --> 00:45:33,838
-Also, I should note that this effect could could be lit
+さらに、このエフェクトはライティングすることが出来て
 
 343
 00:45:33,839 --> 00:45:38,348
-and therefore also have ambient occlusion added to it.
+そのためにアンビエント オクルージョンを追加することが出来ます。
 
 344
 00:45:38,349 --> 00:45:41,748
-So we've got a very defined surface to this
+確定した表面ができています。
 
 345
 00:45:41,749 --> 00:45:48,749
-I will demonstrate how they appear.
+どのように映るかデモします。
 
 346
 00:45:48,774 --> 00:45:51,774
-Right here...
+ちょうどここです。
 
 347
 00:45:58,599 --> 00:46:01,599
-Just a minute...
+少々お待ちください・・・
 
 348
 00:46:12,239 --> 00:46:14,031
-This is the effect.
+エフェクトは次のとおりです。
 
 349
 00:46:14,057 --> 00:46:16,198
-Boom!
+ボン！
 
 350
 00:46:16,199 --> 00:46:20,048
-He flies off.
+主人公が飛んでいきました。
 
 351
 00:46:20,049 --> 00:46:22,978
-There's the fireball in the background.
+これが背景にある炎の玉です。
 
 352
 00:46:22,979 --> 00:46:27,169
-So I will show how this is made.
+それではどのように作成されたか見ていきます。
 
 353
 00:46:27,194 --> 00:46:29,194
-So let's get rid of everything
+それでは全てを一回消してみて、
 
 354
 00:46:29,219 --> 00:46:35,219
-and then let's pick out the effect.
+そしてエフェクトを特定してみましょうか。
 
 355
 00:46:40,744 --> 00:46:46,044
-Actually, let's bring it back, in fact.
+あ、気を変えて実際には、元に戻して見ましょうか。
 
 356
 00:47:02,509 --> 00:47:11,348
-The user is able to control this by
-just applying it to primitive spheres.
+ユーザはこれを制御するためにはプリミティブ シェーダに適用します。
 
 357
 00:47:11,349 --> 00:47:14,438
-It works basically like this.
+基本的な原理をこれから説明しましょう。
 
 358
 00:47:14,439 --> 00:47:16,978
-This was a sphere originally
+これはもともと球体でしたが
 
 359
 00:47:16,979 --> 00:47:21,368
-I think if you look at it through a
-wireframe it's not even rendered
+ワイヤフレームを通してみると、レンダリングもされてませんが、
 
 360
 00:47:21,369 --> 00:47:28,329
-as it's not typical geometric data.
+これは典型的な物体データでないためです。
 
 361
 00:47:28,399 --> 00:47:31,949
-Then we could scale it, I think.
+えっと確か拡大縮小できたような
 
 362
 00:47:32,949 --> 00:47:36,449
-Or not, possibly.
+いや、違いましたね。
 
 363
 00:47:48,519 --> 00:47:53,478
-That's basically how that worked.
+これが基本的な原理の説明でした。
 
 364
 00:47:53,479 --> 00:48:02,858
-I'm running out of time here, so I will skip
-these examples that I added towards the end.
+時間がなくなってきたので、最後に追加したいくつかのサンプルはスキップします。
 
 365
 00:48:02,859 --> 00:48:07,248
-But feel free to contact me and I
-will show them to you after this talk.
+でもセッションのあとに私にコンタクトして質問するときはご自由にどうぞ。
 
 366
 00:48:07,249 --> 00:48:13,109
-If you're interested in seeing
-them, I will be around for a while.
+もし見たい場合は、しばらくここにいるので是非どうぞ。
 
 367
 00:48:14,449 --> 00:48:19,388
-Thank you to everyone involved both
-from Passion Pictures and nVidia
+Passion Pictures 社および NVIDIA 社 の関係者の皆様にも謝辞を申し上げます。
 
 368
 00:48:19,389 --> 00:48:27,380
-I hope you enjoyed the talk and, as I said, feel free to get in
-touch and I will explain more about the procedure for you.
+セッションを楽しんで頂けていれば何よりで、ぜひご自由にまたご連絡いただいて、興味あればより詳細の説明をします。
 
 369
 00:48:28,005 --> 00:48:30,005
-Thank you.
+どうもありがとうございました。(翻訳:gamesonytablet)
