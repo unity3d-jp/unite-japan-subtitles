@@ -1,472 +1,504 @@
 1
 00:10:42,680 --> 00:10:43,679
-Hello and welcome.
+ようこそ、こんにちは！
+XXX
 
 2
 00:10:43,679 --> 00:10:47,870
-Or as I would say in Denmark,
-"Goddag og velkommen"
+デンマークの言葉では "Goddag og velkommen"
+XXX
 
 3
 00:10:47,870 --> 00:10:51,790
+セッションのタイトルは Unity Hacks です。
 The title of the
-session is Unity Hacks
 
 4
 00:10:51,790 --> 00:10:55,630
-I'm going to start off
+自己紹介から始めましょう。
 by introducing myself.
 
 5
 00:10:55,630 --> 00:10:57,529
+私の名前は Emil Johansen です。
 My name is Emil Johansen
 
 6
 00:10:57,529 --> 00:11:02,320
-I usually go by the
+オンライン上では普段 AngryAnt のニックネームを使ってます。
 nickname of AngryAnt online.
 
 7
 00:11:02,320 --> 00:11:04,900
+私の写真です。
 That's a photo of me
 
 8
 00:11:04,900 --> 00:11:11,149
-I'm a game developer at Unity, which means I work
+私は Unity に勤めるゲーム開発者であり、仕事は様々な開発チームと一緒に作業をして
 with the different developer teams to ensure that
 
 9
 00:11:11,149 --> 00:11:17,199
-all our different features work well
+Unity の様々な異なる機能が正しく連動することを保証して、そのうえで内部でのデモ作成をします。
 together, and I do internal demo work.
 
 10
 00:11:17,199 --> 00:11:22,070
-Some of which goes into standard
+作業のいくらかは標準アセットに組み込まれたり、というようなものです。
 assets and that sort of thing.
 
 11
 00:11:22,070 --> 00:11:25,640
+さらに AI は専門分野です。
 And I specialize in AI as well.
 
 12
 00:11:25,640 --> 00:11:28,440
+Unity には 4 年間勤めて来ました。
 I've been at Unity for four years.
 
 13
 00:11:28,440 --> 00:11:34,100
-And for the past five years, I've
+また過去 5 年間 Unity 製品に取り組んでいます。
 worked with Unity the product.
 
 14
 00:11:34,100 --> 00:11:42,490
-And before doing so, I worked with Unreal
+その前は Unreal エンジン 3、CryEngine 1、さらに Renderware に関わってました。
 Engine 3, CryEngine 1, and Renderware
 
 15
 00:11:43,230 --> 00:11:46,260
+デンマークのコペンハーゲンに住んでます。
 I live in Copenhagen, Denmark.
 
 16
 00:11:46,260 --> 00:11:53,060
-And in my spare time, I create some
+暇な時間をみつけては Path および Behave など追加的な プロジェクトを作成しています。
 additional projects such as Path and Behave.
 
 17
 00:11:53,060 --> 00:11:58,740
-These are AI middleware
+これらは Unity の AI ミドルウェアです。
 solutions for Unity.
 
 18
 00:11:58,740 --> 00:12:01,179
+今回は二度目のアジアツアーです。
 This is my second time around on the Asia Tour.
 
 19
 00:12:02,120 --> 00:12:09,380
-Last year, I did a talk called "Rapid
+昨年は「高速ネットワークおよび AI 対応したゲーム開発」のトピックでセッションをしました。
 Network and AI-Ready Game Development."
 
 20
 00:12:09,380 --> 00:12:12,100
-It's a very long title and
+トピックの名前が長いタイトルですみませんが、
 I'm sorry about that, but
 
 21
 00:12:12,100 --> 00:12:14,740
+正直短い名前が思いつきませんでした。
 I couldn't come up with a shorter one.
 
 22
 00:12:15,540 --> 00:12:23,660
-So this talk is kind of the practical
+今回は昨年のセッションの実用編のようなものです。
 counterpart of that talk from last year.
 
 23
 00:12:24,660 --> 00:12:26,480
+私のウェブサイトは AngryAnt.com です。
 My website is AngryAnt.com.
 
 24
 00:12:26,480 --> 00:12:32,770
+コードスニペット、サンプル、プロジェクト、および
 And I gather some of my code snippets, examples, projects and
 
 25
 00:12:32,770 --> 00:12:39,160
+ビデオを収集すること、例えば昨年セッションの取りまとめにも取り組んでます。
 videos such as the recording of last year's talk.
 
 26
 00:12:39,160 --> 00:12:41,380
+私の娘のリリーです。
 This is my daughter, Lily.
 
 27
 00:12:41,380 --> 00:12:45,810
-And today I'm wearing a
+本日は少し違う眼鏡をつけてます。
 different set of glasses.
 
 28
 00:12:45,810 --> 00:12:52,950
-Not out of a fashion choice, but because on my birthday
+ファッションの意味合いではなく、私の 2 月の誕生日に娘にバラバラにされてしまったからです。
 in February, she chose to tear the old pair apart.
 
 29
 00:12:52,950 --> 00:12:56,380
+まったく小悪魔ってやつですね。
 So she's a feisty little devil.
 
 30
 00:12:58,370 --> 00:13:02,530
-Obviously, who can blame
+こんな可愛い子を責められないですよね。
 her with those looks.
 
 31
 00:13:03,519 --> 00:13:08,270
+そろそろセッションの内容に入りましょうか。
 Let's jump onto the contents of this talk.
 
 32
 00:13:09,790 --> 00:13:14,670
+本日の他のセッション内容と違って、
 Unlike some of the other talks today, I've tried to
 
 33
 00:13:14,670 --> 00:13:19,095
-make this talk more of a
+遊び要素を取り入れてみようと考えてみました。
 fun playful kind of thing.
 
 34
 00:13:19,096 --> 00:13:23,540
-I hope that you can take some of the
+願わくば、いくつかのサンプルをあなた自身が
 examples I'm going to show here
 
 35
 00:13:23,540 --> 00:13:28,120
+後でそのまま利用できると良いですね。
 and if not use them directly.
 
 36
 00:13:29,560 --> 00:13:32,640
-They are designed for that, but
+その目的で設計していますが、さらに
 I really hope that you can
 
 37
 00:13:32,640 --> 00:13:36,430
-take some of the ideas and approach
+いくつかのアイデアやアプローチを使って、刺激を受けて
 and hopefully be inspired by that
 
 38
 00:13:36,430 --> 00:13:41,410
+自身の Unity Hack を作成してほしいものです。
 to create your own Unity hacks.
 
 39
 00:13:42,130 --> 00:13:46,510
-So part of the theme here is
+今日のテーマは、「ミッション名：そのままリリースに活用しよう」です。
 Mission: Let's Just Ship This Thing.
 
 40
 00:13:46,510 --> 00:13:52,120
-Which is where is this ties in
+そこが昨年セッションとつながるところです。
 with last year's talk as well.
 
 41
 00:13:53,680 --> 00:14:00,380
-One part of that is to minimize your
+必要なワークロードを最小化するために賢く作業する、という要素がひとつあります。
 needed workload by working smart.
 
 42
 00:14:01,430 --> 00:14:07,660
-And part of that is data and code reuse, which
+そのためには、データ、コードを再利用すべき、という面があり本日はそのデモをいくつか取り上げます。
 I'll go in and demonstrate in a few ways.
 
 43
 00:14:10,270 --> 00:14:13,740
+もう一つの側面は 反復作業時間を短縮するために
 And another part is shaving iteration
 time as closely as possible
 
 44
 00:14:13,740 --> 00:14:16,650
+作業ワークフローを管理することです。
 by managing your workflow.
 
 45
 00:14:18,400 --> 00:14:20,170
+これも後で取り上げます。
 We'll also get into that.
 
 46
 00:14:23,070 --> 00:14:28,350
-So, in regards to shaving iteration time,
+反復時間を短縮するため、ワークフローを調整して
 that means adapting your workflow
 
 47
 00:14:28,950 --> 00:14:33,300
-and getting relevant feedback
+関連するフィードバックデータを出来るかぎり速く取得して
 data as quickly as possible
 
 48
 00:14:34,690 --> 00:14:40,320
-and reducing the amount
+必要なマニュアル作業を短縮することです。
 of manual work required.
 
 49
 00:14:41,680 --> 00:14:46,700
-In general, I'm trying to communicate
+全般には、「十分である」というテーマの話を通して
 a theme of "Good Enough" can ship
 
 50
 00:14:47,980 --> 00:14:52,130
-in the pursuit of rapid
+高速ゲーム開発にとって重要かを見ていきます。
 game development.
 
 51
 00:14:58,120 --> 00:15:02,870
-The way I'm going to go about
+このコンテンツを取り上げるにあたり
 presenting this content is
 
 52
 00:15:02,870 --> 00:15:06,930
-I'll show a whole lot
+大量の優れた Hack およびコードをお見せして
 of cool hacks and code
 
 53
 00:15:06,930 --> 00:15:09,910
-I'm going to show some good examples
+データ再利用や
 of examples of data reuse
 
 54
 00:15:09,910 --> 00:15:12,010
+エディタ スクリプティングの良い事例を沢山見ていきます。
 and a lot of editor scripting.
 
 55
 00:15:20,130 --> 00:15:25,400
-So let's start off by looking at
+ランタイムのサンプルをみて始めましょうか。
 some examples from the runtime.
 
 56
 00:15:25,400 --> 00:15:29,960
-And initially, I want to touch on
+最初はアニメーションカーブのテーマについて触れます。
 the subject of animation curves.
 
 57
 00:15:31,140 --> 00:15:36,700
-The initial example here is
+最初のサンプルはキャラクターの方向スピード（Directional Speed）です。
 directional speed of character.
 
 58
 00:15:36,700 --> 00:15:43,400
-In many games you have a sort of humanoid
+多くのゲームではヒューマノイド キャラクターまたはアバターを動かす必要があります。
 character or some avatar you need to move around.
 
 59
 00:15:43,401 --> 00:15:48,130
-This avatar will have a
+このアバターには Facing と Heading を持ちます。
 facing and a heading.
 
 60
 00:15:48,130 --> 00:15:52,970
-By default, when the facing is equal
+デフォルトでは Facing と Heading が等しいとき、
 to heading, you'll want to
 
 61
 00:15:52,970 --> 00:15:57,530
+キャラクターはトップスピードで移動します。
 move that character by the top speed.
 
 62
 00:15:57,530 --> 00:16:07,870
-When at an angle, you'll usually want to, within the first
+ある角度にあるとき、最初の 20 度かそこらまでは角度や速度を保ちます。
 twenty degrees or so, keep this angle or this constant speed.
 
 63
 00:16:07,870 --> 00:16:10,870
-Though when you start
+一方で横に移動したり
 moving more sideways
 
 64
 00:16:10,870 --> 00:16:18,740
-and particularly moving directly back,
+後ろ方向に動く時、ベース速度（Base Speed）に重みづけします。
 you want to weight the base speed.
 
 65
 00:16:18,740 --> 00:16:22,290
-And of course this
+当然、これは反対方向もミラーされます。
 works mirrored as well.
 
 66
 00:16:23,490 --> 00:16:27,460
-So one way I propose doing
+アニメーションカーブにおいて、お勧めする方法のひとつは
 this with animation curves
 
 67
 00:16:27,460 --> 00:16:33,910
+角度を分割、または拡大縮小して Facing の中の Heading を、
 is to divide the angle, or basically scale the
 angle between the heading in the facing
 
 68
 00:16:33,910 --> 00:16:37,740
+ゼロと 180 度の間で調整し
 between 0 and 180 degrees
 
 69
 00:16:37,740 --> 00:16:40,050
+正規化することです。
 and normalize that.
 
 70
 00:16:40,050 --> 00:16:47,530
-So this allows you to define an animation curve
+これによりアニメーションカーブを定義して、カーブの高さを使用して
 where you can use the height of the curve to
 
 71
 00:16:47,530 --> 00:16:50,620
+スピードの大きさを定義できます。
 define the scale of the speed.
 
 72
 00:16:53,420 --> 00:16:58,750
-So in this example, I'm showing showing
+このサンプルでは、さきほどデモをしたカーブをお見せして
 the curve that I demonstrated earlier
 
 73
 00:16:58,750 --> 00:17:07,319
-where you see initially, the curve - as we're close
+ゼロに近づくにつれて、カーブが前に進んで、スピードは 1 のままです。
 to zero - moving forward, the speed remains 1.
 
 74
 00:17:07,319 --> 00:17:16,190
-And as we go further towards 1 or 180
+1 または 180 度に向かうにつれて速度は半分に落ちます。
 degrees, we go down to half-speed.
 
 75
 00:17:16,190 --> 00:17:20,509
+実際の環境で見てみます。
 Showing this in a real environment.
 
 76
 00:17:21,370 --> 00:17:24,829
-You can see if I move forward,
+前に進むと、スピードが速いことが分かります。
 I have quite a lot of speed.
 
 77
 00:17:24,829 --> 00:17:28,210
-You can also see the speed indicator
+スピードのインジケータが右上隅に表示されてます。
 in the upper-right corner.
 
 78
 00:17:28,210 --> 00:17:31,590
+動き回るにつれて
 But as I move around, I get
 
 79
 00:17:31,590 --> 00:17:44,820
-different speeds based on how the heading
+Heading に対して Facing がどう動くかにもとづいてスピードが異なります。
 moves around compared to the facing.
 
 80
 00:17:44,820 --> 00:17:46,960
+スクリプトをみてみます。
 So, looking at a script.
 
 81
 00:17:46,960 --> 00:17:49,370
+使用しているスクリプトは比較的簡単なものです。
 The script I'm using for this is fairly simple.
 
 82
 00:17:49,370 --> 00:17:53,350
-Actually, the part that takes
+実際には、もっともスペースをとるのは
 up the most space is just
 
 83
 00:17:53,350 --> 00:17:59,410
-where I take the input and formulate
+入力をとって、方向ベクトルを構成するところです。
 that into a directional vector.
 
 84
 00:17:59,410 --> 00:18:01,960
-So this is just getting
+このため、これは入力軸を取得するのみです。
 the input axis.
 
 85
 00:18:02,980 --> 00:18:08,890
+そして各々の Update の中で、この例では Transform の Translate を行なって
 Then in each update, I just, for this
 example, translate the transform
 
 86
 00:18:08,890 --> 00:18:12,730
+Directional ベクトルおよび
 where I translate it by
-my directional vector
 
 87
 00:18:13,820 --> 00:18:16,920
+デフォルト スピード（今回は 5）により Translate します。
 the default speed, which is at 5.
 
 88
 00:18:18,489 --> 00:18:22,760
-Since it's an update, of course
+Update であるため、 Time.DeltaTime によりスケールが行なわれます。
 it's scaled by Time. DeltaTime.
 
 89
 00:18:22,760 --> 00:18:32,860
-The interesting bit is where I get the angle between
+面白いところは Transform の Forward ベクトルと 方向ベクトル(Direction)のなす角度をとって
 the forward vector of the transform and my direction
 
 90
 00:18:32,860 --> 00:18:37,029
-I divide that by 180,
+180で割ることにより正規化することです。
 thus normalizing it.
 
 91
 00:18:37,029 --> 00:18:42,700
-And then I evaluate my animation
+次に Speed Scale という名前の アニメーションカーブを評価(Evaluate)します。
 curve called Speed Scale
 
 92
 00:18:42,700 --> 00:18:50,430
-which I have made public so I can define it
+これは public にしているため、エディタで適切に表示されるよう定義できます。
 exactly how it needs to look in the editor.
 
 93
 00:18:50,430 --> 00:19:03,020
-By calling evaluate, I get the height
+Evaluate 関数をコールすることで任意の Time Index におけるカーブの高さが取得できます。
 of the curve at my given time index.
 
 94
 00:19:07,570 --> 00:19:15,060
-So another example of animation curves is
+アニメーションカーブのもうひとつの例はカメラの Blending および Clamping で使用することです。
 using it for camera blending and clamping.
 
 95
 00:19:15,060 --> 00:19:21,789
-In the same setup you have a character
+同じセットアップにおいて、Heading または Facing のあるキャラクターと、
 with heading or a facing
 
 96
 00:19:21,789 --> 00:19:25,780
-and a camera observing the
+キャクラターの上部を写すカメラがあり、
 top of the character
 
 97
 00:19:25,780 --> 00:19:29,789
-usually looking a bit over
+通常はキャラクターの頭部の少し上を写しています。
 the head of the character.
 
 98
 00:19:29,789 --> 00:19:35,200
-A fairly a common set up is that you want
+比較的良くあるセットアップはカメラの動作を Clamp して
 to clamp the movement of the camera
 
 99
 00:19:35,200 --> 00:19:38,570
-between an upper angle
+上限および下限の角度で
 and a lower angle
 
 100
 00:19:38,570 --> 00:19:47,920
-in comparison to the reverse. Or basically,
+またはその逆で制限します。または基本的に、キャラクター後ろの Facing ベクトル にします。
 the backwards facing vector of the character.
 
 101
