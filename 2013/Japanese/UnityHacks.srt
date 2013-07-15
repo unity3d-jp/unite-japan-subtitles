@@ -1657,147 +1657,152 @@ in my scene with these reference bundles or reference prefabs.
 
 343
 00:45:22,589 --> 00:45:27,959
-So if we exit play mode
+実行モードを抜けると、
 here, you can see
 
 344
 00:45:39,849 --> 00:45:44,629
-initially my amazing cube here,
+ビルドされたために、私の素晴らしいキューブが表示されます。
 since it has been built
 
 345
 00:45:45,949 --> 00:45:50,050
-I have this bundle prefab reference
+バンドル プレハブ の参照にはバンドル ID および
 which holds the bundle ID
 
 346
 00:45:51,309 --> 00:45:53,739
+プレハブ ID がバンドル内に格納されています。
 and the prefab ID within that bundle.
 
 347
 00:45:53,739 --> 00:46:00,369
-But other than that, any other information
+それを除いては、その他の情報は全てバンドルにプッシュされています。
 has now been pushed to the bundle.
 
 348
 00:46:00,369 --> 00:46:03,389
+つまり、ロードしたときに
 So this means when we load this up
 
 349
 00:46:03,389 --> 00:46:05,599
-you see that the cube
+キューブが少し後のタイミング、すなわち
 appears a bit later
 
 350
 00:46:05,599 --> 00:46:15,439
-as the bundle is loaded and instantiated
+バンドルーがロードされてインスタンス化されたとき、参照されたデータにもとづいて表示されます。
 based on the data in the reference.
 
 351
 00:46:15,439 --> 00:46:17,590
+次に別のバンドル使用方法の例を挙げます。
 Here's another example of bundle use.
 
 352
 00:46:17,590 --> 00:46:21,920
-Normally you cannot include any
+通常はバンドルに追加のコードを含めることが出来ません。
 additional code in a bundle.
 
 353
 00:46:21,920 --> 00:46:26,749
-All your code has to be
+全てのコードはコアのゲームにビルドインされる必要があり
 built into the core game
 
 354
 00:46:28,199 --> 00:46:34,959
-and any additional assets can
+そして追加のアセットはアセットバンドルに含めることが出来ます。
 then be put in an asset bundle.
 
 355
 00:46:34,959 --> 00:46:38,490
-However, there are several cases
+しかし、いくつかのケースにおいては
 where you might want to
 
 356
 00:46:38,490 --> 00:46:42,579
-put some code in bundles, such as if
+コードをバンドルに入れたい場合があり、例えば追加のキャラクター
 you have an additional character
 
 357
 00:46:42,579 --> 00:46:49,019
-or weapon or something like this
+または武器か何かでカスタムロジックがあるものがあるようなケースかもしれません。
 which has some custom logic to it.
 
 358
 00:46:49,989 --> 00:46:55,239
-You want to continue with your familiar workflow
+同じプロジェクトに全てのスクリプトがある、お馴染みのワークフローをしたいはずです。
 of having all your scripts in the same project.
 
 359
 00:46:55,239 --> 00:47:02,429
-Not all of them compiling to your main
+全てがメインプロジェクトにコンパイルされませんが、ワークフローは同様です。
 project, but the same kind of workflow.
 
 360
 00:47:04,659 --> 00:47:09,529
-The way I've gone about
+私が実装した方法は
 implementing this is I have
 
 361
 00:47:09,529 --> 00:47:18,150
-put a folder called "script bundles" in the
+Script Bundles というフォルダを Assets/WebPlayer templates というフォルダに入れることでした。
 folder called "Assets/WebPlayer templates."
 
 362
 00:47:18,150 --> 00:47:22,129
-And the important thing about
+この特定のフォルダについて重要なことは
 this particular folder
 
 363
 00:47:22,129 --> 00:47:29,319
-is that for the folder WebPlayer templates,
+WebPlayer templates のフォルダについて、コンパイラおよび全てのインポータがオフになっていることです。
 the compiler and all importers are turned off.
 
 364
 00:47:29,319 --> 00:47:34,219
-The reason for this is WebPlayer templates
+この理由はウェブプレイヤー テンプレートがJavaScript コードを含むかもしれず、
 might contain JavaScript code
 
 365
 00:47:34,219 --> 00:47:36,999
+これがウェブサイト JavaScript であり
 which is website JavaScript
 
 366
 00:47:36,999 --> 00:47:42,469
-so you of course don't want this
+当然にメインプロジェクトに含まれてほしくないためです。
 compiled in with your main project.
 
 367
 00:47:42,469 --> 00:47:45,870
+この事実を利用して
 But we're taking advantage of that fact
 
 368
 00:47:46,719 --> 00:47:49,399
-and putting a script
+スクリプトバンドル フォルダを入れて
 bundle folder in there
 
 369
 00:47:49,399 --> 00:47:57,409
-and my build script then goes over
+ビルドスクリプトは、このフォルダの全てのサブフォルダを検索して
 all subfolders of this folder
 
 370
 00:47:58,259 --> 00:48:03,249
-and taking all the scripts found in there,
+その中の全てのスクリプトを .NET アセンブリにコンパイルし、
 and compiling them to a .net assembly
 
 371
 00:48:03,249 --> 00:48:08,799
-using a very similar technique to the one
+その際に以前みた Java コンパイルの時に似たテクニックを用います。
 you saw used for Java compiling before.
 
 372
 00:48:08,799 --> 00:48:20,869
-So I basically used the .net process setup to invoke the .net
+基本的に .NET プロセスのセットアップを使用して、Unityに同梱されアセンブリにビルドインされた .NET コンパイラを実行します。
 compiler that was shipped with Unity, and built in assembly.
 
 373
@@ -1807,259 +1812,274 @@ asset by calling it "myassembly.bytes"
 
 374
 00:48:31,489 --> 00:48:36,489
-That extension makes Unity
+この拡張により Unity がテキストアセットとしてインポートして
 import it as a text asset
 
 375
 00:48:36,489 --> 00:48:44,259
-but it doesn't do an text encoding on it,
+テキストエンコードはしないため、重要なバイナリデータは失いません。
 so you don't lose any important binary data.
 
 376
 00:48:44,259 --> 00:48:48,229
-But it means I can include that
+つまりアセットをアセットバンドルに含めて
 asset in an asset bundle
 
 377
 00:48:49,289 --> 00:48:52,979
-and then access it as a text
+そしてテキストバンドルしてアクセスしてメモリにロードできます。
 bundle and load it into memory.
 
 378
 00:48:52,979 --> 00:48:59,979
+これはこのすぐ後にお見せします。
 And I can show you this in a minute.
 
 379
 00:49:04,129 --> 00:49:15,329
+バンドルマネージャに移動します。
 If we go to the bundle manager...
 
 380
 00:49:17,499 --> 00:49:21,429
-This is the bundle manager
+これは先ほど見たバンドルマネージャです
 we took a look at before
 
 381
 00:49:22,719 --> 00:49:25,350
-I have a core routine
+型をロードするためのコアルーチンがあり
 into load a type
 
 382
 00:49:25,350 --> 00:49:27,779
-which basically initially
+これは要するにバンドルを初期ロードします。
 loads the bundle.
 
 383
 00:49:29,189 --> 00:49:32,679
+そして利用可能になったとき
 And once it's available...
 
 384
 00:49:35,929 --> 00:49:45,829
-Once it's available, I access the main asset
+ここまで作成したアセンブリであるメインアセットにアクセスします。
 for this which is the assembly that I've built.
 
 385
 00:49:45,829 --> 00:49:49,359
-And that's a text asset,
+これはテキストアセットなのでキャストします。
 so I can cast it.
 
 386
 00:49:49,359 --> 00:49:53,629
+そして .bytes プロパティをアクセスすることで
 And accessing its .bytes property gives me
 
 387
 00:49:53,629 --> 00:50:00,489
-a bytes array which I can pass
+.NET アセンブリの .Load に渡すバイト配列を取得します。
 into the .net assembly. Load.
 
 388
 00:50:00,489 --> 00:50:08,999
-From within this, I can get
+この中から探している型を取得できます。
 the type that I'm looking for.
 
 389
 00:50:09,199 --> 00:50:12,409
-So if we look at the
+これを活用したコードをみていきます。
 code that uses this...
 
 390
 00:50:28,259 --> 00:50:33,319
-Here I ask the bundle
+ここではバンドルマネージャに
 manager to load
 
 391
 00:50:33,319 --> 00:50:38,440
-the type "NewBehaviorScript" from within
+NewBehaviorScript 型を BestScriptsEver のバンドルからロードします。
 the bundle called "BestScriptsEver."
 
 392
 00:50:38,440 --> 00:50:46,449
-And once it's done, I want this method
+完了した後、OnReceiveType メソッドが呼ばれるようにします。
 called "OnReceiveType" to be invoked.
 
 393
 00:50:46,449 --> 00:50:52,089
-This will pass me the string that I used to
+これにより型の検索に使用した文字列に加えて、型が渡されます。
 search for the type, plus the type itself.
 
 394
 00:50:52,089 --> 00:50:59,439
-Once I have that type reference, I can simply
+型参照を取得した後、現在のゲームオブジェクトのコンポーネントとして追加できます。
 add it as a component to my current game object.
 
 395
 00:50:59,439 --> 00:51:03,919
+その結果はここで見ることが出来ます。
 The result of which, you can see here.
 
 396
 00:51:03,919 --> 00:51:05,989
-You can see there's an
+ここに追加のスクリプトがあることが確認出来ます。
 additional script here
 
 397
 00:51:05,989 --> 00:51:10,130
-which Unity has no information on;
+Unity では追加の情報がありません。スクリプトの名前もなく、
 There's no script name or anything
 
 398
 00:51:10,130 --> 00:51:13,619
+その理由はランタイム時に
 because it's a component
 we have loaded at runtime.
 
 399
 00:51:14,949 --> 00:51:16,750
+これより興味深いことがあります。
 A bit more interesting than this.
 
 400
 00:51:16,750 --> 00:51:22,679
-If you check in the log, there are two log
+もしログをチェックすると、二つのログメッセージがあります：「We're in!」（中にいます）、
 messages here: One called "We're in!"
 
 401
 00:51:22,679 --> 00:51:26,449
+もう一つは "From a script bundle even." （スクリプト バンドル からです）
 and then one saying "From
 a script bundle even."
 
 402
 00:51:27,310 --> 00:51:38,609
-The way this is set up is, if we look at the
+これがセットアップされている方法により、私がコンパイルしたコンポーネントのコードをみると
 code for the component I've compiled in here
 
 403
 00:51:38,609 --> 00:51:42,319
-you can see I have to log
+メッセージのログを残す必要があり、それは見てきた二種類ですが
 messages, the two that we saw
 
 404
 00:51:42,319 --> 00:51:48,269
+一つはプリコンパイラ定義に含まれています。
 but one is within a pre-compiler define.
 
 405
 00:51:48,269 --> 00:51:53,259
-So this allows you to, once you
+これによって、バンドルを自動ビルドすると
 automatically build your bundle, you can
 
 406
 00:51:53,259 --> 00:51:58,249
-have logic separated between
+バンドルに含まれている、いない場合にあわせてロジックを組むこと出来ます。
 whether it's in a bundle or not.
 
 407
 00:51:58,249 --> 00:52:03,779
-Of course since you're just invoking the .net
+当然ながら .NET コンパイラを実行しているだけなので、追加のセットアップは様々な種類で行うことが出来ます。
 compiler, you can have all sorts of additional setup.
 
 408
 00:52:03,779 --> 00:52:14,259
-One I suggest is, for instance, include resources
+例えばひとつのお勧めの方法は、アセンブリの参照として同じフォルダからのリソースを含めることです。
 from the same folder as references on the assembly.
 
 409
 00:52:21,029 --> 00:52:23,180
+はい、それでは最後のまとめです。
 Okay, so just in summary.
 
 410
 00:52:23,180 --> 00:52:30,639
-This is, as I mentioned, a somewhat
+これは先ほど述べたように、昨年のセッションの実践編にあたります。
 practical counterpart from last year's talk
 
 411
 00:52:31,969 --> 00:52:34,470
-I hope this was
+本日の話が刺激になり、また役立つ内容であったことを期待します。
 inspirational and useful.
 
 412
 00:52:35,519 --> 00:52:42,679
-Of course, once the Asia tour is done, all this code
+当然ですが、アジアツアーが終わり次第、このコードおよびサンプルその他はすべて利用可能とする予定です。
 and examples and all that stuff will be available.
 
 413
 00:52:43,859 --> 00:52:50,379
-More than that, I hope that you'll go
+それに加えて、皆さんが帰られてからもご自身がすでにお持ちの
 home and think about how you can use
 
 414
 00:52:50,379 --> 00:52:56,779
-data you already have and code you already have for
+データをどのように利用できるかにより生産性やワークフローをどう最適化するか考えるきっかけとしていただけることを願います。
 different purposes to optimize productivity and workflow.
 
 415
 00:52:56,779 --> 00:53:05,739
-Just to reiterate, this is about reuse and
+繰り返しになりますが、これは再利用および再適用、ワークフローに関することです。
 re-application, and again, workflow.
 
 416
 00:53:05,739 --> 00:53:14,069
-That's the end of my talk. If anyone has any questions, I think I
+以上です。もしご質問ありましたら1-2分ほど時間ありますね。今なければ後でもいるので受け付けます。
 have like a minute or two. Otherwise, I'll be around for a while.
 
 417
 00:53:14,069 --> 00:53:21,069
-And if need be, I'm sure we can find
+そして必要ならば誰か通訳をしてくださるとおもいます。
 someone to help translate. Thank you.
 
 418
 00:53:30,809 --> 00:53:34,039
+それでは質問はいかがですか？
 Do we have time for questions?
 
 419
 00:53:34,039 --> 00:53:41,039
+質問をひとつぐらい受ける時間ありますね。
 We have one question.
 
 420
 00:53:41,619 --> 00:53:44,569
+あれ、質問はありませんか？
 No? Well that's easy!
 
 421
 00:53:44,569 --> 00:53:51,569
+はい、そこの方が挙手されてますね。
 Oh, there's one here.
 
 422
 00:53:53,289 --> 00:54:08,879
+（日本語で質問）
 [Speaking in Japanese]
 
 423
 00:54:08,879 --> 00:54:19,249
-Yes. Basically, I might make subtle modifications
+はい。アジアツアーを通してわずかに修正はかけていくかもしれません。
 to this as I go through on the Asia Tour.
 
 424
 00:54:19,249 --> 00:54:27,039
-And I think the plan is to release slides and examples at
+予定としてはスライドやサンプルをこのビデオセッションと同じタイミングでリリースすることです。
 the same time as we release the videos of the talks
 
 425
 00:54:27,969 --> 00:54:30,369
-but this project is
+プロジェクトはすでに GitHubにアップされてます。
 already on GitHub
 
 426
 00:54:30,370 --> 00:54:36,269
-I'm just waiting for videos to be available, and
+ビデオセッションが利用可能になれば、リポジトリをオンラインまたは公開設定にする予定です。
 then I flip that repository online or public.
 
 427
 00:54:36,769 --> 00:54:43,769
-So yes, everything you see
+なので最終的に、見ていただいた全てを公開予定です。
 here will be made available.
 
 428
@@ -2068,4 +2088,5 @@ here will be made available.
 
 429
 00:54:48,029 --> 00:54:49,510
+ご拝聴いただきまして有難う御座いました。
 Okay, thank you for coming
