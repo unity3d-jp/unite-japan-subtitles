@@ -1,2125 +1,1716 @@
 1
 00:10:42,680 --> 00:10:43,679
 ようこそ、こんにちは！
-XXX
 
 2
 00:10:43,679 --> 00:10:47,870
 デンマークの言葉では "Goddag og velkommen"
-XXX
 
 3
 00:10:47,870 --> 00:10:51,790
 セッションのタイトルは Unity Hacks です。
-The title of the
 
 4
 00:10:51,790 --> 00:10:55,630
 自己紹介から始めましょう。
-by introducing myself.
 
 5
 00:10:55,630 --> 00:10:57,529
 私の名前は Emil Johansen です。
-My name is Emil Johansen
 
 6
 00:10:57,529 --> 00:11:02,320
 オンライン上では普段 AngryAnt のニックネームを使ってます。
-nickname of AngryAnt online.
 
 7
 00:11:02,320 --> 00:11:04,900
 私の写真です。
-That's a photo of me
 
 8
 00:11:04,900 --> 00:11:11,149
 私は Unity に勤めるゲーム開発者であり、仕事は様々な開発チームと一緒に作業をして
-with the different developer teams to ensure that
 
 9
 00:11:11,149 --> 00:11:17,199
 Unity の様々な異なる機能が正しく連動することを保証して、そのうえで内部でのデモ作成をします。
-together, and I do internal demo work.
 
 10
 00:11:17,199 --> 00:11:22,070
 作業のいくらかは標準アセットに組み込まれたり、というようなものです。
-assets and that sort of thing.
 
 11
 00:11:22,070 --> 00:11:25,640
 さらに AI は専門分野です。
-And I specialize in AI as well.
 
 12
 00:11:25,640 --> 00:11:28,440
 Unity には 4 年間勤めて来ました。
-I've been at Unity for four years.
 
 13
 00:11:28,440 --> 00:11:34,100
 また過去 5 年間 Unity 製品に取り組んでいます。
-worked with Unity the product.
 
 14
 00:11:34,100 --> 00:11:42,490
 その前は Unreal エンジン 3、CryEngine 1、さらに Renderware に関わってました。
-Engine 3, CryEngine 1, and Renderware
 
 15
 00:11:43,230 --> 00:11:46,260
 デンマークのコペンハーゲンに住んでます。
-I live in Copenhagen, Denmark.
 
 16
 00:11:46,260 --> 00:11:53,060
 暇な時間をみつけては Path および Behave など追加的な プロジェクトを作成しています。
-additional projects such as Path and Behave.
 
 17
 00:11:53,060 --> 00:11:58,740
 これらは Unity の AI ミドルウェアです。
-solutions for Unity.
 
 18
 00:11:58,740 --> 00:12:01,179
 今回は二度目のアジアツアーです。
-This is my second time around on the Asia Tour.
 
 19
 00:12:02,120 --> 00:12:09,380
 昨年は「高速ネットワークおよび AI 対応したゲーム開発」のトピックでセッションをしました。
-Network and AI-Ready Game Development."
 
 20
 00:12:09,380 --> 00:12:12,100
 トピックの名前が長いタイトルですみませんが、
-I'm sorry about that, but
 
 21
 00:12:12,100 --> 00:12:14,740
 正直短い名前が思いつきませんでした。
-I couldn't come up with a shorter one.
 
 22
 00:12:15,540 --> 00:12:23,660
 今回は昨年のセッションの実用編のようなものです。
-counterpart of that talk from last year.
 
 23
 00:12:24,660 --> 00:12:26,480
 私のウェブサイトは AngryAnt.com です。
-My website is AngryAnt.com.
 
 24
 00:12:26,480 --> 00:12:32,770
 コードスニペット、サンプル、プロジェクト、および
-And I gather some of my code snippets, examples, projects and
 
 25
 00:12:32,770 --> 00:12:39,160
 ビデオを収集すること、例えば昨年セッションの取りまとめにも取り組んでます。
-videos such as the recording of last year's talk.
 
 26
 00:12:39,160 --> 00:12:41,380
 私の娘のリリーです。
-This is my daughter, Lily.
 
 27
 00:12:41,380 --> 00:12:45,810
 本日は少し違う眼鏡をつけてます。
-different set of glasses.
 
 28
 00:12:45,810 --> 00:12:52,950
 ファッションの意味合いではなく、私の 2 月の誕生日に娘にバラバラにされてしまったからです。
-in February, she chose to tear the old pair apart.
 
 29
 00:12:52,950 --> 00:12:56,380
 まったく小悪魔ってやつですね。
-So she's a feisty little devil.
 
 30
 00:12:58,370 --> 00:13:02,530
 こんな可愛い子を責められないですよね。
-her with those looks.
 
 31
 00:13:03,519 --> 00:13:08,270
 そろそろセッションの内容に入りましょうか。
-Let's jump onto the contents of this talk.
 
 32
 00:13:09,790 --> 00:13:14,670
 本日の他のセッション内容と違って、
-Unlike some of the other talks today, I've tried to
 
 33
 00:13:14,670 --> 00:13:19,095
 遊び要素を取り入れてみようと考えてみました。
-fun playful kind of thing.
 
 34
 00:13:19,096 --> 00:13:23,540
 願わくば、いくつかのサンプルをあなた自身が
-examples I'm going to show here
 
 35
 00:13:23,540 --> 00:13:28,120
 後でそのまま利用できると良いですね。
-and if not use them directly.
 
 36
 00:13:29,560 --> 00:13:32,640
 その目的で設計していますが、さらに
-I really hope that you can
 
 37
 00:13:32,640 --> 00:13:36,430
 いくつかのアイデアやアプローチを使って、刺激を受けて
-and hopefully be inspired by that
 
 38
 00:13:36,430 --> 00:13:41,410
 自身の Unity Hack を作成してほしいものです。
-to create your own Unity hacks.
 
 39
 00:13:42,130 --> 00:13:46,510
 今日のテーマは、「ミッション名：そのままリリースに活用しよう」です。
-Mission: Let's Just Ship This Thing.
 
 40
 00:13:46,510 --> 00:13:52,120
 そこが昨年セッションとつながるところです。
 with last year's talk as well.
-
 41
 00:13:53,680 --> 00:14:00,380
 必要なワークロードを最小化するために賢く作業する、という要素がひとつあります。
 needed workload by working smart.
-
 42
 00:14:01,430 --> 00:14:07,660
 そのためには、データ、コードを再利用すべき、という面があり本日はそのデモをいくつか取り上げます。
 I'll go in and demonstrate in a few ways.
-
 43
 00:14:10,270 --> 00:14:13,740
 もう一つの側面は 反復作業時間を短縮するために
 And another part is shaving iteration
-time as closely as possible
 
 44
 00:14:13,740 --> 00:14:16,650
 作業ワークフローを管理することです。
-by managing your workflow.
 
 45
 00:14:18,400 --> 00:14:20,170
 これも後で取り上げます。
-We'll also get into that.
 
 46
 00:14:23,070 --> 00:14:28,350
 反復時間を短縮するため、ワークフローを調整して
-that means adapting your workflow
 
 47
 00:14:28,950 --> 00:14:33,300
 関連するフィードバックデータを出来るかぎり速く取得して
-data as quickly as possible
 
 48
 00:14:34,690 --> 00:14:40,320
 必要なマニュアル作業を短縮することです。
-of manual work required.
 
 49
 00:14:41,680 --> 00:14:46,700
 全般には、「十分である」というテーマの話を通して
-a theme of "Good Enough" can ship
 
 50
 00:14:47,980 --> 00:14:52,130
 高速ゲーム開発にとって重要かを見ていきます。
-game development.
 
 51
 00:14:58,120 --> 00:15:02,870
 このコンテンツを取り上げるにあたり
-presenting this content is
 
 52
 00:15:02,870 --> 00:15:06,930
 大量の優れた Hack およびコードをお見せして
-of cool hacks and code
 
 53
 00:15:06,930 --> 00:15:09,910
 データ再利用や
-of examples of data reuse
 
 54
 00:15:09,910 --> 00:15:12,010
 エディタ スクリプティングの良い事例を沢山見ていきます。
-and a lot of editor scripting.
 
 55
 00:15:20,130 --> 00:15:25,400
 ランタイムのサンプルをみて始めましょうか。
-some examples from the runtime.
 
 56
 00:15:25,400 --> 00:15:29,960
 最初はアニメーションカーブのテーマについて触れます。
-the subject of animation curves.
 
 57
 00:15:31,140 --> 00:15:36,700
 最初のサンプルはキャラクターの方向スピード（Directional Speed）です。
-directional speed of character.
 
 58
 00:15:36,700 --> 00:15:43,400
 多くのゲームではヒューマノイド キャラクターまたはアバターを動かす必要があります。
-character or some avatar you need to move around.
 
 59
 00:15:43,401 --> 00:15:48,130
 このアバターには Facing と Heading を持ちます。
-facing and a heading.
 
 60
 00:15:48,130 --> 00:15:52,970
 デフォルトでは Facing と Heading が等しいとき、
-to heading, you'll want to
 
 61
 00:15:52,970 --> 00:15:57,530
 キャラクターはトップスピードで移動します。
-move that character by the top speed.
 
 62
 00:15:57,530 --> 00:16:07,870
 ある角度にあるとき、最初の 20 度かそこらまでは角度や速度を保ちます。
-twenty degrees or so, keep this angle or this constant speed.
 
 63
 00:16:07,870 --> 00:16:10,870
 一方で横に移動したり
-moving more sideways
 
 64
 00:16:10,870 --> 00:16:18,740
 後ろ方向に動く時、ベース速度（Base Speed）に重みづけします。
-you want to weight the base speed.
 
 65
 00:16:18,740 --> 00:16:22,290
 当然、これは反対方向もミラーされます。
-works mirrored as well.
 
 66
 00:16:23,490 --> 00:16:27,460
 アニメーションカーブにおいて、お勧めする方法のひとつは
-this with animation curves
 
 67
 00:16:27,460 --> 00:16:33,910
 角度を分割、または拡大縮小して Facing の中の Heading を、
-is to divide the angle, or basically scale the
-angle between the heading in the facing
 
 68
 00:16:33,910 --> 00:16:37,740
 ゼロと 180 度の間で調整し
-between 0 and 180 degrees
 
 69
 00:16:37,740 --> 00:16:40,050
 正規化することです。
-and normalize that.
 
 70
 00:16:40,050 --> 00:16:47,530
 これによりアニメーションカーブを定義して、カーブの高さを使用して
-where you can use the height of the curve to
 
 71
 00:16:47,530 --> 00:16:50,620
 スピードの大きさを定義できます。
-define the scale of the speed.
 
 72
 00:16:53,420 --> 00:16:58,750
 このサンプルでは、さきほどデモをしたカーブをお見せして
-the curve that I demonstrated earlier
 
 73
 00:16:58,750 --> 00:17:07,319
 ゼロに近づくにつれて、カーブが前に進んで、スピードは 1 のままです。
-to zero - moving forward, the speed remains 1.
 
 74
 00:17:07,319 --> 00:17:16,190
 1 または 180 度に向かうにつれて速度は半分に落ちます。
-degrees, we go down to half-speed.
 
 75
 00:17:16,190 --> 00:17:20,509
 実際の環境で見てみます。
-Showing this in a real environment.
 
 76
 00:17:21,370 --> 00:17:24,829
 前に進むと、スピードが速いことが分かります。
-I have quite a lot of speed.
 
 77
 00:17:24,829 --> 00:17:28,210
 スピードのインジケータが右上隅に表示されてます。
-in the upper-right corner.
 
 78
 00:17:28,210 --> 00:17:31,590
 動き回るにつれて
-But as I move around, I get
 
 79
 00:17:31,590 --> 00:17:44,820
 Heading に対して Facing がどう動くかにもとづいてスピードが異なります。
-moves around compared to the facing.
 
 80
 00:17:44,820 --> 00:17:46,960
 スクリプトをみてみます。
-So, looking at a script.
 
 81
 00:17:46,960 --> 00:17:49,370
 使用しているスクリプトは比較的簡単なものです。
-The script I'm using for this is fairly simple.
 
 82
 00:17:49,370 --> 00:17:53,350
 実際には、もっともスペースをとるのは
-up the most space is just
 
 83
 00:17:53,350 --> 00:17:59,410
 入力をとって、方向ベクトルを構成するところです。
-that into a directional vector.
 
 84
 00:17:59,410 --> 00:18:01,960
 このため、これは入力軸を取得するのみです。
-the input axis.
 
 85
 00:18:02,980 --> 00:18:08,890
 そして各々の Update の中で、この例では Transform の Translate を行なって
-Then in each update, I just, for this
-example, translate the transform
 
 86
 00:18:08,890 --> 00:18:12,730
 Directional ベクトルおよび
-where I translate it by
 
 87
 00:18:13,820 --> 00:18:16,920
 デフォルト スピード（今回は 5）により Translate します。
-the default speed, which is at 5.
 
 88
 00:18:18,489 --> 00:18:22,760
 Update であるため、 Time.DeltaTime によりスケールが行なわれます。
-it's scaled by Time. DeltaTime.
 
 89
 00:18:22,760 --> 00:18:32,860
 面白いところは Transform の Forward ベクトルと 方向ベクトル(Direction)のなす角度をとって
-the forward vector of the transform and my direction
 
 90
 00:18:32,860 --> 00:18:37,029
 180で割ることにより正規化することです。
-thus normalizing it.
 
 91
 00:18:37,029 --> 00:18:42,700
 次に Speed Scale という名前の アニメーションカーブを評価(Evaluate)します。
-curve called Speed Scale
 
 92
 00:18:42,700 --> 00:18:50,430
 これは public にしているため、エディタで適切に表示されるよう定義できます。
-exactly how it needs to look in the editor.
 
 93
 00:18:50,430 --> 00:19:03,020
 Evaluate 関数をコールすることで任意の Time Index におけるカーブの高さが取得できます。
-of the curve at my given time index.
 
 94
 00:19:07,570 --> 00:19:15,060
 アニメーションカーブのもうひとつの例はカメラの Blending および Clamping で使用することです。
-using it for camera blending and clamping.
 
 95
 00:19:15,060 --> 00:19:21,789
 同じセットアップにおいて、Heading または Facing のあるキャラクターと、
-with heading or a facing
 
 96
 00:19:21,789 --> 00:19:25,780
 キャクラターの上部を写すカメラがあり、
-top of the character
 
 97
 00:19:25,780 --> 00:19:29,789
 通常はキャラクターの頭部の少し上を写しています。
-the head of the character.
 
 98
 00:19:29,789 --> 00:19:35,200
 比較的良くあるセットアップはカメラの動作を Clamp して
-to clamp the movement of the camera
 
 99
 00:19:35,200 --> 00:19:38,570
 上限および下限の角度で
-and a lower angle
 
 100
 00:19:38,570 --> 00:19:47,920
 またはその逆で制限します。または基本的に、キャラクター後ろの Facing ベクトル にします。
-the backwards facing vector of the character.
 
 101
 00:19:47,920 --> 00:19:56,500
-And you commonly also have a bit of logic to handle
-clipping of objects, so you move the camera closer.
+通常はオブジェクトのクリッピングをハンドリングするロジックがかなりあるため、カメラを近くに移動します。
 
 102
 00:20:02,429 --> 00:20:07,399
-In this case I'm not using an
-animation curve between 0 and 1
+このケースでは 0 と 1 の間でないアニメーションカーブを使用していて、
 
 103
 00:20:07,399 --> 00:20:09,910
-because I want additional data.
+それは追加のデータがほしいためです。
 
 104
 00:20:09,910 --> 00:20:12,360
-I actually want two
-data points out of this
+二つのデータポイントがほしいところです。
 
 105
 00:20:12,360 --> 00:20:17,160
-I want to know what the lower
-and upper maximum is
+下限と上限が何かを知りたいとともに
 
 106
 00:20:17,160 --> 00:20:22,850
-as well as I want to know what the
-update speed of the camera should be.
+カメラの Update 速度が何であるかも知りたいところです。
 
 107
 00:20:22,850 --> 00:20:27,170
-So I'm using the time index of the
-animation curve to define the
+このためアニメーション カーブの Time Index を使用して
 
 108
 00:20:27,170 --> 00:20:30,140
-upper and lower bounds in degrees.
+角度単位で上限と下限を定義します。
 
 109
 00:20:30,140 --> 00:20:33,799
-So this basically says that
-it can go 20 degrees below
+これは要するに 20 度ほど
 
 110
 00:20:33,799 --> 00:20:39,390
-the backwards facing vector,
-and 30 degrees above.
+後ろ向きのベクトルに対して下回ることが出来て、逆に 30 度ほど上回ることが出来ます。
 
 111
 00:20:39,390 --> 00:20:46,669
-And then I use the height to specify how
-quickly it can move toward these extremes.
+次に Height を使用して、これらの限界値に向かって移動できる速度を指定します。
 
 112
 00:20:46,669 --> 00:20:56,080
-The effect of this is that as we are above medium,
-and continue to move forward or upward
+中間より上であるときに、正面または上に向かって移動するとき
 
 113
 00:20:56,080 --> 00:20:59,390
-the camera will update
-slower and slower.
+カメラは徐々に遅く Update する効果が得られます。
 
 114
 00:20:59,390 --> 00:21:03,500
-So instead of getting a hard
-clamp, we get a nice soft
+ハードの Clamp となる代わりに、
 
 115
 00:21:03,500 --> 00:21:06,610
-lead into that clamping
+ソフトに Clamp するようになり、
 
 116
 00:21:06,610 --> 00:21:10,030
-and the same in reverse.
+逆もまた同様です。
 
 117
 00:21:10,030 --> 00:21:13,860
-So if we look at the same example,
-and I move the camera up
+このため、同じサンプルをみながらカメラを上に移動すると
 
 118
 00:21:13,860 --> 00:21:15,980
-I keep a constant speed of the cursor.
+カーソルの速度は一定になります。
 
 119
 00:21:15,980 --> 00:21:18,059
-But even so
+しかし、そうであっても
 
 120
 00:21:18,059 --> 00:21:21,830
-it moves slowly in the end.
+最後は徐々に遅く移動します。
 
 121
 00:21:23,309 --> 00:21:25,950
-Taking a look at the code for this
+このコードをみてみると
 
 122
 00:21:25,950 --> 00:21:31,120
-this is slight more complex, so I'm
-going to just focus on a few key points.
+これはより複雑であるため、いくつかの重要な点のみにフォーカスします。
 
 123
 00:21:31,120 --> 00:21:36,260
-Initially, I define my animation
-curve called "VerticalSpan"
+初めに、アニメーション カーブの名前は "VerticalSpan" として
 
 124
 00:21:36,260 --> 00:21:41,110
-where I set the default values to
-start from the keyframe, minus 20
+デフォルト値が -20 のキーフレームから開始して、
 
 125
 00:21:41,110 --> 00:21:44,180
-and end on the keyframe, 30.
+30 のキーフレームで終了します。
 
 126
 00:21:45,140 --> 00:21:50,880
-And initially I just set it to have a start and
-end value of 1, so this is just a flat curve.
+そして初めは開始、終了の値を 1 にセットするため、これはただのフラットなカーブです。
 
 127
 00:21:51,850 --> 00:22:02,840
-I then use the editor to go in and add this
-scale on either end to get that bell shape.
+次にエディタを使用して、スケールをどちらかの端に追加して、釣鐘の形状を得ます。
 
 128
 00:22:02,840 --> 00:22:11,740
-Then I have a few simple properties for figuring out a
-normalized position on the arc that the camera can move on.
+次にいくつかの簡単なプロパティがあり、カメラが移動するための曲線の正規化された位置を求めます。
 
 129
 00:22:11,740 --> 00:22:15,350
-And finally, when I update my camera,
+そして最後に、カメラを Update するとき
 
 130
 00:22:15,350 --> 00:22:21,970
-I have a "targetHorizontalRotation"
-which an input scripts provides for me.
+"targetHorizontalRotation" があり、インプット スクリプトにより提供されます。
 
 131
 00:22:21,970 --> 00:22:30,350
-I then initially figure out the speed at which should
-update this camera position or camera rotation.
+初めにカメラ位置またはカメラの回転を Update するスピードを決定します。
 
 132
 00:22:31,440 --> 00:22:35,149
-If the vertical position
-is above half,
+もし垂直位置が真ん中より上にあり、
 
 133
 00:22:35,149 --> 00:22:38,309
-and we're continuing up,
+上方向に向かっている場合
 
 134
 00:22:38,309 --> 00:22:44,860
-then I take my update speed and scale
-it by the evaluated vertical span
+Updatｴ 速度を使って、評価された垂直 Span により拡大するために
 
 135
 00:22:44,860 --> 00:22:53,280
-using the angle as the index, because
-remember we used angles for the X-axis.
+Index を角度としますが、これは X 軸に角度を使用していたためです。
 
 136
 00:22:54,760 --> 00:22:58,210
-If we are up, but we're not
-continuing further up
+もし真ん中より上にあるが、上方向に向かっていない場合、
 
 137
 00:22:58,210 --> 00:23:04,560
-this logic will not get executed, so therefore
-we will just keep the regular update speed.
+このロジックは実行されず、そのため通常の Update スピードが保持されます。
 
 138
 00:23:04,560 --> 00:23:10,539
-And the same is valid for the reverse.
+これは反対についても同じことが言えます。
 
 139
 00:23:10,539 --> 00:23:13,090
-So then I update my rotation.
+このため次に Rotation を Update します。
 
 140
 00:23:13,090 --> 00:23:19,515
-And I apply the second step of checking
-if my angle goes beyond either extreme.
+そして二つめのステップを適用して、角度がどちらかの限界値を超えるかチェックします。
 
 141
 00:23:19,516 --> 00:23:25,340
-So I clamp it and that's it.
+これで Clamp して、それで完了です。
 
 142
 00:23:33,880 --> 00:23:35,640
-So just to recap.
+それでは、整理してみます。
 
 143
 00:23:35,640 --> 00:23:41,680
-Animation curves are basically
-just a number of curved 2D values.
+アニメーション カーブは基本的に複数の 2D の値です。
 
 144
 00:23:41,680 --> 00:23:46,959
-So while they are most useful for, and
-initially designed for animation
+このため、アニメーションの場合にもっとも便利、かつ初めにそのために設計されていて、
 
 145
 00:23:46,959 --> 00:23:50,440
-and these two examples were
-probably quite animation related
+さらに、この二つのサンプルはかなりアニメーションに関連しているため
 
 146
 00:23:50,440 --> 00:23:53,040
-you can basically use them
-for just about anything.
+ほとんど何にもでも応用して使用できます。
 
 147
 00:23:53,040 --> 00:23:58,660
-Since you can just sample the data at
-any point; it's just simple 2D data.
+どの地点でもデータをサンプリングできるため、どこでも単純な 2D データです。
 
 148
 00:23:58,660 --> 00:24:04,240
-One example, I saw a guy on Twitter
-recently who had used it to
+ひとつの例として、最近 Twitter でみかけた使用例が
 
 149
 00:24:04,240 --> 00:24:13,610
-he used an animation curve to define the difficulty level
-of his different scenes, which is a very nice use case.
+アニメーションカーブを使用して複数のシーンの難易度を定義して、これは良い例です。
 
 150
 00:24:13,610 --> 00:24:16,340
-So anything from game logic to AI
+ゲームロジックから AI まで
 
 151
 00:24:16,340 --> 00:24:21,620
-whatever you can come up with,
-we need a set of 2D values.
+どんな想定ケースであっても、2D の値が必要です。
 
 152
 00:24:21,620 --> 00:24:26,299
-Especially because the curves are
-visually editable in the editor, so
+特にカーブはエディタにより視覚的に編集できるため
 
 153
 00:24:26,299 --> 00:24:31,980
-you can, very easily, instead of
-spending a lot of time iterating over
+非常に簡単に、逆に時間をかけて何度も
 
 154
 00:24:31,980 --> 00:24:39,240
-some magical numbers, or a certain bit of
-code that does something programmatically
+数字を試すことなく、あるいは何かプログラム作成もすることなく
 
 155
 00:24:39,240 --> 00:24:42,420
-you can basically just
-go, "Here's a curve,"
+基本的には「今回のカーブはこれ」
 
 156
 00:24:42,420 --> 00:24:45,980
-and send it to your
-game designer or artist
+としてゲームデザイナまたはアーティストにそれを渡して
 
 157
 00:24:45,980 --> 00:24:51,770
-and go, "Okay, so you go ahead and tweak this."
-And they can do this in play mode.
+「あとは好きに調整してくれ」といって、彼らは再生モードで作業することが出来ます。
 
 158
 00:24:51,770 --> 00:24:56,230
-It's a very nice way to reduce iteration time
+これにより反復時間を効果的に削減できて
 
 159
 00:24:56,230 --> 00:25:00,830
-and offset a task that really should
-belong to the game designer or an artist
+ゲームデザイナまたはアーティストがやるべきタスクを
 
 160
 00:25:00,830 --> 00:25:08,409
-offset that away from the programmer who
-would otherwise become a bottleneck.
+任せて、そうしなかった場合にプログラマがボトルネックになることを避けます。
 
 161
 00:25:13,320 --> 00:25:18,320
-Additionally, it's a visual thing, so it's
-easy to debug and understand what's going on.
+さらに、視覚的に作業できるため、デバッグも用意になり何が起こっているか正しく把握できます。
 
 162
 00:25:19,190 --> 00:25:23,340
-For one example, I used
-an animation curve
+ひとつのサンプルとして、アニメーション カーブを使用して
 
 163
 00:25:23,340 --> 00:25:26,970
-not as the source of the data,
-but as a visual tool
+データソースとしてでなく、視覚的なツールとして使用できるので、
 
 164
 00:25:26,970 --> 00:25:36,929
-because I had some programmatic animation going on, and
-I didn't quite understand why it behaved the way it did.
+実際のケースではプログラムによるアニメーションを準備していたが、動作に不明なところがあって、なぜそうなったのかも分かりませんでした。
 
 165
 00:25:36,929 --> 00:25:41,890
-So my solution for it was to, at
-runtime, create an animation curve
+自分の解決策は、実行時にアニメーションカーブを作成して
 
 166
 00:25:41,890 --> 00:25:46,390
-and every frame, or every
-N-number frames
+そして毎フレーム、または N 番目のフレームごとに
 
 167
 00:25:46,390 --> 00:25:50,770
-insert an animation key,
-key framing it
+アニメーション キーを挿入して、キーフレームを打ち
 
 168
 00:25:50,770 --> 00:25:56,450
-so I could visually see what was going on,
-and that helped me to very quickly
+視覚的に何が行なわれているか理解できるようにしたが、それにより素早く
 
 169
 00:25:56,450 --> 00:26:04,760
-go in and change that bit of
-logic that was misbehaving.
+作業を進めることが出来て、間違っていたロジックを変更できました。
 
 170
 00:26:11,680 --> 00:26:15,300
-Moving onto data reuse
+データの再利用のトピックに移ります。
 
 171
 00:26:15,300 --> 00:26:20,220
-in this example going to talk
-a bit about a stealth system.
+この事例ではステルスの仕組みについて話します。
 
 172
 00:26:20,990 --> 00:26:25,370
-So, in many games where you have a dark environment
+多くのゲームでは暗い場面があります。
 
 173
 00:26:25,370 --> 00:26:30,110
-it's common that you have some sort of sneak mechanic where
+良くあるのは何らか忍び寄るようなメカニックが準備されていて
 
 174
 00:26:30,110 --> 00:26:36,740
-the level of lighting you're in determines
-how well an enemy character can see you.
+ライティングのレベルにより、敵キャラクターが自分をどの程度見れるかを決定しています。
 
 175
 00:26:37,880 --> 00:26:41,639
-And the way this is usually done is
-by setting up these trigger volumes
+通常、これを実装するにはトリガーの大きさをセットアップして
 
 176
 00:26:43,020 --> 00:26:48,330
-for determining that at this point you're in
-shadow, but at this point you're not.
+この地点までは暗所に隠れていて、この地点からは見えている、という分岐点を作ります。
 
 177
 00:26:48,330 --> 00:26:53,760
-This has several problems because
-these basically give you two
+これにはいくつかの問題があり、その理由は二つの
 
 178
 00:26:53,760 --> 00:26:57,649
-pieces of data to update every time
-you make a change to your level.
+データをレベル変更時の都度、毎回更新する必要があるためです。
 
 179
 00:26:57,649 --> 00:27:02,910
-Not only do you have to change your
-lighting, but also these logical triggers.
+ライティングを変更する必要があるのみならず、論理的なトリガーも全て変更する必要が出てきます。
 
 180
 00:27:02,910 --> 00:27:09,450
-It also gives a fairly bad
-user experience because when
+ユーザ体験が悪化することがあるケースというのは
 
 181
 00:27:09,450 --> 00:27:15,350
-the character is in this position, he's in
-light, but when he's there, he's in dark
+キャラクターがこの位置にあるときで、ライトが当たるところにいるはずなのに暗くなります。
 
 182
 00:27:15,350 --> 00:27:21,690
-which is quite jarring
-and strange for the user.
+不調和であり、ユーザにとって違和感が出ます。
 
 183
 00:27:21,690 --> 00:27:30,110
-Actually many games ship with having an out of
-sync update where they update the lighting
+実際には多くのゲームには同期がとれてないケースがあり、ライティングを更新して
 
 184
 00:27:30,110 --> 00:27:35,779
-and they forget, in their rush to to finish the
-game, they forget to update the logic triggers
+忘れてしまうことがあり、その原因はゲームの完成を急いだあまりのロジックのトリガーを更新忘れで、
 
 185
 00:27:35,779 --> 00:27:40,670
-and then all of a sudden you
-have a lot of very angry users.
+そして突如として多くのユーザの怒りを買うことになるのです。
 
 186
 00:27:46,810 --> 00:27:51,500
-So what I've done in this case is
-instead of this direct break
+このため対応策として、直接的に壊れることを避けて
 
 187
 00:27:51,500 --> 00:27:56,950
-I have a sliding scale for how
-much in shadow the character is.
+キャラクターがどの程度シャドウの中にいるかスライダーによるスケールを作成しました。
 
 188
 00:27:58,670 --> 00:28:03,000
-Which I'm gonna show you how I do here.
+実際にここで実演してみます。
 
 189
 00:28:28,789 --> 00:28:33,049
-The way this works is basically in Unity 3.5, I believe
+これは Unity 3.5 上で追加をした
 
 190
 00:28:33,049 --> 00:28:36,190
-we added the system of light probes.
+ライトプローブのシステムにより動作します。
 
 191
 00:28:36,190 --> 00:28:47,660
-Initially, this system was added in order to give you
-something that seems like realtime lighting using baked data.
+初めにこのシステムが追加された理由は焼き込みされたデータによりリアルタイムのライティングを再現するためです。
 
 192
 00:28:47,660 --> 00:28:56,570
-So you get them the nice realtime lighting feel using
-baked global illumination without the runtime overhead.
+焼き込みされた大域照明を使用してリアルタイムのライティングの優れた見映えを実行時のオーバーヘッドなしに得ることができます。
 
 193
 00:28:56,570 --> 00:29:04,800
-So what I do here is basically use the same system
-to get just the basic lighting information out.
+要するに、ここでは基本的なライティング情報の出力を同じシステムにより得ることです。
 
 194
 00:29:04,800 --> 00:29:10,010
-Since we have full global illumination
-here, I have all sorts of
+ここではフルに大域照明があるため、
 
 195
 00:29:10,010 --> 00:29:13,990
-directional values as well, but I found
-that for this use case, actually just
+様々な方向性の値がありますが、実際に使う上では
 
 196
 00:29:13,990 --> 00:29:19,200
-getting the common
-lighting is sufficient
+共通のライティングを取得するだけで十分と分かりました。
 
 197
 00:29:19,200 --> 00:29:26,240
-I then take some numbers which are
-fitted to this particular level.
+次に、この特定のレベルにあわせた数字を当てはめます。
 
 198
 00:29:26,240 --> 00:29:32,119
-So in this example, these are constant values, but
-they should probably, in an actual use case, be
+例えばこのサンプルでは定数値ですが、実際に使用する上では、
 
 199
 00:29:32,119 --> 00:29:36,850
-per-level defined because each level's
-lighting is a bit different, and
+各々のレベルのライティングはかなり異なるため、レベルごとに定義すべきであり、
 
 200
 00:29:36,850 --> 00:29:40,610
-the idea of what is shadow
-and not is different.
+何がシャドウであるかどうかもレベルにより異なるはずです。
 
 201
 00:29:40,610 --> 00:29:48,090
-But I basically just scale the lighting between
-these two values and normalize it.
+要するに、二つの値の間でライティングをスケールさせたうえで正規化します。
 
 202
 00:29:48,090 --> 00:29:56,990
-And that gives me a nice normalized value
-of whether you're in shadow or not.
+これによりシャドウの中にいるかどうかの、ピッタリの正規化された値が出来上がります。
 
 203
 00:30:02,340 --> 00:30:06,670
-So just to summarize, we are
-reusing existing data here
+整理すると、既存のデータを再利用していて
 
 204
 00:30:06,670 --> 00:30:08,649
-which means there's
-no duplicated effort.
+作業を繰り返す必要がありません。
 
 205
 00:30:08,649 --> 00:30:13,560
-You change your lighting,
-you rebake, and that's it.
+ライティングを変更して、再度焼き込みをして、それで完了です。
 
 206
 00:30:13,560 --> 00:30:20,279
-It also means that what the user sees is
-what he actually gets in terms of game logic.
+さらにユーザが実際にみるものはゲームロジックの視点でみるべきものと一致することになります。
 
 207
 00:30:20,279 --> 00:30:23,230
-So there's no disconnect for the user.
+ユーザにとって違和感がありません。
 
 208
 00:30:23,230 --> 00:30:28,480
-And it's high quality data unlike the the
-simple trigger volumes, you can have
+シンプルなトリガーのボリュームと異なって高画質のデータなので
 
 209
 00:30:28,480 --> 00:30:31,139
-much more varied
-gameplay where maybe
+よりバリエーションのあるゲームプレイにより
 
 210
 00:30:31,139 --> 00:30:37,430
-the AI has been implemented so it kind of almost
-sees the character and goes closer to investigate
+AI がすでに実装されていて、キャラクターがほとんど見える状態になり、より近くなり探検をして
 
 211
 00:30:37,430 --> 00:30:40,740
-and then you can maybe
-move further into shadow.
+さらに陰の方に移動できます。
 
 212
 00:30:42,250 --> 00:30:44,050
-And it's very intuitive to maintain.
+さらに直感的に維持することが出来ます。
 
 213
 00:30:44,050 --> 00:30:48,090
-You change the light, you hit bake, you're done.
+ライトを変更して、Bake ボタンを押すだけで作業は完了です。
 
 214
 00:30:49,020 --> 00:30:53,330
-Finally, there's no runtime overhead for this.
-This is using a system that's already there
+最後に、これにはランタイムのオーバーヘッドがありません。これはすでに存在するシステムを使用していて
 
 215
 00:30:53,331 --> 00:30:56,940
-it's simply sampling between
-some values and interpolating
+いくつかの値の間で補間してサンプリングにより実現されていて
 
 216
 00:30:57,240 --> 00:31:01,700
-so it's extremely low-cost.
+このため非常に低コストです。
 
 217
 00:31:08,190 --> 00:31:14,070
-I'm gonna show you a small
-example of a menu set up here.
+すでにセットアップされたメニューの簡単な例をご紹介します。
 
 218
 00:31:14,070 --> 00:31:16,519
-So this is just a quick example menu
+これは簡単なサンプルメニューで
 
 219
 00:31:16,519 --> 00:31:21,700
-with a main menu and some level
-setup, settings, and so forth.
+メインメニューがあり、レベル、Settings などが設定されています。
 
 220
 00:31:22,639 --> 00:31:28,890
-It's not really exciting, but if we look at the
-code, things start getting a bit more interesting.
+特に面白みはありませんが、コードみてみると興味深いところが見えてきます。
 
 221
 00:31:28,890 --> 00:31:32,899
-So the idea here is that
-once the script starts up
+ここで大事なことはスクリプトが
 
 222
 00:31:32,899 --> 00:31:41,959
-based on my "State enum" definition, I create
-a dictionary indexed by this "State enum"
+State enum 定義にもとづいて開始した後は、State enum によりインデックス化したディクショナリを作成し
 
 223
 00:31:41,959 --> 00:31:45,590
-pointing to action delicate handlers.
+アクション デリゲートのハンドラを参照させます。
 
 224
 00:31:45,590 --> 00:31:54,460
-So way this is built is basically that I used reflection
-to find any function that matches the prefix "on"
+これを作成した方法は基本的に Reflection を使用して on で始まる関数、
 
 225
 00:31:56,100 --> 00:32:00,170
-the name of the state, and
-the postfix "MenuGUI"
+ステート名、さらにMenuGUI で終わるものを全てみつけます。
 
 226
 00:32:00,170 --> 00:32:06,290
-So for the default value of
-"State. Main" I'll get
+このため State. Main のデフォルト値として
 
 227
 00:32:07,299 --> 00:32:14,580
-a dictionary index of "State. Main"
-pointing to function called "OnMainMenuGUI."
+State. Main のディレクトリ インデックスが OnMainMenuGUI  を参照するようにします。
 
 228
 00:32:14,580 --> 00:32:17,630
-This means the first
-iteration of "onGUI"
+これは、 OnGUI の最初の反復と同じです。
 
 229
 00:32:18,590 --> 00:32:26,429
-I call the delegate pointed to by the dictionary
-indexed by the current state being "Main"
+現在のステートが Main であるディクショナリ インデックスが参照するデリゲートをコールします。
 
 230
 00:32:26,429 --> 00:32:32,810
-That will invoke the
-"OnMainMenuGUI" GUI handler.
+これにより OnMainMenuGUI GUIハンドラが実行されます。
 
 231
 00:32:32,810 --> 00:32:38,349
-Switching between different menus is simply a matter
-of changing the value of the state variable
+異なるメニューの間を切り替えるには単にステート変数の値を変更します。
 
 232
 00:32:38,349 --> 00:32:47,030
-which will then either call on "LevelsMenuGUI,"
-on "SettingsMenuGUI," or on "CreditsMenuGUI"
+これで SettingsMenuGUI の LevelsMenuGUI または CreditsMenuGUI をコールします。
 
 233
 00:32:47,030 --> 00:32:55,230
 これは直感的で可読性の高いセットアップです。
-setup easily readable.
 
 234
 00:32:55,910 --> 00:33:00,340
 これを少しみてきます。これは良いサンプルコードの再利用の例であり、
-nice example code reuse where
 
 235
 00:33:00,340 --> 00:33:05,690
 間違えるポイントを簡単に限定します。
-the points of failure on this.
 
 236
 00:33:05,690 --> 00:33:14,690
 関数名と列挙型の名前に不整合がなければ正しく動作します。
-name, and the enum name, or it will just work.
 
 237
 00:33:14,690 --> 00:33:16,700
 ごく自然な文法です。
-It's a very natural syntax.
 
 238
 00:33:16,700 --> 00:33:22,110
 列挙方を記述して、関数を記述して、それだけで何が行われているかわかります。
-you can easily see what's going on.
 
 239
 00:33:25,410 --> 00:33:29,830
 自己完結する WebPlayer のサンプルに移ります。
-self-contained WebPlayer
 
 240
 00:33:29,830 --> 00:33:41,580
 この場で実際にビルドしてみて、うまく行くかみてみます。
-it here, and see if everything breaks or not.
 
 241
 00:33:44,860 --> 00:33:55,750
 これはシンプルなサンプルであり、ウェブサイト JavaScript があって
-have a bit of website JavaScript which
 
 242
 00:33:55,750 --> 00:33:59,390
 WebPlayer に戻るメッセージを送信する内容です。
-sends a message back to my WebPlayer.
 
 243
 00:34:04,470 --> 00:34:07,090
 このスクリプトがセットアップされている方法をみていきます。
-this script is set up
 
 244
 00:34:07,919 --> 00:34:11,819
 public である TextAsset 変数があり、
-TextAsset variable
 
 245
 00:34:11,819 --> 00:34:19,219
 Start で ExternalEval 関数をコールして、その際にテキストアセットのテキストコンテンツを使用して
-text content of that text asset
 
 246
 00:34:19,219 --> 00:34:28,079
 そして JavaScript がコールする JavaScript コールバックのメソッドを提供します。
-method for JavaScript to call.
 
 247
 00:34:28,079 --> 00:34:32,459
 ではこの JavaScript コードをみてましょう。
-If we look at JavaScript code for this.
 
 248
 00:34:44,429 --> 00:34:49,719
 それがここにある JavaScript の全てです。これで基本的に
-It basically gets a reference to
 
 249
 00:34:49,719 --> 00:34:54,779
 WebPlayer 参照が取得できて、このゲームオブジェクトのコールした関数にメッセージ送信して
-game object called this function
 
 250
 00:34:54,779 --> 00:35:00,789
 戻り値がウェブサイトの JavaScript関数 prompt となります。
-JavaScript function "prompt."
 
 251
 00:35:00,789 --> 00:35:07,299
 結果的に、直感的で分かりやすくなります。
-So, very straightforward and easy to understand.
 
 252
 00:35:07,299 --> 00:35:09,569
 ここで続けてみるとします。
-If we continue here.
 
 253
 00:35:09,569 --> 00:35:14,879
 その場合のメリットは、関連するコードがプロジェクトに全て含まれているということで
-relevant code contained within that project
 
 254
 00:35:14,879 --> 00:35:19,629
 すなわちバージョン管理がより直感的になるということです。外部の依存関係がありません。
-You have no external dependencies.
 
 255
 00:35:19,629 --> 00:35:23,879
 ウェブサイト JavaScript に変更を加えたときは
-your website JavaScript
 
 256
 00:35:23,879 --> 00:35:33,119
 関連する C# または Unity の JavaScript コードで変更セットと組み合わせることが出来ます。
-with the relevant C# or Unity JavaScript code.
 
 257
 00:35:33,119 --> 00:35:43,439
 ビルドして実行するプロジェクトがひとつのみであるため、テストや開発がより楽になります。
-just have one project to build and run, and that's it.
 
 258
 00:35:45,409 --> 00:35:48,940
 それでは高速ゲーム開発について再度まとめると
-rapid game development.
 
 259
 00:35:48,940 --> 00:35:54,709
 昨年に Rapid Game Developmentという セッションは
-Last year's talk by this title,
 
 260
 00:35:55,529 --> 00:36:00,719
 AngryAnt.com/videos のビデオで利用可能です。
-it's available on AngryAnt.com/videos.
 
 261
 00:36:04,109 --> 00:36:08,929
 この話を手土産にしてもらったところで
-With this talk in baggage
 
 262
 00:36:08,929 --> 00:36:17,129
 この次に話す内容のほうがより便利なはずです。
-this other talk will probably
-be a bit more useful.
 
 263
 00:36:17,129 --> 00:36:23,619
 次はエディタに関連したところ、そして最初はインポータから見ていきます。
-and initially looking at importers.
 
 264
 00:36:24,749 --> 00:36:27,999
 最初のサンプルはパッケージのセットアップに関するものです。
-My first example is about package setup.
 
 265
 00:36:27,999 --> 00:36:35,499
 これはアセットストアのパッケージまたは、複数のプロジェクトで再利用するコードで使用するものです。
-code that you reuse a lot between different projects.
 
 266
 00:36:36,569 --> 00:36:41,470
 もしスクリプト以外の依存関係があり、それがテクスチャなどでなく、
-which aren't a texture or something,
 
 267
 00:36:41,470 --> 00:36:47,219
 Player Settings などのプロジェクトセットアップといったケースの場合に
-player settings, or whatever that might be,
 
 268
 00:36:47,219 --> 00:36:52,319
 今回紹介する方法が役に立ちます。
-this is what I'm addressing here.
 
 269
 00:36:52,319 --> 00:36:54,139
 サンプルとして：
-As an example:
 
 270
 00:36:54,139 --> 00:37:02,599
 カスタムアセットにいくつかのタグ、レイヤー、および Input Axisが含まれているとします。
-some tags, layers, and input axis.
 
 271
 00:37:02,599 --> 00:37:09,249
 これは特定の Input セットアップを必要とするキャラクターコントローラがあり、
-This is quite useful if you have a charactercontroller which requires a specific input setup
 
 272
 00:37:09,249 --> 00:37:12,059
 プロジェクト間で共有したい場合にかなり便利です。
-this between projects.
 
 273
 00:37:12,059 --> 00:37:18,539
 Tim Cooper が先ほど話をしたシリアライゼーション システムを使用して
-system which Tim Cooper talked about earlier
 
 274
 00:37:20,019 --> 00:37:24,939
 Unity のセットアップがこのスクリプトで必要とする内容にマッチさせることが出来ます。
-match what this script requires.
 
 275
 00:37:26,579 --> 00:37:29,319
 これは優れたソリューションです。
-It's a very nice solution.
 
 276
 00:37:29,319 --> 00:37:39,809
 ここでのサンプルとしてカスタムのアセットにレイヤーを追加した後は、インポートを行って
-to my custom asset here, I can hit import
 
 277
 00:37:39,809 --> 00:37:47,029
 レイヤーに遷移して、追加されたことが確認できます。
-can see it has been added here.
 
 278
 00:37:47,029 --> 00:37:58,339
 そして同様に、レイヤーを変更し再エクスポートをするとここで更新されます。
-and go re-export it, it updates here.
 
 279
 00:37:58,339 --> 00:38:07,869
 これにより依存関係を容易に変更できるようになります。
-move dependencies around.
 
 280
 00:38:08,269 --> 00:38:11,809
 ワークフロー自動化に移ります。
-Moving onto workflow automation.
 
 281
 00:38:11,809 --> 00:38:17,889
 ここで主要な目的は共通する反復タスクを削減することです。
-common, repetitive tasks.
 
 282
 00:38:17,889 --> 00:38:20,969
 最終的にチームのモチベーション向上にもつながります。
-boost your team morale.
 
 283
 00:38:22,009 --> 00:38:24,450
 誰だって多くの機械作業は止めたいところです。
-of the factory work.
 
 284
 00:38:25,470 --> 00:38:32,919
 反復作業の時間も短縮して生産性もあがります。
-time since you can produce more.
 
 285
 00:38:35,289 --> 00:38:40,489
 ここでのサンプルとして、作業した Android プラグインを準備しました。
-plugin that I want to work with.
 
 286
 00:38:41,709 --> 00:38:53,189
 基本的に、このコードを最初に書いたのは Android プラグインを扱うときで、
-first time I wanted to do Android plugins
 
 287
 00:38:53,189 --> 00:38:55,360
 自分は Java が得意でなく、
-because my Java is not the best
 
 288
 00:38:55,360 --> 00:38:59,260
 そして Java コードで何回も反復が必要になり、
-lot of iterations on this Java code
 
 289
 00:39:00,189 --> 00:39:01,660
 バグフィックスが多く必要になると分かっていたためです。
-and fix a lot of bugs.
 
 290
 00:39:01,660 --> 00:39:10,559
 Android プラグインを使用する現在のワークフローは多くのコマンドラインを必要としていて
-Android plugin involves a lot of command line
 
 291
 00:39:10,559 --> 00:39:14,880
 手動のコーディングや手動の実行作業が必要です。
-hand coding or hand execution.
 
 292
 00:39:16,179 --> 00:39:19,974
 これは非常にシンプルなテストであり
-a function that'll call back to.
 
 293
 00:39:19,975 --> 00:39:24,269
 先ほどみたウェブサイト JavaScript のように Unity にコールバックする関数が提供されます。
-JavaScript we saw before.
 
 294
 00:39:27,479 --> 00:39:29,989
 コンパイルをした方法について、
-The way that I have this compiling
 
 295
 00:39:36,829 --> 00:39:40,809
 基本的に C# で普段使用しているのと同じワークフローとしたいため
-workflow that I'm used to with C#
 
 296
 00:39:40,809 --> 00:39:43,899
 アセットのポストプロセッサを記述しました。
-so I wrote an asset post processor.
 
 297
 00:39:43,899 --> 00:39:55,109
 これによりファイルを検索したり、Assets/Plugins/Android/src パスにあるファイルをハンドリング出来ます。
-any file within the path "Assets/Plugins/Android/src"
 
 298
 00:39:56,159 --> 00:40:03,990
 この拡張子が .java である場合、全ての Java コードをコンパイルしてきます。
-I want to compile all my Java code.
 
 299
 00:40:07,719 --> 00:40:13,059
 そのためには、基本的に .NET プロセスのスタート情報を使用して
-using the .net process start info
 
 300
 00:40:13,059 --> 00:40:18,479
 ビルトインされた Java コンパイラを起動します。
-system Java compiler
 
 301
 00:40:18,479 --> 00:40:22,999
 プロジェクトの Java ファイルについて
-I parse in the Java files in my project
 
 302
 00:40:22,999 --> 00:40:26,849
 Android jar ファイルへの参照として
-the reference to the
-Android jar file
 
 303
 00:40:26,849 --> 00:40:32,359
 Android SDK から、そして Unity jar ファイル、等々とパースしていきます。
-from the Android SDK, and the
-Unity jar file, and so forth
 
 304
 00:40:33,489 --> 00:40:37,269
 さらに必要な署名を作成します。
-I also create the signature needed
 
 305
 00:40:37,269 --> 00:40:41,909
 最後にプロジェクトに含める jar としてビルドします。
-finally just build it into a
-jar which I put in my project.
 
 306
 00:40:41,909 --> 00:40:47,609
 結果的に得られたワークフローは、Java コードを保存することで、
-The resulting workflow is basically
-that I save my Java code
 
 307
 00:40:47,609 --> 00:40:49,949
 ここで実際に行ってみます。
-which we can just quickly do here.
 
 308
 00:40:54,449 --> 00:41:02,449
 ここでコンパイラエラーを作成して、コンソール上に表示されます。
-I get that compiler error in my console.
 
 309
 00:41:02,449 --> 00:41:13,649
 サクサクと作業を行って「この行をじゃあ変更しようか」として、すぐコンパイルできます。
-go and change that," and there we go, it's compiled.
 
 310
 00:41:13,649 --> 00:41:21,659
 すなわち、ワークフローを普段と同じ方法で最適化できるということです。
-in a way that I'm used to working with.
 
 311
 00:41:21,659 --> 00:41:26,679
 バンドルのトピックに移ります。
-So moving onto a topic of bundles.
 
 312
 00:41:26,679 --> 00:41:31,089
 初めに、バンドルのマニフェストについてカバーします。
-about is the manifest for bundles.
 
 313
 00:41:31,089 --> 00:41:36,289
 ここで実現したいことは、手動でない更新のアプローチであり、
-want to have a hands-off update approach
 
 314
 00:41:36,289 --> 00:41:41,899
 バンドルの何かを変更するとき、手動のステップが沢山あることを避けます。
-don't want to have a lot of manual steps.
 
 315
 00:41:42,699 --> 00:41:47,229
 そして、そこのアセットに実行時に直接アクセスできるようにします。
-at runtime to the assets in there.
 
 316
 00:41:47,229 --> 00:41:54,390
-I don't want to have a lot of runtime code which searches
-by name and all this stuff because that's not very
+名前やこれらでアクセスするのは
 
 317
 00:41:54,849 --> 00:41:58,669
-solid in the end; you'll get
-a lot of errors from that.
+最終的に十分な方法となりません。後からエラーが大量に出ます。
 
 318
 00:42:13,909 --> 00:42:18,700
 要するにシンプルな Scriptable オブジェクトのカスタムアセットです。
-simple scriptable object custom asset.
 
 319
 00:42:19,539 --> 00:42:26,659
 この中心となるのは、プレハブのリストがあるため、プレハブAnd the core of this is it has a list of prefabs,
-so this is a bundle manifest for prefabs.
 
 320
 00:42:27,510 --> 00:42:42,019
 このリストを認識して、オブジェクトの追加および ID を通したアクセスを提供します。
-accesses for adding an object and accessing it by ID.
 
 321
 00:42:48,119 --> 00:42:50,400
 ランタイムの場合でも同じように出来ます。
-The runtime equivalent of this.
 
 322
 00:42:50,500 --> 00:43:01,269
 一回バンドルのメインアセットとしてバンドルを生成されたマニフェストでビルドすれば
-manifest as the main asset of the bundle
 
 323
 00:43:01,269 --> 00:43:05,959
 バンドルがダウンロードされれば
-I can simply, once the bundle has been downloaded,
 
 324
 00:43:05,959 --> 00:43:08,929
 中に入って
-I can go in and
 
 325
 00:43:10,729 --> 00:43:17,429
 バンドルのメインアセットをマニフェストの型にキャストできます。
-the bundle to my manifest type.
 
 326
 00:43:17,429 --> 00:43:24,779
 一回それがあれば、マニフェストへの参照を求めて
-reference to that manifest to give me
 
 327
 00:43:24,779 --> 00:43:32,719
 プレハブへの参照をすでに把握している ID にもとづき得られます。
-the ID that I already know.
 
 328
 00:43:32,719 --> 00:43:40,699
 ここでは探す作業はありません。バンドルのビルドプロセスに格納できるIDというだけです。
-which I can store in my build process of the bundle.
 
 329
 00:43:50,049 --> 00:43:53,779
 プレハブ バンドルの強いようのサンプルを示します。
-Here's an example of prefab bundle use.
 
 330
 00:43:55,559 --> 00:43:58,980
 ここでのゴールはやはり、自然なワークフローであり
-same natural workflow
 
 331
 00:43:58,980 --> 00:44:04,569
 シンプルなデプロイ ビルドのメソッドです。
-a simple deploy build method.
 
 332
 00:44:04,569 --> 00:44:12,620
 今回のセットアップでは、.prefabBundle フォルダを準備して
-I have this ".prefabBundle" folder
 
 333
 00:44:13,549 --> 00:44:22,009
 ビルドスクリプトは .prefabBundle の名前のフォルダにある全てのプレハブを見つけます。
-and my build script just goes in and finds all
-prefabs in any folder called ".prefabBundle"
 
 334
 00:44:22,920 --> 00:44:29,169
 これが ボックスコライダ および キューブのあるもとのプレハブです。
-has a box collider and a cube on it.
 
 335
 00:44:29,169 --> 00:44:37,359
 ビルドスクリプトが実行されると、以前にみてきたようにマニフェストを自動生成するので、
-the manifest here as we saw before,
 
 336
 00:44:37,359 --> 00:44:43,459
 このプレハブへの参照があり、また ID もあります。
-prefab here, and it has an ID.
 
 337
 00:44:44,989 --> 00:44:51,419
 次に行うことは参照プレハブを作成することです。
-creates a reference prefab.
 
 338
 00:44:51,419 --> 00:44:56,859
 このセットアップで便利なところはゲームを通常のようにプレハブを使用してゲームをビルドすることであり、
-my game using prefabs like I normally would
 
 339
 00:44:56,859 --> 00:45:01,439
 後でバンドルを使用することを心配する必要がありません。
-to use bundles later on
 
 340
 00:45:01,439 --> 00:45:05,989
 バンドルをビルドするか、シーンをプレハブでビルドして
-go build my scenes with prefabs
 
 341
 00:45:05,989 --> 00:45:11,900
 バンドルでまとめたいプレハブを、prefabBundle フォルダに入れて
-up, put them in a prefabBundle folder
 
 342
 00:45:11,900 --> 00:45:22,589
 ビルドプロセスによりシーンのインスタンスを字度王的に参照バンドルまたは参照プレハブに置き換えます。
-in my scene with these reference bundles or reference prefabs.
 
 343
 00:45:22,589 --> 00:45:27,959
 実行モードを抜けると、
-here, you can see
 
 344
 00:45:39,849 --> 00:45:44,629
 ビルドされたために、私の素晴らしいキューブが表示されます。
-since it has been built
 
 345
 00:45:45,949 --> 00:45:50,050
 バンドル プレハブ の参照にはバンドル ID および
-which holds the bundle ID
 
 346
 00:45:51,309 --> 00:45:53,739
 プレハブ ID がバンドル内に格納されています。
-and the prefab ID within that bundle.
 
 347
 00:45:53,739 --> 00:46:00,369
 それを除いては、その他の情報は全てバンドルにプッシュされています。
-has now been pushed to the bundle.
 
 348
 00:46:00,369 --> 00:46:03,389
 つまり、ロードしたときに
-So this means when we load this up
 
 349
 00:46:03,389 --> 00:46:05,599
 キューブが少し後のタイミング、すなわち
-appears a bit later
 
 350
 00:46:05,599 --> 00:46:15,439
 バンドルーがロードされてインスタンス化されたとき、参照されたデータにもとづいて表示されます。
-based on the data in the reference.
 
 351
 00:46:15,439 --> 00:46:17,590
 次に別のバンドル使用方法の例を挙げます。
-Here's another example of bundle use.
 
 352
 00:46:17,590 --> 00:46:21,920
 通常はバンドルに追加のコードを含めることが出来ません。
-additional code in a bundle.
 
 353
 00:46:21,920 --> 00:46:26,749
 全てのコードはコアのゲームにビルドインされる必要があり
-built into the core game
 
 354
 00:46:28,199 --> 00:46:34,959
 そして追加のアセットはアセットバンドルに含めることが出来ます。
-then be put in an asset bundle.
 
 355
 00:46:34,959 --> 00:46:38,490
 しかし、いくつかのケースにおいては
-where you might want to
 
 356
 00:46:38,490 --> 00:46:42,579
 コードをバンドルに入れたい場合があり、例えば追加のキャラクター
-you have an additional character
 
 357
 00:46:42,579 --> 00:46:49,019
 または武器か何かでカスタムロジックがあるものがあるようなケースかもしれません。
-which has some custom logic to it.
 
 358
 00:46:49,989 --> 00:46:55,239
 同じプロジェクトに全てのスクリプトがある、お馴染みのワークフローをしたいはずです。
-of having all your scripts in the same project.
 
 359
 00:46:55,239 --> 00:47:02,429
 全てがメインプロジェクトにコンパイルされませんが、ワークフローは同様です。
-project, but the same kind of workflow.
 
 360
 00:47:04,659 --> 00:47:09,529
 私が実装した方法は
-implementing this is I have
 
 361
 00:47:09,529 --> 00:47:18,150
 Script Bundles というフォルダを Assets/WebPlayer templates というフォルダに入れることでした。
-folder called "Assets/WebPlayer templates."
 
 362
 00:47:18,150 --> 00:47:22,129
 この特定のフォルダについて重要なことは
-this particular folder
 
 363
 00:47:22,129 --> 00:47:29,319
 WebPlayer templates のフォルダについて、コンパイラおよび全てのインポータがオフになっていることです。
-the compiler and all importers are turned off.
 
 364
 00:47:29,319 --> 00:47:34,219
 この理由はウェブプレイヤー テンプレートがJavaScript コードを含むかもしれず、
-might contain JavaScript code
 
 365
 00:47:34,219 --> 00:47:36,999
 これがウェブサイト JavaScript であり
-which is website JavaScript
 
 366
 00:47:36,999 --> 00:47:42,469
 当然にメインプロジェクトに含まれてほしくないためです。
-compiled in with your main project.
 
 367
 00:47:42,469 --> 00:47:45,870
 この事実を利用して
-But we're taking advantage of that fact
 
 368
 00:47:46,719 --> 00:47:49,399
 スクリプトバンドル フォルダを入れて
-bundle folder in there
 
 369
 00:47:49,399 --> 00:47:57,409
 ビルドスクリプトは、このフォルダの全てのサブフォルダを検索して
-all subfolders of this folder
 
 370
 00:47:58,259 --> 00:48:03,249
 その中の全てのスクリプトを .NET アセンブリにコンパイルし、
-and compiling them to a .net assembly
 
 371
 00:48:03,249 --> 00:48:08,799
 その際に以前みた Java コンパイルの時に似たテクニックを用います。
-you saw used for Java compiling before.
 
 372
 00:48:08,799 --> 00:48:20,869
 基本的に .NET プロセスのセットアップを使用して、Unityに同梱されアセンブリにビルドインされた .NET コンパイラを実行します。
-compiler that was shipped with Unity, and built in assembly.
 
 373
 00:48:20,869 --> 00:48:31,489
-And this assembler saves it out as a text
-asset by calling it "myassembly.bytes"
+そしてこのアセンブラはテキストアセットとして保存して myassembly.bytes と名前をつけます。
 
 374
 00:48:31,489 --> 00:48:36,489
 この拡張により Unity がテキストアセットとしてインポートして
-import it as a text asset
 
 375
 00:48:36,489 --> 00:48:44,259
 テキストエンコードはしないため、重要なバイナリデータは失いません。
-so you don't lose any important binary data.
 
 376
 00:48:44,259 --> 00:48:48,229
 つまりアセットをアセットバンドルに含めて
-asset in an asset bundle
 
 377
 00:48:49,289 --> 00:48:52,979
 そしてテキストバンドルしてアクセスしてメモリにロードできます。
-bundle and load it into memory.
 
 378
 00:48:52,979 --> 00:48:59,979
 これはこのすぐ後にお見せします。
-And I can show you this in a minute.
 
 379
 00:49:04,129 --> 00:49:15,329
 バンドルマネージャに移動します。
-If we go to the bundle manager...
 
 380
 00:49:17,499 --> 00:49:21,429
 これは先ほど見たバンドルマネージャです
-we took a look at before
 
 381
 00:49:22,719 --> 00:49:25,350
 型をロードするためのコアルーチンがあり
-into load a type
 
 382
 00:49:25,350 --> 00:49:27,779
 これは要するにバンドルを初期ロードします。
-loads the bundle.
 
 383
 00:49:29,189 --> 00:49:32,679
 そして利用可能になったとき
-And once it's available...
 
 384
 00:49:35,929 --> 00:49:45,829
 ここまで作成したアセンブリであるメインアセットにアクセスします。
-for this which is the assembly that I've built.
 
 385
 00:49:45,829 --> 00:49:49,359
 これはテキストアセットなのでキャストします。
-so I can cast it.
 
 386
 00:49:49,359 --> 00:49:53,629
 そして .bytes プロパティをアクセスすることで
-And accessing its .bytes property gives me
 
 387
 00:49:53,629 --> 00:50:00,489
 .NET アセンブリの .Load に渡すバイト配列を取得します。
-into the .net assembly. Load.
 
 388
 00:50:00,489 --> 00:50:08,999
 この中から探している型を取得できます。
-the type that I'm looking for.
 
 389
 00:50:09,199 --> 00:50:12,409
 これを活用したコードをみていきます。
-code that uses this...
 
 390
 00:50:28,259 --> 00:50:33,319
 ここではバンドルマネージャに
-manager to load
 
 391
 00:50:33,319 --> 00:50:38,440
 NewBehaviorScript 型を BestScriptsEver のバンドルからロードします。
-the bundle called "BestScriptsEver."
 
 392
 00:50:38,440 --> 00:50:46,449
 完了した後、OnReceiveType メソッドが呼ばれるようにします。
-called "OnReceiveType" to be invoked.
 
 393
 00:50:46,449 --> 00:50:52,089
 これにより型の検索に使用した文字列に加えて、型が渡されます。
-search for the type, plus the type itself.
 
 394
 00:50:52,089 --> 00:50:59,439
 型参照を取得した後、現在のゲームオブジェクトのコンポーネントとして追加できます。
-add it as a component to my current game object.
 
 395
 00:50:59,439 --> 00:51:03,919
 その結果はここで見ることが出来ます。
-The result of which, you can see here.
 
 396
 00:51:03,919 --> 00:51:05,989
 ここに追加のスクリプトがあることが確認出来ます。
-additional script here
 
 397
 00:51:05,989 --> 00:51:10,130
 Unity では追加の情報がありません。スクリプトの名前もなく、
-There's no script name or anything
 
 398
 00:51:10,130 --> 00:51:13,619
 その理由はランタイム時に
-because it's a component
-we have loaded at runtime.
 
 399
 00:51:14,949 --> 00:51:16,750
 これより興味深いことがあります。
-A bit more interesting than this.
 
 400
 00:51:16,750 --> 00:51:22,679
 もしログをチェックすると、二つのログメッセージがあります：「We're in!」（中にいます）、
-messages here: One called "We're in!"
 
 401
 00:51:22,679 --> 00:51:26,449
 もう一つは "From a script bundle even." （スクリプト バンドル からです）
-and then one saying "From
-a script bundle even."
 
 402
 00:51:27,310 --> 00:51:38,609
 これがセットアップされている方法により、私がコンパイルしたコンポーネントのコードをみると
-code for the component I've compiled in here
 
 403
 00:51:38,609 --> 00:51:42,319
 メッセージのログを残す必要があり、それは見てきた二種類ですが
-messages, the two that we saw
 
 404
 00:51:42,319 --> 00:51:48,269
 一つはプリコンパイラ定義に含まれています。
-but one is within a pre-compiler define.
 
 405
 00:51:48,269 --> 00:51:53,259
 これによって、バンドルを自動ビルドすると
-automatically build your bundle, you can
 
 406
 00:51:53,259 --> 00:51:58,249
 バンドルに含まれている、いない場合にあわせてロジックを組むこと出来ます。
-whether it's in a bundle or not.
 
 407
 00:51:58,249 --> 00:52:03,779
 当然ながら .NET コンパイラを実行しているだけなので、追加のセットアップは様々な種類で行うことが出来ます。
-compiler, you can have all sorts of additional setup.
 
 408
 00:52:03,779 --> 00:52:14,259
 例えばひとつのお勧めの方法は、アセンブリの参照として同じフォルダからのリソースを含めることです。
-from the same folder as references on the assembly.
 
 409
 00:52:21,029 --> 00:52:23,180
 はい、それでは最後のまとめです。
-Okay, so just in summary.
 
 410
 00:52:23,180 --> 00:52:30,639
 これは先ほど述べたように、昨年のセッションの実践編にあたります。
-practical counterpart from last year's talk
 
 411
 00:52:31,969 --> 00:52:34,470
 本日の話が刺激になり、また役立つ内容であったことを期待します。
-inspirational and useful.
 
 412
 00:52:35,519 --> 00:52:42,679
 当然ですが、アジアツアーが終わり次第、このコードおよびサンプルその他はすべて利用可能とする予定です。
-and examples and all that stuff will be available.
 
 413
 00:52:43,859 --> 00:52:50,379
 それに加えて、皆さんが帰られてからもご自身がすでにお持ちの
-home and think about how you can use
 
 414
 00:52:50,379 --> 00:52:56,779
 データをどのように利用できるかにより生産性やワークフローをどう最適化するか考えるきっかけとしていただけることを願います。
-different purposes to optimize productivity and workflow.
 
 415
 00:52:56,779 --> 00:53:05,739
 繰り返しになりますが、これは再利用および再適用、ワークフローに関することです。
-re-application, and again, workflow.
 
 416
 00:53:05,739 --> 00:53:14,069
 以上です。もしご質問ありましたら1-2分ほど時間ありますね。今なければ後でもいるので受け付けます。
-have like a minute or two. Otherwise, I'll be around for a while.
 
 417
 00:53:14,069 --> 00:53:21,069
 そして必要ならば誰か通訳をしてくださるとおもいます。
-someone to help translate. Thank you.
 
 418
 00:53:30,809 --> 00:53:34,039
 それでは質問はいかがですか？
-Do we have time for questions?
 
 419
 00:53:34,039 --> 00:53:41,039
 質問をひとつぐらい受ける時間ありますね。
-We have one question.
 
 420
 00:53:41,619 --> 00:53:44,569
 あれ、質問はありませんか？
-No? Well that's easy!
 
 421
 00:53:44,569 --> 00:53:51,569
 はい、そこの方が挙手されてますね。
-Oh, there's one here.
 
 422
 00:53:53,289 --> 00:54:08,879
 （日本語で質問）
-[Speaking in Japanese]
 
 423
 00:54:08,879 --> 00:54:19,249
 はい。アジアツアーを通してわずかに修正はかけていくかもしれません。
-to this as I go through on the Asia Tour.
 
 424
 00:54:19,249 --> 00:54:27,039
 予定としてはスライドやサンプルをこのビデオセッションと同じタイミングでリリースすることです。
-the same time as we release the videos of the talks
 
 425
 00:54:27,969 --> 00:54:30,369
 プロジェクトはすでに GitHubにアップされてます。
-already on GitHub
 
 426
 00:54:30,370 --> 00:54:36,269
 ビデオセッションが利用可能になれば、リポジトリをオンラインまたは公開設定にする予定です。
-then I flip that repository online or public.
 
 427
 00:54:36,769 --> 00:54:43,769
 なので最終的に、見ていただいた全てを公開予定です。
-here will be made available.
 
 428
 00:54:44,339 --> 00:54:48,029
 
-
 429
 00:54:48,029 --> 00:54:49,510
 ご拝聴いただきまして有難う御座いました。
-Okay, thank you for coming
+(翻訳:gamesonytablet)
