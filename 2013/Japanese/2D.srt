@@ -1,587 +1,611 @@
 1
 00:00:00,939 --> 00:00:03,919
-...And we make a lot of mobile
+東南アジアではたくさんのモバイルゲームを開発しています。
 games in Southeast Asia.
 
 2
 00:00:03,920 --> 00:00:06,650
-I guess you guys do
+日本でも同様でないかと考えてます。
 here in Japan, as well.
 
 3
 00:00:06,650 --> 00:00:11,199
-And one of things that comes up very
+特徴的なのが 2D ゲームのニーズがあることです。
 often is they want to make 2D games.
 
 4
 00:00:11,199 --> 00:00:16,289
-And doing 2D games in Unity
+Unity で 2D ゲームの開発は難しくないですが
 isn't necessarily hard,
 
 5
 00:00:16,289 --> 00:00:20,089
-but it's not like drag-and-
+ドラッグ＆ドロップで出来るような類でなく工夫が必要です。
 drop, out of the box.
 
 6
 00:00:20,089 --> 00:00:25,119
-So today, what I want to do is I want
+本日は 2D コンテンツのワークフローについて一通り見ていきます。
 to go through a 2D content workflow.
 
 7
 00:00:25,119 --> 00:00:28,835
-What I mean by workflow is
+ワークフローといっているのは、初めから
 we want to start at one end,
 
 8
 00:00:28,836 --> 00:00:32,550
-and we want to follow our
+コンテンツをパイプライン全体を見通して、
 content through a pipeline
 
 9
 00:00:32,550 --> 00:00:36,730
-and have it ultimately arrive
+究極的にゲームの完成までみていくことです。
 in our game at the other end.
 
 10
 00:00:36,730 --> 00:00:42,530
-So by definition, unfortunately, workflow
+裏を返すと、ワークフロー全体でみるといくつものパーツがあるということも意味しています。
 also means there's a lot of parts.
 
 11
 00:00:42,530 --> 00:00:46,840
-And because there's a lot of parts,
+そしていくつものパーツがあることから、紛らわしいものでもあります。
 it can also be a bit confusing.
 
 12
 00:00:46,840 --> 00:00:53,390
-So I know it's after lunch, everybody's stomach
+すでにお昼すぎで暖かいので
 is full, and the room could get a bit warm,
 
 13
 00:00:53,390 --> 00:00:56,870
-but hopefully, you'll all be able to
+皆さんに眠ってしまわれないように頑張ってきますね。
 stay with me and I won't lose you all.
 
 14
 00:00:56,870 --> 00:00:59,780
+まあ、何人かは最後まで聞いてくれるでしょう。
 Hopefully, some of you will make it to the end.
 
 15
 00:01:00,080 --> 00:01:02,430
+「自分にとって必要なセッションだろうか？」という疑問があるでしょう。
 So you probably might wonder "is this talk for me?"
 
 16
 00:01:02,430 --> 00:01:06,040
-So you're gonna be looking at quite a
+コードもかなり見ていきますし、アーティストのツールもかなり見ていきます。
 bit of code. We're gonna be looking at art tools.
 
 17
 00:01:06,040 --> 00:01:10,260
-We're going to be looking at a lot of stuff.
+多くのものを見ていくでしょう。だからデザイナー、アーティスト、プログラマのいずれであっても
 So if you're a designer, an artist, a programmer,
 
 18
 00:01:10,260 --> 00:01:14,960
-my goal today is basically
+私としてはっゆっくりエスコートしていって
 to take you very slowly,
 
 19
 00:01:14,960 --> 00:01:17,540
+ひとつのパイプラインを通してひとつづつステップを踏んでいきます。
 step-by-step through one pipeline.
 
 20
 00:01:17,540 --> 00:01:22,180
-Then we'll check the time. Assuming there's
+最後まで行ったら時間があれば別のツールを
 time, we'll do it again with another tool,
 
 21
 00:01:22,180 --> 00:01:25,770
-and another tool, and another
+次々と時間あるかぎり見ていきます。
 tool, until we run out of time.
 
 22
 00:01:25,770 --> 00:01:29,950
-So my goal is that, at least at the end
+目標としては、最後まで行ったら何ができるか理解できるようになってもらうことです。
 of the day, you know what's possible,
 
 23
 00:01:29,950 --> 00:01:34,210
+Unity での可能性が広がることを期待します。
 and maybe open up some possibilities in Unity.
 
 24
 00:01:34,210 --> 00:01:35,520
+では始めましょう。
 Okay, so let's get started.
 
 25
 00:01:35,520 --> 00:01:39,550
-Basically, what we have a is
+基本は、こういうものが沢山ある状況ですよね。
 we have all this stuff, right?
 
 26
 00:01:39,950 --> 00:01:43,210
-We all this great stuff that
+アーティストが様々なものを作成していきます。
 artists might produce for us.
 
 27
 00:01:43,210 --> 00:01:50,210
-And it just brings up the question of
+「Unity で使うにはどうすればよいのだろう？」という疑問が湧くでしょう。
 "how can I get this into Unity?"
 
 28
 00:01:50,909 --> 00:01:54,220
+画像の欠点は
 But actually images suffer a little bit
 
 29
 00:01:54,220 --> 00:01:58,890
-from the fact that they're
+十分な情報が不足しがちなことです。
 not very rich in information.
 
 30
 00:01:58,890 --> 00:02:01,080
+ファイル名があり、
 We have the name of the file,
 
 31
 00:02:01,080 --> 00:02:04,580
-and if it's a jpeg or some other
+JPEG か、その他何らかのメタデータをサポートするとして
 type that supports metadata,
 
 32
 00:02:04,581 --> 00:02:10,239
-you might have a little bit a metadata that's
+結婚式の写真家か誰かに役立つようなメタデータがあるとしましょう。
 good for wedding photographers or somebody else.
 
 33
 00:02:10,239 --> 00:02:13,059
-But for game developers,
+ゲーム開発者にとっては問題があるのです。
 it's kind of a problem.
 
 34
 00:02:13,059 --> 00:02:15,289
+本当にやりたいことは
 So really what we want to do
 
 35
 00:02:15,290 --> 00:02:19,719
-is we don't necessarily want our
+画像が直接に Unity と通信をしてほしくないのです。
 images to communicate to Unity.
 
 36
 00:02:19,719 --> 00:02:21,409
+本当にしたいことは
 What we really want to happen
 
 37
 00:02:21,409 --> 00:02:25,540
-is we want our applications
+アプリケーションが Unity と通信することです。
 to communicate to Unity.
 
 38
 00:02:25,540 --> 00:02:27,499
+そこで必要になってくることが
 So we need some way to get
 
 39
 00:02:27,499 --> 00:02:31,119
-the stuff from our app
+Unity がアプリからコンテンツを取り出してもらうことです。
 into Unity and back out.
 
 40
 00:02:31,119 --> 00:02:35,389
-And so to do that, what we're gonna
+そのためには、ワークフローを定義していきます。
 do is define, basically, a workflow.
 
 41
 00:02:35,389 --> 00:02:40,150
-So we're gonna start with our
+アプリケーションとしてもっとも開始地点にある、アーティストのツールから始めて
 application on the far side, our art tool,
 
 42
 00:02:40,150 --> 00:02:43,309
-and we're gonna have Unity
+Unity を最終目的地にしてみます。
 as where the destination is,
 
 43
 00:02:43,309 --> 00:02:46,719
-and we're going to need
+そのためにはいくつかのパーツが必要です。
 to make a few pieces.
 
 44
 00:02:46,719 --> 00:02:49,990
-So the first thing that we're gonna
+最初にコンテンツのツール側で必要になるのは、
 need is, on the content tools side,
 
 45
 00:02:49,991 --> 00:02:53,260
-we're gonna need some
+何らかのメカニズムによって
 way, some mechanism,
 
 46
 00:02:53,260 --> 00:02:58,499
-an order that understands the art tool
+アーティストのツールを理解する命令があり、アーティストのツールと通信ができて
 and can communicate with the art tool
 
 47
 00:02:58,499 --> 00:03:01,349
+必要となる情報を取り出します。
 to get some information out that we want.
 
 48
 00:03:01,349 --> 00:03:05,109
-So in other words, we're gonna write
+言いかえると、アーティストのツールから何らかのエクスポータを記述して
 some sort of exporter from our art tool.
 
 49
 00:03:05,109 --> 00:03:08,289
-Something that gives us what we want.
+必要なものを提供してくれる何かが必要です。そして、次にそこから何が必要でしょうか。
 And what do we want from that?
 
 50
 00:03:08,289 --> 00:03:10,779
-Well, we want the images
+答えとしては、最初に取得をした画像が必要です。
 that we got before,
 
 51
 00:03:10,779 --> 00:03:13,899
-but in addition to that, we're also going
+それに加えて、メタデータも追加で必要です。
 to want some more metadata.
 
 52
 00:03:13,899 --> 00:03:17,169
-We're going to want as much
+できるかぎり多くのめたデータが必要です。
 metadata as we can get.
 
 53
 00:03:17,169 --> 00:03:20,774
-So the exporter is going to then
+エクスポータは画像を取得するだけでなく
 not only give us the images out,
 
 54
 00:03:20,775 --> 00:03:24,379
-but it's going to give us the
+XML 形式でメタデータを取得します。
 metadata in the form of XML.
 
 55
 00:03:24,379 --> 00:03:29,309
-Then on the Unity side, of course
+これなら結果として、Unity 側では、通常どおりにデータを取り出せるようになりますよね？
 we can bring the data in normally, right?
 
 56
 00:03:29,309 --> 00:03:35,680
-The XML file will be recognized as a text asset
+XML ファイルはテキストアセットとして認識されて、画像は画像として認識されます。
 and the images will be recognized as images.
 
 57
 00:03:35,680 --> 00:03:40,909
-But that's not exactly what we want. We also are
+しかしまだ不十分です。Unity 側でコードを書いて
 going to want to write something on the Unity side
 
 58
 00:03:40,909 --> 00:03:48,619
-to makes sense of all that extra information
+アーティストのツール側で入力する追加情報に意味をもたせます。
 that we put on the art tools side.
 
 59
 00:03:48,919 --> 00:03:52,639
+これは全てツールから始まります。
 So it all begins of course with a tool.
 
 60
 00:03:52,639 --> 00:03:56,829
-And the first tool I'm gonna start
+最初に見ていくツールは Photoshopです。
 out with today is Photoshop.
 
 61
 00:03:56,829 --> 00:03:58,919
-And one of the goals of
+このセッションの目的のひとつは
 this talk that I have is,
 
 62
 00:03:58,920 --> 00:04:03,609
-obviously I'm trying to make it understandable,
+皆さんに理解しやすくすることと、便利なものとなって
 and I'd like to make it useful,
 
 63
 00:04:03,609 --> 00:04:05,809
+さらに現実的であることを目指します。
 but I'd also like to make it real.
 
 64
 00:04:05,809 --> 00:04:11,389
-So before I joined Unity, I did
+Unity に入る前はゲームの開発に関わっていて
 work on a number of games,
 
 65
 00:04:11,389 --> 00:04:15,659
-but the last game I worked on
+Unity に入る直前に関わった仕事が
 before joining Unity was
 
 66
 00:04:15,659 --> 00:04:17,999
-a 2D game, so I thought I
+2D ゲームだったので、それを素材にしてみます。
 would just use use that.
 
 67
 00:04:17,999 --> 00:04:20,469
-And that was what's called
+これは「隠れオブジェクトゲーム」と呼ばれるものでした。
 a "hidden object game."
 
 68
 00:04:20,469 --> 00:04:24,419
-And the game I'll be using today
+Goddess Chroniclesというタイトルのゲームを本日素材にします。
 is called "Goddess Chronicles."
 
 69
 00:04:24,419 --> 00:04:29,129
-Here's just a screen cap. This is
+スクリーンキャプチャの紹介です。これは Mac App Store にあります。
 from the Mac App Store, actually.
 
 70
 00:04:29,129 --> 00:04:32,435
-And basically, if you don't
+基本的に「隠れオブジェクトゲーム」とは
 know hidden object games,
 
 71
 00:04:32,436 --> 00:04:35,740
-this would be found on like
+Big Fish Gamesの類のポータルでみられるものです。
 Big Fish Games-type portals.
 
 72
 00:04:35,740 --> 00:04:38,629
-It's this thing where you're
+アドベンチャーであって
 kind of on an adventure,
 
 73
 00:04:38,629 --> 00:04:41,140
+シーン中の特定のものを探していって
 looking to find certain things in the scene,
 
 74
 00:04:41,140 --> 00:04:45,460
-you collect those things together, and then you
+アイテムを集めて、さらに進んでパズルを解いていったりします。
 move on, solve puzzles and things like that.
 
 75
 00:04:45,460 --> 00:04:49,009
-So this game had puzzles,
+このゲームにはパズルや、隠れオブジェクトのシーンや、ストーリーがありました。
 hidden object scenes, a story.
 
 76
 00:04:49,009 --> 00:04:54,899
-Today, I'm just going to show you the main part
+本日は、ゲームのメインの部分をお見せしますが、それが隠れオブジェクトの要素で、
 of the game which was the hidden object part,
 
 77
 00:04:54,899 --> 00:04:56,810
+仕組みについて説明します。
 and how that worked.
 
 78
 00:04:56,810 --> 00:05:00,610
-And we're gonna do that,
+前述の Photoshop を使ってきます。
 as I said, in Photoshop.
 
 79
 00:05:00,610 --> 00:05:03,479
+Photoshop に切り替えて
 So we're going to switch over to Photoshop.
 
 80
 00:05:03,479 --> 00:05:06,330
-And here is that scene that
+スクリーンショットにあったシーンをお見せします。
 was in the screenshot.
 
 81
 00:05:06,331 --> 00:05:09,180
-So I tried to use one that was
+App Store で表示されているものを再現してみました。
 actually there in the App Store.
 
 82
 00:05:09,180 --> 00:05:12,690
-And you can see that it
+ほぼ同じであることが確認できます。
 basically looks the same.
 
 83
 00:05:12,690 --> 00:05:16,720
-So, we want to basically author
+基本的に Photoshop でゲームのオーソリングをしてきます。
 our games in Photoshop.
 
 84
 00:05:16,720 --> 00:05:19,620
-In this game, just so you
+補足ですが、このゲームでは
 understand, at the end,
 
 85
 00:05:19,620 --> 00:05:22,649
-all of the levels were
+全てのレベルが Photoshop で作成されました。
 built in Photoshop.
 
 86
 00:05:22,649 --> 00:05:26,039
-And they were just brought straight into
+プログラミング一切なしで Unity に移行しています。
 Unity, no programming whatsoever.
 
 87
 00:05:26,039 --> 00:05:27,800
+こちら側ですべてが完結してました。
 Everything was done on this side.
 
 88
 00:05:27,800 --> 00:05:32,325
-There was programming done on the Unity
+Unity 側でこの類のエンジンを準備するためのコーディングはありましたが
 side to create this sort of little engine,
 
 89
 00:05:32,326 --> 00:05:36,009
-but the code is very simple
+コードはシンプルなもので、後ほど紹介します。
 and I'll show you that as well.
 
 90
 00:05:36,009 --> 00:05:40,199
-So what we want is to unleash our artists
+やりたいことは、アーティストやデザイナーがその作業を出来るようにすることです。
 and designers to be able to go do that.
 
 91
 00:05:40,199 --> 00:05:43,659
-So we recognize in a hidden object
+隠れオブジェクトゲームではいくつかの部品が必要です。
 game, we need some constructs.
 
 92
 00:05:43,660 --> 00:05:47,490
-So for this particular game,
+この類のゲームでは、ふたつのものがあります。
 we had two kinds of things.
 
 93
 00:05:47,491 --> 00:05:50,939
+アイテムおよびシーンです。
 We had items and we had scenery.
 
 94
 00:05:50,939 --> 00:05:53,810
-There really isn't that much
+この二つの間で大きな違いがあるわけでなくて
 distinction between the two
 
 95
 00:05:53,811 --> 00:05:58,850
-except "scenery" means it can never be
+シーンは「見つけることが出来ない」という差だけです。これは背景として常に表示されます。
 "found." It will always be in the background.
 
 96
 00:05:58,850 --> 00:06:02,090
-Now there's another interesting thing
+もうひとつ興味深い現象があり、それは
 that happens and that is,
 
 97
 00:06:02,090 --> 00:06:09,259
-you can imagine that say one of my
+探すアイテムが水のビンだったとしましょう。
 search items was the bottle of water.
 
 98
 00:06:09,259 --> 00:06:13,830
-So, in the game I might have this bottle
+水のビンがあって、見てのとおり
 of water here and as you can see,
 
 99
 00:06:13,831 --> 00:06:17,400
-you cannot see the
+水のビンの全体が表示されていません。
 entire bottle of water.
 
 100
 00:06:17,400 --> 00:06:20,669
-But we also may be doing an image.
+画像を別に処理しているかもしれません。写真か
 It could be a photograph,
 
 101
 00:06:20,669 --> 00:06:25,349
-or our artist could have drawn,
+アーティストが描いたもの、例えばオフィスのシーンまたは演壇かもしれません。
 say, an office scene or a podium.
 
 102
 00:06:25,349 --> 00:06:30,689
-So this podium, and this everything might
+この演壇、そして全体は背景で描画されるかもしれません。
 actually be drawn into the background.
 
 103
 00:06:30,689 --> 00:06:33,209
+水のビンは発見できるようにします。
 But I want the water bottle to be found,
 
 104
 00:06:33,209 --> 00:06:38,259
-so the water bottle will actually be
+水のビンは Photoshop で描いた演壇の前に位置するかもしれません。
 in front of the podium in Photoshop.
 
 105
 00:06:38,259 --> 00:06:43,277
-So the first thing that we need to do is we
+最初にやるべきことはシーンにとって 2 種類の画像が必要です。
 need to have two kinds of images for our scene.
 
 106
 00:06:43,278 --> 00:06:46,039
+ひとつは全体であり、画像全体です。
 One will be whole, the whole image.
 
 107
 00:06:46,039 --> 00:06:48,249
+もうひとつは隠れてます。
 The other will be obscured.
 
 108
 00:06:48,249 --> 00:06:52,470
-So it may be obscured, right? So in this
+隠れてる場合もありますよね、このケースでは水のビンが隠れてます。
 case my water bottle here is obscured.
 
 109
 00:06:52,470 --> 00:06:54,300
-But when I find it, if I
+しかし、発見したときは水のビンをクリックすると
 clicked on the water bottle,
 
 110
 00:06:54,301 --> 00:06:57,410
-then it may fly of the center
+画面の中央から飛んでズームするかもしれません。
 of the screen and then zoom up,
 
 111
 00:06:57,410 --> 00:07:00,759
-out towards the player, or go into
+プレイヤーに向けて飛んでくか、または持ち物に入るかもしれません。
 a backpack or something.
 
 112
 00:07:00,759 --> 00:07:03,289
+全体の画像が必要だということは明らかです。
 So I obviously want to have the full version.
 
 113
 00:07:03,289 --> 00:07:05,390
+このため、全てのアイテムは全体があります。
 So every item has to have a whole.
 
 114
 00:07:05,391 --> 00:07:09,160
-That's a minimum requirement, and if I
+これは最小の要件であり、水のビンだけ表示するなら
 had the water bottle just sitting out,
 
 115
 00:07:09,160 --> 00:07:12,350
-then there's no need to have
+隠れたバージョンはまったく必要ないわけです。
 an obscured version of it.
 
 116
 00:07:12,350 --> 00:07:16,599
-If I do want obscure it, then I want to be
+隠す場合は、ピクセルを消せるようにして
 able to basically erase the pixels
 
 117
 00:07:16,599 --> 00:07:21,449
-so it gives the illusion of being
+実際には前にあるのに後ろにあるように見せかけます。
 behind even though it's in front.
 
 118
 00:07:21,449 --> 00:07:26,299
-I need two more image types. One other
+もう二つの画像タイプが必要です。ひとつはシャドウです。
 type that I'm going to need is shadow.
 
 119
 00:07:26,299 --> 00:07:29,349
-In order for the water bottle to actually
+水のビンが違和感なく表示されるには、
 look like it belongs, it'd be nice
 
 120
 00:07:29,349 --> 00:07:32,839
-if it casts a shadow on
+載っているデスクにシャドウを投影すると良いです。
 the desk that it was on.
 
 121
 00:07:32,839 --> 00:07:36,909
-But when I find the item, if it zooms
+しかしアイテムを発見したときに、もしズームアウトしてシャドウが投影してしまうと
 out and then the shadow came with it,
 
 122
 00:07:36,909 --> 00:07:39,259
+違和感が大きいですよね？
 that would look a bit funny, right?
 
 123
